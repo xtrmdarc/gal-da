@@ -34,7 +34,7 @@
                             <select name="txt_caja" class="selectpicker show-tick form-control cb_caja" data-live-search-style="begins" data-live-search="true" title="Seleccionar Caja" autocomplete="off" required>
                             
                             @foreach($cajas as $caja)
-                              
+
                                 <option value="{{$caja->id_caja}}">{{ $caja->descripcion}}</option>
 
                             @endforeach

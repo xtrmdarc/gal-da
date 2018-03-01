@@ -12,3 +12,7 @@
 */
 
 Route::get('/', 'Login\login@index');
+
+//Creditos
+
+Route::get('/creditos', 'Creditos\Compras\ComprasController@index');
