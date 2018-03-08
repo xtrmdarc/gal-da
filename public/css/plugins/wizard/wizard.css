@@ -1,0 +1,56 @@
+/*      Here the code for the wizard           */
+
+.image-container{
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+}
+.picture-container{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+.picture{
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    border: 2px solid #CCCCCC;
+    color: #FFFFFF;
+    border-radius: 10%;
+    margin: 5px auto;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+.picture:hover{
+    border-color: #2ca8ff;
+}
+.ct-wizard-azzure .picture:hover{
+    border-color: #2CA8FF;
+}
+.ct-wizard-green .picture:hover{
+    border-color: #05ae0e;
+}
+.ct-wizard-blue .picture:hover{
+    border-color: #3472f7;
+}
+.ct-wizard-orange .picture:hover{
+    border-color: #ff9500;
+}
+.ct-wizard-red .picture:hover{
+    border-color: #ff3b30;
+}
+.picture input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.picture-src{
+    width: 100%;    
+}

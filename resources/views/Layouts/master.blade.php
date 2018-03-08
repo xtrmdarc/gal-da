@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema para restaurantes, cevicherias, entre otros</title>
+
     <link href="{{ URL::to('img/restepe.ico') }}" rel='shortcut icon' type='image/x-icon'/>
     <link href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
