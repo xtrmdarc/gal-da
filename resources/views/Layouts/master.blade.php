@@ -11,8 +11,8 @@
     <title>Sistema para restaurantes, cevicherias, entre otros</title>
     <link href="{{ URL::to('img/restepe.ico') }}" rel='shortcut icon' type='image/x-icon'/>
     <link href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::to('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ URL::to('jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('css/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('js/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
     <link href="{{ URL::to('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('css/animate.css') }}" rel="stylesheet">
@@ -33,5 +33,5 @@
 
 <body class="canvas-menu fixed-nav">
     @include('Layouts.head')
-        @yield('content')
+    @yield('content')
     @include('Layouts.footer')
