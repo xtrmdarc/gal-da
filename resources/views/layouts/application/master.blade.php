@@ -33,16 +33,12 @@
 <!-- Main wrapper  -->
 <div id="main-wrapper">
     <!-- header header  -->
-    @guest
-      {{--/*@include('layouts.application.error_pages.404')*/--}}
-    <h2>AUN NO :v </h2>
-    <a href="{{ redirect('/login')}}">Regresa</a>
-    @else
+
         @include('layouts.application.head')
         @include('layouts.application.sidebar')
         @yield('content')
         @include('layouts.application.footer')
-        @endguest
+
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
