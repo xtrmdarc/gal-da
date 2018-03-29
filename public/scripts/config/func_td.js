@@ -20,11 +20,14 @@ $(function() {
             $.ajax({
                 dataType: 'JSON',
                 type: 'POST',
-                url: '?c=Config&a=GuardarTD',
+                url: '/ajustesGuardarTipoDocumento',
                 data: {
                     cod_td: cod_td,
                     serie: serie,
                     numero: numero
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (datos) {
                     $('#mdl-tipodoc').modal('hide');
@@ -43,6 +46,7 @@ $(function() {
 /* Mostrar datos en la tabla tipo de documentos */
 var listarTiposDoc = function(){
     var cont = 1;
+    var token = $('meta[name="csrf-token"]').attr('content');
     var table = $('#table')
     .DataTable({
         "destroy": true,
@@ -52,7 +56,11 @@ var listarTiposDoc = function(){
         "ajax":{
             "method": "POST",
             "dataType": "JSON",
-            "url": "?c=Config&a=ListarTD"
+            "url": "/ajustesListaTipoDocumento",
+            "dataSrc" : "",
+            headers: {
+                'X-CSRF-TOKEN': token
+            }
         },
         "columns":[
             {"data":null,"render": function ( data, type, row) {

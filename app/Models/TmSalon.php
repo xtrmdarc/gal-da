@@ -27,7 +27,7 @@ class TmSalon extends Eloquent
 	public $timestamps = false;
 
 	protected $fillable = [
-		'descripcion',
+		'descripcion
 		'estado'
 	];
 

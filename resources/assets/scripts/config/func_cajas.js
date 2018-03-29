@@ -53,6 +53,8 @@ $(function() {
 
 /* Mostrar datos en la tabla caja */
 var listarCajas = function(){
+
+    var token = $('meta[name="csrf-token"]').attr('content');
 	var table = $('#table-caja')
 	.DataTable({
 	  "destroy": true,
@@ -61,7 +63,10 @@ var listarCajas = function(){
     "bSort": false,
     "ajax":{
       "method": "POST",
-      "url": "?c=Config&a=ListaCajas"
+      "url": "/ajustesListaCaja",
+        headers: {
+            'X-CSRF-TOKEN': token
+        }
       /*
       "beforeSend": function (request) {
         $('#loader').css('display','none');

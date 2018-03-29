@@ -11,7 +11,7 @@ var listarCategorias = function(){
     $('#ul-cont').empty();
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaCatgs",
+        url: "/ajustesListaCatgs",
         dataType: "json",
         success: function(item){
             $.each(item.data, function(i, campo) {
@@ -42,7 +42,7 @@ var listarProductos = function(cat){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaProd",
+            "url": "/ajustesListaProd",
             "data": function ( d ) {
                 d.cod = '%';
                 d.cat = cat;

@@ -4,6 +4,7 @@ $(function() {
 
 /* Mostrar datos en la tabla salones */
 var listarSalones = function(){
+    var token = $('meta[name="csrf-token"]').attr('content');
     var table = $('#table-s')
     .DataTable({
         "destroy": true,
@@ -12,7 +13,11 @@ var listarSalones = function(){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaSalones"
+            "url": "/ajustesListaSalones",
+            "dataSrc" : "",
+            headers: {
+                'X-CSRF-TOKEN': token
+            }
         },
         "columns":[
             {"data":"descripcion"},
@@ -35,6 +40,7 @@ var listarSalones = function(){
 
 /* Mostrar datos en la tabla mesas */
 var listarMesas = function(cod_sal,desc_sal){
+    var token = $('meta[name="csrf-token"]').attr('content');
     var mesaNueva = '';
     /* Ocultar panel mensaje 'seleccione un salon' */
     $('#lizq-s').css("display","none");
@@ -51,7 +57,11 @@ var listarMesas = function(cod_sal,desc_sal){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaMesas",
+            "url": "/ajustesListaMesas",
+            "dataSrc" : "",
+            headers: {
+                'X-CSRF-TOKEN': token
+            },
             "data": function ( d ) {
               d.cod = cod_sal;
           }
@@ -127,7 +137,7 @@ $(function() {
           e.preventDefault();
           var $form = $(e.target),
           fv = $form.data('formValidation');
-          
+          var token = $('meta[name="csrf-token"]').attr('content');
           var form = $(this);
 
           var salones = {
@@ -145,6 +155,7 @@ $(function() {
               type: 'POST',
               url: form.attr('action'),
               data: salones,
+              _token : token,
               success: function (cod) {
                   if(cod == 0){
                       toastr.warning('Advertencia, Datos duplicados.');

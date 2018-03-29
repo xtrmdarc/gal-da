@@ -20,12 +20,6 @@ class ComprasController extends Controller
         return view('contents.creditos.compras.index',$viewData);
     }
 
-    public function getProviders()
-    {   //Geto all the Providers
-        $providers = TmProveedor::all();
-        return $providers;
-    }
-
     public function Datos(Request $request)
     {
         $cprov = $request->input('cprov');
