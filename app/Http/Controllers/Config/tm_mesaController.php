@@ -17,12 +17,12 @@ class tm_mesaController extends Controller
     public function ListaSalones()
     {
         $stm = DB::select("SELECT * FROM tm_salon");
+
         foreach($stm as $k => $v){
-            $mesa = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg);
-            //$stm[$k]->put('Mesas',$mesa);
+            $stm[$k]->Mesas = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg)[0];
         }
-        //dd($mesa);
-        echo json_encode($stm);
+        $data = array("data" => $stm);
+        echo json_encode($data);
     }
     public function ListaMesas(Request $request)
     {
@@ -30,53 +30,96 @@ class tm_mesaController extends Controller
         $cod = $post['cod'];
         $stm = DB::select("SELECT * FROM tm_mesa WHERE id_catg like ? ORDER BY nro_mesa ASC",[($cod)]);
         foreach($stm as $k => $v){
-            $salon = DB::select("SELECT descripcion FROM tm_salon WHERE id_catg = ".$v->id_catg);
-            //$stm[$k]->put('Salon',$salon);
+            $stm[$k]->Salon = DB::select("SELECT descripcion FROM tm_salon WHERE id_catg = ".$v->id_catg);
         }
-        //dd($mesa);
-        echo json_encode($stm);
+        $data = array("data" => $stm);
+        echo json_encode($data);
     }
-    public function CrudSalones()
+    public function CrudSalones(Request $request)
     {
-        dd("TEST");
-        //$post = $request->all();
-        //dd($post);
-        /*$cod = $post['cod_alm'];
-        if($cod != ''){
-            //Update
+        $post = $request->all();
+
+        if($post['cod_sala'] != ''){
+            //Actualizar
+
             $flag = 2;
-            $nombre = $post['nomb_alm'];
-            $estado = $post['estado_alm'];
-            $idAlmacen = $post['cod_alm'];
-            $consulta_update = DB::select('call usp_configAlmacenes( :flag, :nombre, :estado, :idAlm)',array($flag, $nombre, $estado,$idAlmacen));
-            return $consulta_update;
-        }else {
-            //Create
+            $desc = $post['desc_sala'];
+            $est = $post['est_salon'];
+            $idCatg = $post['cod_sala'];
+
+            $consulta = DB::Select("call usp_configSalones( :flag, :desc, :est, :idCatg);"
+                ,array($flag,$desc,$est,$idCatg));
+            return $consulta;
+        } else{
+            //Crear
             $flag = 1;
-            $nombre = $post['nomb_alm'];
-            $estado = $post['estado_alm'];
-            $consulta_create = DB::select('call usp_configAlmacenes( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
-            return $consulta_create;
-        }*/
+            $desc = $post['desc_sala'];
+            $est = $post['est_salon'];
+
+            $consulta = Db::Select("call usp_configSalones( :flag, :desc, :est, @a);",
+                array($flag,$desc,$est));
+            return $consulta;
+        }
     }
 
-    public function CrudMesas()
+    public function CrudMesas(Request $request)
     {
+        $post = $request->all();
 
+        if($post['cod_mesa'] != '' and $post['id_catg'] != ''){
+          //Actualizar
+            //Solo actualiza numero en BD, CORREGIR ESTO.
+            $flag = 2;
+            $idCatg = $post['id_catg'];
+            $nroMesa = $post['nro_mesa'];
+            $idMesa = $post['cod_mesa'];
+
+            $consulta = DB::Select("call usp_configMesas( :flag, :idCatg, :nroMesa, :idMesa);",
+                array($flag,$idCatg,$nroMesa,$idMesa));
+            return $consulta;
+        } else{
+            //Crear
+
+            $flag = 1;
+            $idCatg = $post['id_catg'];
+            $nroMesa = $post['nro_mesa'];
+
+            $consulta = DB::Select("call usp_configMesas( :flag, :idCatg, :nroMesa, @a);",
+                array($flag,$idCatg,$nroMesa));
+            return $consulta;
+        }
     }
 
-    public function EliminarS()
+    public function EliminarS(Request $request)
     {
-        echo "TEST";
+        $post = $request->all();
+
+        if($post['cod_salae'] != ''){
+           //Eliminar
+
+            $flag = 3;
+            $idCatg = $post['cod_salae'];
+
+            $consulta = DB::Select("call usp_configSalones( :flag, @a, @b, :idCatg);",
+                array($flag,$idCatg));
+            return $consulta;
+        }
     }
 
-    public function EliminarM()
+    public function EliminarM(Request $request)
     {
-        echo ("TEst");
+        $post = $request->all();
+
+        $flag = 3;
+        $idMesa = $post['cod_mesae'];
+
+        $consulta = DB::Select("call usp_configMesas( :flag, @a, @b, :idMesa);",
+            array($flag,$idMesa));
+        return $consulta;
     }
 
     public function EstadoM()
     {
-
+        //NO LO UTILIZAN :v
     }
 }

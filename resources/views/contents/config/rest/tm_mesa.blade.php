@@ -80,7 +80,8 @@
 <div class="modal inmodal fade" id="mdl-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-mesa" method="post" enctype="multipart/form-data" action="/ajustesCrudSalones">
+            <form id="frm-mesa" method="post" enctype="multipart/form-data" action="/ajustesCrudMesas">
+                @csrf
                 <input type="hidden" name="cod_mesa" id="cod_mesa">
                 <input type="hidden" name="id_catg" id="id_catg">
                 <div class="modal-header mh-e">
@@ -131,7 +132,8 @@
 <div class="modal inmodal fade" id="mdl-salon" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-salon" method="post" enctype="multipart/form-data" action="{{ route('config.CrudSalones') }}">
+            <form id="frm-salon" method="post" enctype="multipart/form-data" action="/ajustesCrudSalones">
+                @csrf
                 <input type="hidden" name="cod_sala" id="cod_sala">
                 <div class="modal-header mh-e">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -171,6 +173,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
             <form id="frm-eliminar-salon" method="post" enctype="multipart/form-data" action="/ajustesEliminarS">
+                @csrf
                 <input type="hidden" name="cod_salae" id="cod_salae">
                 <div class="modal-header mh-p">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

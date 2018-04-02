@@ -48,11 +48,10 @@ class tm_almacenController extends Controller
         $cod = $post['codigo'];
         $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ?",[($cod)]);
         foreach($stm as $k => $v){
-            $almacen = DB::select("SELECT nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm);
-            //$stm[$k]->put("Almacen",$almacen);
+            $stm[$k]->Almacen = DB::select("SELECT nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm);
         }
-        //echo $almacen;
-        echo json_encode($almacen);
+        $data = array("data" => $stm);
+        echo json_encode($data);
     }
 
     public function CrudAreaP(Request $request)
@@ -62,11 +61,14 @@ class tm_almacenController extends Controller
         if($cod != ''){
             //Update
             $flag = 2;
-            $nombre = $post['nomb_alm'];
-            $estado = $post['estado_alm'];
-            $idAlmacen = $post['cod_alm'];
-            $consulta_update = DB::select('call usp_configAlmacenes( :flag, :nombre, :estado, :idAlm)',array($flag, $nombre, $estado,$idAlmacen));
-            return $consulta_update;
+            $idAlm = $post['cod_alma'];
+            $nombre = $post['nomb_area'];
+            $estado = $post['estado_area'];
+            $idArea = $post['cod_area'];
+
+            $consulta = DB::Select("call usp_configAreasProd( :flag, :idAlm, :nombre, :estado, :idArea);",
+                array($flag,$idAlm,$nombre,$estado,$idArea));
+            return $consulta;
         }else {
             //Create
             $flag = 1;

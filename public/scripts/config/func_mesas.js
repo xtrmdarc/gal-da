@@ -4,7 +4,6 @@ $(function() {
 
 /* Mostrar datos en la tabla salones */
 var listarSalones = function(){
-    var token = $('meta[name="csrf-token"]').attr('content');
     var table = $('#table-s')
     .DataTable({
         "destroy": true,
@@ -14,9 +13,8 @@ var listarSalones = function(){
         "ajax":{
             "method": "POST",
             "url": "/ajustesListaSalones",
-            "dataSrc" : "",
-            headers: {
-                'X-CSRF-TOKEN': token
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         },
         "columns":[
@@ -40,7 +38,6 @@ var listarSalones = function(){
 
 /* Mostrar datos en la tabla mesas */
 var listarMesas = function(cod_sal,desc_sal){
-    var token = $('meta[name="csrf-token"]').attr('content');
     var mesaNueva = '';
     /* Ocultar panel mensaje 'seleccione un salon' */
     $('#lizq-s').css("display","none");
@@ -58,9 +55,8 @@ var listarMesas = function(cod_sal,desc_sal){
         "ajax":{
             "method": "POST",
             "url": "/ajustesListaMesas",
-            "dataSrc" : "",
-            headers: {
-                'X-CSRF-TOKEN': token
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             "data": function ( d ) {
               d.cod = cod_sal;
@@ -137,7 +133,6 @@ $(function() {
           e.preventDefault();
           var $form = $(e.target),
           fv = $form.data('formValidation');
-          var token = $('meta[name="csrf-token"]').attr('content');
           var form = $(this);
 
           var salones = {
@@ -155,7 +150,9 @@ $(function() {
               type: 'POST',
               url: form.attr('action'),
               data: salones,
-              _token : token,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
               success: function (cod) {
                   if(cod == 0){
                       toastr.warning('Advertencia, Datos duplicados.');
@@ -221,6 +218,10 @@ $(function() {
               type: 'POST',
               url: form.attr('action'),
               data: mesas,
+              dataSrc : "",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
               success: function (cod) {
                   if(cod == 0){
                       toastr.warning('Advertencia, Datos duplicados.');
@@ -305,6 +306,10 @@ $("#frm-eliminar-salon").submit(function(){
         type: 'POST',
         url: form.attr('action'),
         data: salon,
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (cod) {
             if(cod == 1){
                 listarSalones();
@@ -342,6 +347,10 @@ $("#frm-eliminar-mesa").submit(function(){
         type: 'POST',
         url: form.attr('action'),
         data: mesa,
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function (cod) {
             if(cod == 1){
                 var codigoSalon = $('#id_catg').val();

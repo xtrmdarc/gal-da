@@ -163,7 +163,6 @@ var listarAreaProd = function(){
     "ajax":{
       "method": "POST",
       "url": "/ajustesListaAreasP",
-        "dataSrc" : "",
         headers: {
             'X-CSRF-TOKEN': token
         },

@@ -11,8 +11,11 @@ var listarCategorias = function(){
     $('#ul-cont').empty();
     $.ajax({
         type: "POST",
-        url: "/ajustesListaCatgs",
+        url: "/ajustesListarCatg",
         dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(item){
             $.each(item.data, function(i, campo) {
                 $('#ul-cont')
@@ -42,7 +45,11 @@ var listarProductos = function(cat){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "/ajustesListaProd",
+            "url": "/ajustesListarProductos",
+            "dataSrc" : "",
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             "data": function ( d ) {
                 d.cod = '%';
                 d.cat = cat;
@@ -79,10 +86,14 @@ var listarPresentaciones = function(cod_prod,nomb){
     var cat = '%';
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaPres",
+        url: "/ajustesListarPres",
         data: {
             cod_prod: cod_prod,
             cod_pres: cat
+        },
+        dataSrc : "",
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
@@ -114,10 +125,13 @@ var editarProducto = function(cod){
     $("#cod_prod").val(cod);
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaProd",
+        url: "/ajustesListarProductos",
         data: {
             cod: cod,
             cat: cat
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
@@ -154,10 +168,13 @@ var nuevaPresentacion = function(cod_prod,nomb_prod){
     var cat = '%';
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaProd",
+        url: "/ajustesListarProductos",
         data: {
             cod: cod_prod,
             cat: cat
+        },"dataSrc" : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
@@ -259,7 +276,10 @@ var editarPresentacion = function(cod_pres,nomb_prod){
 var comboCategoria = function(){
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ComboCatg",
+        url: "/ajustesComboCatg",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (response) {
             $('#combo_catg').html(response);
             $('#cod_catg').selectpicker();
@@ -318,6 +338,9 @@ $(function() {
                 type: 'POST',
                 url: form.attr('action'),
                 data: producto,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function (cod) {
                     if(cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
@@ -385,6 +408,9 @@ $(function() {
             type: 'POST',
             url: form.attr('action'),
             data: presentacion,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (cod) {
                 if(cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');
@@ -432,6 +458,9 @@ $("#frm-categoria").submit(function(){
             type: 'POST',
             url: form.attr('action'),
             data: categoria,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (cod) {
                 if(cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');

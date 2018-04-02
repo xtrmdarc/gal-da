@@ -32,9 +32,8 @@
                                 <div id="boton-catg" style="display: block">
                                     <button class="btn btn-primary btn-block btn-catg"><i class="fa fa-plus-circle"></i> A&ntilde;adir nueva categor&iacute;a</button>
                                 </div>
-                                <form id="frm-categoria" method="POST" action="{{ route('config.CrudCatg') }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field('POST') }}
+                                <form id="frm-categoria" method="POST" action="/ajustesCrudCatg">
+                                    @csrf
                                     <input type="hidden" name="id_catg" id="id_catg">
                                     <div id="nueva-catg" style="display: none">
                                         <div class="row">
@@ -57,6 +56,7 @@
                                 </form>
                                 <div class="hr-line-dashed"></div>
                                 <ul class="folder-list" style="padding: 0">
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <div id="ul-cont"></div>
                                 </ul>
                                 <div class="clearfix"></div>
@@ -78,7 +78,7 @@
                                         <!--<a class="btn dim btn-default m-n btn-prodnuevo"><i class="fa fa-lg fa-plus"></i></a>-->
                                     </div>
                                     <div class="btn-flex btn-group m-r-sm">
-                                        <a class="btn dim display-flexx display-flexx-v btn-default" href="lista_tm_insumos.php">
+                                        <a class="btn dim display-flexx display-flexx-v btn-default" href="/ajustesProductosInsumos">
                                             <img class="filtered" src="{{ URL::to('img/otros/icon-02.png' ) }}" width="80" height="40">
                                             <span>Insumos</span>
                                         </a>
@@ -101,6 +101,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <table class="table table-condensed table-hover" id="table-productos">
                                         <thead>
                                         <th>Producto</th>
@@ -127,7 +128,8 @@
 <div class="modal inmodal fade" id="mdl-producto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" style="max-width:400px;">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-producto" method="post" enctype="multipart/form-data" action="?c=Config&a=CrudProd">
+            <form id="frm-producto" method="post" enctype="multipart/form-data" action="/ajustesCrudProd">
+                @csrf
                 <input type="hidden" name="cod_prod" id="cod_prod">
                 <div class="modal-header mh-e">
                     <h4 class="modal-title mt"><strong>Detalle del producto</strong></h4>
@@ -158,9 +160,9 @@
                             <div class="form-group">
                                 <label class="control-label">&Aacute;rea de producci&oacute;n</label>
                                 <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
-
-                                    <option value=""></option>
-
+                                @foreach($areasP as $r)
+                                    <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
+                                @endforeach
                                 </select>
                             </div>
                         </div>
@@ -177,7 +179,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Categor&iacute;a</label>
-                                <div id="combo_catg"></div>
+                                    <select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">
+                                        @foreach($catgs as $r)
+                                            <option value="{{$r->id_catg}}">{{$r->descripcion}}</option>
+                                        @endforeach
+                                    </select>
                             </div>
                         </div>
                     </div>
@@ -205,7 +211,8 @@
 <div class="modal inmodal fade" id="mdl-presentacion" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm" style="min-width:360px;">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-presentacion" method="post" enctype="multipart/form-data" action="?c=Config&a=CrudPres">
+            <form id="frm-presentacion" method="post" enctype="multipart/form-data" action="/ajustesCrudPres">
+                @csrf
                 <input type="hidden" name="nomb_prod" id="nomb_prod">
                 <input type="hidden" name="cod_producto" id="cod_producto">
                 <input type="hidden" name="cod_pres" id="cod_pres" value="">

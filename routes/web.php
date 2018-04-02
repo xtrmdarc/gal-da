@@ -46,15 +46,29 @@ Route::get('/ajustesSalonyMesas', 'Config\tm_mesaController@index');
 Route::post('ajustesListaSalones', 'Config\tm_mesaController@ListaSalones')->name('config.ListaSalones');
 Route::post('ajustesListaMesas', 'Config\tm_mesaController@ListaMesas')->name('config.ListaMesas');
 Route::post('ajustesCrudSalones', 'Config\tm_mesaController@CrudSalones')->name('config.CrudSalones');
+Route::post('ajustesCrudMesas', 'Config\tm_mesaController@CrudMesas')->name('config.CrudMesas');
 Route::post('ajustesEliminarS', 'Config\tm_mesaController@EliminarS')->name('config.EliminarS');
 Route::post('ajustesEliminarM', 'Config\tm_mesaController@EliminarM');
 
 //Productos
 
 Route::get('/ajustesProductos', 'Config\tm_productoController@index');
-Route::post('ajustesCrudCatg', 'Config\tm_productoController@CrudCatg')->name('config.CrudCatg');
-Route::post('ajustesListaCatgs', 'Config\tm_productoController@ListaCatgs')->name('config.ListaCatgs');
-Route::post('ajustesListaProd', 'Config\tm_productoController@ListaProd')->name('config.ListaProd');
+Route::post('ajustesListarCatg', 'Config\tm_productoController@ListaCatgs');
+Route::post('ajustesCrudCatg', 'Config\tm_productoController@CrudCatg');
+Route::post('ajustesCrudProd', 'Config\tm_productoController@CrudProd');
+Route::post('ajustesCrudPres', 'Config\tm_productoController@CrudPres');
+Route::post('ajustesComboCatg', 'Config\tm_productoController@ComboCatg');
+Route::post('ajustesListarProductos', 'Config\tm_productoController@ListaProd');
+Route::post('ajustesListarPres', 'Config\tm_productoController@ListaPres');
+
+//Insumos
+
+Route::get('/ajustesProductosInsumos', 'Config\tm_insumoController@index');
+Route::post('ajustesListarCatgI', 'Config\tm_insumoController@ListaCatgs');
+Route::post('ajustesCrudCatgI', 'Config\tm_insumoController@CrudCatg');
+Route::post('ajustesCrudIns', 'Config\tm_insumoController@CrudIns');
+Route::post('ajustesActualizarIns', 'Config\tm_insumoController@ActualizarIns');
+Route::post('ajustesListarInsumos', 'Config\tm_insumoController@ListaIns');
 
 //Configuracion - Sistema
 

@@ -11,8 +11,11 @@ var listarCategorias = function(){
     $('#ul-categorias').empty();
     $.ajax({
       type: "POST",
-      url: "?c=Config&a=ListaCatgs",
+      url: "/ajustesListarCatgI",
       dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
       success: function(item){
           $.each(item.data, function(i, campo) {
               $('#ul-categorias')
@@ -39,11 +42,14 @@ var listarInsumos = function(cat){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaIns",
+            "url": "/ajustesListarInsumos",
             "data": function ( d ) {
               d.cod = '%';
               d.cat = cat;
-          }
+          },"dataSrc" : "",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
         },
         "columns":[
             {"data":"cod_ins"},
@@ -81,11 +87,15 @@ var editarInsumo = function(cod){
     $("#cod_ins").val(cod);
     $.ajax({
       type: "POST",
-      url: "?c=Config&a=ListaIns",
+      url: "/ajustesActualizarIns",
       data: {
           cod: cod,
           cat: cat
       },
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
       dataType: "json",
       success: function(item){
         $.each(item.data, function(i, campo) {
@@ -102,9 +112,13 @@ var editarInsumo = function(cod){
 
 /* Combo categoria */
 var comboCategoria = function(){
-    $.ajax({
+    /*$.ajax({
         type: "POST",
-        url: "?c=Config&a=ComboCatg",
+        url: "/",
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function (response) {
             $('#combo_catg').html(response);
             $('#cod_catg').selectpicker();
@@ -112,7 +126,7 @@ var comboCategoria = function(){
         error: function () {
             $('#combo_catg').html('There was an error!');
         }
-    });
+    });*/
 }
 
 $("#frm-categoria").submit(function(){
@@ -137,7 +151,11 @@ $("#frm-categoria").submit(function(){
             dataType: 'JSON',
             type: 'POST',
             url: form.attr('action'),
-            data: categoria,
+            data: categoria
+            ,dataSrc : "",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (cod) {
                 if(cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');
@@ -217,6 +235,9 @@ $(function() {
                 type: 'POST',
                 url: form.attr('action'),
                 data: insumo,
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function (cod) {
                     if(cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
