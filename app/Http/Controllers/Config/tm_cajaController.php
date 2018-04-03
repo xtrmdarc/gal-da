@@ -31,14 +31,16 @@ class tm_cajaController extends Controller
             $estado = $post['estado_caja'];
             $idCaja = $post['cod_caja'];
             $consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
-            return $consulta_update;
+
+            return redirect('/ajustesCaja');
         }else {
             //Create
             $flag = 1;
             $nombre = $post['nomb_caja'];
             $estado = $post['estado_caja'];
             $consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
-            return $consulta_create;
+
+            return redirect('/ajustesCaja');
         }
     }
 }

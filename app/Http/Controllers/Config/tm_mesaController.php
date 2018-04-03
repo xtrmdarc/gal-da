@@ -30,7 +30,7 @@ class tm_mesaController extends Controller
         $cod = $post['cod'];
         $stm = DB::select("SELECT * FROM tm_mesa WHERE id_catg like ? ORDER BY nro_mesa ASC",[($cod)]);
         foreach($stm as $k => $v){
-            $stm[$k]->Salon = DB::select("SELECT descripcion FROM tm_salon WHERE id_catg = ".$v->id_catg);
+            $stm[$k]->Salon = DB::select("SELECT descripcion FROM tm_salon WHERE id_catg = ".$v->id_catg)[0];
         }
         $data = array("data" => $stm);
         echo json_encode($data);

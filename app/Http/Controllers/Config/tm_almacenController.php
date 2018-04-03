@@ -48,7 +48,7 @@ class tm_almacenController extends Controller
         $cod = $post['codigo'];
         $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ?",[($cod)]);
         foreach($stm as $k => $v){
-            $stm[$k]->Almacen = DB::select("SELECT nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm);
+            $stm[$k]->Almacen = DB::select("SELECT nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
         }
         $data = array("data" => $stm);
         echo json_encode($data);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\TmProveedor;
+use Illuminate\Support\Facades\Session;
 
 class ComprasController extends Controller
 {
@@ -22,42 +23,65 @@ class ComprasController extends Controller
 
     public function Datos(Request $request)
     {
-        $cprov = $request->input('cprov');
-        $results = DB::select("select cc.id_credito,cc.id_compra,cc.total,cc.interes,cc.fecha,vc.id_prov,CONCAT(vc.serie_doc,' - ',vc.num_doc) AS
-        numero,vc.desc_td,desc_prov
-        FROM tm_compra_credito as cc
-        inner join v_compras as vc
-        ON cc.id_compra = vc.id_compra
-        WHERE vc.id_prov like '?' AND
-        cc.estado = 'p' AND vc.estado = 'a' ORDER BY cc.fecha ASC");
+        $post = $request->all();
 
-        $array_results = response()->json($results);
+        $cprov = $post['cprov'];
 
-        foreach($array_results as $k => $d)
+        $stm = DB::Select("SELECT cc.id_credito,cc.id_compra,cc.total,cc.interes,cc.fecha,vc.id_prov,CONCAT(vc.serie_doc,' - ',vc.num_doc) AS numero,vc.desc_td,desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE vc.id_prov like ? AND cc.estado = 'p' AND vc.estado = 'a' ORDER BY cc.fecha ASC",
+            array($cprov));
+        foreach($stm as $k => $d)
         {
-            $query = DB::select("SELECT IFNULL(SUM(importe),0) AS total FROM tm_credito_detalle WHERE id_credito = '1'");
-            $query_result = response()->json($query);
-            $array_results[$k]->{'Amortizado'} = $query_result;
+            $stm[$k]->Amortizado = DB::Select("SELECT IFNULL(SUM(importe),0) AS total FROM tm_credito_detalle WHERE id_credito = ".$d->id_credito)[0];
         }
-        $data = array("data" => $array_results);
+        $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;
     }
 
-    public function DatosP()
+    public function DatosP(Request $request)
     {
+        $post = $request->all();
 
+        $cod = $post['cod'];
+        $stm = DB::Select("SELECT cc.fecha,vc.desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE cc.id_credito like ? AND cc.estado = 'p'",
+            array($cod));
+        $data = array("data" => $stm);
+        $json = json_encode($data);
+        echo $json;
     }
 
-    public function Detalle()
-    {   //Geto all the Details from Tm_Credito_detalle
-        $creditDetail = TmCreditoDetalle::all();
+    public function Detalle(Request $request)
+    {
+        $post = $request->all();
 
-        return $creditDetail;
+        $cod = $post['cod'];
+        $stm = Db::Select("SELECT * FROM tm_credito_detalle WHERE id_credito = ?",
+            array($cod));
+        foreach($stm as $k => $d)
+        {
+            $stm[$k]->Usuario = Db::Select("SELECT CONCAT(ape_paterno,' ',ape_materno,' ',nombres) AS nombre FROM v_usuarios WHERE id_usu = ".$d->id_usu)[0];
+        }
+        return $stm;
     }
 
-    public function PagarCuota()
+    public function PagarCuota(Request $request)
     {
-        dd('TEST');
+        $idCre = $request->input('cod_cuota');
+        $imp = $request->input('pago_cuo');
+        $egCaja = $request->input('egre_caja');
+        $montC = $request->input('monto_ec');
+        $totalC = $request->input('total_cuota');
+        $amorC = $request->input('amort_cuota');
+
+        date_default_timezone_set('America/Lima');
+        setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+        $flag = 1;
+        $fecha = date("Y-m-d H:i:s");
+        $id_usu = $request->session()->get('id_usu');
+        $id_apc = $request->session()->get('id_apc');
+
+        $consulta = DB::Select("call usp_comprasCreditoCuotas( :flag, :idCre, :idUsu, :idApc, :imp, :fecha, :egCaja, :montC, :amorC, :totalC);",
+            array($flag,$idCre,$id_usu,$id_apc,$imp,$fecha,$egCaja,$montC,$amorC,$totalC));
+        return redirect('/creditos');
     }
 }

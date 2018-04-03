@@ -61,6 +61,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <table id="table" class="table table-hover table-condensed table-striped" width="100%">
                         <thead>
                         <tr>
@@ -84,9 +85,8 @@
     <div class="modal inmodal fade" id="mdl-compra-credito" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-compra-credito" method="POST" enctype="multipart/form-data" action="{{ route('creditos.compras.pagarCuota') }}">
-                    {{ csrf_field() }}
-                    {{ method_field('POST') }}
+                <form id="frm-compra-credito" method="POST" enctype="multipart/form-data" action="/creditosPago">
+                    @csrf
                     <input type="hidden" name="cod_cuota" id="cod_cuota">
                     <input type="hidden" name="total_cuota" id="total_cuota">
                     <input type="hidden" name="amort_cuota" id="amort_cuota">

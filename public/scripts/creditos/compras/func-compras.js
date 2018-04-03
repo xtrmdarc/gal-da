@@ -39,7 +39,6 @@ $('#cod_prov').change( function() {
 var listarComprasCredito = function(){
 
     var moneda = $("#moneda").val();
-    var token = $('meta[name="csrf-token"]').attr('content');
 
     cprov = $("#cod_prov").selectpicker('val');
 
@@ -51,10 +50,13 @@ var listarComprasCredito = function(){
         type: "POST",
         url: "/creditosDatos",
         data: {
-            cprov: cprov,
-            _token : token
+            cprov: cprov
         },
         dataType: "json",
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(item){
 
             if (item.data.length != 0) {
@@ -87,7 +89,10 @@ var listarComprasCredito = function(){
 			"url": "/creditosDatos",
 			"data": {
                 cprov: cprov
-            }
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data": null,"render": function ( data, type, row ) {
@@ -141,6 +146,10 @@ var pagoCuota = function(cod,doc,num,pen,total,amort){
             cod: cod
         },
         dataType: "json",
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(item){
             $('#fecha_comp').text(moment(item['data'].fecha).format('DD-MM-Y'));  
             $('#datos_prov').text(item['data'].desc_prov);   
@@ -160,6 +169,10 @@ var detalleCuota = function(cod){
         data: {
             cod: cod
         },
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(data){
             $.each(data, function(i, item) {
                 $('#lista_cuotas')
