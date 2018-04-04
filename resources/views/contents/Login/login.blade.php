@@ -4,23 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema para restaurantes, cevicherias, entre otros</title>
-    <link href='assets/img/restepe.ico' rel='shortcut icon' type='image/x-icon'/>
-    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet">!-->
+    <link href="{{URL::to('img/restepe.ico')}}" rel='shortcut icon' type='image/x-icon'/>
+    <link href="{{URL::to('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::to('css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{URL::to('css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::to('css/style.css')}}" rel="stylesheet">
     <link href="{{URL::to('css/bootstrap-select.css')}}" rel="stylesheet">
-    <link href="{{URL::to('css/formValidation.css')}}" rel="stylesheet">
+    <link href="{{URL::to('css/formValidation.min.css')}}" rel="stylesheet">
 </head>
 
-<body class="gray-bg" style="background: url(assets/img/login-bg.png) #e9e9e9 repeat;">
+<body class="gray-bg" style="background: url({{URL::to('img/login-bg.png')}}) #e9e9e9 repeat;">
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div class="ibox-content">
                 <center><img src="assets/img/logo-sistema.png"/></center>
             </div>
             <div class="ibox-content" style="background: #f8f7f7">
-                <form class="m-t" id="frm-login" role="form" method="post" action="controller/login.controller.php" autocomplete="off">
+                <form class="m-t" id="frm-login" role="form" method="post" action="login" autocomplete="off">
+                    @csrf
                     <div class="form-group">
                         <select class="selectpicker show-tick form-control cb_tpuser" id="cb_tpuser" name="txt_rol"  data-live-search-style="begins" data-live-search="true" title="Seleccionar Rol de Usuario" autocomplete="off">
                             <option value="1" title="Rol: ADMINISTRADROR">ADMINISTRADOR</option>
@@ -43,10 +44,10 @@
                         </div>
                         <div class="form-group">
                             <select name="txt_turno" class="selectpicker show-tick form-control cb_turno" data-live-search-style="begins" data-live-search="true" title="Seleccionar Turno" autocomplete="off">
-                                <!-- <?php  // foreach($this->model->Turno() as $r): ?>
-                                    <option value="<?php // echo $r->id_turno; ?>"><?php // echo $r->descripcion; ?></option>
-                                <?php // endforeach; ?>
-                                !-->
+                                @foreach($turnos as $r): ?>
+                                    <option value="{{$r->id_turno}}">{{ $r->descripcion}}</option>
+                                @endforeach
+                                
                             </select>
                         </div>
                     </div>
@@ -80,10 +81,10 @@
     </div>
 </body>
 <!-- Mainly scripts -->
-<script src="assets/js/jquery-2.1.1.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/plugins/select/bootstrap-select.min.js"></script>
+<script src="{{URL::to('js/jquery-2.1.1.js')}}"></script>
+<script src="{{URL::to('js/bootstrap.min.js')}}"></script>
+<script src="{{URL::to('js/plugins/select/bootstrap-select.min.js')}}"></script>
 <!-- Jquery Validate -->
-<script src="assets/js/plugins/formvalidation/formValidation.min.js"></script>
-<script src="assets/js/plugins/formvalidation/framework/bootstrap.min.js"></script>
-<script src="assets/scripts/login/login.js"></script>
+<script src="{{URL::to('js/plugins/formvalidation/formValidation.min.js')}}"></script>
+<script src="{{URL::to('js/plugins/formvalidation/framework/bootstrap.min.js')}}"></script>
+<script src="{{URL::to('scripts/login/login.js')}}"></script>

@@ -10,6 +10,7 @@
     </ul>
     <div class="tab-content">
         <div id="tab-1" class="tab-pane active">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="panel-body">
                 <div class="col-lg-12">
                     <div class="row">

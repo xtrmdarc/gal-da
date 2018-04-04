@@ -27,7 +27,7 @@ $fechaa = date("m-Y");
     <div class="ibox">
         <div class="ibox-title">
             <div class="ibox-title-buttons pull-right">
-                <a class="btn btn-primary" href="?c=Compra&a=Nuevo"> <i class="fa fa-plus-circle"></i> Nueva Compra</a>
+                <a class="btn btn-primary" href="compras/crear"> <i class="fa fa-plus-circle"></i> Nueva Compra</a>
             </div>
             <h5><strong><i class="fa fa-list-ul"></i> Lista de Compras</strong></h5>
         </div>
@@ -140,7 +140,8 @@ $fechaa = date("m-Y");
 <div class="modal inmodal fade" id="mdl-eliminar-compra" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="form_ec" method="post" enctype="multipart/form-data" action="?c=Compra&a=AnularCompra">
+        <form id="form_ec" method="post" enctype="multipart/form-data" action="compras/AnularCompra">
+        @csrf
         <input type="hidden" name="cod_compra" id="cod_compra">
             <div class="modal-header mh-p">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

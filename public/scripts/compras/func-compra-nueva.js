@@ -102,7 +102,8 @@ var compra = {
         this.detalle.igv      = (this.detalle.total * 0.18).toFixed(2); // 18 % El IGV y damos formato a 2 deciamles
         this.detalle.subtotal = (this.detalle.total - this.detalle.igv).toFixed(2); // Total - IGV y formato a 2 decimales
         this.detalle.total    = (this.detalle.total).toFixed(2);
-
+        
+        $.views.settings.delimiters("[%", "%]");
         var template   = $.templates("#compra-detalle-template");
         var htmlOutput = template.render(this.detalle);
         var da = this.detalle.total;
@@ -243,9 +244,13 @@ $(function() {
                 $.ajax({
                     type: 'POST',
                     url: form.attr('action'),
+                    dataSrc:'',   
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: compra.detalle,
                     success: function (r) {
-                        if(r) window.location.href = '?c=Compra';
+                        if(r) window.location.href = '/compras';
                         console.log(compra.detalle);
                     },
                     error: function(jqXHR, textStatus, errorThrown){
@@ -274,8 +279,12 @@ $(function() {
                 type: 'POST',
                 url: form.attr('action'),
                 data: compra.detalle,
+                dataSrc:'',   
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function (r) {
-                    if(r) window.location.href = '?c=Compra';
+                    if(r) window.location.href = '/compras';
                     console.log(compra.detalle);
                 },
                 error: function(jqXHR, textStatus, errorThrown){

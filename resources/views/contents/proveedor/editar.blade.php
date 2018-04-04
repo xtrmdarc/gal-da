@@ -38,7 +38,8 @@
                     </form>
                     </div>
                 </div>
-            <form id="frm-proveedor" action="?c=Proveedor&a=RUProveedor" method="post" enctype="multipart/form-data">
+            <form id="frm-proveedor" action="/proveedores/RUProveedor" method="post" enctype="multipart/form-data">
+                @csrf
             <input type="hidden" name="id_prov" value="{{$proveedor->id_prov}}" />
                 <div class="row">
                     <div class="col-lg-12">
@@ -99,8 +100,8 @@
 </div>
 </div>
 
-<script src="assets/scripts/compras/proveedores/func_prov_e.js"></script>
-<script src="assets/js/jquery.email-autocomplete.min.js"></script>
+<script src="{{URL::to('scripts/compras/proveedores/func_prov_e.js')}}"></script>
+<script src="{{URL::to('js/jquery.email-autocomplete.min.js')}}"></script>
 <script type="text/javascript">
   $(function () {
     $('#compras').addClass("active");

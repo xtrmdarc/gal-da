@@ -157,7 +157,7 @@ var detalleCompra = function(cod){
       "headers":{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
        },
-      url: 'Detalle',
+      url: "/compras/Detalle",
       success: function (data){
         $.each(data, function(i, item) {
             var importe = item.precio * item.cant;

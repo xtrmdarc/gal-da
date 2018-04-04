@@ -34,54 +34,59 @@ $('#lista_productos').empty();
 
 $.ajax({
     type: "POST",
-    url: "?c=Tablero&a=DatosGrls",
+    url: "tablero/DatosGrls",
     data: {
             ifecha: ifecha,
             ffecha: ffecha
         },
+    "dataSrc":"",  
+    headers:{
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
     dataType: "json",
     success: function(item){
+       
         var moneda = $("#moneda").val();
-        var totalVentas = (parseFloat(item['data1'].efe) - parseFloat(item['data1'].tar)).toFixed(2);
-        var efectivoReal = (parseFloat(item['data1'].efe) + parseFloat(item['data13'].ting) - parseFloat(item['data2'].tgas)).toFixed(2);
-        if(item['data1'].total_v != '0.00'){
-        var efectivo = (parseFloat(item['data1'].efe) * 100 ) / parseFloat(totalVentas);
-        var tarjeta = (parseFloat(item['data1'].tar) * 100 ) / parseFloat(totalVentas);
-        //var meta = (parseFloat(totalVentas) * 100 ) / parseFloat(item['data13'].margen);
+        var totalVentas = (parseFloat(item['data1'][0].efe) - parseFloat(item['data1'][0].tar)).toFixed(2);
+        var efectivoReal = (parseFloat(item['data1'][0].efe) + parseFloat(item['data13'][0].ting) - parseFloat(item['data2'][0].tgas)).toFixed(2);
+        if(item['data1'][0].total_v != '0.00'){
+        var efectivo = (parseFloat(item['data1'][0].efe) * 100 ) / parseFloat(totalVentas);
+        var tarjeta = (parseFloat(item['data1'][0].tar) * 100 ) / parseFloat(totalVentas);
+        //var meta = (parseFloat(totalVentas) * 100 ) / parseFloat(item['data13'][0].margen);
         } else { var efectivo = 0; var tarjeta = 0; var meta = 0; }
-        if(item['data3'].tped != undefined){
-        var pedidosPorcentaje = (parseFloat(item['data3'].tped) * 100 ) / parseFloat(item['data4'].toped);
-        $('#mozo').text(item['data3'].nombres+' '+item['data3'].ape_paterno);
-        $('#pedidos').text(item['data3'].tped+' pedido(s)');
+        if(item['data3'][0] != undefined){
+        var pedidosPorcentaje = (parseFloat(item['data3'][0].tped) * 100 ) / parseFloat(item['data4'][0].toped);
+        $('#mozo').text(item['data3'][0].nombres+' '+item['data3'][0].ape_paterno);
+        $('#pedidos').text(item['data3'][0].tped+' pedido(s)');
         $('#t_ped').text((pedidosPorcentaje).toFixed(2));
         } else {$('#pedidos').text('0 pedido(s)'); $('#mozo').text('A la espera'); $('#t_ped').text('0.00'); }
-        if(item['data6'].total_v != '0.00'){
-        var totalVentasMesas = (parseFloat(item['data6'].total_v) / parseFloat(item['data5'].total));
+        if(item['data6'][0].total_v != '0.00'){
+        var totalVentasMesas = (parseFloat(item['data6'][0].total_v) / parseFloat(item['data5'][0].total));
         } else { var totalVentasMesas = 0; var totalVentasMostrador = 0; }
-        if(item['data7'].total_v != '0.00'){
-        var totalVentasMostrador = (parseFloat(item['data7'].total_v) / parseFloat(item['data8'].total));
+        if(item['data7'][0].total_v != '0.00'){
+        var totalVentasMostrador = (parseFloat(item['data7'][0].total_v) / parseFloat(item['data8'][0].total));
         } else { var totalVentasMostrador = 0; }
-        $('.efe').text(moneda+" "+item['data1'].efe);
-        $('.tar').text(moneda+" "+item['data1'].tar);
-        $('.des').text(moneda+" "+item['data1'].des);
-        $('#ing').text(moneda+" "+item['data13'].ting);
-        $('#gas').text(moneda+" "+item['data2'].tgas);
+        $('.efe').text(moneda+" "+item['data1'][0].efe);
+        $('.tar').text(moneda+" "+item['data1'][0].tar);
+        $('.des').text(moneda+" "+item['data1'][0].des);
+        $('#ing').text(moneda+" "+item['data13'][0].ting);
+        $('#gas').text(moneda+" "+item['data2'][0].tgas);
         $('.total_v').text(moneda+" "+totalVentas);
         $('#efe_real').text(moneda+" "+efectivoReal);
         $('.efe_p').text((efectivo).toFixed(2)+"%");
         $('.tar_p').text((tarjeta).toFixed(2)+"%");
-        $('.t_mesas').text(item['data5'].total);
+        $('.t_mesas').text(item['data5'][0].total);
         $('#pro_m').text(moneda+" "+(totalVentasMesas).toFixed(2));
-        $('.t_most').text(item['data8'].total);
+        $('.t_most').text(item['data8'][0].total);
         $('#pro_mo').text(moneda+" "+(totalVentasMostrador).toFixed(2));
-        $('#pa_me').text(item['data11'].total);
-        $('#pa_mo').text(item['data12'].total);
+        $('#pa_me').text(item['data11'][0].total);
+        $('#pa_mo').text(item['data12'][0].total);
         //$('#meta_a').text((meta).toFixed(2)+"%");
-  
+        
         var con = 1;
-        $.each(item['data9'], function(i, dato) {
+        $.each(item['data9'][0], function(i, dato) {
             var importeTodos = parseFloat(dato.cantidad) * parseFloat(dato.precio);
-            var porcentajeTodos = (parseFloat(importeTodos) * 100 ) / parseFloat(item['data1'].total_v);
+            var porcentajeTodos = (parseFloat(importeTodos) * 100 ) / parseFloat(item['data1'][0].total_v);
             $('#lista_platos')
                 .append(
                 $('<tr/>')
@@ -109,9 +114,9 @@ $.ajax({
         });
 
         var cont = 1;
-        $.each(item['data10'], function(i, datu) {
+        $.each(item['data10'][0], function(i, datu) {
             var importePlatos = parseFloat(datu.cantidad) * parseFloat(datu.precio);
-            var porcentajePlatos = (parseFloat(importePlatos) * 100 ) / parseFloat(item['data1'].total_v);
+            var porcentajePlatos = (parseFloat(importePlatos) * 100 ) / parseFloat(item['data1'][0].total_v);
             $('#lista_productos')
               .append(
                 $('<tr/>')
@@ -137,7 +142,9 @@ $.ajax({
                 )
             )
         });
+
     }
+    
   });
 }
 

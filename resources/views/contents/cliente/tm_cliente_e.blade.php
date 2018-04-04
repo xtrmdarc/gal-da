@@ -55,57 +55,58 @@
                 </form>
                 </div>
             </div>
-            <form id="form" action="?c=Cliente&a=RUCliente" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id_cliente" value="{{$cliente->id_cliente}}" />
+            <form id="form" action="/cliente_e/RUCliente" method="post" enctype="multipart/form-data">
+                @csrf
+            <input type="hidden" name="id_cliente" value="{{isset($cliente)?$cliente->id_cliente:''}}" />
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-6" id="d_ruc" style="display: none;">
                                 <div class="form-group">
                                     <label>RUC</label>
-                                    <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{$cliente->ruc}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
+                                    <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{isset($cliente)?$cliente->ruc:''}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>DNI</label>
-                                    <input type="text" name="dni" id="dni" data-mask="99999999" value="{{$cliente->dni}}" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
+                                    <input type="text" name="dni" id="dni" data-mask="99999999" value="{{isset($cliente)?$cliente->dni:''}}" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_nombres" style="display: block;">
                                 <div class="form-group">
                                     <label>Nombres</label>
-                                    <input type="text" name="nombres" id="nombres" value="{{$cliente->nombres}}" class="form-control" placeholder="Ingrese nombres" autocomplete="off"/>
+                                    <input type="text" name="nombres" id="nombres" value="{{isset($cliente)?$cliente->nombres:''}}" class="form-control" placeholder="Ingrese nombres" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_apep" style="display: block;">
                                 <div class="form-group">
                                     <label>Apellido Paterno</label>
-                                    <input type="text" name="ape_paterno" id="ape_paterno" value="{{$cliente->ape_paterno}}" class="form-control" placeholder="Ingrese apellido paterno" autocomplete="off" />
+                                    <input type="text" name="ape_paterno" id="ape_paterno" value="{{isset($cliente)?$cliente->ape_paterno:''}}" class="form-control" placeholder="Ingrese apellido paterno" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_apem" style="display: block;">
                                 <div class="form-group">
                                     <label>Apellido Materno</label>
-                                    <input type="text" name="ape_materno" id="ape_materno" value="{{$cliente->ape_materno}}" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" />
+                                    <input type="text" name="ape_materno" id="ape_materno" value="{{isset($cliente)?$cliente->ape_materno:''}}" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_fecha" style="display: block;">
                                 <div class="form-group">
                                     <label>Fecha de Nacimiento</label>
-                                    <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" value="{{$cliente->fecha_nac}}" class="form-control" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
+                                    <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" value="{{isset($cliente)?$cliente->fecha_nac:''}}" class="form-control" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_telefono" style="display: block;">
                                 <div class="form-group">
                                     <label>Tel&eacute;fono</label>
-                                    <input type="text" name="telefono" id="telefono" data-mask="999999999" value="{{$cliente->telefono}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
+                                    <input type="text" name="telefono" id="telefono" data-mask="999999999" value="{{isset($cliente)?$cliente->telefono:''}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-12" id="d_correo" style="display: block;">
                                 <div class="form-group">
                                     <label>Correo electr&oacute;nico</label>
-                                    <input type="text" name="correo" id="correo" value="{{$cliente->correo}}" class="form-control" placeholder="Ingrese correo electr&oacute;nico" autocomplete="off" />
+                                    <input type="text" name="correo" id="correo" value="{{isset($cliente)?$cliente->correo:''}}" class="form-control" placeholder="Ingrese correo electr&oacute;nico" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>Raz&oacute;n Social</label>
-                            <input type="text" name="razon_social" id="razon_social" value="{{$cliente->razon_social}}" class="form-control" placeholder="Ingrese raz&oacute;n social" autocomplete="off" />
+                            <input type="text" name="razon_social" id="razon_social" value="{{isset($cliente)?$cliente->razon_social:''}}" class="form-control" placeholder="Ingrese raz&oacute;n social" autocomplete="off" />
                         </div>
                     </div>
                 </div>
@@ -123,7 +124,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>Direcci&oacute;n</label>
-                            <input type="text" name="direccion" id="direccion" value="{{$cliente->direccion}}" class="form-control" placeholder="Ingrese direcci&oacute;n" autocomplete="off" />
+                            <input type="text" name="direccion" id="direccion" value="{{isset($cliente)?$cliente->direccion:''}}" class="form-control" placeholder="Ingrese direcci&oacute;n" autocomplete="off" />
                         </div>
                     </div>
                 </div>

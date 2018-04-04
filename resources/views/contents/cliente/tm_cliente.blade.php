@@ -5,7 +5,7 @@
     <div class="col-lg-9">
         <h2><i class="fa fa-users"></i> <a href="?c=Cliente" class="a-c">Clientes</a></h2>
         <ol class="breadcrumb">
-            <li class="active">a
+            <li class="active">
                 <strong>Clientes</strong>
             </li>
             <li>
@@ -19,7 +19,7 @@
     <div class="ibox">
         <div class="ibox-title">
             <div class="ibox-title-buttons pull-right">
-                <a href="?c=Cliente&a=Crud" ><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Cliente</button></a>
+                <a href="cliente_e" ><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Cliente</button></a>
             </div>
             <h5><strong><i class="fa fa-list-ul"></i> Lista de Clientes</strong></h5>
         </div>
@@ -53,7 +53,7 @@
                         <td>{{$r->nombre}}</td>
                         <td>{{$r->dni}}</td>
                         <td>{{$r->ruc}}</td>
-                        <td>{{$r->direccion}}></td>
+                        <td>{{$r->direccion}}</td>
                         <td style="text-align: center">
                         @if($r->estado == 'a')
                                 <a onclick="estadoCliente('.$r->id_cliente.');"><span class="label label-primary">ACTIVO</span></a>
@@ -62,7 +62,7 @@
                         @endif
                         </td>
                         <td style="text-align: right">
-                            <a href="{{url('clientes_e/'.$r->id_cliente)}}" class="btn btn-success btn-xs">
+                            <a href="{{url('cliente_e/'.$r->id_cliente)}}" class="btn btn-success btn-xs">
                             <i class="fa fa-edit"></i> Editar</a>
                             <button type="button" class="btn btn-danger btn-xs" onclick="eliminarCliente({{$r->id_cliente.',\''. $r->nombre.'\''}});"><i class="fa fa-trash-o"></i></button>
                         </td>
@@ -78,7 +78,7 @@
 <div class="modal inmodal fade" id="mdl-estado-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-estado-cliente" method="post" enctype="multipart/form-data" action="?c=Cliente&a=Estado">
+        <form id="frm-estado-cliente" method="post" enctype="multipart/form-data" action="Estado">
         <input type="hidden" name="cod_cliente" id="cod_cliente">
             <div class="modal-header mh-e">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -109,7 +109,8 @@
 <div class="modal inmodal fade" id="mdl-eliminar-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-eliminar-cliente" method="post" enctype="multipart/form-data" action="?c=Cliente&a=Eliminar">
+        <form id="frm-eliminar-cliente" method="post" enctype="multipart/form-data" action="cliente/Eliminar">
+            @csrf
         <input type="hidden" name="cod_cliente_e" id="cod_cliente_e">
             <div class="modal-header mh-p">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -128,4 +129,5 @@
 </div>
 
 <script src="{{URL::to('scripts/cliente/func_cliente.js')}}"></script>
+
 @endsection

@@ -7,11 +7,12 @@
     $fecha = date("d-m-Y h:i A");
     $fechaa = date("d-m-Y 07:00");
 @endphp
-<input type="hidden" id="moneda" value="<?php //echo $_SESSION["moneda"]; ?>"/>
+<input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="dia_a" value="<?php echo $fecha; ?>"/>
 
 <div class="wrapper wrapper-content animated fadeIn">
     <div class="row">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -316,7 +317,7 @@
     </div>
 </div>
 
-<script src="assets/scripts/tablero/func-tablero.js"></script>
+<script src="{{URL::to('scripts/tablero/func-tablero.js')}}"></script>
 
 
 @endsection

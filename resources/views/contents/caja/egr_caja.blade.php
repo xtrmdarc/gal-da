@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<input type="hidden" id="cod_ape" value="{{session('apertura')}}/>
+<input type="hidden" id="cod_ape" value="{{session('apertura')}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="m" value="<?php //echo $_GET['m']; ?>"/>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -196,7 +196,8 @@
 <div class="modal inmodal fade" id="mdl-anular-gasto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-anular-gasto" method="post" enctype="multipart/form-data" action="?c=ECaja&a=Estado">
+        <form id="frm-anular-gasto" method="post" enctype="multipart/form-data" action="Estado">
+        @csrf
         <input type="hidden" name="cod_ga" id="cod_ga">
             <div class="modal-header mh-p">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

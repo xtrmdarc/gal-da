@@ -80,13 +80,17 @@ var listMostrador = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=ListarMostrador',
+        url: 'inicio/ListarMostrador',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (data) {
             $.each(data, function(i, item) {
                 if(item.estado == 'a'){
                     $('#list-mostrador')
                     .append(
-                        $('<a href="pedido_mostrador.php?Cod='+item.id_pedido+'"/>')
+                        $('<a href="inicio/pedidoMostrador/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -163,13 +167,18 @@ var listDelivery = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=ListarDelivery',
+        url: 'inicio/ListarDelivery',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (data) {
             $.each(data, function(i, item) {
                 if(item.estado == 'a'){
+                    
                     $('#list-preparacion')
                     .append(
-                        $('<a href="pedido_delivery.php?Cod='+item.id_pedido+'"/>')
+                        $('<a href="inicio/pedidoDelivery/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -255,7 +264,11 @@ var comboMesaOrigen = function(cod){
     $('#c_mesa').selectpicker('destroy');
     $.ajax({
         type: "POST",
-        url: "?c=Inicio&a=ComboMesaOri",
+        url: "/inicio/ComboMesaOri",
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {cod: cod},
         success: function (response) {
             $('#c_mesa').html(response);
@@ -273,7 +286,11 @@ var comboMesaDestino = function(cod){
     $('#co_mesa').selectpicker('destroy');
     $.ajax({
         type: "POST",
-        url: "?c=Inicio&a=ComboMesaDes",
+        url: "/inicio/ComboMesaDes",
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {cod: cod},
         success: function (response) {
             $('#co_mesa').html(response);
@@ -311,7 +328,11 @@ var liberarPedido = function(cod,nro){
       data: {
           cod: cod
       },
-      url: '?c=Inicio&a=DetalleMostrador',
+      dataSrc:'',   
+      headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/inicio/DetalleMostrador',
       success: function (data){
         $.each(data, function(i, item) {
             var calc = item.precio * item.cantidad;
@@ -353,7 +374,7 @@ var liberarDelivery = function(cod,nro){
       data: {
           cod: cod
       },
-      url: '?c=Inicio&a=DetalleDelivery',
+      url: '/inicio/DetalleDelivery',
       success: function (data){
         $.each(data, function(i, item) {
             var calc = item.precio * item.cantidad;

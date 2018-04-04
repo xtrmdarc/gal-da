@@ -14,7 +14,10 @@ var pedidosMesa = function(){
 	$.ajax({     
         type: "post",
         dataType: "json",
-        url: '?c=AreaProd&a=ListarM',
+		url: 'cocina/ListarM',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
         success: function (data){
         $.each(data, function(i, item) {
     		var horaPedido = moment(item.fecha_pedido).fromNow();
@@ -117,7 +120,10 @@ var pedidosMostrador = function(){
 	$.ajax({     
         type: "post",
         dataType: "json",
-        url: '?c=AreaProd&a=ListarMO',
+		url: 'cocina/ListarMO',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
         success: function (data){
         $.each(data, function(i, item) {
     		var horaPedido = moment(item.fecha_pedido).fromNow();
@@ -219,7 +225,10 @@ var pedidosDelivery = function(){
 	$.ajax({     
         type: "post",
         dataType: "json",
-        url: '?c=AreaProd&a=ListarDE',
+		url: 'cocina/ListarDE',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
         success: function (data){
         $.each(data, function(i, item) {
     		var horaPedido = moment(item.fecha_pedido).fromNow();

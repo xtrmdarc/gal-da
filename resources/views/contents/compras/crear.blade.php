@@ -17,12 +17,13 @@
     </div>
 </div>
 
-<form id="form-compra" method="post" action="?c=Compra&a=GuardarCompra">
+<form id="form-compra" method="post" action="/compras/GuardarCompra">
+@csrf
 <div class="wrapper wrapper-content animated fadeIn">
   <div class="ibox">
     <div class="ibox-title">
       <div class="ibox-title-buttons pull-right">
-        <a class="btn btn-default" href="lista_comp.php"> Cancelar</a>&nbsp;
+        <a class="btn btn-default" href="/compras/"> Cancelar</a>&nbsp;
         <button class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
       </div>
       <h5><strong><i class="fa fa-list-ul"></i> Detalle de compra</strong></h5>
@@ -381,7 +382,7 @@
     </div>
 </div>
 
-@php /*
+
 <script id="compra-detalle-template" type="text/x-jsrender" src="">
     <li class="list-group-item list-group-item-warning disabled">
         <div class="row">
@@ -402,36 +403,36 @@
             </div>
         </div>
     </li>
-    {{for items}}
+    [%for items%]
     <li class="warning-element">
         <div class="row">
           <div class="col-xs-2">
-                <input name="cant_ins" class="form-control" type="text" placeholder="Cantidad" value="{{:cant_ins}}"  style="text-align:center;" autocomplete="off" onchange="compra.actualizar({{:id}}, this);"/>
+                <input name="cant_ins" class="form-control" type="text" placeholder="Cantidad" value="[%:cant_ins%]"  style="text-align:center;" autocomplete="off" onchange="compra.actualizar([%:id%], this);"/>
             </div>
             <div class="col-xs-5">
-                <input name="tipo_p" type="hidden" value="{{:tipo_p}}" />
-                <input name="cod_ins" type="hidden" value="{{:cod_ins}}" />
-                <label class="label label-info" name="desc_ins">{{:desc_ins}}</label><br><label name="nomb_ins">{{:nomb_ins}}</label>
+                <input name="tipo_p" type="hidden" value="[%:tipo_p%]" />
+                <input name="cod_ins" type="hidden" value="[%:cod_ins%]" />
+                <label class="label label-info" name="desc_ins">[%:desc_ins%]</label><br><label name="nomb_ins">[%:nomb_ins%]</label>
             </div>
             <div class="col-xs-2">
                 <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><?php echo $_SESSION["moneda"]; ?></span>
-                  <input name="precio_ins" class="form-control" type="text" placeholder="Precio" value="{{:precio_ins}}" onchange="compra.actualizar({{:id}}, this);"/>
+                  <span class="input-group-addon" id="basic-addon1"><?php echo session("moneda"); ?></span>
+                  <input name="precio_ins" class="form-control" type="text" placeholder="Precio" value="[%:precio_ins%]" onchange="compra.actualizar([%:id%], this);"/>
                 </div>
             </div>
             <div class="col-xs-2">
-                <input type="text" name="importe" class="form-control" style="text-align:center;border-style: none;background: #fff;cursor: default;font-size: 12px;" value="{{:total}}" disabled="true" />
+                <input type="text" name="importe" class="form-control" style="text-align:center;border-style: none;background: #fff;cursor: default;font-size: 12px;" value="[%:total%]" disabled="true" />
             </div>
             <div class="col-xs-1 text-right">
-                <button type="button" class="btn btn-danger" onclick="compra.retirar({{:id}});"><i class="fa fa-trash-o"></i></button>
+                <button type="button" class="btn btn-danger" onclick="compra.retirar([%:id%]);"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </li>
-    {{else}}
+    [%else%]
     <li class="text-center list-group-item">No se han agregado insumos al detalle</li>
-    {{/for}}
+    [%/for%]
 </script>
-*/@endphp
+
 <script src="{{URL::to('js/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 <script src="{{URL::to('scripts/compras/func-compra-nueva.js')}}"></script>
 <script src="{{URL::to('scripts/compras/func-prov.js')}}"></script>

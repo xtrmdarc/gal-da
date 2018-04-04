@@ -47,10 +47,14 @@ var DatosGrles = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=DatosGrles',
+        url: '/inicio/DatosGrles',
         data: {
             cod: $('#cod_p').val(),
             tp: $('#cod_tipe').val()
+        },
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
             var sbtot = 0;
@@ -83,6 +87,7 @@ var DatosGrles = function(){
             $('.fec_dg').text(moment(data.fecha_p).format('DD-MM-Y'));
             $('.hor_dg').text(moment(data.fecha_p).format('h:mm A'));
             $('.btn-imp').html('<a onclick="impPreCuenta('+data.id_pedido+','+data.id_mesa+',\''+data.est_m+'\')" class="btn btn-botija btn-lg"><i class="fa fa-print"></i></a>');
+            console.log('funciona');
         }
     });
 };    
@@ -97,7 +102,11 @@ var listarPedidos = function(){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Inicio&a=listarPedidos",
+            "url": "/inicio/ListarPedidos", 
+               
+            "headers":{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             "data": {
                 cod: $('#cod_p').val()
             }
@@ -145,7 +154,12 @@ var listarCategorias = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=listarCategorias',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: '/inicio/ListarCategorias',
+
         success: function (data) {
             $.each(data, function(i, item) {
                 $('#list-catgrs')
@@ -167,7 +181,11 @@ var listarProductos = function(cod){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=listarProductos',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: '/inicio/ListarProductos',
         data: {cod: cod},
         success: function (data) {
             $.each(data, function(i, item) {
@@ -215,8 +233,12 @@ $("#btn-confirmar").on("click", function(){
         pedido.detalle.cod_p = $("#cod_p").val();
         $.ajax({
             type: 'POST',
-            url: '?c=Inicio&a=RegistrarPedido',
+            url: '/inicio/RegistrarPedido',
             data: pedido.detalle,
+            dataSrc:'',   
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (data) {
                 if(data == 1){
                     DatosGrles();
@@ -327,7 +349,8 @@ var pedido = {
         this.detalle.igv      = (this.detalle.total * 0.18).toFixed(2); // 18 % El IGV y damos formato a 2 deciamles
         this.detalle.subtotal = (this.detalle.total - this.detalle.igv).toFixed(2); // Total - IGV y formato a 2 decimales
         this.detalle.total    = this.detalle.total.toFixed(2);
-
+        
+        $.views.settings.delimiters("[%", "%]");
         var template   = $.templates("#pedido-detalle-template");
         var htmlOutput = template.render(this.detalle);
 
@@ -371,9 +394,13 @@ $("#busq_prod").autocomplete({
     autoFocus: true,
     source: function (request, response) {
         $.ajax({
-            url: '?c=Inicio&a=BuscarProducto',
+            url: '/inicio/BuscarProducto',
             type: "post",
             dataType: "json",
+            dataSrc:'',   
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 criterio: request.term
             },
@@ -430,9 +457,13 @@ $("#busq_cli").autocomplete({
     autoFocus: true,
     source: function (request, response) {
         $.ajax({
-            url: '?c=Inicio&a=BuscarCliente',
+            url: '/inicio/BuscarCliente',
             type: "post",
             dataType: "json",
+            dataSrc:'',   
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 criterio: request.term
             },
@@ -483,7 +514,11 @@ var subPedido = function(cod,prod){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=ListarDetalleSubPed',
+        url: '/inicio/ListarDetalleSubPed',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {tp: tp, cod: cod, prod: prod},
         success: function (data) {
             $.each(data.Detalle, function(i, item) {
@@ -579,9 +614,13 @@ var desocuparMesa = function(cod_ped){
 /* Imprimir Pre Cuenta*/
 var impPreCuenta = function(ped,cod,est){
     $.ajax({
-        url: '?c=Inicio&a=preCuenta',
+        url: '/inicio/preCuenta',
         type: "post",
         dataType: "json",
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {
             cod: cod,
             est: est
@@ -603,7 +642,11 @@ var facturar = function(cod,tip){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Inicio&a=ListarDetallePed',
+        url: '/inicio/ListarDetallePed',
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {cod: cod, tp: tp},
         success: function (data) {
             $.each(data.Detalle, function(i, item) {
@@ -750,7 +793,11 @@ $("#frm-facturar").submit(function(){
         $.ajax({
             //dataType: 'JSON',
             type: 'POST',
-            url: '?c=Inicio&a=RegistrarVenta',
+            url: '/inicio/RegistrarVenta',
+            dataSrc:'',   
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: venta,
             success: function (r) {
                 if(1 == $('#tipoEmision').val()){
