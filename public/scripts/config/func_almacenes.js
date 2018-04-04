@@ -17,6 +17,7 @@ $(function() {
     e.preventDefault();
     var $form = $(e.target),
     fv = $form.data('formValidation');
+          var token = $('meta[name="csrf-token"]').attr('content');
             
     cod_alm = $('#cod_alm').val();
     nomb_alm = $('#nomb_alm').val();
@@ -25,11 +26,12 @@ $(function() {
     $.ajax({
       dataType: 'JSON',
       type: 'POST',
-      url: '?c=Config&a=CrudAlmacen',
+      url: '/ajustesCrudAlmacen',
       data: {
           cod_alm: cod_alm,
           nomb_alm: nomb_alm,
-          estado_alm: estado_alm
+          estado_alm: estado_alm,
+          _token : token
       },
       success: function (cod) {
           if(cod == 0){
@@ -73,6 +75,7 @@ $(function() {
     } else {
 
     e.preventDefault();
+    var token = $('meta[name="csrf-token"]').attr('content');
     var $form = $(e.target),
     fv = $form.data('formValidation');
             
@@ -84,12 +87,13 @@ $(function() {
       $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: '?c=Config&a=CrudAreaP',
+        url: '/ajustesCrudAreaP',
         data: {
             cod_area: cod_area,
             cod_alma: cod_alma,
             nomb_area: nomb_area,
-            estado_area: estado_area
+            estado_area: estado_area,
+            _token : token
         },
         success: function (cod) {
             if(cod == 0){
@@ -116,6 +120,7 @@ $(function() {
 
 /* Mostrar datos en la tabla Almacen */
 var listarAlmacenes = function(){
+    var token = $('meta[name="csrf-token"]').attr('content');
 	var table = $('#table-alm')
 	.DataTable({
 	  "destroy": true,
@@ -124,7 +129,11 @@ var listarAlmacenes = function(){
     "bSort": false,
     "ajax":{
       "method": "POST",
-      "url": "?c=Config&a=ListaAlmacenes"
+      "url": "/ajustesListaAlmacen",
+        "dataSrc" : "",
+        headers: {
+            'X-CSRF-TOKEN': token
+        }
     },
 	  "columns":[
 	    {"data":"nombre"},
@@ -144,6 +153,7 @@ var listarAlmacenes = function(){
 
 /* Mostrar datos en la tabla Area de produccion */
 var listarAreaProd = function(){
+    var token = $('meta[name="csrf-token"]').attr('content');
 	var table = $('#table-area')
 	.DataTable({
 	  "destroy": true,
@@ -152,9 +162,12 @@ var listarAreaProd = function(){
     "bSort": false,
     "ajax":{
       "method": "POST",
-      "url": "?c=Config&a=ListaAreasP",
+      "url": "/ajustesListaAreasP",
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
       "data": function ( d ) {
-         d.codigo = '%';
+         d.codigo = '%'
       }
     },
 	  "columns":[
@@ -176,9 +189,13 @@ var listarAreaProd = function(){
 
 /* Combo almacen */
 var comboAlmacen = function(){
+    var token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ComboAlm",
+        url: "/ajustesComboAlm",
+        data: {
+            _token : token
+        },
         success: function (response) {
             $('#combo_alm').html(response);
             $('#cod_alma').selectpicker();
@@ -200,12 +217,14 @@ var editar_alm = function(cod,nomb,est){
 
 /* Editar Area de produccion */
 var editar_area = function(cod){
+    var token = $('meta[name="csrf-token"]').attr('content');
     comboAlmacen();
     $.ajax({
       type: "POST",
-      url: "?c=Config&a=ListaAreasP",
+      url: "/ajustesListaAreasP",
       data: {
-          codigo: cod
+          codigo: cod,
+          _token : token
       },
       dataType: "json",
       success: function(item){

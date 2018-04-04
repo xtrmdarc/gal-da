@@ -39,18 +39,24 @@ $('#cod_prov').change( function() {
 var listarComprasCredito = function(){
 
     var moneda = $("#moneda").val();
+
     cprov = $("#cod_prov").selectpicker('val');
+
     var t_deuda = 0,
         t_inte = 0,
         t_amor = 0;
 
     $.ajax({
         type: "POST",
-        url: "?c=Credito&a=Datos",
+        url: "/creditosDatos",
         data: {
             cprov: cprov
         },
         dataType: "json",
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(item){
 
             if (item.data.length != 0) {
@@ -80,10 +86,13 @@ var listarComprasCredito = function(){
 		"bSort": true,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Credito&a=Datos",
+			"url": "/creditosDatos",
 			"data": {
                 cprov: cprov
-            }
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data": null,"render": function ( data, type, row ) {
@@ -132,11 +141,15 @@ var pagoCuota = function(cod,doc,num,pen,total,amort){
     $('#amort_cuota').val(amort);
     $.ajax({
         type: "POST",
-        url: "?c=Credito&a=DatosP",
+        url: "/creditosDatosP",
         data: {
             cod: cod
         },
         dataType: "json",
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(item){
             $('#fecha_comp').text(moment(item['data'].fecha).format('DD-MM-Y'));  
             $('#datos_prov').text(item['data'].desc_prov);   
@@ -152,10 +165,14 @@ var detalleCuota = function(cod){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "?c=Credito&a=Detalle",
+        url: "/creditosDetalle",
         data: {
             cod: cod
         },
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(data){
             $.each(data, function(i, item) {
                 $('#lista_cuotas')

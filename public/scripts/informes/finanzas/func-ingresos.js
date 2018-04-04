@@ -40,10 +40,13 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosIngresos",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
 		},
 		"columns":[

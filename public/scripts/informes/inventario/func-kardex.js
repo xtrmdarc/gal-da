@@ -13,7 +13,7 @@ $("#tipo_ip").change(function(){
 	$('#id_ip').selectpicker('destroy');
 	$("#tipo_ip option:selected").each(function(){
 	cod=$(this).val();
-	   $.post("?c=Informe&a=ComboIP",{cod: cod},function(data){
+	   $.post("/informesComboIPKardex",{cod: cod},function(data){
     	   $("#id_ip").html(data);
     	   $('#id_ip').selectpicker();
 	   });
@@ -24,8 +24,11 @@ var select_combo = function(cod){
 	$('#id_ip').selectpicker('destroy');
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=ComboIP",
+        url: "/informesComboIPKardex",
         data: {cod: cod},
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (response) {
             $('#id_ip').html(response);
             $('#id_ip').selectpicker();
@@ -48,12 +51,15 @@ var listar = function(){
 
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=Datos",
+        url: "/informesDatosKardex",
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
             tipo_ip: tipo_ip,
             id_ip: id_ip
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
@@ -84,7 +90,10 @@ var listar = function(){
     		"bSort": false,
     		"ajax":{
     		"method": "POST",
-    		"url": "?c=Informe&a=Datos",
+    		"url": "/informesDatosKardex",
+                "headers": {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
     		"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,

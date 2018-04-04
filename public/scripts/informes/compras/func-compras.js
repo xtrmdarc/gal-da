@@ -45,7 +45,7 @@ var listar = function(){
 
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=Datos",
+        url: "/informesDatosCompras",
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
@@ -53,6 +53,9 @@ var listar = function(){
             est: est
         },
         dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(item){
             if (item.data.length != 0) {
                 $.each(item.data, function(i, campo) {
@@ -78,13 +81,16 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosCompras",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
                 tdoc: tdoc,
                 est: est
-            }
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data": null,"render": function ( data, type, row ) {
@@ -146,7 +152,10 @@ var detalle = function(cod){
       data: {
           cod: cod
       },
-      url: '?c=Informe&a=Detalle',
+      url: '/informesDetalleCompras',
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
       success: function (data){
         $.each(data, function(i, item) {
             var calc = item.precio * item.cant;
@@ -172,9 +181,12 @@ var detalle_c = function(cod){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "?c=Informe&a=DetalleC",
+        url: "/informesDetalleCCompras",
         data: {
             cod: cod
+        },
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(data){
             $.each(data, function(i, item) {
@@ -209,10 +221,13 @@ var detalle_sc = function(cod){
         $.ajax({
         type: "POST",
         dataType: "json",
-        url: "?c=Informe&a=DetalleSC",
+        url: "/informesDetalleSCCompras",
         data: {
             cod: cod
         },
+            headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function(data){
             $.each(data, function(i, item) {
                 $('#list_cdc')

@@ -12,7 +12,10 @@ var listarSalones = function(){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaSalones"
+            "url": "/ajustesListaSalones",
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         },
         "columns":[
             {"data":"descripcion"},
@@ -51,7 +54,10 @@ var listarMesas = function(cod_sal,desc_sal){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Config&a=ListaMesas",
+            "url": "/ajustesListaMesas",
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             "data": function ( d ) {
               d.cod = cod_sal;
           }
@@ -127,7 +133,6 @@ $(function() {
           e.preventDefault();
           var $form = $(e.target),
           fv = $form.data('formValidation');
-          
           var form = $(this);
 
           var salones = {
@@ -145,6 +150,9 @@ $(function() {
               type: 'POST',
               url: form.attr('action'),
               data: salones,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
               success: function (cod) {
                   if(cod == 0){
                       toastr.warning('Advertencia, Datos duplicados.');
@@ -210,6 +218,10 @@ $(function() {
               type: 'POST',
               url: form.attr('action'),
               data: mesas,
+              dataSrc : "",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
               success: function (cod) {
                   if(cod == 0){
                       toastr.warning('Advertencia, Datos duplicados.');
@@ -294,6 +306,10 @@ $("#frm-eliminar-salon").submit(function(){
         type: 'POST',
         url: form.attr('action'),
         data: salon,
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (cod) {
             if(cod == 1){
                 listarSalones();
@@ -331,6 +347,10 @@ $("#frm-eliminar-mesa").submit(function(){
         type: 'POST',
         url: form.attr('action'),
         data: mesa,
+        dataSrc : "",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         success: function (cod) {
             if(cod == 1){
                 var codigoSalon = $('#id_catg').val();
