@@ -1,11 +1,10 @@
 @extends('Layouts.master')
 
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2><i class="fa fa-credit-card"></i> <a href="?c=Credito" class="a-c">Cr&eacute;ditos</a></h2>
+            <h2><i class="fa fa-credit-card"></i> <a href="{{ url('/creditos') }}" class="a-c">Cr&eacute;ditos</a></h2>
             <ol class="breadcrumb">
                 <li class="active">
                     <strong>Compras</strong>
@@ -28,13 +27,14 @@
             <div class="ibox-content" style="position: relative; min-height: 30px;">
                 <div class="row">
                     <form method="post" enctype="multipart/form-data" target="_blank" action="#">
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
                         <div class="col-sm-6 col-sm-offset-6">
                             <div class="form-group">
                                 <select name="cod_prov" id="cod_prov" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
                                     <option value="%" active>Todos los proveedores</option>
-
-                                    <option value=""></option>
-
+                                    @foreach($providers as $provider)
+                                        <option value="{{ $provider->id_prov }}">{{ $provider->ruc.' - '. $provider->razon_social }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -61,6 +61,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <table id="table" class="table table-hover table-condensed table-striped" width="100%">
                         <thead>
                         <tr>
@@ -84,7 +85,8 @@
     <div class="modal inmodal fade" id="mdl-compra-credito" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-compra-credito" method="post" enctype="multipart/form-data" action="?c=Credito&a=PagarCuota">
+                <form id="frm-compra-credito" method="POST" enctype="multipart/form-data" action="/creditosPago">
+                    @csrf
                     <input type="hidden" name="cod_cuota" id="cod_cuota">
                     <input type="hidden" name="total_cuota" id="total_cuota">
                     <input type="hidden" name="amort_cuota" id="amort_cuota">
@@ -165,7 +167,7 @@
         </div>
     </div>
 
-    <script src="{{ URL::to('assets/scripts/creditos/compras/func-compras.js' ) }}"></script>
+    <script src="{{ URL::to('scripts/creditos/compras/func-compras.js' ) }}"></script>
     <script type="text/javascript">
         $(function() {
             $('#creditos').addClass("active");
