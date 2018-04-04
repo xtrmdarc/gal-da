@@ -40,12 +40,15 @@ var listar = function(){
 
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=Datos",
+        url: "/informesDatosFpago",
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
             tpag: tpag
         },
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
         dataType: "json",
         success: function(item){
             if (item.data.length != 0) {
@@ -66,11 +69,14 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosFpago",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
                 tpag: tpag
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
 		},
 		"columns":[

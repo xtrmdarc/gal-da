@@ -91,3 +91,54 @@ Route::get('/ajustesRUsuario/{id_usu}', 'Config\tm_usuarioController@CrudUsuario
 Route::get('/ajustesRegistrarUsuario', 'Config\tm_usuarioController@RegistrarUsuario');
 Route::post('/ajustesRUsuario', 'Config\tm_usuarioController@RUUsuario');
 Route::post('/ajustesEliminar', 'Config\tm_usuarioController@Eliminar');
+
+
+//INFORMES
+
+Route::get('/informes', 'Informes\tm_informesController@index')->name('config.Informes');
+
+//Ventas
+
+Route::get('/informesVentas', 'Informes\Ventas\inf_ventasController@index')->name('config.inf_ventas');
+Route::post('informesDatosVentas', 'Informes\Ventas\inf_ventasController@Datos')->name('config.inf_ventas.Datos');
+Route::post('informesDatosVentasDetalle', 'Informes\Ventas\inf_ventasController@Detalle')->name('config.inf_ventas.Detalle');
+Route::post('informesDatosVentasExcel', 'Informes\Ventas\inf_ventasController@ExportExcel')->name('config.inf_ventas.ExportExcel');
+
+//Ventas por Producto
+
+Route::get('/informesVentasProducto', 'Informes\Ventas\inf_productosController@index')->name('config.inf_productos');
+Route::post('informesDatosProductos', 'Informes\Ventas\inf_productosController@Datos')->name('config.inf_productos.Datos');
+
+//Ventas Mozos
+
+Route::get('/informesVentasMozos', 'Informes\Ventas\inf_mozosController@index')->name('config.inf_mozos');
+Route::post('informesDatosMozos', 'Informes\Ventas\inf_mozosController@Datos');
+
+//Venta por forma de Pago
+
+Route::get('/informesVentasFpago', 'Informes\Ventas\inf_fpagoController@index');
+Route::post('informesDatosFpago', 'Informes\Ventas\inf_fpagoController@Datos');
+
+//Compras
+
+Route::get('/informesCompras', 'Informes\Compras\inf_comprasController@index');
+Route::post('informesDatosCompras', 'Informes\Compras\inf_comprasController@Datos');
+Route::post('informesDetalleCompras', 'Informes\Compras\inf_comprasController@Detalle');
+Route::post('informesDetalleCCompras', 'Informes\Compras\inf_comprasController@DetalleC');
+Route::post('informesDetalleSCCompras', 'Informes\Compras\inf_comprasController@DetalleSC');
+
+//Compras por Proveedores
+
+Route::get('/informesComprasProveedores', 'Informes\Compras\inf_proveedorController@index');
+Route::post('informesDatosProveedores', 'Informes\Compras\inf_proveedorController@Datos');
+Route::post('informesDetalleProveedores', 'Informes\Compras\inf_proveedorController@Detalle');
+Route::post('informesDetalleCProveedores', 'Informes\Compras\inf_proveedorController@DetalleC');
+Route::post('informesDetalle_CProveedores', 'Informes\Compras\inf_proveedorController@Detalle_C');
+
+
+
+//Kardex
+
+Route::get('/informesKardex', 'Informes\Inventario\inf_kardexController@index');
+Route::post('informesDatosKardex', 'Informes\Inventario\inf_kardexController@Datos');
+Route::post('informesComboIPKardex', 'Informes\Inventario\inf_kardexController@ComboIP');

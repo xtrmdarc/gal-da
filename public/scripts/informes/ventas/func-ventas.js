@@ -46,7 +46,7 @@ var listar = function(){
 
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=Datos",
+        url: "/informesDatosVentas",
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
@@ -56,6 +56,9 @@ var listar = function(){
             cliente: cliente
         },
         dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(item){
 
             if (item.data.length != 0) {
@@ -82,7 +85,7 @@ var listar = function(){
         "bSort": false,
         "ajax":{
             "method": "POST",
-            "url": "?c=Informe&a=Datos",
+            "url": "/informesDatosVentass",
             "data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
@@ -90,6 +93,9 @@ var listar = function(){
                 tdoc: tdoc,
                 icaja: icaja,
                 cliente: cliente
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         },
         "columns":[
@@ -161,7 +167,11 @@ var detalle = function(cod,doc,num){
       data: {
           cod: cod
       },
-      url: '?c=Informe&a=Detalle',
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+      url: '/informesDatosVentasDetalle',
       success: function (data){
         $.each(data, function(i, item) {
             var calc = item.precio * item.cantidad;

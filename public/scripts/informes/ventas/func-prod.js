@@ -70,11 +70,14 @@ var listar = function(){
         },
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosProductos",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha
-            }
+            },dataSrc : "",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data":"Producto.nombres"},

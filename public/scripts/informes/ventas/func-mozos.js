@@ -38,11 +38,14 @@ var listar = function(){
 
     $.ajax({
         type: "POST",
-        url: "?c=Informe&a=Datos",
+        url: "/informesDatosMozos",
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
             cmozo: cmozo
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
@@ -58,12 +61,15 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosMozos",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
                 cmozo: cmozo
-            }
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data":"fec_ven","render": function ( data, type, full, meta ) {
