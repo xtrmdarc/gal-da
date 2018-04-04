@@ -135,7 +135,28 @@ Route::post('informesDetalleProveedores', 'Informes\Compras\inf_proveedorControl
 Route::post('informesDetalleCProveedores', 'Informes\Compras\inf_proveedorController@DetalleC');
 Route::post('informesDetalle_CProveedores', 'Informes\Compras\inf_proveedorController@Detalle_C');
 
+//Finanzas
 
+//Aperturas y Cierres de Caja
+
+Route::get('/informesCajas', 'Informes\Finanzas\inf_cajasController@index');
+Route::post('informesDatosCajas', 'Informes\Finanzas\inf_cajasController@Datos');
+Route::post('informesMontoCajas', 'Informes\Finanzas\inf_cajasController@MontoSis');
+
+//Ingresos de Caja
+
+Route::get('/informesIngresos', 'Informes\Finanzas\inf_ingresosController@index');
+Route::post('/informesDatosIngresos', 'Informes\Finanzas\inf_ingresosController@Datos');
+
+//Egresos de Caja
+
+Route::get('/informesEgresos', 'Informes\Finanzas\inf_egresosController@index');
+Route::post('/informesDatosEgresos', 'Informes\Finanzas\inf_egresosController@Datos');
+
+//Egresos por Remuneracion
+
+Route::get('/informesRemuneracion', 'Informes\Finanzas\inf_remuneracionesController@index');
+Route::post('/informesDatosRemuneraciones', 'Informes\Finanzas\inf_egresosController@Datos');
 
 //Kardex
 

@@ -39,10 +39,13 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosCajas",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
 		},
 		"columns":[
@@ -89,10 +92,12 @@ var detalle = function(cod_apc,fecha_ape){
     $.ajax({
         data: { cod_apc : cod_apc,
                 fecha_ape : fecha_ape},
-        url:   '?c=Informe&a=MontoSis',
+        url:   '/informesMontoCajas',
         type:  'POST',
         dataType: 'json',
-   
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(data) {
             var fechaApertura = moment(data.Datos.fecha_a).format('Do MMMM YYYY, h:mm A');
             var fechaCierre = moment(data.Datos.fecha_c).format('Do MMMM YYYY, h:mm A');

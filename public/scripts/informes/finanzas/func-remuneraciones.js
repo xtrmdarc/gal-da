@@ -40,11 +40,14 @@ var listar = function(){
 		"bSort": false,
 		"ajax":{
 			"method": "POST",
-			"url": "?c=Informe&a=Datos",
+			"url": "/informesDatosRemuneraciones",
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha
-            }
+            },
+            "headers": {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 		},
 		"columns":[
 			{"data":"fecha_re","render": function ( data, type, row ) {
