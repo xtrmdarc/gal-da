@@ -24,15 +24,14 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="index.html">
-                    <h1><img src="{{ URL::to('home/images/logo.png') }}" alt="logo"></h1>
+                <a class="navbar-brand" href="/">
+                    <h1><img id="logo-home" src="{{ URL::to('application/images/galdaLogo.png') }}" alt="logo"></h1>
                 </a>
 
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li class=""><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
+                    <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
                     <li class="dropdown"><a href="#">Pages <i class="fa fa-angle-down"></i></a>
                         <ul role="menu" class="sub-menu">
                             <li><a href="aboutus.html">About</a></li>
@@ -65,7 +64,8 @@
                             <li><a href="portfolio-details.html">Portfolio Details</a></li>
                         </ul>
                     </li>
-                    <li><a href="shortcodes.html ">Shortcodes</a></li>
+                    <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
+                    <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn btn-danger" href="{{ route('register') }}">Empieza YA</a></li>
                 </ul>
             </div>
             <div class="search">

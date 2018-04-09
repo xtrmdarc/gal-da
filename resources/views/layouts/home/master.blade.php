@@ -12,6 +12,9 @@
     <link href="{{ URL::to('home/css/lightbox.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/main.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('home/css/auth/auth.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('home/css/home/styles.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('home/css/home/register-form/header.css') }}" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="{{ URL::to('home/js/html5shiv.js') }}"></script>

@@ -1,101 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.home.master')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
-    <link href="{{ URL::to('application/css/style.css') }}" rel="stylesheet">
-</head>
+@section('content')
+    <hr>
+    <header id="header-register">
+        <ol class="register-phases card-center">
+            <li><a href="/"><img class="logo-p" src="{{ URL::to('home/images/ico/icono1.png') }}" alt="logo">Crear una Cuenta</a></li>
+            <li><a href="/"><img class="logo-p" src="{{ URL::to('home/images/ico/icono2.png') }}" alt="logo">Selecciona tu plan</a></li>
+            <li><a href="/"><img class="logo-p" src="{{ URL::to('home/images/ico/icono3.png') }}" alt="logo">Metodo de Pago</a></li>
+        </ol>
+    </header>
 
-<body class="fix-header fix-sidebar">
-<!-- Preloader - style you can find in spinners.css -->
-<div class="preloader">
-    <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-</div>
-<!-- Main wrapper  -->
-<div id="main-wrapper" class="background-gray">
+    <!-Create a account->
+    <div id="main-wrapper-auth" class="background-gray-auth">
+        <div class="unix-login">
+            <div class="container-fluid-auth">
+                <div class="row justify-content-center-auth">
+                    <div class="col-lg-4 card-center">
+                        <div class="auth-content card-auth">
+                            <div class="login-form-auth">
+                                <h4>Register</h4>
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="User Name">
 
-    <div class="unix-login">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <div class="login-content card">
-                        <div>
-                            <img src="{{ URL::to('application/images/galdaLogo.png') }}" alt="">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password-confirm" class="">Confirm Password</label>
+
+                                        <div class="">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Agree the terms and policy
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" disabled>
+                                        Siguiente
+                                    </button>
+
+                                    <div class="register-link-auth m-t-15 text-center">
+                                        <p>Already have account ? <a href="{{ route('login') }}"> Sign in</a></p>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="login-form">
-                            <h4>Register</h4>
-                            <form method="POST" action="{{ route('register') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <label>User Name</label>
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="User Name">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-Selecto your Plan->
+    <div id="main-wrapper-auth" class="background-gray-auth">
+        <div class="unix-login">
+            <div class="container-fluid-auth">
+                <div class="row justify-content-center-auth">
+                    <div class="col-lg-4 card-center">
+                        <div class="auth-content card-auth">
+                            <div class="login-form-auth">
+                                <h4>Register</h4>
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="User Name">
 
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label>Email address</label>
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
 
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback">
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
 
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback">
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password-confirm" class="">Confirm Password</label>
-
-                                    <div class="">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password">
+                                        @endif
                                     </div>
-                                </div>
 
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Agree the terms and policy
-                                    </label>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="password-confirm" class="">Confirm Password</label>
 
-                                <div class="">
-                                    <div class="">
-                                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">
-                                            Register
-                                        </button>
+                                        <div class="">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="register-link m-t-15 text-center">
-                                    <p>Already have account ? <a href="{{ route('login') }}"> Sign in</a></p>
-                                </div>
-                            </form>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Agree the terms and policy
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" disabled>
+                                        Siguiente
+                                    </button>
+
+                                    <div class="register-link-auth m-t-15 text-center">
+                                        <p>Already have account ? <a href="{{ route('login') }}"> Sign in</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-Payment Method->
+    <div id="main-wrapper-auth" class="background-gray-auth">
+        <div class="unix-login">
+            <div class="container-fluid-auth">
+                <div class="row justify-content-center-auth">
+                    <div class="col-lg-4 card-center">
+                        <div class="auth-content card-auth">
+                            <div class="login-form-auth">
+                                <h4>Register</h4>
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="User Name">
+
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+
+                                        @if ($errors->has('password'))
+                                            <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password-confirm" class="">Confirm Password</label>
+
+                                        <div class="">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Agree the terms and policy
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" disabled>
+                                        Siguiente
+                                    </button>
+
+                                    <div class="register-link-auth m-t-15 text-center">
+                                        <p>Already have account ? <a href="{{ route('login') }}"> Sign in</a></p>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,22 +224,5 @@
         </div>
     </div>
 
-</div>
-<!-- End Wrapper -->
-<!-- All Jquery -->
-<script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="{{ URL::to('application/js/lib/bootstrap/js/popper.min.js') }}"></script>
-<script src="{{ URL::to('application/js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="{{ URL::to('application/js/jquery.slimscroll.js') }}"></script>
-<!--Menu sidebar -->
-<script src="{{ URL::to('application/js/sidebarmenu.js') }}"></script>
-<!--stickey kit -->
-<script src="{{ URL::to('application/js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
-<!--Custom JavaScript -->
-<script src="{{ URL::to('application/js/custom.min.js') }}"></script>
 
-</body>
-
-</html>
+@endsection('content')
