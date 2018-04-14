@@ -27,4 +27,9 @@ class HomeController extends Controller
     {
         return view('contents.home.welcome_main');
     }
+
+    public function prices()
+    {
+        return view('contents.home.prices');
+    }
 }

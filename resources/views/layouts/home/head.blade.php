@@ -32,37 +32,11 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
-                    <li class="dropdown"><a href="#">Pages <i class="fa fa-angle-down"></i></a>
-                        <ul role="menu" class="sub-menu">
-                            <li><a href="aboutus.html">About</a></li>
-                            <li><a href="aboutus2.html">About 2</a></li>
-                            <li><a href="service.html">Services</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
-                            <li><a href="contact2.html">Contact us 2</a></li>
-                            <li><a href="404.html">404 error</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                        </ul>
+                    <li><a href="#">Que es</a>
                     </li>
-                    <li class="dropdown"><a href="blog.html">Blog <i class="fa fa-angle-down"></i></a>
-                        <ul role="menu" class="sub-menu">
-                            <li><a href="blog.html">Blog Default</a></li>
-                            <li><a href="blogtwo.html">Timeline Blog</a></li>
-                            <li><a href="blogone.html">2 Columns + Right Sidebar</a></li>
-                            <li><a href="blogthree.html">1 Column + Left Sidebar</a></li>
-                            <li><a href="blogfour.html">Blog Masonary</a></li>
-                            <li><a href="blogdetails.html">Blog Details</a></li>
-                        </ul>
+                    <li {!! Route::currentRouteName() == 'prices' ? 'class="active"' : '' !!}><a href="{{ route('prices') }}">Precios</a>
                     </li>
-                    <li class="dropdown"><a href="portfolio.html">Portfolio <i class="fa fa-angle-down"></i></a>
-                        <ul role="menu" class="sub-menu">
-                            <li><a href="portfolio.html">Portfolio Default</a></li>
-                            <li><a href="portfoliofour.html">Isotope 3 Columns + Right Sidebar</a></li>
-                            <li><a href="portfolioone.html">3 Columns + Right Sidebar</a></li>
-                            <li><a href="portfoliotwo.html">3 Columns + Left Sidebar</a></li>
-                            <li><a href="portfoliothree.html">2 Columns</a></li>
-                            <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                        </ul>
+                    <li><a href="portfolio.html">Contacto</a>
                     </li>
                     <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
                     <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn btn-danger" href="{{ route('register') }}">Empieza YA</a></li>

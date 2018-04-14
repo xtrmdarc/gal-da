@@ -12,8 +12,10 @@
 */
 
 /************************************  WEB  **********************************/
-//*Autn*/
+/*Autn*/
 include 'Web/auth.php';
+/*Home*/
+include 'Web/home.php';
 
 Route::get('/','Web\HomeController@welcome_main')->name('welcome');
 

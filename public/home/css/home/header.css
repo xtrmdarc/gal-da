@@ -1,0 +1,89 @@
+.register-phases {
+    display: inline-flex;
+}
+.register-phases li {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.register-phases a {
+    color: #1fbdb7;
+}
+.logo-p{
+    width: 30px;
+    height: 30px;
+}
+
+
+/*Header Navigation Register*/
+.register-form-nav {
+    padding: 0 1rem;
+    margin: 1rem;
+    display: flex;
+}
+.register-form-nav li {
+    list-style-type: none;
+}
+.register-form-nav li.active button {
+    color: inherit;
+}
+.register-form-nav li.active button::before {
+    color: inherit;
+    background-color: currentColor;
+}
+.register-form-nav li.active button::after {
+    color: inherit;
+    color: #fff;
+}
+.register-form-nav li button{
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    color: rgba(122,122,122, 0.5);
+    background: transparent !important;
+    outline:none;
+    border: none;
+}
+.register-form-nav li button::before{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    content: '';
+    vertical-align: middle;
+    color: rgba(122,122,122,0.5);
+    border-radius: 50%;
+    background-color: rgba(122,122,122,0.125);
+}
+.register-form-nav li button::after{
+    line-height: 26px;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    content: attr(data-index);
+    text-align: center;
+    color: rgba(122,122,122,0.5);
+}
+
+.site-color {
+    color: #337ab7 !important;
+}
+/*Header Navigation Register*/
+
+/*Register-form-step*/
+
+.register-form-step {
+    display: none;
+    width: 100%;
+}
+.register-form-step.active{
+    display: block;
+}
+
+.title_plan {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}

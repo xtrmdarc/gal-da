@@ -2028,7 +2028,7 @@ span.stButton_gradient,
 }
 
 .single-price.price-one .plan-name {
-  background-color: #0e76bc;
+  background-color: #1fbdb7;
 }
 
 .single-price.price-two .plan-name {
@@ -2087,7 +2087,7 @@ span.stButton_gradient,
 }
 
 .price-one .plan-price:after {
-  border-color: #0d6fb1 transparent transparent;
+  border-color: #1fbdb7 transparent transparent;
 }
 
 .price-two .plan-price:after {
@@ -2129,7 +2129,7 @@ span.stButton_gradient,
 }
 
 .price-one .btn-buynow  {
-  background-color: #0d6fb1;
+  background-color: #1fbdb7;
 }
 
 .price-two .btn-buynow  {
@@ -2145,7 +2145,10 @@ span.stButton_gradient,
 }
 
 .price-one .btn-buynow:hover  {
-  background-color: #0a5a90;
+  background: #1fbdb7;
+  -webkit-box-shadow: 0 14px 26px -12px rgba(31, 189, 183, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(31, 189, 183, 0.2);
+  box-shadow: 0 14px 26px -12px rgba(31, 189, 183, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(31, 189, 183, 0.2);
+  border: 1px solid #1fbdb7;
 }
 
 .price-two .btn-buynow:hover  {
