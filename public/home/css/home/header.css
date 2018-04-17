@@ -78,7 +78,21 @@
     display: none;
     width: 100%;
 }
+.register-form-step-plan {
+    display: none;
+    width: 100%;
+}
+.register-form-step-payment {
+    display: none;
+    width: 100%;
+}
 .register-form-step.active{
+    display: block;
+}
+.register-form-step-plan.active{
+    display: block;
+}
+.register-form-step-payment.active{
     display: block;
 }
 

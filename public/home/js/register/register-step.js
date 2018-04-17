@@ -3,23 +3,59 @@
  */
 
 $(function() {
-  console.log("Se CARGA PRIEMRO");
-    $('.register-form-next').prop('disabled',false);
-    this.activeStepIndex = 0;
-  addListeners();
-
+    console.log("Se CARGA PRIEMRO");
 });
 
-var addListeners = function() {
-    $('.register-form-next').prop('disabled',false);
-};
+/*function checkForm()
+{
+    var elements = document.forms[0].elements;
+    console.log('TEST' + elements.length);
+    var cansubmit= true;
+    for(var i = 0; i < elements.length; i++)
+    {
+        if(elements[i].value.length == 0 && elements[i].type != "button")
+        {
+            cansubmit = false;
+        }
 
-var b_register_step = $('.register-form-next');
+    }
+
+    document.getElementById("btn-register-account").disabled = !cansubmit;
+};
+*/
+
+var b_register_step = $('#btn-register-account');
+
+var b_register_step_payment_free = $('#btn-register-payment-free');
+var b_register_step_payment_all = $('#btn-register-payment-all');
+
+var header_nav_account = $('.site-color-account');
+var header_nav_plan = $('.site-color-plan');
+
+header_nav_account.on("click", function () {
+    $('.register-form-nav li.site-color-account, .register-form-step').addClass('active');
+    $('.register-form-nav li.site-color-plan, .register-form-step-plan').removeClass('active');
+    $('.register-form-nav li.site-color-payment, .register-form-step-payment').removeClass('active');
+});
+header_nav_plan.on("click", function () {
+    $('.register-form-nav li.site-color-account, .register-form-step').removeClass('active');
+    $('.register-form-nav li.site-color-payment, .register-form-step-payment').removeClass('active');
+    $('.register-form-nav li.site-color-plan, .register-form-step-plan').addClass('active');
+});
 
 b_register_step.on("click", function () {
-    console.log("Entra al validation");
+    //document.getElementById("register-form-galda").submit();
+    $('.register-form-nav li.site-color-account, .register-form-step').removeClass('active');
+    $('.register-form-nav li.site-color-plan, .register-form-step-plan').addClass('active');
+    $( "#btn-nav-plan" ).prop( "disabled", false );
+});
 
-    $('.register-form-nav li, .register-form-step').removeClass('active');
-    $('.register-form-navigation li').eq(this.activeStepIndex).addClass('active');
-    $('.register-form-step').eq(this.activeStepIndex).addClass('active');
+b_register_step_payment_free.on("click", function () {
+    //document.getElementById("register-form-galda").submit();
+    $('.register-form-nav li.site-color-plan, .register-form-step-plan').removeClass('active');
+    $('.register-form-nav li.site-color-payment, .register-form-step-payment').addClass('active');
+});
+
+b_register_step_payment_all.on("click", function () {
+    document.getElementById("register-form-galda").submit();
 });

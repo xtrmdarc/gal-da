@@ -7,16 +7,44 @@
                     <div class="auth-content card-auth">
                         <div class="login-form-auth">
                             <h4>Register</h4>
-                            <form method="POST" action="{{ route('register') }}">
-                                @csrf
                                 <div class="form-group">
-                                    <label>User Name</label>
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="User Name">
+                                    <label>Name of Business</label>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name_business') ? ' is-invalid' : '' }}" name="name_business" value="{{ old('name_business') }}" required autofocus placeholder="Nombre del Negocio">
+
+                                    @if ($errors->has('name_business'))
+                                        <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('name_business') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Name">
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('lastname') }}" required autofocus placeholder="Last Name">
+
+                                    @if ($errors->has('lastname'))
+                                        <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('lastname') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Phone">
+
+                                    @if ($errors->has('phone'))
+                                        <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('phone') }}</strong>
+                                                </span>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -54,14 +82,13 @@
                                     </label>
                                 </div>
 
-                                <button type="button" class="register-form-next btn btn-primary btn-flat m-b-30 m-t-30" disabled>
+                                <button type="button" id="btn-register-account" class="btn btn-primary btn-flat m-b-30 m-t-30" >
                                     Siguiente
                                 </button>
 
                                 <div class="register-link-auth m-t-15 text-center">
                                     <p>Already have account ? <a href="{{ route('login') }}"> Sign in</a></p>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,12 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::post('register', 'Web\AuthController@store')->name('web.auth.register.store');
+
+Route::get('verifyEmailFirst', 'Web\AuthController@verifyEmailFirst')->name('verifyEmailFirst');
+Route::get('verify/{email}/{verifyToken}', 'Web\AuthController@sendEmailDone')->name('sendEmailDone');
+
+
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
