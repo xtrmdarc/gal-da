@@ -10,6 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Includes de rutas por módulo
+    include 'areaprod/areaprod_routes.php';
+    include 'caja/cajas_routes.php';
+    include 'cliente/cliente_routes.php';
+    include 'compras/compras_routes.php';
+    include 'config/config_routes.php';
+    include 'creditos/creditos_routes.php';
+    include 'informes/compras_routes.php';
+    include 'informes/finanzas_routes.php';
+    include 'informes/inventario_routes.php';
+    include 'informes/ventas_routes.php';
+    include 'informes/informes_routes.php';
+    include 'inicio/inicio_routes.php';
+    include 'proveedor/proveedor_routes.php';
+    include 'tablero/tablero_routes.php';
+
+//
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
