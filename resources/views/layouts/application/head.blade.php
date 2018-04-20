@@ -4,6 +4,7 @@
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
             <!-- Logo -->
             <div class="navbar-header">
+               
                 <a class="navbar-brand" href="index.html">
                     <!-- Logo icon -->
                     <b><img src="{{ URL::to('application/images/logo.png') }}" alt="homepage" class="dark-logo" /></b>
@@ -11,16 +12,26 @@
                     <!-- Logo text -->
                     <span><img src="{{ URL::to('application/images/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>
                 </a>
+               
             </div>
             <!-- End Logo -->
+            
             <div class="navbar-collapse">
                 <!-- toggle and nav items -->
                 <ul class="navbar-nav mr-auto mt-md-0">
                     <!-- This is  -->
                     <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
                     <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    <li class="nav-item" >
+                        {{Breadcrumbs::render($breadcrumb)}}
+                    </li>
+                    <li class="nav-item"><h1  id="clock" class="nav-link" > </h1>  </li>
+                  
                     <!-- Messages -->
-
+                    
+                    @php
+                    
+                    /*
                     <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th-large"></i></a>
                         <div class="dropdown-menu animated zoomIn">
                             <ul class="mega-dropdown-menu row">
@@ -76,7 +87,8 @@
                             </ul>
                         </div>
                     </li>
-                    BIENVENIDO {{ Auth::user()->name }}
+                    */
+                    @endphp
                     <!-- End Messages -->
                 </ul>
                 <!-- User profile and search -->
@@ -207,4 +219,27 @@
         </nav>
 
 </div>
+<script>
+    var now = new Date(<?php echo time() * 1000 ?>);
+    //var df = new SimpleDateFormat("HH:mm:ss");
+    function startInterval(){  
+        setInterval('updateTime();', 1000); 
+       
+    }
+    
+    startInterval();//start it right away
+    function updateTime(){
+        var nowMS = now.getTime();
+        nowMS += 1000;
+        now.setTime(nowMS);
+        var clock = document.getElementById('clock');
+        if(clock){
+            clock.innerHTML = now.getHours() + ":" + now.getMinutes()+ ":"+now.getSeconds();
+            //clock.innerHTML = 'hola';
+        }
+        //console.log('entro update');
+    } 
+    //console.log('llega aca');
+   
+</script>
 <!-- End header header -->

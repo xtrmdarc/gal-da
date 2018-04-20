@@ -9,17 +9,39 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
+    
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
     <title>Ela - Bootstrap Admin Dashboard Template</title>
-
+    
+    
+    <link href="{{ URL::to('rest/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('rest/css/plugins/iCheck/skins/all.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('rest/css/plugins/select/bootstrap-select.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('application/css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('application/css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet" />
     <!-- Bootstrap Core CSS -->
+    <link href="{{ URL::to('rest/css/plugins/dataTables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    
     <link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/style.css') }}" rel="stylesheet">
+    
+    
+    
+    
+    <!-- Custom REST CSS -->
+    
+    
+    <!-- Custom PATCH CSS -->
+    
+    
+    <script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>
+    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
 </head>
@@ -42,7 +64,7 @@
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
-<script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script>
+@php /* <script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script> */@endphp
 <!-- Bootstrap tether Core JavaScript -->
 <script src="{{ URL::to('application/js/lib/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -61,7 +83,7 @@
 
 <script src="{{ URL::to('application/js/lib/weather/jquery.simpleWeather.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/weather/weather-init.js') }}"></script>
-<script src="{{ URL::to('application/js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
+
 <script src="{{ URL::to('application/js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
 
 
@@ -70,6 +92,39 @@
 <script src="{{ URL::to('application/js/lib/chartist/chartist-init.js') }}"></script>
 <!--Custom JavaScript -->
 <script src="{{ URL::to('application/js/custom.min.js') }}"></script>
+
+<script src="{{ URL::to('rest/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+<!-- Custom and plugin javascript -->
+<script src="{{ URL::to('rest/js/inspinia.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/pace/pace.min.js') }}"></script>
+<!-- Chosen -->
+<script src="{{ URL::to('rest/js/plugins/chosen/chosen.jquery.js') }}"></script>
+<!-- DatePicker -->
+<script src="{{ URL::to('rest/js/plugins/datepicker/bootstrap-datepicker.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ URL::to('rest/js/plugins/select/bootstrap-select.min.js') }}"></script>
+<!-- Jquery Validate -->
+<script src="{{ URL::to('rest/js/plugins/formvalidation/formValidation.min.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/formvalidation/framework/bootstrap.min.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ URL::to('rest/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- TouchSpin -->
+<script src="{{ URL::to('rest/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+<!-- Toastr script -->
+<script src="{{ URL::to('rest/js/plugins/toastr/toastr.min.js') }}"></script>
+<!-- Moment script -->
+<script src="{{ URL::to('rest/js/plugins/moment/moment.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/moment/moment-with-locales.js') }}"></script>
+<!-- Input Mask-->
+<script src="{{ URL::to('rest/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
+<!-- Datatable -->
+<script src="{{ URL::to('rest/js/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/dataTables/dataTables.bootstrap.min.js') }}"></script>
+<!-- DataTimePicker -->
+<script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
 
 </body>
 
