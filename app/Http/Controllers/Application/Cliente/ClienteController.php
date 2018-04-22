@@ -10,6 +10,10 @@ use App\Models\TmCliente;
 class ClienteController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         
         $clientes = DB::table('v_clientes')->Where('id_cliente','<>','1')

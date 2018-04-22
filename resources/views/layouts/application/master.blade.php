@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    
+
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
     <title>Ela - Bootstrap Admin Dashboard Template</title>
-    
-    
+
+
     <link href="{{ URL::to('rest/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::to('rest/css/plugins/iCheck/skins/all.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('rest/css/plugins/select/bootstrap-select.css') }}" rel="stylesheet">
@@ -23,24 +23,26 @@
     <link href="{{ URL::to('application/css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet" />
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::to('rest/css/plugins/dataTables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    
+
     <link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/style.css') }}" rel="stylesheet">
-    
-    
-    
-    
+    <link href="{{ URL::to('rest/js/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('rest/css/plugins/datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+
+    <link href="{{ URL::to('rest/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+
+
     <!-- Custom REST CSS -->
-    
-    
+
+
     <!-- Custom PATCH CSS -->
-    
-    
+
+
     <script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>
-    
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
@@ -56,16 +58,16 @@
 <div id="main-wrapper">
     <!-- header header  -->
 
-        @include('layouts.application.head')
-        @include('layouts.application.sidebar')
-        @yield('content')
-        @include('layouts.application.footer')
+    @include('layouts.application.head')
+    @include('layouts.application.sidebar')
+    @yield('content')
+    @include('layouts.application.footer')
 
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
 @php /* <script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script> */@endphp
-<!-- Bootstrap tether Core JavaScript -->
+        <!-- Bootstrap tether Core JavaScript -->
 <script src="{{ URL::to('application/js/lib/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- slimscrollbar scrollbar JavaScript -->

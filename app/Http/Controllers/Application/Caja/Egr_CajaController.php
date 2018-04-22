@@ -13,6 +13,10 @@ class Egr_CajaController extends Controller
 {
     //
       //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
       public function index(){
         
         date_default_timezone_set('America/Lima');

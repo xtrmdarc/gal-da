@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 class InformesController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {   
         $data = [

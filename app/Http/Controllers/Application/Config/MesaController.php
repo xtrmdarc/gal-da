@@ -11,6 +11,10 @@ use App\Models\TmMesa;
 class MesaController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $data = [

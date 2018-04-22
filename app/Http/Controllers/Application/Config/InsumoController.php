@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 class InsumoController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //ComboCatg
@@ -23,7 +27,7 @@ class InsumoController extends Controller
             'breadcrumb' => 'config.Insumos'
         ];
 
-        return view('contents.appliaction.config.rest.insumo',$viewdata)->with($data);
+        return view('contents.application.config.rest.insumo',$viewdata)->with($data);
     }
     public function ListaCatgs()
     {
