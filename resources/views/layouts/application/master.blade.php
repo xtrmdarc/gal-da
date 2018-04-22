@@ -29,8 +29,10 @@
     <!-- Custom CSS -->
     <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('rest/js/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::to('rest/css/plugins/datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     
-    
+    <link href="{{ URL::to('rest/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
     
     
     <!-- Custom REST CSS -->
