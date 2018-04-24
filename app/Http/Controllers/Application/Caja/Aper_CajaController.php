@@ -50,7 +50,7 @@ class Aper_CajaController extends Controller
         
     }
 
-    public function Guardar(){
+    public function Guardar(Request $request){
         
        /* $alm = new Caja();
         $alm->__SET('cod_apc', $_REQUEST['cod_apc']);
@@ -64,11 +64,11 @@ class Aper_CajaController extends Controller
         try{
 
             $data = $request->all();
-            $data['fecha_cierre'] = date('Y-m-d H:i:s',strtotime($data['fecha_cierre']));
+            
     
-            if($data['cod_apc'] != ''){
-    
-                $row = $this->model->Actualizar($alm);
+            if( isset($data['cod_apc'])  ){
+                $data['fecha_cierre'] = date('Y-m-d H:i:s',strtotime($data['fecha_cierre']));
+                //$row = $this->model->Actualizar($alm);
                 $arrayParam =  array(
                     ':flag' => 1,
                     ':idApc' => $data['cod_apc'],
@@ -86,7 +86,7 @@ class Aper_CajaController extends Controller
                if ($row->dup == 1){
                     session(['apertura'=> 0]);
                     //header('Location: lista_caja_aper.php?m=c');
-                    header('Location: /');
+                    header('Location: /caja/aper');
                } else {
                     //header('Location: lista_caja_aper.php?m=d');
                }
@@ -124,9 +124,9 @@ class Aper_CajaController extends Controller
                     //$_SESSION["id_apc"] = $row['cod'];
                     session(['id_apc'=>$row->cod]);
                     //header('Location: lista_caja_aper.php?m=n');
-                    header('Location: /');
+                    header('Location: /caja/aper');
                }else {
-                    header('Location: lista_caja_aper.php?m=d');
+                    header('Location: /caja/aper?m=d');
                }
             }
 

@@ -7,7 +7,7 @@ Route::prefix('caja')->group(function(){
         Route::post('datos','Application\Caja\Aper_CajaController@datos');
         Route::post('montoSis','Application\Caja\Aper_CajaController@montoSis');
         Route::post('MontoSisDet','Application\Caja\Aper_CajaController@montoSisDet');
-        Route::get('Guardar','Application\Caja\Aper_CajaController@Guardar');
+        Route::post('Guardar','Application\Caja\Aper_CajaController@Guardar')->name('apercaja.guardar');
 
     });
     Route::prefix('egr')->group(function(){

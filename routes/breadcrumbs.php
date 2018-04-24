@@ -40,7 +40,7 @@
 
     Breadcrumbs::register('eproveedor', function ($breadcrumbs) {
         $breadcrumbs->parent('inicio');
-        $breadcrumbs->push('Editar Proveedor', route('EditarProveedor'));
+        $breadcrumbs->push('Editar Proveedor');
     });
 
     Breadcrumbs::register('clientes', function ($breadcrumbs) {
