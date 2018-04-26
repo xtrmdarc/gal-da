@@ -366,7 +366,7 @@ class InicioController extends Controller
                 $id_usu = session('id_usu');
                 $id_apc = session('id_apc');
                 $igv = session('igv');
-                
+                if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
                 $arrayParam = array(
                     1,
                     $data['tipo_pedido'],
@@ -384,7 +384,7 @@ class InicioController extends Controller
                     $fecha
                     );
                 $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
-                
+                //dd($arrayParam);
                 //$st = $this->conexionn->prepare($consulta);
                 //$st->execute($arrayParam);
 

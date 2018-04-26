@@ -41,7 +41,7 @@ class VentasController extends Controller
             array($ifecha,$ffecha,$post['tped'],$post['tdoc'],$post['icaja'],$post['cliente']));
         foreach($stm as $k => $d)
         {
-            $stm[$k]->Cliente = $this->conexionn->query("SELECT nombre FROM v_clientes WHERE id_cliente = ".$d->id_cli)[0];
+            $stm[$k]->Cliente = DB::select("SELECT nombre FROM v_clientes WHERE id_cliente = ?",[$d->id_cli])[0];
         }
         $data = array("data" => $stm);
         $json = json_encode($data);
