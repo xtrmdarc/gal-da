@@ -69,6 +69,7 @@ class OtrosController extends Controller
             $sql = DB::Select("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
             //return view('contents.config.sist.tipo_doc');
         }
+        return back();
     }
 
     public function GuardarDE(Request $request){
@@ -103,7 +104,8 @@ class OtrosController extends Controller
                         moneda = ?
 				    WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$logo,$igv,$moneda,$id]);
 
-            return redirect()->route('config.DatosEmpresa');
+            //return redirect()->route('config.DatosEmpresa');
+            return redirect('/ajustesDatosEmpresa');
         }
     }
 

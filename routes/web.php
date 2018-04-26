@@ -39,5 +39,5 @@ Route::get('/','Web\HomeController@welcome_main')->name('welcome');
 /**********************************  APPLICATION  **********************************/
 
 //Route::get('/dashboard','Application\AHomeController@index')->name('Aindex');
-Route::get('/dashboard','Application\AHomeController@index')->name('Aindex');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/dashboard','Application\AHomeController@index')->name('Aindex');
+

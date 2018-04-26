@@ -32,7 +32,7 @@ class EgresosCajaController extends Controller
 
         foreach($stm as $k => $d)
         {
-            $stm[$k]->Caja = $this->conexionn->query("SELECT desc_caja FROM v_caja_aper WHERE id_apc = ".$d->id_apc)[0];
+            $stm[$k]->Caja = DB::Select("SELECT desc_caja FROM v_caja_aper WHERE id_apc = ".$d->id_apc)[0];
         }
         $data = array("data" => $stm);
         $json = json_encode($data);

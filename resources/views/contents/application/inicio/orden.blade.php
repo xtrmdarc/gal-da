@@ -78,7 +78,7 @@
                         </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
             <ul class="nav nav-tabs" id="list-catgrs"></ul>
             <div class="tab-content" style="padding: 8px !important">
@@ -215,7 +215,7 @@
                                     <div class="form-group">
                                         <label>Cliente</label>
                                         <div class="input-group">
-                                            <span class="input-group-btn">    
+                                            <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" onclick="nuevoCliente();"><i class="fa fa-plus"></i></button>
                                             </span>
                                             <input type="hidden" name="cliente_id" id="cliente_id" value="1"/>
@@ -237,7 +237,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="sortable-list agile-list">
@@ -493,7 +493,7 @@
     </div>
 
     <script id="pedido-detalle-template" type="text/x-jsrender" src="">
-    
+
     <li class="list-group-item" style="background: #666666;color: #ffffff; border-radius: 0px; border: 0px; border-top: 1px solid #e7eaec;">
         <div class="row">
             <div class="col-xs-12 text-left">
@@ -522,7 +522,7 @@
                     <input type="text" name="comentario" class="form-control" value="[%:comentario%]" placeholder="Agrega un comentario aqu&iacute;..." onchange="pedido.actualizar([%:id%], this);"/>
                 </div>
             </div>
-        </div> 
+        </div>
     </li>
     [%else%]
     <li class="text-center list-group-item" style="border-radius: 0px; border: 0px; border-top: 1px solid #e7eaec;">No se han agregado productos al detalle</li>

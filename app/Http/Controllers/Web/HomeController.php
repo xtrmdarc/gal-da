@@ -25,6 +25,8 @@ class HomeController extends Controller
      */
     public function welcome_main()
     {
+        //$user = WebAuth::getLoggedInUser();
+
         return view('contents.home.welcome_main');
     }
 

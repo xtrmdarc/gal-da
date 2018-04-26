@@ -72,7 +72,7 @@ class InicioController extends Controller
             //$consulta = "SELECT count(*) AS total FROM tm_pedido WHERE id_pedido = :id_pedido AND estado = 'a'";
             
             $result  = DB::select("SELECT count(*) AS total FROM tm_pedido WHERE id_pedido = ? AND estado = 'a'",[$cod]);
-            
+
             /*while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $valor = $row['total'];
             }*/ 
@@ -176,7 +176,7 @@ class InicioController extends Controller
     }
 
     public function ValidarEstadoPedido($cod){
-        
+
         //$val = $this->model->ValidarEstadoPedido($_REQUEST['Cod']);
         $val = self::ValidarEstadoP($cod);
         $data = [

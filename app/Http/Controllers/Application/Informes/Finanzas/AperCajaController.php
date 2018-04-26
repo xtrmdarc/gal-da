@@ -42,12 +42,17 @@ class AperCajaController extends Controller
 
         $fecha_ape = date('Y-m-d H:i:s',strtotime($post['fecha_ape']));
         $fecha_cie = date("Y-m-d H:i:s");
-        $stm = DB::Select("SELECT IFNULL(SUM(IF(id_tpag = 1,pago_efe,pago_efe)),0) AS total_i FROM v_ventas_con WHERE estado <> 'i' AND (fec_ven >= ? AND fec_ven <= ?) AND id_apc = ?",
-            array($fecha_ape,$fecha_cie,$post['cod_apc']));
-        //Corregir aqui :,v
-        $stm->Datos = DB::Select("SELECT * FROM v_caja_aper WHERE id_apc =".$post['cod_apc'])[0];
-        $stm->Ingresos = DB::Select("SELECT IFNULL(SUM(importe),0) AS total_i FROM tm_ingresos_adm WHERE (fecha_reg >= '{$fecha_ape}' AND fecha_reg <= '{$fecha_cie}') AND id_apc = {$post['cod_apc']} AND estado='a'")[0];
-        $stm->Gastos = DB::Select("SELECT IFNULL(SUM(importe),0) AS total_g FROM v_gastosadm WHERE estado='a' AND (fecha_re >= '{$fecha_ape}' AND fecha_re <= '{$fecha_cie}') AND id_apc = {$post['cod_apc']}")[0];
-        return $stm;
+        $arr = DB::select("SELECT IFNULL(SUM(IF(id_tpag = 1,pago_efe,pago_efe)),0) AS total_i FROM v_ventas_con WHERE (fec_ven >= ? AND fec_ven <= ?) AND id_apc = ? AND estado <> 'i'",[$fecha_ape,$fecha_cie,$post['cod_apc']])[0];
+
+        $arr->Datos = DB::select("SELECT * FROM v_caja_aper WHERE id_apc = ?",[$post['cod_apc']])[0];
+        //$arr->put('Datos',$datos);
+
+        $arr->Ingresos = DB::select("SELECT IFNULL(SUM(importe),0) AS total_i FROM tm_ingresos_adm WHERE (fecha_reg >= ? AND fecha_reg <= ? ) AND id_apc = ? AND estado='a'",[$fecha_ape,$fecha_cie,$post['cod_apc']])[0];
+        //$arr->put('Ingresos',$ingresos);
+
+        $arr->Gastos = DB::select("SELECT IFNULL(SUM(importe),0) AS total_g FROM v_gastosadm WHERE (fecha_re >= ? AND fecha_re <= ?) AND id_apc = ? AND estado='a'",[$fecha_ape,$fecha_cie,$post['cod_apc']])[0];
+        //$arr->put('Gastos',$gastos);
+
+        echo json_encode($arr);
     }
 }

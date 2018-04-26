@@ -51,7 +51,7 @@ class ComprasController extends Controller
 
         $cod = $post['cod'];
         $stm = DB::Select("SELECT cc.fecha,vc.desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE cc.id_credito like ? AND cc.estado = 'p'",
-            array($cod));
+            array($cod))[0];
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;
