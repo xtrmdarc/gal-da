@@ -2,7 +2,7 @@
 Route::prefix('/inicio')->group(function(){
     
     Route::get('/','Application\Inicio\InicioController@Index')->name('produccion');
-    Route::post('RegistrarMesa','Application\Inicio\InicioControlle@RMesa');
+    Route::post('RegistrarMesa','Application\Inicio\InicioController@RMesa');
     Route::get('PedidoMesa/{cod}', function($cod){
         session(['cod_tipe'=>1]);
         return App::call('App\Http\Controllers\Application\Inicio\InicioController@ValidarEstadoPedido', ['cod' => $cod]);

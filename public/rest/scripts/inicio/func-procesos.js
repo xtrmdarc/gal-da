@@ -745,7 +745,7 @@ var facturar = function(cod,tip){
 }
 
 $("#frm-facturar").submit(function(){
-
+    
     if($("#total").text() == '0.00'){
         toastr.warning('Advertencia, Seleccionar item de la lista.');
         return false;
@@ -789,7 +789,7 @@ $("#frm-facturar").submit(function(){
         venta.precProd = $("input[name='precProd[]']").map(function(){return $(this).val();}).get();
 
         var cod = $('#cod_pedido').val();
-
+       
         $.ajax({
             //dataType: 'JSON',
             type: 'POST',
@@ -801,7 +801,7 @@ $("#frm-facturar").submit(function(){
             data: venta,
             success: function (r) {
                 if(1 == $('#tipoEmision').val()){
-                    if(r) var ini = window.open('inicio.php','_self');
+                    if(r) var ini = window.open('/inicio');
                 } else if (2 == $('#tipoEmision').val()){
                     if(1 == $('#cod_tipe').val()){
                         if(r) var ini = window.open('pedido_mesa.php?Cod='+cod,'_self');

@@ -48,15 +48,17 @@ class InicioController extends Controller
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d H:i:s");
         $id_usu = session('id_usu');
+        $id_usu = 1;
         if(session('rol_usr') == 4){ $id_moso = $id_usu; } else { $id_moso = $data['cod_mozo']; };
-        $row = DB::select('call  usp_restRegMesa( ?, ?, ?, ?, ?, ?,?, ?',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario']]);
+        $row = DB::select('call  usp_restRegMesa( ?, ?, ?, ?, ?, ?,?, ?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario']])[0];
         //$row = "call usp_restRegMesa( :flag, :idMesa, :idTp, :idUsu, :idMoso, :fechaP, :nombC, :comen);";
-        dd($row);
-        if ($row['dup'] == 1){
+        
+        if ($row->dup == 1){
             //header('Location: pedido_mesa.php?Cod='.$row['cod']);
             
             session(['cod_tipe'=>1]);
-            ValidarEstadoPedido($row['cod']);
+            //ValidarEstadoPedido($row['cod']);
+            header('Location: /inicio/PedidoMesa/'.$row->cod);
         } else {
             //header('Location: inicio.php?Cod=d');
             //self::Index();
@@ -352,7 +354,7 @@ class InicioController extends Controller
 
     /*Realizar venta*/
     public function RegistrarVenta(Request $request){
-
+        
         $data = $request->all();
         if($data['cod_pedido'] != ''){
            
@@ -361,9 +363,10 @@ class InicioController extends Controller
                 date_default_timezone_set('America/Lima');
                 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 $fecha = date("Y-m-d H:i:s");
-                    $id_usu = session('id_usu');
-                    $id_apc = session('id_apc');
-                    $igv = session('igv');
+                $id_usu = session('id_usu');
+                $id_apc = session('id_apc');
+                $igv = session('igv');
+                
                 $arrayParam = array(
                     1,
                     $data['tipo_pedido'],
@@ -372,14 +375,14 @@ class InicioController extends Controller
                     $data['cliente_id'],
                     $data['tipo_pago'],
                     $data['tipo_doc'],
-                    $id_usu,
-                    $id_apc,
+                    1,
+                    1,
                     $data['pago_t'],
                     $data['m_desc'],
                     $igv,
                     $data['total_pedido'],
                     $fecha
-                );
+                    );
                 $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
                 
                 //$st = $this->conexionn->prepare($consulta);
@@ -391,10 +394,9 @@ class InicioController extends Controller
             */
 
                 foreach($st as $s){
-                    $cod = $s->$cod;
+                    $cod = $s->cod;
                 }
 
-                $this->conexionn = Database::Conectar();
 
                 $a = $data['idProd'];
                 $b = $data['cantProd'];
@@ -412,7 +414,7 @@ class InicioController extends Controller
                 
                 $arrayParam2 = array(
                     1,
-                    cod,
+                    $cod,
                     $data['cod_pedido'],
                     $fecha
                 );

@@ -103,7 +103,8 @@
     <div class="modal inmodal fade" id="mdl-facturar" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-            <form id="frm-facturar" method="post" enctype="multipart/form-data" class="frm-facturar">
+            <form id="frm-facturar" method="post" enctype="multipart/form-data" class="frm-facturar" >
+            @csrf
             <input type="hidden" name="cod_pedido" id="cod_pedido">
             <input type="hidden" name="tipoEmision" id="tipoEmision">
             <input type="hidden" name="totalPed" id="totalPed">
