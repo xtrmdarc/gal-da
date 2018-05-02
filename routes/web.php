@@ -18,21 +18,20 @@ include 'Web/auth.php';
 include 'Web/home.php';
 
 //Includes de rutas por m�dulo
-    include 'Application/areaprod/areaprod_routes.php';
-    include 'Application/caja/cajas_routes.php';
-    include 'Application/cliente/cliente_routes.php';
-    include 'Application/compras/compras_routes.php';
-    include 'Application/config/config_routes.php';
-    include 'Application/creditos/creditos_routes.php';
-    include 'Application/informes/compras_routes.php';
-    include 'Application/informes/finanzas_routes.php';
-    include 'Application/informes/inventario_routes.php';
-    include 'Application/informes/ventas_routes.php';
-    include 'Application/informes/informes_routes.php';
-    include 'Application/inicio/inicio_routes.php';
-    include 'Application/proveedor/proveedor_routes.php';
-    include 'Application/tablero/tablero_routes.php';
-    include 'askdl';
+include 'Application/areaprod/areaprod_routes.php';
+include 'Application/caja/cajas_routes.php';
+include 'Application/cliente/cliente_routes.php';
+include 'Application/compras/compras_routes.php';
+include 'Application/config/config_routes.php';
+include 'Application/creditos/creditos_routes.php';
+include 'Application/informes/compras_routes.php';
+include 'Application/informes/finanzas_routes.php';
+include 'Application/informes/inventario_routes.php';
+include 'Application/informes/ventas_routes.php';
+include 'Application/informes/informes_routes.php';
+include 'Application/inicio/inicio_routes.php';
+include 'Application/proveedor/proveedor_routes.php';
+include 'Application/tablero/tablero_routes.php';
 //
 
 Route::get('/','Web\HomeController@welcome_main')->name('welcome');
