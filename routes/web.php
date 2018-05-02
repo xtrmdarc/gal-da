@@ -24,7 +24,6 @@ include 'Application/cliente/cliente_routes.php';
 include 'Application/compras/compras_routes.php';
 include 'Application/config/config_routes.php';
 include 'Application/creditos/creditos_routes.php';
-Route::get('/testtest','Web\HomeController@welcome_main')->name('testtest');
 include 'Application/informes/compras_routes.php';
 include 'Application/informes/finanzas_routes.php';
 include 'Application/informes/inventario_routes.php';
