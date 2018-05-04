@@ -17,9 +17,13 @@ class AuthController extends Controller
         $post = $request->all();
 
         $user = User::create([
+            'id_areap' => '0',
+            'id_rol' => '1',
+            'estado' => 'a',
             'name_business' => $post['name_business'],
-            'name' => $post['name'],
-            'lastname' => $post['lastname'],
+            'nombres' => $post['name'],
+            'ape_paterno' => $post['lastname'],
+            'ape_materno' => $post['m_lastname'],
             'phone' => $post['phone'],
             'email' => $post['email'],
             'phone' => $post['phone'],

@@ -35,28 +35,28 @@
                                     <td>{{$user->ape_materno}}</td>
                                     <td style="text-align: center">
                                         @if($user->id_rol == 1)
-                                            <span class="label label-danger">{{$user->desc_r}}</span>
+                                            <span class="label label-danger"></span>
                                         @elseif($user->id_rol == 2)
-                                            <span class="label label-primary">{{$user->desc_r}}</span>
+                                            <span class="label label-primary"></span>
                                         @elseif($user->id_rol == 3)
-                                            <span class="label label-warning">{{$user->desc_r}}</span>
+                                            <span class="label label-warning"></span>
                                         @elseif($user->id_rol == 4)
-                                            <span class="label label-default">{{$user->desc_r}}</span>
+                                            <span class="label label-default"></span>
                                         @else
-                                            <span class="label label-success">{{$user->desc_r}}</span>
+                                            <span class="label label-success"></span>
                                         @endif
                                     </td>
                                     <td style="text-align: center">
                                         @if($user->estado == 'a')
-                                            <a onclick="estadoUsuario('.$user->id_usu.');"><span class="label label-primary">ACTIVO</span></a>
+                                            <a onclick="estadoUsuario('.$user->id.');"><span class="label label-primary">ACTIVO</span></a>
                                         @else if($user->estado == 'i')
-                                            <a onclick="estadoUsuario('.$user->id_usu.');"><span class="label label-danger">INACTIVO</span></a>
+                                            <a onclick="estadoUsuario('.$user->id.');"><span class="label label-danger">INACTIVO</span></a>
                                         @endif
                                     </td>
                                     <td style="text-align: right">
-                                        <a href="/ajustesRUsuario/{{$user->id_usu}}"
+                                        <a href="/ajustesRUsuario/{{$user->id}}"
                                         <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
-                                        <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
+                                        <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach

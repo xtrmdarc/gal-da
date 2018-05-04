@@ -5,63 +5,70 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-devider"></li>
-                <li class="nav-label"> Plan Free </li>
-                <li> <a class="has-arrow" href="/inicio" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hide-menu"> Pedidos <span class="label label-rouded label-primary pull-right">2</span></span></a>
-                    @php
-                    /*
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">Ecommerce </a></li>
-                        <li><a href="index1.html">Analytics </a></li>
-                    </ul>
-                    */
-                    @endphp
-                </li>
-                <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
-                <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
-                        <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
-                        <li><a href="{{route('egrcaja')}}">Egresos</a></li>
-                    </ul>
-                </li>
-                <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
-                <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
-                <li class="nav-devider"></li>
-                <li class="nav-label"> Restaurante </li>
-                <li> <a class="has-arrow" href="/inicio" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hide-menu"> Producción <span class="label label-rouded label-primary pull-right">2</span></span></a>
-                    @php
-                    /*
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">Ecommerce </a></li>
-                        <li><a href="index1.html">Analytics </a></li>
-                    </ul>
-                    */
-                    @endphp
-                </li>
-                <li class="nav-label"> Administración</li>
-                <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>
-                <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
-                        <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
-                        <li><a href="{{route('egrcaja')}}">Egresos</a></li>
-                    </ul>
-                </li>
-                <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
-                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="/compras"> Compras</a></li>
-                        <li><a href="/proveedores"> Proveedores </a></li>
-                    </ul>
-                </li>
-                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="/creditos"> Compras</a></li>
-                    </ul>
-                </li>
-                <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
-                <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
+                @if(Auth::user()->plan_id == '1')
+                    <li class="nav-devider"></li>
+                    <li class="nav-label"> Plan Free </li>
+                    <li> <a class="has-arrow" href="/inicio" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hide-menu"> Pedidos <span class="label label-rouded label-primary pull-right">2</span></span></a>
+                        @php
+                        /*
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="index.html">Ecommerce </a></li>
+                            <li><a href="index1.html">Analytics </a></li>
+                        </ul>
+                        */
+                        @endphp
+                    </li>
+                    <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
+                    <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
+                            <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
+                            <li><a href="{{route('egrcaja')}}">Egresos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                    <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
+                    <li class="nav-devider"></li>
+
+                    @else
+
+                    <li class="nav-label"> Restaurante </li>
+                    <li> <a class="has-arrow" href="/inicio" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hide-menu"> Producción <span class="label label-rouded label-primary pull-right">2</span></span></a>
+                        @php
+                        /*
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="index.html">Ecommerce </a></li>
+                            <li><a href="index1.html">Analytics </a></li>
+                        </ul>
+                        */
+                        @endphp
+                    </li>
+                    <li class="nav-label"> Administración</li>
+                    <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>
+                    <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
+                            <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
+                            <li><a href="{{route('egrcaja')}}">Egresos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="/compras"> Compras</a></li>
+                            <li><a href="/proveedores"> Proveedores </a></li>
+                        </ul>
+                    </li>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="/creditos"> Compras</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                    <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
+
+                @endif
+
                 @php
                 /*
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Bootstrap UI <span class="label label-rouded label-warning pull-right">6</span></span></a>
