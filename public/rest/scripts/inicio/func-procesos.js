@@ -10,12 +10,13 @@ $(function() {
         }
         yder=493;
     };
-    $('.scroll_izq').slimscroll({
+    /*$('.scroll_izq').slimscroll({
         height: yizq
     });
     $('.scroll_der').slimscroll({
         height: yder
     });
+    */
 });
 
 function numberFormat(numero){
@@ -804,11 +805,14 @@ $("#frm-facturar").submit(function(){
                     if(r) var ini = window.open('/inicio');
                 } else if (2 == $('#tipoEmision').val()){
                     if(1 == $('#cod_tipe').val()){
-                        if(r) var ini = window.open('pedido_mesa.php?Cod='+cod,'_self');
+                        //if(r) var ini = window.open('pedido_mesa.php?Cod='+cod,'_self');
+                        if(r) var ini = window.open('/inicio/PedidoMesa/'+cod,'_self');
                     } else if(2 == $('#cod_tipe').val()){
-                        if(r) var ini = window.open('pedido_mostrador.php?Cod='+cod,'_self');
+                        //if(r) var ini = window.open('pedido_mostrador.php?Cod='+cod,'_self');
+                        if(r) var ini = window.open('/inicio/PedidoMostrador/'+cod,'_self');
                     } else if(3 == $('#cod_tipe').val()){
-                        if(r) var ini = window.open('pedido_delivery.php?Cod='+cod,'_self');
+                        //if(r) var ini = window.open('pedido_delivery.php?Cod='+cod,'_self');
+                        if(r) var ini = window.open('/inicio/PedidoDelivery/'+cod,'_self');
                     }
                 }
             },

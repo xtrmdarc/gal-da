@@ -90,7 +90,7 @@ var listMostrador = function(){
                 if(item.estado == 'a'){
                     $('#list-mostrador')
                     .append(
-                        $('<a href="inicio/pedidoMostrador/'+item.id_pedido+'"/>')
+                        $('<a href="inicio/PedidoMostrador/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -102,15 +102,15 @@ var listMostrador = function(){
                             .append(
                                 $('<div class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
                                 .html('<i class="fa fa-clock-o"></i>&nbsp;'+moment(item.fecha_pedido).format('h:mm A'))
-                                )
+                                ) 
                             .append(
-                                $('<div class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
-                                .html('<div class="progress progress-striped active" style="margin-bottom: -20px;">'
-                                    +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-warning">'
+                                $('<div class="col-xs-3 col-sm-3 col-md-3 text-center"/>')
+                                .html('<div class="progress estado">'
+                                    +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-warning animated">'
                                     +'<span>Pedido abierto...</span></div></div>')
                                 )
                             .append(
-                                $('<div class="col-xs-6 col-sm-6 col-md-6"/>')
+                                $('<div class="col-xs-5 col-sm-5 col-md-5"/>')
                                 .html('<i class="fa fa-user"></i>&nbsp;'+item.nomb_cliente)
                                 )
                             .append(
@@ -138,8 +138,8 @@ var listMostrador = function(){
                                 )
                             .append(
                                 $('<div class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
-                                .html('<div class="progress progress-striped active" style="margin-bottom: -20px;">'
-                                    +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-primary">'
+                                .html('<div class="progress estado" >'
+                                    +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-primary animated ">'
                                     +'<span>Pagado y en espera...</span></div></div>')
                                 )
                             .append(
@@ -178,7 +178,7 @@ var listDelivery = function(){
                     
                     $('#list-preparacion')
                     .append(
-                        $('<a href="inicio/pedidoDelivery/'+item.id_pedido+'"/>')
+                        $('<a href="inicio/PedidoDelivery/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -254,9 +254,24 @@ var listDelivery = function(){
 /* Registrar mesa */
 var registrarMesa = function(cod_mesa,nro_mesa,desc_c){
     $('#cod_mesa').val(cod_mesa);
-    $("#mdl-mesa").modal('show');
+    $("#mdl-codigo").modal('show');
     $("#mtm").html('Mesa '+ nro_mesa);
     $("#mtp").html(desc_c);
+}
+
+
+$('.digito').click(function(event){
+    
+    $('#secret_screen').val(  $('#secret_screen').val() + $(event.target).text());
+
+});
+
+/* Registrar mesa con codigo */
+var registrarMesaCodigo = function(cod_mesa,nro_mesa,desc_c){
+    
+    $("#mdl-codigo").modal('show');
+    $("#mtmc").html('Mesa '+ nro_mesa);
+    $('#secret_screen').val('');
 }
 
 /* Combo mesa origen */

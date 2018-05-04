@@ -86,7 +86,7 @@ class InicioController extends Controller
     }
 
     /*Registrar mostrador*/
-    public function RMostrador(){
+    public function RegistrarMostrador(Request $request){
 
        
         try
@@ -98,26 +98,28 @@ class InicioController extends Controller
             $alm->__SET('comentario', $_REQUEST['comentario']);
             */
             
-            date_default_timezone_set('America/Lima');
+            
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             $id_usu = session('id_usu');
             $arrayParam =  array(
                  1,
                 2,
-                $id_usu,
+                1,
                  $fecha,
                  $data['nomb_cliente'],
-                 $data['comentario']
+                 $data['comentario']?:''
             );
 
-            $row = DB::select("call usp_restRegMostrador( ?,?,?,?,?,?)",$arrayParam);
+            $row = DB::select("call usp_restRegMostrador( ?,?,?,?,?,?)",$arrayParam)[0];
            
            /* $st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
             $row = $st->fetch(PDO::FETCH_ASSOC);
             return $row;*/
-            self::ValidarEstadoPedido($row->cod);
+
+            session(['cod_tipe'=>2]);
+            header('Location: /inicio/PedidoMostrador/'.$row->cod);
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -164,7 +166,12 @@ class InicioController extends Controller
             $st->execute($arrayParam);
             $row = $st->fetch(PDO::FETCH_ASSOC);*/
             //header('Location: pedido_delivery.php?Cod='.$row->cod);
-            self::ValidarEstadoPedido($row->cod);
+            
+            //self::ValidarEstadoPedido($row->cod);
+
+            session(['cod_tipe'=>3]);
+            header('Location: /inicio/PedidoDelivery/'.$row->cod);
+            
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -434,11 +441,33 @@ class InicioController extends Controller
 
     }
 
-    public function FinalizarPedido(){
-        $alm = new Pedido();
-        $alm->__SET('codPed',  $_REQUEST['codPed']);
-        $this->model->FinalizarPedido($alm);
-        header('Location: inicio.php');
+    public function FinalizarPedido(Request $request){
+        
+        try 
+        {
+            $data = $request->all();
+
+            /*$alm = new Pedido();
+            $alm->__SET('codPed',  $_REQUEST['codPed']);
+            */
+
+            $pedido = TmPedido::find($data['codPed']);
+            $pedido->estado = 'c';
+            $pedido ->save();
+            
+            /*$sql = "UPDATE tm_pedido SET estado = 'c' WHERE id_pedido = ?";
+            $this->conexionn->prepare($sql)->execute(array($data->__GET('codPed')));
+            $this->conexionn=null;
+            */
+        
+        } catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+        //$this->model->FinalizarPedido($alm);
+
+
+        header('Location: /inicio');
     }
 
     public function DatosGrles(Request $request)
@@ -833,6 +862,8 @@ class InicioController extends Controller
 
         //print_r(json_encode( $this->model->preCuenta($_POST)));
     }
-
+    
+    
+    
 
 }

@@ -35,21 +35,27 @@
                                 <div class="col-sm-12">
                                     <?php foreach($ListarMesa as $r): 
                                     if ($r->id_catg == $c->id_catg AND $r->estado == 'a') { ?>
+                                        {{session(['cod_tipe'=>1])}}
                                         
-                                        <a href="#" onclick="registrarMesa(<?php echo $r->id_mesa.',\''. $r->nro_mesa.'\',\''.$r->desc_m.'\''; ?>);">
-                                            <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button"><?php echo $r->nro_mesa ?></button>
-                                        </a>
-                                        
+                                        @if(1 == 2)
+                                            <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}" >
+                                                <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button"><?php echo $r->nro_mesa ?></button>
+                                            </a>
+                                        @else 
+                                            <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button" onclick="{{'registrarMesaCodigo('.$r->id_mesa.',\''.$r->nro_mesa.'\',\''.$r->desc_m.'\')'}}"><?php echo $r->nro_mesa ?></button>
+                                        @endif
+                                    
+
                                     <?php } elseif ($r->id_catg == $c->id_catg AND $r->estado == 'p') { ?>
                                         {{session(['cod_tipe'=>1])}}
-                                        <a href="{{'inicio/PedidoMesa/'.$r->id_pedido}}">
+                                        <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
                                             <button style="width: 122px" class="btn btn-info dim btn-large-dim" type="button"> <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                             </span></button>
                                         </a>
 
                                     <?php } elseif ($r->id_catg == $c->id_catg AND $r->estado == 'i') { ?>
                                         {{session(['cod_tipe'=>1])}}
-                                        <a href="{{'inicio/PedidoMesa/'.$r->id_pedido}}">
+                                        <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
                                             <button style="width: 122px" class="btn btn-danger dim btn-large-dim" type="button"> <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                             </span></button>
                                         </a>
@@ -80,10 +86,10 @@
                                 <div class="col-md-2" style="text-align: center;">
                                     <strong>HORA DE PEDIDO</strong>
                                 </div>
-                                <div class="col-md-2" style="text-align: center;">
+                                <div class="col-md-3" style="text-align: center;">
                                     <strong>ESTADO</strong>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <strong>CLIENTE</strong>
                                 </div>
                                 <div class="col-md-1">
@@ -217,7 +223,8 @@
 <div class="modal inmodal fade" id="mdl-mostrador" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-mostrador" method="post" enctype="multipart/form-data" action="?c=Inicio&a=RMostrador">
+        <form id="frm-mostrador" method="post" enctype="multipart/form-data" action="/inicio/RegistrarMostrador">
+        @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title">Nuevo Pedido</h4>
@@ -233,7 +240,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Comentario:</label>
-                            <textarea name="comentario" class="form-control" placeholder="Ingrese comentario" autocomplete="off" rows="5"> </textarea>
+                            <textarea name="comentario" class="form-control" placeholder="Ingrese comentario" autocomplete="off" rows="5" value=" "> </textarea>
                         </div>
                     </div>
                 </div>
@@ -353,7 +360,8 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h5 class="modal-title title-d" style="font-size: 18px"></h5>
             </div>
-            <form method="post" enctype="multipart/form-data" action="?c=Inicio&a=FinalizarPedido">
+            <form method="post" enctype="multipart/form-data" action="/inicio/FinalizarPedido">
+            @csrf
                 <input type="hidden" name="codPed" id="codPed" value=""/>
                 <div class="modal-body">
                     <div class="table-responsive">
@@ -386,6 +394,46 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+<!-- Modal Codigo Multimozo-->
+<div class="modal inmodal fade" id="mdl-codigo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <h5 class="modal-title title-d" id="mtmc"  style="font-size: 14px"></h4>
+        </div>
+        <div class="modal-body">
+            
+            <table id="digitador">
+                <tr>
+                    <th colspan="3" ><input id="secret_screen" type="password"  > </th>
+                </tr>
+                <tr>
+                    <td><button class="digito">7</button>  </td>
+                    <td><button class="digito">8</button>  </td>
+                    <td><button class="digito">9</button>  </td>
+                </tr>
+                <tr>
+                    <td><button class="digito">4</button>  </td>
+                    <td><button class="digito">5</button>  </td>
+                    <td><button class="digito">6</button>  </td>
+                </tr>
+                <tr>
+                    <td><button class="digito">1</button>  </td>
+                    <td><button class="digito">2</button>  </td>
+                    <td><button class="digito">3</button>  </td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
 </div>
 

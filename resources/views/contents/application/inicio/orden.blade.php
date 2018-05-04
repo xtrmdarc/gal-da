@@ -11,7 +11,7 @@
 
 
     <div class="row">
-        <div class="col-lg-5" >
+        <div class="col-lg-5" style="display:inline-block;" >
             <div class="mail-box-header title-pink">
                 <div class="pull-right mail-search btn-imp"></div>
                 <h2><i id="ico-ped"></i> <span class="mes_dg"></span></h2>
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 border-left" style="padding: 0px !important;">
+        <div class="col-lg-7 border-left" style="padding: 0px !important;display:inline-block;float:right;">
             <div class="ibox-content" style="background: #e5e5e5;  border-bottom: 1px solid #72be98;">
                 <div class="row">
                     <div class="col-sm-12">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <ul class="nav nav-tabs" id="list-catgrs"></ul>
+            <ul class="nav nav-tabs catg" id="list-catgrs"></ul>
             <div class="tab-content" style="padding: 8px !important">
                 <div id="tab-1" class="tab-pane active">
                     <div class="row scroll_der" id="list-prods">

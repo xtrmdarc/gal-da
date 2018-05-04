@@ -23,13 +23,14 @@ Route::prefix('/inicio')->group(function(){
     Route::post('CambiarMesa','Application\Inicio\InicioController@CambiarMesa');
     Route::post('ComboMesaOri','Application\Inicio\InicioController@ComboMesaOri');
     Route::post('ComboMesaDes','Application\Inicio\InicioController@ComboMesaDes');
+    Route::post('FinalizarPedido','Application\Inicio\InicioController@FinalizarPedido');
 
     Route::post('DetalleMostrador','Application\Inicio\InicioController@DetalleMostrador');
     Route::post('DetalleDelivery','Application\Inicio\InicioController@DetalleDelivery');
 
     
     Route::post('ListarDelivery','Application\Inicio\InicioController@ListarDelivery');
-    Route::get('pedidoDelivery/{cod}', function($cod){
+    Route::get('PedidoDelivery/{cod}', function($cod){
         session(['cod_tipe'=>3]);
         return App::call('App\Http\Controllers\Application\Inicio\InicioController@ValidarEstadoPedido', ['cod' => $cod]);
     });
@@ -37,10 +38,11 @@ Route::prefix('/inicio')->group(function(){
     
 
     Route::post('ListarMostrador','Application\Inicio\InicioController@ListarMostrador');
-    Route::get('pedidoMostrador/{cod}',  function($cod){
+    Route::get('PedidoMostrador/{cod}',  function($cod){
         session(['cod_tipe'=>2]);
         return App::call('App\Http\Controllers\Application\Inicio\InicioController@ValidarEstadoPedido', ['cod' => $cod]);
     });
+    Route::post('RegistrarMostrador','Application\Inicio\InicioController@RegistrarMostrador');
 
 });
 ?>
