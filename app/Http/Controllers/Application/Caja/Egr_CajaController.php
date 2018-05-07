@@ -19,7 +19,7 @@ class Egr_CajaController extends Controller
     }
       public function index(){
         
-        date_default_timezone_set('America/Lima');
+        //date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d");
         $gasto = DB::table('v_gastosadm')->whereDate('fecha_re',$fecha)

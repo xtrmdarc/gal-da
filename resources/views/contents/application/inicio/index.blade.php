@@ -37,10 +37,10 @@
                                     if ($r->id_catg == $c->id_catg AND $r->estado == 'a') { ?>
                                         {{session(['cod_tipe'=>1])}}
                                         
-                                        @if(1 == 2)
+                                        @if(1 == 1)
                                             <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}" >
                                                 <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button"><?php echo $r->nro_mesa ?></button>
-                                            </a>
+                                            </a>{{$r->id_pedido}}
                                         @else 
                                             <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button" onclick="{{'registrarMesaCodigo('.$r->id_mesa.',\''.$r->nro_mesa.'\',\''.$r->desc_m.'\')'}}"><?php echo $r->nro_mesa ?></button>
                                         @endif
@@ -175,7 +175,7 @@
 <div class="modal inmodal fade" id="mdl-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-mesa" method="post" enctype="multipart/form-data" action="inicio/RegistrarMesa">
+        <form id="frm-mesa" method="post" enctype="multipart/form-data" action="/inicio/RegistrarMesa">
         @csrf
         <input type="hidden" name="cod_mesa" id="cod_mesa">
             <div class="modal-header">
@@ -265,16 +265,39 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 ">
+                                <div class="form-group">
+                                    <label class="control-label">Tel&eacute;fono</label>
+                                    <div class="input-group">
+                                        <input type="text" name="telefCli" id="telefCli" class="form-control global_filter" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
+                                        <span class="input-group-btn">
+                                            <button id="btn_buscarCliente" class="btn btn btn-primary" type="button"> <i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label">Nombre Cliente</label>
                             <input type="text" name="nombCli" class="form-control" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <div class="form-group">
-                            <label class="control-label">Tel&eacute;fono</label>
-                            <input type="text" name="telefCli" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
+                            <label class="control-label">Apellido P.</label>
+                            <input type="text" name="appCli" class="form-control" placeholder="" autocomplete="off" required="required"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">Apellido M.</label>
+                            <input type="text" name="apmCli" class="form-control" placeholder="" autocomplete="off" required="required"/>
                         </div>
                     </div>
                     <div class="col-sm-12">

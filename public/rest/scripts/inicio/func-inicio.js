@@ -263,7 +263,6 @@ var registrarMesa = function(cod_mesa,nro_mesa,desc_c){
 $('.digito').click(function(event){
     
     $('#secret_screen').val(  $('#secret_screen').val() + $(event.target).text());
-
 });
 
 /* Registrar mesa con codigo */
@@ -295,9 +294,50 @@ var comboMesaOrigen = function(cod){
     });
 }
 
+$("#btn_buscarCliente").click(function(){
+   buscarCliente(); 
+   
+});
+
+$("#telefCli").keydown(function(e){
+    
+    if(e.keyCode == 13){
+        
+        buscarCliente();
+        e.preventDefault();
+        return false;
+    }
+    
+});
+
+var buscarCliente = function(){ 
+        $.ajax({
+        type: "POST",
+        url: "/inicio/BuscarClienteTelefono",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')    
+        },
+        data: {
+            telefono: $("input[name=telefCli]").val()
+        },
+        success: function(response){
+            
+            $("input[name=nombCli]").val(response.nombres);
+            $("input[name=appCli]").val(response.ape_paterno);
+            $("input[name=apmCli]").val(response.ape_materno);
+            $("input[name=direcCli]").val(response.direccion);
+
+        },
+        error: function(){
+            $('#co_mesa').html('There was an error!');
+        }
+    });
+};
+
+
 /* Combo mesa destino */
 var comboMesaDestino = function(cod){
-    //var cod = $('#co_salon').val();
+    var cod = $('#co_salon').val();
     $('#co_mesa').selectpicker('destroy');
     $.ajax({
         type: "POST",

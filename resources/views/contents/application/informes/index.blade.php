@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="page-wrapper">
-<div class="wrapper wrapper-content animated fadeIn">
-    <div class="ibox-content m-b-sm border-bottom">
+<div class="wrapper wrapper-content animated fadeIn ">
+    <div class="ibox-content m-b-sm border-bottom " style="margin-left:15px;">
         <div class="p-xs">
             <div class="pull-left m-r-md">
                 <i class="fa fa-list mid-icon"></i>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6 sides_padding15">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>Categor&iacute;as</h5>
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 " style="padding-left:15px">
             <div id="list_a">
                 <div class="panel panel-transparent panel-dashed text-center p-md">
                     <h2 class="m-t-none ich">Selecciona una categor&iacute;a</h2>

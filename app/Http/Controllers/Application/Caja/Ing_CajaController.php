@@ -15,7 +15,7 @@ class Ing_CajaController extends Controller
     }
     public function index(){
 
-        date_default_timezone_set('America/Lima');
+        //date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d");
         $lista1 = TmIngresosAdm::WhereDate('fecha_reg',$fecha)

@@ -24,6 +24,8 @@ Route::prefix('/inicio')->group(function(){
     Route::post('ComboMesaOri','Application\Inicio\InicioController@ComboMesaOri');
     Route::post('ComboMesaDes','Application\Inicio\InicioController@ComboMesaDes');
     Route::post('FinalizarPedido','Application\Inicio\InicioController@FinalizarPedido');
+    Route::post('Desocupar','Application\Inicio\InicioController@Desocupar');
+    Route::post('BuscarClienteTelefono','Application\Inicio\InicioController@BuscarClienteTelefono');
 
     Route::post('DetalleMostrador','Application\Inicio\InicioController@DetalleMostrador');
     Route::post('DetalleDelivery','Application\Inicio\InicioController@DetalleDelivery');

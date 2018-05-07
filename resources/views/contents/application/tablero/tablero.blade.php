@@ -12,9 +12,9 @@
 <input type="hidden" id="dia_a" value="<?php echo $fecha; ?>"/>
 
 <div class="wrapper wrapper-content animated fadeIn">
-    <div class="row">
+    <div class="row ">
             <meta name="csrf-token" content="{{ csrf_token() }}">
-        <div class="col-lg-12">
+        <div class="col-lg-12 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
@@ -32,11 +32,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content ">
                     <div class="p-w-md m-t-sm">
-                        <div class="row">
+                        <div class="row sides_padding15">
                             <div class="col-sm-8"> 
-                                <div class="row">
+                                <div class="row" >
                                     <div class="col-sm-4">
                                         <span class="stats-label text-navy">Ventas en efectivo</span>
                                         <h4 class="efe"></h4>
@@ -144,8 +144,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-3">
+    <div class="row" >
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span><i class="fa fa-money fa-2x pull-right"></i></span>
@@ -158,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span><i class="fa fa-paypal fa-2x pull-right"></i></span>
@@ -166,11 +166,11 @@
                 </div>
                 <div class="ibox-content">
                 <div class="row rco">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 sides_padding15">
                         <div class="font-bold text-default">Efectivo <span class="text-navy efe_p"></span></div>
                         <small><span class="efe"></span> - <span class="text-navy">100%</span></small>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 sides_padding15 ">
                         <div class="stat-percent font-bold text-default">Tarjeta <span class="text-navy tar_p"></span></div>
                         <small class="stat-percent"><span class="tar"></span> - <span class="text-navy">100%</span></small>
                     </div>
@@ -178,7 +178,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span><i class="fa fa-line-chart fa-1x pull-right"></i></span>
@@ -191,7 +191,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span><i class="fa fa-line-chart fa-1x pull-right"></i></span>
@@ -205,8 +205,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-3">
+    <div class="row ">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">RANKING DIARIO</span>
@@ -220,7 +220,7 @@
             </div>
         </div>
         
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-danger pull-right">ATENCI&Oacute;N</span>
@@ -241,7 +241,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">DIARIO</span>
@@ -254,7 +254,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right">DIARIO</span>
@@ -269,7 +269,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">TODOS LOS PRODUCTOS</span>
@@ -292,7 +292,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 sides_padding15">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-success pull-right">PLATOS PRINCIPALES</span>

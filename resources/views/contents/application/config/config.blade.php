@@ -5,7 +5,7 @@
 <div class="wrapper wrapper-content animated fadeIn ng-scope">
     
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 sides_padding15">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5><i class="fa fa-bitbucket"></i> Restaurante</h5>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 sides_padding15" >
             <div class="ibox">
                 <div class="ibox-title">
                     <h5><i class="fa fa-desktop"></i> Sistema</h5>

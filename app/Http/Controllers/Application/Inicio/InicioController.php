@@ -9,6 +9,7 @@ use App\Models\TmSalon;
 use App\Models\TmProductoCatg;
 use App\Models\TmPedido;
 use App\Models\TmMesa;
+use App\Models\TmCliente;
 
 
 class InicioController extends Controller
@@ -99,16 +100,17 @@ class InicioController extends Controller
             */
             
             
+            
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             $id_usu = session('id_usu');
             $arrayParam =  array(
-                 1,
-                2,
-                1,
-                 $fecha,
-                 $data['nomb_cliente'],
-                 $data['comentario']?:''
+                1,//id_flag
+                2,//id_tp
+                1,//id_usu
+                $fecha,
+                $data['nomb_cliente'],
+                $data['comentario']?:''
             );
 
             $row = DB::select("call usp_restRegMostrador( ?,?,?,?,?,?)",$arrayParam)[0];
@@ -145,22 +147,33 @@ class InicioController extends Controller
             $alm->__SET('direcCli', $_REQUEST['direcCli']);
             $alm->__SET('comentario', $_REQUEST['comentario']);
             */
-            date_default_timezone_set('America/Lima');
+            $cliente = TmCliente::firstOrNew(
+                ['telefono'=>$data['telefCli']],
+                [   'nombres'=>$data['nombCli'],
+                    'ape_paterno'=>$data['appCli'],
+                    'ape_materno'=>$data['apmCli'],
+                    'direccion'=>$data['direcCli']
+                ]
+            );
+            $cliente->save();
+            
+            //date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             $id_usu = session('id_usu');
             $arrayParam =  array(
                 1,
                 3,
-                $id_usu,
+                1,//id_usu
                 $fecha,
-                $data['nombCli'],
+                trim($data['nombCli']).trim($data['appCli']).trim($data['apmCli']),
                 $data['direcCli'],
                 $data['telefCli'],
-                $data['comentario']
+                $data['comentario'],
+                $cliente->id_cliente
             );
             //echo json_encode($arrayParam);
-            $row = DB::select('call usp_restRegDelivery( ?, ?, ?,?,?,?,?, ?)',$arrayParam)[0];
+            $row = DB::select('call usp_restRegDelivery( ?, ?, ?,?,?,?,?, ?,?)',$arrayParam)[0];
             //dd($row);
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
@@ -274,11 +287,11 @@ class InicioController extends Controller
                 //$sql = "UPDATE tm_pedido SET estado = 'i' WHERE id_pedido = ?";
                 //$this->conexionn->prepare($sql)->execute(array($data->__GET('cod_pede')));
                 TmPedido::where('id_pedido',$data['cod_pede'])
-                        ->update('estado','i');
+                        ->update(['estado'=>'i']);
 
             }
             
-           self::Index();
+           header('Location: /inicio');
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -454,7 +467,7 @@ class InicioController extends Controller
             $pedido = TmPedido::find($data['codPed']);
             $pedido->estado = 'c';
             $pedido ->save();
-            
+
             /*$sql = "UPDATE tm_pedido SET estado = 'c' WHERE id_pedido = ?";
             $this->conexionn->prepare($sql)->execute(array($data->__GET('codPed')));
             $this->conexionn=null;
@@ -864,6 +877,22 @@ class InicioController extends Controller
     }
     
     
+    public function BuscarClienteTelefono(Request $request){
+        
+        try
+        {
+            $data = $request->all();
+            $telefono = $data['telefono'];
+            
+            $cliente = TmCliente::firstOrNew(['telefono'=>$telefono]);
+
+            return response()->json($cliente);
+
+        }catch(Exception $e){
+            return false;   
+        }
+    }    
+
     
 
 }

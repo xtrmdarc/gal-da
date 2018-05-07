@@ -86,7 +86,7 @@
                     <div class="row scroll_der" id="list-prods">
                         <div class="panel panel-transparent text-center">
                             <div class="row">
-                                <div class="col-sm-8 col-sm-push-2">
+                                <div class="col-sm-8 col-sm-push-2" style="text-align: center;">
                                     <br><br><br>
                                     <i class="fa fa-long-arrow-up fa-3x"></i>
                                     <h2 class="ich m-t-none">Selecciona una Categor&iacute;a</h2>
