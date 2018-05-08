@@ -85,4 +85,12 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
     }
+
+    protected function attemptLogin(Request $request)
+    {
+
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
+    }
 }

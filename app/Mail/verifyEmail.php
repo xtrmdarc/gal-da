@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\TmUsuario;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -18,7 +19,7 @@ class verifyEmail extends Mailable
      * @return void
      */
     public $user;
-    public function __construct(User $user)
+    public function __construct(TmUsuario $user)
     {
         //
         $this->user = $user;

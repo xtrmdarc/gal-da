@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\TmUsuario;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\verifyEmail;
@@ -16,7 +18,7 @@ class AuthController extends Controller
     {
         $post = $request->all();
 
-        $user = User::create([
+        $user = TmUsuario::create([
             'id_areap' => '0',
             'id_rol' => '1',
             'estado' => 'a',
@@ -31,7 +33,7 @@ class AuthController extends Controller
             'password' => bcrypt($post['password']),
             'verifyToken' => Str::random(40),
         ]);
-        $thisUser = User::findOrFail($user->id);
+        $thisUser = TmUsuario::findOrFail($user->id_usu);
 
         $this->senEmail($thisUser);
         return redirect(route('verifyEmailFirst'));
@@ -49,10 +51,10 @@ class AuthController extends Controller
 
     public function sendEmailDone($email,$verifyToken)
     {
-        $user = User::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
+        $user = TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
 
         if($user) {
-            return User::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
+            return TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
         }else {
             dd('Usuario no existe');
         }

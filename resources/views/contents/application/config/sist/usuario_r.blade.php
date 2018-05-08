@@ -85,6 +85,15 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
+                                                <label class="control-label">Contrase&ntilde;a</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+                                                    <input type="password" name="contrasena" value="" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
                                                 <label class="control-label">Cargo</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-renren"></i></span>
@@ -136,15 +145,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label class="control-label">Contrase&ntilde;a</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-                                                    <input type="password" name="contrasena" value="" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -162,9 +162,9 @@
     </div>
 </div>
     <script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
-    <script src="{{URL::to('rest/scripts/js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
-    <script src="{{URL::to('rest/scripts/js/plugins/wizard/wizard.js' )}}"></script>
-    <script src="{{URL::to('rest/scripts/js/jquery.email-autocomplete.min.js' )}}"></script>
+    <script src="{{URL::to('rest/js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
+    <script src="{{URL::to('rest/js/plugins/wizard/wizard.js' )}}"></script>
+    <script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js' )}}"></script>
     <script type="text/javascript">
         $(function () {
             $("#email").emailautocomplete({

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Config;
 use App\Models\TmRol;
 use App\Models\TmAreaProd;
 use App\Models\TmUsuario;
+use App\Helpers\WebAuth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -18,16 +19,39 @@ class UsuarioController extends Controller
     }
     public function index()
     {
+        $user_plan = \Auth::user()->plan_id;
+        $user = \Auth::user()->parent_id;
+        $id_usu = \Auth::user()->id_usu;
+
         $viewdata = [];
-        $stm = DB::select("SELECT id_usu,id_rol,ape_paterno,ape_materno,nombres,desc_r,estado FROM v_usuarios");
-        $viewdata['users'] = $stm;
-        $viewdata['breadcrumb'] = '';
 
-        $data = [
-            'breadcrumb' => 'config.Usuarios'
-        ];
+        if($user_plan == 1) {
+            if(is_null($user)) {
+                $owner = $user;
+                $viewData['owner'] = $owner;
+                $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
+                    array($id_usu));
+                $viewdata['users'] = $subUsers;
+                $viewdata['breadcrumb'] = '';
+                $data = [
+                    'breadcrumb' => 'config.Usuarios'
+                ];
 
-        return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+                return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+            } else {
+                $owner = TmUsuario::where('id_usu', $user)->first();
+                $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
+                    array($user));
+                $viewData['owner'] = $owner;
+                $viewData['users'] = $subUsers;
+                $viewdata['breadcrumb'] = '';
+                $data = [
+                    'breadcrumb' => 'config.Usuarios'
+                ];
+
+                return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+            }
+        }
     }
 
     public function RegistrarUsuario()
@@ -45,6 +69,9 @@ class UsuarioController extends Controller
 
         $post = $request->all();
 
+        //SuperAdmin User
+        $parentId = \Auth::user()->id_usu;
+
         $flag = 1;
         $id_usu = $post['id_usu'];
         $imagen = $post['imagen'];
@@ -54,6 +81,7 @@ class UsuarioController extends Controller
         $ape_materno = $post['ape_materno'];
         $email = $post['email'];
         $id_rol = $post['id_rol'];
+        $plan_id = '1';
 
         $cod_area = $post['cod_area'];
         if($id_rol == '3'){
@@ -66,14 +94,15 @@ class UsuarioController extends Controller
         }
         $usuario = $post['usuario'];
         $contrasena = $post['contrasena'];
+        $contrasena_g = bcrypt($post['contrasena']);
 
         if($id_usu != ''){
-            $consulta = DB::select("call usp_configUsuario( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu);",
-            array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu));
+            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
+            array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));
             return redirect()->route('config.Usuarios');
         } else {
-            $consulta = DB::select("call usp_configUsuario( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, @a)"
-                ,array($flag, $id_rol, $cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen));
+            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, @a, :idParent, :plan_id, :password)"
+                ,array($flag, $id_rol, $cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$parentId,$plan_id,$contrasena_g));
             return redirect()->route('config.Usuarios');
         }
     }
