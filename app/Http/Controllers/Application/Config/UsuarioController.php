@@ -66,7 +66,7 @@ class UsuarioController extends Controller
     }
 
     public function RUUsuario(Request $request){
-
+        /*
         $post = $request->all();
 
         //SuperAdmin User
@@ -104,6 +104,67 @@ class UsuarioController extends Controller
             $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, @a, :idParent, :plan_id, :password)"
                 ,array($flag, $id_rol, $cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$parentId,$plan_id,$contrasena_g));
             return redirect()->route('config.Usuarios');
+        }
+        */
+
+        $post = $request->all();
+
+        //SuperAdmin User
+        $parentId = \Auth::user()->id_usu;
+        $name_business = \Auth::user()->name_business;
+        $planId_admin = \Auth::user()->plan_id;
+        $status_admin = \Auth::user()->status;
+
+        $flag = 1;
+        $id_usu = $post['id_usu'];
+        $imagen = $post['imagen'];
+        $dni = $post['dni'];
+        $nombres = $post['nombres'];
+        $ape_paterno = $post['ape_paterno'];
+        $ape_materno = $post['ape_materno'];
+        $email = $post['email'];
+        $id_rol = $post['id_rol'];
+        $plan_id = '1';
+
+        $cod_area = $post['cod_area'];
+        if($id_rol == '3'){
+            $cod_area = 1;
+        }
+        if($cod_area == null ){
+            $cod_area = 0;
+        }else {
+            $cod_area = 1;
+        }
+        $usuario = $post['usuario'];
+        $contrasena = $post['contrasena'];
+        $contrasena_g = bcrypt($post['contrasena']);
+
+        if($id_usu != ''){
+            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
+                array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));
+            return redirect()->route('config.Usuarios');
+        } else {
+
+            $user = TmUsuario::create([
+                'id_areap' => $cod_area,
+                'id_rol' => $post['id_rol'],
+                'dni' => $post['dni'],
+                'parent_id' => $parentId,
+                'estado' => 'a',
+                'name_business' => $name_business,
+                'nombres' => $post['nombres'],
+                'ape_paterno' => $post['ape_paterno'],
+                'ape_materno' => $post['ape_materno'],
+                'email' => $post['email'],
+                'plan_id' => $planId_admin,
+                'password' => bcrypt($post['contrasena']),
+                'verifyToken' => null,
+            ]);
+
+            if($user) {
+                $update_user =  TmUsuario::where(['email' => $email])->update(['status' => '1']);
+                return redirect()->route('config.Usuarios');
+            }
         }
     }
 

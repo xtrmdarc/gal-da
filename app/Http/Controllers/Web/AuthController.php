@@ -28,9 +28,9 @@ class AuthController extends Controller
             'ape_materno' => $post['m_lastname'],
             'phone' => $post['phone'],
             'email' => $post['email'],
-            'phone' => $post['phone'],
             'plan_id' => $post['plan_id'],
             'password' => bcrypt($post['password']),
+            'status' => '0',
             'verifyToken' => Str::random(40),
         ]);
         $thisUser = TmUsuario::findOrFail($user->id_usu);
