@@ -43,6 +43,8 @@
 
     <script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>
 
+    <!--Custom JavaScript -->
+    <script src="{{ URL::to('application/js/custom.min.js') }}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
@@ -59,9 +61,18 @@
     <!-- header header  -->
 
     @include('layouts.application.head')
-    @include('layouts.application.sidebar')
+    @if(Auth::user()->id_rol == 1 ||  Auth::user()->id_rol == 2 ) 
+        @include('layouts.application.sidebar')
+    @endif
+    
     @yield('content')
     @include('layouts.application.footer')
+    <!-- customiza patrones para los operativos!-->
+    @if(Auth::user()->id_rol == 3 ||  Auth::user()->id_rol == 4 ) 
+        <script>
+            NonSideBarCssStyles();
+        </script>
+    @endif
 
 </div>
 <!-- End Wrapper -->
@@ -92,8 +103,7 @@
 <script src="{{ URL::to('application/js/lib/chartist/chartist.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/chartist/chartist-plugin-tooltip.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/chartist/chartist-init.js') }}"></script>
-<!--Custom JavaScript -->
-<script src="{{ URL::to('application/js/custom.min.js') }}"></script>
+
 
 <script src="{{ URL::to('rest/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::to('rest/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>

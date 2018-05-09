@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/tablero';
+   //protected $redirectTo = '/tablero';
 
     /**
      * Create a new controller instance.
@@ -38,6 +38,35 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    protected function authenticated(Request $request, $user)
+    {
+        switch($user->id_rol)
+        {
+            //Administracion
+            case 1 : {
+                return redirect('/tablero');
+                break;
+            }
+            //Cajero
+            case 2 : {
+                return redirect('/inicio');
+                break;
+            }
+            //Produccion
+            case 3 :{
+                return redirect('/cocina');
+                break;
+            }
+            //Mozo
+            case 4 :{
+                return redirect('/inicio');
+                break;
+            }
+
+        }
+        
+        return redirect('/home');
+    }   
 
     protected function credentials(Request $request)
     {
