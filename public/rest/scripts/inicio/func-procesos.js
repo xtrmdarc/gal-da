@@ -165,12 +165,12 @@ var listarCategorias = function(){
             $.each(data, function(i, item) {
                 $('#list-catgrs')
                     .append(
-                    $('<li/>')
-                    .append(
-                        $('<a data-toggle="tab" href="#tab-1" onclick="listarProductos('+item.id_catg+');"/>')
-                        .html(item.descripcion)
-                    )
-                );
+                    $('<li class="col-sm-3" />')
+                        .append(
+                            $('<a data-toggle="tab" href="#tab-1" onclick="listarProductos('+item.id_catg+');"/>')
+                            .html(item.descripcion)
+                        )
+                    );
             });
         }
     });
