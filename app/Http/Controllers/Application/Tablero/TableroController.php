@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Tablero;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Application\AppController;
 
 class TableroController extends Controller
 {
@@ -15,6 +16,9 @@ class TableroController extends Controller
     }
     public function index(){
 
+        //Solo puede verlo el adminsitrador
+        AppController::RedirectSegunRol(1);
+        
         $data = [
 
             'breadcrumb'=> ''  
