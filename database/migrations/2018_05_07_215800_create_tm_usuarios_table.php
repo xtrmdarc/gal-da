@@ -33,6 +33,7 @@ class CreateTmUsuariosTable extends Migration
             $table->string('verifyToken')->nullable();
             $table->boolean('status')->default(0);
             $table->string('imagen')->nullable();
+            $table->integer('pin')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
