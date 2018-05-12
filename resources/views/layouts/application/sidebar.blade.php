@@ -6,6 +6,8 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 @if(Auth::user()->plan_id == '1')
+                    {{--/*PLAN FREE*/--}}
+
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Plan Free </li>
                         <li class="nav-devider"></li>
@@ -40,7 +42,9 @@
                             <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
                         @endif
                         <li class="nav-devider"></li>
-                        @else
+
+                    @else
+                    {{--/*PLAN LITE*/--}}
 
                         <li class="nav-label"> Restaurante </li>
                         <li> <a class="has-arrow" href="/inicio" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="hide-menu"> Producción <span class="label label-rouded label-primary pull-right">2</span></span></a>
@@ -70,8 +74,7 @@
                         <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
                 @endif
 
-                @php
-                /*
+                {{--/*
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Bootstrap UI <span class="label label-rouded label-warning pull-right">6</span></span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="ui-alert.html">Alert</a></li>
@@ -159,8 +162,7 @@
                         <li><a href="#">item 1.4</a></li>
                     </ul>
                 </li>
-                */
-                @endphp
+                */--}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

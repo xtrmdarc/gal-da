@@ -24,13 +24,16 @@ class CajaController extends Controller
 
     public function ListaCajas()
     {
-        $data = TmCaja::all();
+        $id_usu = \Auth::user()->id_usu;
+        $data = TmCaja::where('id_usu',$id_usu)->get();
         echo json_encode($data);
     }
 
     public function CrudCaja(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
+
         $cod = $post['cod_caja'];
         if($cod != ''){
             //Update
@@ -38,15 +41,16 @@ class CajaController extends Controller
             $nombre = $post['nomb_caja'];
             $estado = $post['estado_caja'];
             $idCaja = $post['cod_caja'];
-            $consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
-
+            //$consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
+            $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu)',array($flag, $nombre, $estado,$idCaja,$id_usu));
             return redirect('/ajustesCaja');
         }else {
             //Create
             $flag = 1;
             $nombre = $post['nomb_caja'];
             $estado = $post['estado_caja'];
-            $consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
+            //$consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
+            $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu)',array($flag, $nombre, $estado, $id_usu));
 
             return redirect('/ajustesCaja');
         }

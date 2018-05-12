@@ -45,7 +45,7 @@ class AppController extends Controller
 
         }
         
-        return redirect($home);
+        return redirect(self::$home);
         
     }
     public static function ValidarPermisos($roles){

@@ -18,14 +18,34 @@ class Aper_CajaController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        
-        //Query views
-        //$cajas = DB::table('v_caja_aper')->where('estado','<>','c')->get();   
-        $cajeros = TmUsuario::Where('estado','a')
-                            ->WhereIn('id_rol',array(1,2))->get();
-        
-        $cajas = TmCaja::Where('estado','a')->get();
-        
+
+        $id_usu = \Auth::user()->id_usu;
+        $id_parentId = \Auth::user()->parent_id;
+        $user_rol = \Auth::user()->id_rol;
+
+        if($user_rol == '1'){
+            //Query views
+            //$cajas = DB::table('v_caja_aper')->where('estado','<>','c')->get();
+            $cajeros = TmUsuario::Where('estado','a')
+                ->Where('parent_id',$id_usu)
+                ->WhereIn('id_rol',array(1,2))->get();
+
+            $cajas = TmCaja::Where('estado','a')
+                ->Where('id_usu',$id_usu)
+                ->get();
+        }else if($user_rol == '2'){
+            //Query views
+            //$cajas = DB::table('v_caja_aper')->where('estado','<>','c')->get();
+            $cajeros = TmUsuario::Where('estado','a')
+                ->Where('parent_id',$id_parentId)
+                ->WhereIn('id_rol',array(2))->get();
+
+            $cajas = TmCaja::Where('estado','a')
+                ->Where('id_usu',$id_parentId)
+                ->get();
+        }
+
+
         $turnos = TmTurno::all();
         $data =
             [
@@ -51,7 +71,10 @@ class Aper_CajaController extends Controller
     }
 
     public function Guardar(Request $request){
-        
+
+        $user_parentId = \Auth::user()->parent_id;
+        $user_rol = \Auth::user()->id_rol;
+
        /* $alm = new Caja();
         $alm->__SET('cod_apc', $_REQUEST['cod_apc']);
         $alm->__SET('id_usu', $_REQUEST['id_usu']);
@@ -103,10 +126,17 @@ class Aper_CajaController extends Controller
                     ':idCaja' => $data['id_caja'],
                     ':idTurno' => $data['id_turno'],
                     ':fechaA' =>  $fecha,
-                    ':montoA' => $data['monto']
+                    ':montoA' => $data['monto'],
+                    ':parentId' => $user_parentId
                 );
-                $row = DB::select("call usp_cajaAperturar( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA)",$arrayParam)[0];
-                
+                //$row = DB::select("call usp_cajaAperturar( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA)",$arrayParam)[0];
+
+                if($user_rol == '1'){
+                    $row = DB::select("call usp_cajaAperturar_g( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA, 'null')",$arrayParam)[0];
+                }else if($user_rol == '2'){
+                    $row = DB::select("call usp_cajaAperturar_g( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA, :parentId)",$arrayParam)[0];
+                }
+
                 /*$st = $this->conexionn->prepare($consulta);
                 $st->execute($arrayParam);
                 $row = $st->fetch(PDO::FETCH_ASSOC);

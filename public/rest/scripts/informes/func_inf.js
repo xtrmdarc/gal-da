@@ -2,6 +2,20 @@ $(function() {
 
 });
 
+$(".ventas_free").click(function() {
+	$('#list_a').empty();
+	$('#list_a').append(
+		$('<div class="panel panel-default panel-shadow animated flipInX"/>')
+			.append(
+			$('<div class="panel-body no-padding"/>')
+				.append(
+				$('<div class="list-group"/>')
+					.append('<a class="list-group-item" href="/informesVentasF">Todas las ventas</a>')
+			)
+		)
+	)
+});
+
 $(".ventas").click(function() {
 	$('#list_a').empty();
 	$('#list_a').append(
