@@ -27,7 +27,7 @@ class TmClientes extends Migration
     public function down()
     {
         //
-        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_Sucursal');});
+        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
     }
 }
 
