@@ -15,7 +15,7 @@ class TmClientes extends Migration
     {
         //
         Schema::table('tm_cliente', function (Blueprint $table) {
-            $table->string('id_Sucursal')->nullable();
+            $table->string('id_sucursal')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class TmClientes extends Migration
     public function down()
     {
         //
-        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('paid');});
+        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_Sucursal');});
     }
 }
 

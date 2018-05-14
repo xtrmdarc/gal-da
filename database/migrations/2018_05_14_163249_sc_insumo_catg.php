@@ -15,7 +15,7 @@ class ScInsumoCatg extends Migration
     {
         //
         Schema::table('tm_insumo_catg', function (Blueprint $table) {
-            $table->string('id_Sucursal')->nullable();
+            $table->string('id_sucursal')->nullable();
         });
     }
 
@@ -26,6 +26,7 @@ class ScInsumoCatg extends Migration
      */
     public function down()
     {
-        //Schema::table('tm_insumo_catg', function(Blueprint $table) {$table->dropColumn('paid');});
+        //
+        Schema::table('tm_insumo_catg', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
     }
 }

@@ -15,7 +15,7 @@ class ScProducto extends Migration
     {
         //
         Schema::table('tm_producto', function (Blueprint $table) {
-            $table->string('id_Sucursal')->nullable();
+            $table->string('id_sucursal')->nullable();
         });
     }
 
@@ -26,6 +26,7 @@ class ScProducto extends Migration
      */
     public function down()
     {
-        //Schema::table('tm_producto', function(Blueprint $table) {$table->dropColumn('paid');});
+        //
+        Schema::table('tm_producto', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
     }
 }

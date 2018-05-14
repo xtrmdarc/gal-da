@@ -14,6 +14,9 @@ class ScProveedor extends Migration
     public function up()
     {
         //
+        Schema::table('tm_proveedor', function (Blueprint $table) {
+            $table->string('id_sucursal')->nullable();
+        });
     }
 
     /**
@@ -24,5 +27,6 @@ class ScProveedor extends Migration
     public function down()
     {
         //
+        Schema::table('tm_proveedor', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
     }
 }
