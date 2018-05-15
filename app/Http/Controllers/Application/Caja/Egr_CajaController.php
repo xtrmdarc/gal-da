@@ -23,10 +23,11 @@ class Egr_CajaController extends Controller
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d");
         $gasto = DB::table('v_gastosadm')->whereDate('fecha_re',$fecha)
+                                ->Where('id_sucursal',session('id_sucursal'))
                                 ->Where('id_usu',session('id_usu'))
                                 ->get();
         $TDocumentos = TmTipoDoc::all();
-        $personal = TmUsuario::all();
+        $personal = TmUsuario::where('id_sucursal',session('id_sucursal'));
         $data = [
 
                 'lista1'=> $gasto,
@@ -68,8 +69,9 @@ class Egr_CajaController extends Controller
                 $data['importe'],         
                 $data['motivo'],
                 $fecha,
+                sesion('id_sucursal')
                 );
-            DB::insert("INSERT INTO tm_gastos_adm (id_tipo_gasto,id_tipo_doc,id_per,id_usu,id_apc,serie_doc,num_doc,fecha_comp,importe,motivo,fecha_registro) VALUES (?,?,?,?,?,?,?,?,?,?,?)",$arrayParam);
+            DB::insert("INSERT INTO tm_gastos_adm (id_tipo_gasto,id_tipo_doc,id_per,id_usu,id_apc,serie_doc,num_doc,fecha_comp,importe,motivo,fecha_registro,id_sucursal) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",$arrayParam);
             //$this->conexionn->prepare($sql)->execute();
             //$this->conexionn=null; 
 

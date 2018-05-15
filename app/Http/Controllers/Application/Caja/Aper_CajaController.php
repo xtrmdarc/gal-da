@@ -28,20 +28,25 @@ class Aper_CajaController extends Controller
             //$cajas = DB::table('v_caja_aper')->where('estado','<>','c')->get();
             $cajeros = TmUsuario::Where('estado','a')
                 ->Where('parent_id',$id_usu)
+                ->Where('id_sucursal',session('id_sucursal'))
                 ->WhereIn('id_rol',array(1,2))->get();
 
             $cajas = TmCaja::Where('estado','a')
                 ->Where('id_usu',$id_usu)
+                ->Where('id_sucursal',session('id_sucursal'))
                 ->get();
+
         }else if($user_rol == '2'){
             //Query views
             //$cajas = DB::table('v_caja_aper')->where('estado','<>','c')->get();
             $cajeros = TmUsuario::Where('estado','a')
                 ->Where('parent_id',$id_parentId)
+                ->Where('id_sucursal',session('id_sucursal'))
                 ->WhereIn('id_rol',array(2))->get();
 
             $cajas = TmCaja::Where('estado','a')
                 ->Where('id_usu',$id_parentId)
+                ->Where('id_sucursal',session('id_sucursal'))
                 ->get();
         }
 
@@ -63,8 +68,10 @@ class Aper_CajaController extends Controller
 
     public function datos(Request $request){
     
-        $arr = DB::table('V_caja_aper')->where('estado','<>','c')
-                                ->get();
+        $arr = DB::table('V_caja_aper')
+                ->where('estado','<>','c')
+                ->Where('id_sucursal',session('id_sucursal'))
+                ->get();
         
         echo json_encode($arr);
         

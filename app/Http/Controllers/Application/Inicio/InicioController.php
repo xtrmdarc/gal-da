@@ -22,13 +22,17 @@ class InicioController extends Controller
     public function Index(){
        
 
-        $ListarCM = TmSalon::where('estado','<>','i')->get();
-
-        $ListarMesa = DB::table('v_listar_mesas')->get();
+        $ListarCM = TmSalon::where('estado','<>','i')
+                            ->where('id_sucursal',session('id_sucursal'))->get();
+        //crear sp y filtro parametro id_sucursal
+        $ListarMesa = DB::table('v_listar_mesas')
+                            ->where('id_sucursal',session('id_sucursal'))->get();
 
         $ListarMozos = DB::table('v_usuarios')
                                 ->select('id_usu','nombres','ape_paterno','ape_materno')
-                                ->where('id_rol', 4)->get();
+                                ->where('id_rol', 4)
+                                ->where('id_sucursal',session('id_sucursal'))
+                                ->get();
         $data = [
             'ListarCM' => $ListarCM,
             'ListarMesa' => $ListarMesa,
@@ -51,7 +55,7 @@ class InicioController extends Controller
         $id_usu = session('id_usu');
         $id_usu = 1;
         if(session('rol_usr') == 4){ $id_moso = $id_usu; } else { $id_moso = $data['cod_mozo']; };
-        $row = DB::select('call  usp_restRegMesa( ?, ?, ?, ?, ?, ?,?, ?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario']])[0];
+        $row = DB::select('call  usp_restRegMesa_g( ?, ?, ?, ?, ?, ?,?, ?,?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario'],session('id_sucursal') ])[0];
         //$row = "call usp_restRegMesa( :flag, :idMesa, :idTp, :idUsu, :idMoso, :fechaP, :nombC, :comen);";
         
         if ($row->dup == 1){
@@ -110,10 +114,12 @@ class InicioController extends Controller
                 1,//id_usu
                 $fecha,
                 $data['nomb_cliente'],
-                $data['comentario']?:''
+                $data['comentario']?:'',
+                session('id_sucursal')
+
             );
 
-            $row = DB::select("call usp_restRegMostrador( ?,?,?,?,?,?)",$arrayParam)[0];
+            $row = DB::select("call usp_restRegMostrador_g( ?,?,?,?,?,?,?)",$arrayParam)[0];
            
            /* $st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
@@ -170,10 +176,11 @@ class InicioController extends Controller
                 $data['direcCli'],
                 $data['telefCli'],
                 $data['comentario'],
-                $cliente->id_cliente
+                $cliente->id_cliente,
+                session('id_sucursal')
             );
             //echo json_encode($arrayParam);
-            $row = DB::select('call usp_restRegDelivery( ?, ?, ?,?,?,?,?, ?,?)',$arrayParam)[0];
+            $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
             //dd($row);
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
@@ -538,14 +545,15 @@ class InicioController extends Controller
         }
         
     }
-    
+
+    //convertirlo a SP y asignar un (parametro) filtro de id_sucursal
     public function BuscarProducto(Request $request)
     {
         try
         {       
             $data = $request->all(); 
             $criterio = $data['criterio'];
-            $c = DB::select("SELECT * FROM v_productos WHERE (nombre_prod LIKE '%$criterio%' OR cod_prod LIKE '%$criterio%') AND estado <> 'i' ORDER BY nombre_prod LIMIT 5");
+            $c = DB::select("SELECT * FROM v_productos WHERE (nombre_prod LIKE '%$criterio%' OR cod_prod LIKE '%$criterio%') AND estado <> 'i' AND id_sucursal = ?  ORDER BY nombre_prod LIMIT 5",[session('id_sucursal')]);
             
             echo json_encode($c);
         }
@@ -555,12 +563,13 @@ class InicioController extends Controller
         }
     }
 
+    //convertirlo a SP y asignar un (parametro) filtro de id_sucursal
     public function BuscarCliente(Request $request)
     {
         try
         {   
             $criterio = ($request->all())['criterio'];
-            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%') ORDER BY dni LIMIT 1");
+            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%') AND id_sucursal = ?  ORDER BY dni LIMIT 1",[session('id_sucursal')]);
 
             //$stm->execute();
             //return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -576,6 +585,7 @@ class InicioController extends Controller
         //print_r(json_encode($this->model->BuscarCliente($_REQUEST['criterio'])));
     }
 
+    //Replicar en todos los módulos que registran actulizan clientes
     public function NuevoCliente(Request $request)
     {
         
@@ -595,9 +605,10 @@ class InicioController extends Controller
                 ':telf' => $data['telefono'],
                 ':fecN' => $fecha_nac,
                 ':correo' => $data['correo'],
-                ':direc' => $data['direccion']
+                ':direc' => $data['direccion'],
+                ':idSucursal' =>session('id_sucursal')
             );
-            $consulta = DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a)",$arrayParam);
+            $consulta = DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal)",$arrayParam);
             
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
@@ -680,7 +691,7 @@ class InicioController extends Controller
             /*$stm = $this->conexionn->prepare("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
             $stm->execute();
             $c = $stm->fetchAll(PDO::FETCH_OBJ);*/
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c' AND p.id_sucursal = ?",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_llevar WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];
@@ -730,7 +741,7 @@ class InicioController extends Controller
             //$stm = $this->conexionn->prepare("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
             //$stm->execute();
             //$c = $stm->fetchAll(PDO::FETCH_OBJ);
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'AND p.id_sucursal = ?",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_delivery WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];
@@ -780,7 +791,7 @@ class InicioController extends Controller
             $stmm->execute(array($data['cod']));
             $var = $stmm->fetchAll(PDO::FETCH_ASSOC);4
             */
-            $var = TmMesa::where(['id_catg'=>$data['cod'],'estado'=>'i'])
+            $var = TmMesa::where(['id_catg'=>$data['cod'],'estado'=>'i','id_sucursal'=>session('id_sucursal')])
                             ->orderBy('nro_mesa','ASC')->get();
             foreach($var as $v){
                 echo '<option value="'.$v->id_mesa.'">'.$v->nro_mesa.'</option>';
@@ -803,7 +814,7 @@ class InicioController extends Controller
             $stmm->execute(array($data['cod']));
             $var = $stmm->fetchAll(PDO::FETCH_ASSOC);
             */
-            $var = TmMesa::where(['id_catg'=>$data['cod'],'estado'=>'a'])
+            $var = TmMesa::where(['id_catg'=>$data['cod'],'estado'=>'a','id_sucursal'=>session('id_sucursal')])
                             ->orderBy('nro_mesa','ASC')->get();
 
             foreach($var as $v){
@@ -819,7 +830,7 @@ class InicioController extends Controller
     public function listarCategorias(){
         try
         {   
-            $c = TmProductoCatg::all();
+            $c = TmProductoCatg::where('id_sucursal',session('id_sucursal'))->get();
             echo json_encode($c);
             
         }
@@ -836,7 +847,8 @@ class InicioController extends Controller
         try
         {   
             $data = $request->all();
-            $c = DB::table("v_productos")->where("id_catg",$data['cod'])->get();
+            $c = DB::table("v_productos")->where("id_catg",$data['cod'])
+                                        ->where('id_sucursal',session('id_sucursal'))->get();
             echo json_encode($c);
         }
         catch(Exception $e)
@@ -884,7 +896,7 @@ class InicioController extends Controller
             $data = $request->all();
             $telefono = $data['telefono'];
             
-            $cliente = TmCliente::firstOrNew(['telefono'=>$telefono]);
+            $cliente = TmCliente::firstOrNew(['telefono'=>$telefono,'id_sucursal'=>session('id_sucursal')]);
 
             return response()->json($cliente);
 

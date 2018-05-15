@@ -19,6 +19,7 @@ class Ing_CajaController extends Controller
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d");
         $lista1 = TmIngresosAdm::WhereDate('fecha_reg',$fecha)
+                                ->Where('id_sucursal',sesion('id_sucursal'))        
                                 ->Where('id_usu',session('id_usu'))
                                 ->get();
         
@@ -56,8 +57,9 @@ class Ing_CajaController extends Controller
                 $data['importe'],         
                 $data['motivo'],
                 $fecha,
+                session('id_sucursal')
                 );
-            DB::insert("INSERT INTO tm_ingresos_adm (id_usu,id_apc,importe,motivo,fecha_reg) VALUES (?,?,?,?,?)",$arrayParam);
+            DB::insert("INSERT INTO tm_ingresos_adm (id_usu,id_apc,importe,motivo,fecha_reg,id_sucursal) VALUES (?,?,?,?,?,?)",$arrayParam);
             //$this->conexionn->prepare($sql)->execute();
             //$this->conexionn=null; 
 
