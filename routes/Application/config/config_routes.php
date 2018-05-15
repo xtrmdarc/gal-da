@@ -69,4 +69,10 @@
     Route::get('/ajustesRegistrarUsuario', 'Application\Config\UsuarioController@RegistrarUsuario');
     Route::post('/ajustesRUsuario', 'Application\Config\UsuarioController@RUUsuario');
     Route::post('/ajustesEliminar', 'Application\Config\UsuarioController@Eliminar');
+
+    //Caja
+
+    Route::get('/ajustesSucursal', 'Application\Config\SucursalController@index')->name('config.Sucursal');
+    Route::post('ajustesListaSucursales', 'Application\Config\SucursalController@ListaSucursales')->name('config.ListaSucursales');
+    Route::post('ajustesCrudSucursal', 'Application\Config\SucursalController@CrudSucursal')->name('config.CrudSucursal');
 ?>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Application\Config;
 
+use App\Models\Empresa;
+use App\Models\Sucursal;
 use App\Models\TmRol;
 use App\Models\TmAreaProd;
 use App\Models\TmUsuario;
@@ -57,8 +59,12 @@ class UsuarioController extends Controller
     public function RegistrarUsuario()
     {
         $viewdata = [];
+        $user_AdminSucursal = auth()->user()->id_empresa;
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+
         $user_rol = TmRol::all();
         $viewdata['user_rol']= $user_rol;
+        $viewdata['user_sucursal']= $user_sucursal;
         $viewdata['id_usu']= 1;
         $viewdata['breadcrumb'] = '';
         
@@ -159,6 +165,7 @@ class UsuarioController extends Controller
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($post['contrasena']),
                 'verifyToken' => null,
+                'id_sucursal' => $post['id_sucursal'],
             ]);
 
             if($user) {

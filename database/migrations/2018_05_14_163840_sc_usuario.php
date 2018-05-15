@@ -16,6 +16,7 @@ class ScUsuario extends Migration
         //
         Schema::table('tm_usuario', function (Blueprint $table) {
             $table->string('id_sucursal')->nullable();
+            $table->string('id_empresa')->nullable();
         });
     }
 

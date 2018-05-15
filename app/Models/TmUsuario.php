@@ -41,6 +41,8 @@ class TmUsuario extends Authenticatable
         'imagen',
         'password',
         'verifyToken',
+        'id_sucursal',
+        'id_empresa',
     ];
 
     protected $hidden = [
@@ -80,5 +82,9 @@ class TmUsuario extends Authenticatable
     public function tm_venta()
     {
         return $this->hasMany(\App\Models\TmVentum::class, 'id_usu');
+    }
+    public function empresa()
+    {
+        return $this->belongsTo(\App\Models\Empresa::class, 'id');
     }
 }

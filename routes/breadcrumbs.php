@@ -142,6 +142,10 @@
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Productos',route('config.Productos'));
     });
+    Breadcrumbs::register('config.Insumos', function ($breadcrumbs) {
+        $breadcrumbs->parent('ajustes');
+        $breadcrumbs->push('Productos Insumos',route('config.Insumos'));
+    });
     Breadcrumbs::register('config.DatosEmpresa', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Datos Empresa',route('config.DatosEmpresa'));
@@ -153,5 +157,9 @@
     Breadcrumbs::register('config.Usuarios', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Usuarios',route('config.Usuarios'));
+    });
+    Breadcrumbs::register('config.Sucursal', function ($breadcrumbs) {
+        $breadcrumbs->parent('ajustes');
+        $breadcrumbs->push('Sucursales',route('config.Sucursal'));
     });
 ?>

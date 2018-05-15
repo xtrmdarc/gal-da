@@ -16,10 +16,12 @@
                             <h4 class="list-group-item-heading">Cajas</h4>
                             <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
                         </a>
-                        <a class="list-group-item" href="{{ url('/ajustesAlmacen') }}">
-                            <h4 class="list-group-item-heading">Almacenes y &Aacute;reas de Producci&oacute;n</h4>
-                            <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
-                        </a>
+                        @if(Auth::user()->plan_id != '1')
+                            <a class="list-group-item" href="{{ url('/ajustesAlmacen') }}">
+                                <h4 class="list-group-item-heading">Almacenes y &Aacute;reas de Producci&oacute;n</h4>
+                                <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
+                            </a>
+                        @endif
                         <a class="list-group-item" href="{{ url('/ajustesSalonyMesas') }}">
                             <h4 class="list-group-item-heading">Salones y mesas</h4>
                             <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
@@ -51,6 +53,12 @@
                             <h4 class="list-group-item-heading">Usuarios</h4>
                             <p class="list-group-item-text">Alta de usuarios.</p>
                         </a>
+                        @if(Auth::user()->plan_id == '1')
+                            <a class="list-group-item" href="{{ url('/ajustesSucursal') }}">
+                                <h4 class="list-group-item-heading">Sucursales</h4>
+                                <p class="list-group-item-text">Crear y/o modificar tus sucursales.</p>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

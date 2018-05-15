@@ -18,9 +18,12 @@ class CreateSucursal extends Migration
             
             $table->increments('id');
             $table->integer('id_empresa');
+            $table->integer('id_usu');
+            $table->string('nombre_sucursal')->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable();
             $table->string('moneda')->nullable();
+            $table->string('estado')->default('a');
             $table->timestamps();
         
         });
