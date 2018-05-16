@@ -29,5 +29,6 @@ class ScCaja extends Migration
     {
         //
         Schema::table('tm_caja', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
+        Schema::table('tm_caja', function(Blueprint $table) {$table->dropColumn('id_usu');});
     }
 }

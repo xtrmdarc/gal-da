@@ -30,6 +30,8 @@ class TmClientes extends Migration
     {
         //
         Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('estado');});
+        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_empresa');});
+        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_usu');});
     }
 }
 
