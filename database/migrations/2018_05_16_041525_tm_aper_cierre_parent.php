@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ScCaja extends Migration
+class TmAperCierreParent extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class ScCaja extends Migration
     public function up()
     {
         //
-        Schema::table('tm_caja', function (Blueprint $table) {
-            $table->string('id_sucursal')->nullable();
-            $table->string('id_usu')->nullable();
+        Schema::table('tm_aper_cierre', function (Blueprint $table) {
+            $table->string('parent_id')->nullable();;
         });
     }
 
@@ -28,6 +27,6 @@ class ScCaja extends Migration
     public function down()
     {
         //
-        Schema::table('tm_caja', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
+        Schema::table('tm_aper_cierre', function(Blueprint $table) {$table->dropColumn('parent_id');});
     }
 }
