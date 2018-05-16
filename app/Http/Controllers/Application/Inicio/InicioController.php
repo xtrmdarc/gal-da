@@ -606,9 +606,10 @@ class InicioController extends Controller
                 ':fecN' => $fecha_nac,
                 ':correo' => $data['correo'],
                 ':direc' => $data['direccion'],
-                ':idSucursal' =>session('id_sucursal')
+                ':idSucursal' =>session('id_sucursal'),
+                ':idEmpresa' =>session('id_empresa')
             );
-            $consulta = DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal)",$arrayParam);
+            $consulta = DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
             
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
