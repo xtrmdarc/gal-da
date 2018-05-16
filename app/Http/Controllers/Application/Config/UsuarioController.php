@@ -58,6 +58,8 @@ class UsuarioController extends Controller
 
     public function RegistrarUsuario()
     {
+        $id_usu = \Auth::user()->id_usu;
+
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
@@ -65,7 +67,7 @@ class UsuarioController extends Controller
         $user_rol = TmRol::all();
         $viewdata['user_rol']= $user_rol;
         $viewdata['user_sucursal']= $user_sucursal;
-        $viewdata['id_usu']= 1;
+        $viewdata['id_usu']= $id_usu;
         $viewdata['breadcrumb'] = '';
         
         return view('contents.application.config.sist.usuario_r',$viewdata);
@@ -117,6 +119,7 @@ class UsuarioController extends Controller
 
         //SuperAdmin User
         $parentId = \Auth::user()->id_usu;
+        $userEmpresa = \Auth::user()->id_empresa;
         $name_business = \Auth::user()->name_business;
         $planId_admin = \Auth::user()->plan_id;
         $status_admin = \Auth::user()->status;
@@ -166,6 +169,7 @@ class UsuarioController extends Controller
                 'password' => bcrypt($post['contrasena']),
                 'verifyToken' => null,
                 'id_sucursal' => $post['id_sucursal'],
+                'id_empresa' => $userEmpresa,
             ]);
 
             if($user) {

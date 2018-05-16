@@ -15,7 +15,9 @@ class TmClientes extends Migration
     {
         //
         Schema::table('tm_cliente', function (Blueprint $table) {
-            $table->string('id_sucursal')->nullable();
+            $table->string('id_empresa')->nullable();
+            $table->string('id_usu')->nullable();
+            $table->string('estado')->default('a');
         });
     }
 
@@ -27,7 +29,7 @@ class TmClientes extends Migration
     public function down()
     {
         //
-        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
+        Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('estado');});
     }
 }
 

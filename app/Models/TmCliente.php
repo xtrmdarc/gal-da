@@ -54,7 +54,9 @@ class TmCliente extends Eloquent
 		'fecha_nac',
 		'correo',
 		'direccion',
-		'estado'
+		'estado',
+		'id_empresa',
+		'id_usu',
 	];
 
 	public function tm_venta()

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\TmCliente;
+use App\Models\TmUsuario;
+use App\Models\Sucursal;
 
 class ClienteController extends Controller
 {
@@ -15,17 +17,21 @@ class ClienteController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        
-        $clientes = DB::table('v_clientes')->Where('id_cliente','<>','1')
-                                            ->get();
 
+        $idEmpresa = \Auth::user()->id_empresa;
+
+        $viewdata = [];
+
+        $clientes = DB::select("call usp_clientes_g( :empresaID);",
+            array($idEmpresa));
+
+        $viewdata['breadcrumb'] = '';
         $data = [
             'clientes' => $clientes,
             'breadcrumb'=> 'clientes'
         ];
 
-        return view('contents.application.cliente.cliente')->with($data);
-
+        return view('contents.application.cliente.cliente',$viewdata)->with($data);
     }
 
     public function index_e($id=null){
@@ -47,26 +53,19 @@ class ClienteController extends Controller
             ];*/
         }
 
-       
+
         //dd($cliente);
         return view('contents.application.cliente.cliente_e')->with($data);
     }
 
     public function RUCliente(Request $request){
-        /*$alm = new Cliente();
-        $alm->__SET('id_cliente',    $_REQUEST['id_cliente']);
-        $alm->__SET('dni',   $_REQUEST['dni']);
-        $alm->__SET('ruc',    $_REQUEST['ruc']);
-        $alm->__SET('ape_paterno',   $_REQUEST['ape_paterno']);
-        $alm->__SET('ape_materno',  $_REQUEST['ape_materno']);
-        $alm->__SET('nombres',    $_REQUEST['nombres']);
-        $alm->__SET('razon_social',    $_REQUEST['razon_social']);
-        $alm->__SET('telefono',    $_REQUEST['telefono']);
-        $alm->__SET('fecha_nac',    date('Y-m-d',strtotime($_REQUEST['fecha_nac'])));
-        $alm->__SET('correo',    $_REQUEST['correo']);
-        $alm->__SET('direccion',    $_REQUEST['direccion']);
-        $alm->__SET('estado',    $_REQUEST['estado']);*/
+
         try{
+            $idUsu = \Auth::user()->id_usu;
+            $idRol = \Auth::user()->id_rol;
+
+            $idEmpresa = \Auth::user()->id_empresa;
+
             $data = $request->all();
             $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
 
@@ -95,12 +94,45 @@ class ClienteController extends Controller
                 //header('Location: lista_tm_clientes.php?m=u');
                 header('Location: /cliente');
             } else {
-            
-                //$row = $this->model->Registrar($alm);
-            
-                $data = $request->all();
-                
 
+                //$row = $this->model->Registrar($alm);
+
+                $post = $request->all();
+
+                if($idRol == 1) {
+                    $nuevo_cliente = TmCliente::create([
+                        'dni' => $post['dni'],
+                        'ruc' => $post['ruc'],
+                        'ape_paterno' => $post['ape_paterno'],
+                        'ape_materno' => $post['ape_materno'],
+                        'nombres' => $post['nombres'],
+                        'razon_social' => $post['razon_social'],
+                        'telefono' => $post['telefono'],
+                        'fecha_nac' => $fecha_nac,
+                        'correo' => $post['correo'],
+                        'direccion' => $post['direccion'],
+                        'id_usu' => $idUsu,
+                        'id_empresa' => $idEmpresa,
+                    ]);
+                }else if($idRol == 2){
+                    $nuevo_cliente = TmCliente::create([
+                        'dni' => $post['dni'],
+                        'ruc' => $post['ruc'],
+                        'ape_paterno' => $post['ape_paterno'],
+                        'ape_materno' => $post['ape_materno'],
+                        'nombres' => $post['nombres'],
+                        'razon_social' => $post['razon_social'],
+                        'telefono' => $post['telefono'],
+                        'fecha_nac' => $fecha_nac,
+                        'correo' => $post['correo'],
+                        'direccion' => $post['direccion'],
+                        'id_usu' => $idUsu,
+                        'id_empresa' => $idEmpresa,
+                    ]);
+                }
+
+                header('Location: /cliente');
+/*
                 $arrayParam =  array(
                     ':flag' => 1,
                     ':dni' => $data['dni'],
@@ -116,16 +148,13 @@ class ClienteController extends Controller
                 );
                 $row = DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a)",$arrayParam)[0];
 
-                /*$st = $this->conexionn->prepare($consulta);
-                $st->execute($arrayParam);
-                $row = $st->fetch(PDO::FETCH_ASSOC);*/
-                
                 if ($row->dup == 1){
                     //header('Location: lista_tm_clientes.php?m=d');
                     header('Location: /cliente');
                 } else {
                     header('Location: /cliente?m=n');
-                }
+                }*/
+
             }
         }
         catch (Exception $e) 

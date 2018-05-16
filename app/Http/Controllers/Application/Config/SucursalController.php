@@ -16,7 +16,7 @@ class SucursalController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb' => 'config.Usuarios'
+            'breadcrumb' => 'config.Sucursal'
         ];
         return view('contents.application.config.sist.sucursal')->with($data);
     }
