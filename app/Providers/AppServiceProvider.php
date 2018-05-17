@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Controllers\Application\AppController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,17 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+        \View::composer('layouts/application/head', function( $view )
+        {
+            $sucursales =  AppController::GetSucursales();
+            $data= [
+                'sucursales' => $sucursales
+            ];
+            session(['id_sucursal'=>$sucursales[0]->id]);
+            
+            //pass the data to the view
+            $view->with( $data);
+        } );
     }
 
     /**

@@ -7411,3 +7411,17 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .NonMarginSideBar{
   margin-left: 0px !important;
 }
+
+.nav-header-suc{
+  margin: 0px !important;
+  width: 100%;
+  text-align: center;
+}
+
+.nav-item-suc{
+  margin-top: 3px;
+  margin-right: auto;
+  margin-left: auto;  
+  width: 30%;
+  
+}

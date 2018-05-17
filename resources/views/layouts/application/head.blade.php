@@ -18,15 +18,25 @@
             
             <div class="navbar-collapse">
                 <!-- toggle and nav items -->
-                <ul class="navbar-nav mr-auto mt-md-0">
+                <ul class="navbar-nav mr-auto mt-md-0 nav-header-suc">
                     <!-- This is  -->
                     <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
                     <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                    <li class="nav-item" >
+                    {{--<li class="nav-item" >
                         {{Breadcrumbs::render($breadcrumb)}}
-                    </li>
+                    </li>--}}
                     <li class="nav-item"><h1  id="clock" class="nav-link" > </h1>  </li>
-                  
+                    <li class="nav-item" style="width:100%;">
+                        <div class="container">
+                            <div class="col nav-link nav-item-suc  align-self-center">
+                                <select class="form-control">
+                                    @foreach($sucursales as $sucursal)
+                                        <option value="{{$sucursal->id}}"> {{$sucursal->nombre_sucursal }}</option>
+                                    @endforeach 
+                                </select>
+                            </div>
+                        </div>
+                    </li>
                     <!-- Messages -->
                     
                     @php

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Sucursal;
+use App\Models\Empresa;
 
 class AppController extends Controller
 {
@@ -65,7 +67,6 @@ class AppController extends Controller
         return false;
 
     }
-
     public static function RedirectSegunRol($roles){
 
         if( self::ValidarPermisos($roles) == true){
@@ -74,4 +75,20 @@ class AppController extends Controller
         }
     }
 
+    public static function GetSucursales(){
+        
+        $id_sucursal = \Auth::user()->id_sucursal;
+        $rol = \Auth::user()->id_rol;
+        $id_empresa = \Auth::user()->id_empresa;
+        if($rol != 1)
+        {
+            return Sucursal::where('id',$id_sucursal)->get();
+        }
+        else
+        {
+            return Sucursal::where('id_empresa',$id_empresa)->get();
+        }
+        
+
+    }
 }
