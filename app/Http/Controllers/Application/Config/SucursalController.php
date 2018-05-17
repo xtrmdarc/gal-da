@@ -30,7 +30,7 @@ class SucursalController extends Controller
     public function CrudSucursal(Request $request)
     {
         $id_usu = \Auth::user()->id_usu;
-        $id_empresa = \Auth::user()->id_usu;
+        $id_empresa = \Auth::user()->id_empresa;
         $post = $request->all();
 
         $cod = $post['cod_sucursal'];
