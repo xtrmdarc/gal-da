@@ -32,7 +32,7 @@ class UsuarioController extends Controller
                 $owner = $user;
                 $viewData['owner'] = $owner;
                 $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                    array($id_usu));
+                    array(':idParent' => $id_usu));
                 $viewdata['users'] = $subUsers;
                 $viewdata['breadcrumb'] = '';
                 $data = [

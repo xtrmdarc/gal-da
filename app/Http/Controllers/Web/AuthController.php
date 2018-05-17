@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         $statement = DB::select("SHOW TABLE STATUS LIKE 'sucursal'");
         $sucursalid = $statement[0]->Auto_increment;
-        $sucursal_id = $sucursalid - 1;
+        $sucursal_id = $sucursalid ;
 
         $user = TmUsuario::create([
             'id_areap' => '0',
