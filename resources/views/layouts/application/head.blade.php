@@ -29,7 +29,7 @@
                     <li class="nav-item" style="width:100%;">
                         <div class="container">
                             <div class="col nav-link nav-item-suc  align-self-center">
-                                <select class="form-control">
+                                <select id="slc_sucursal" class="form-control">
                                     @foreach($sucursales as $sucursal)
                                         <option value="{{$sucursal->id}}"> {{$sucursal->nombre_sucursal }}</option>
                                     @endforeach 

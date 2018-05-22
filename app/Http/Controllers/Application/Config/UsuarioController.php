@@ -123,7 +123,7 @@ class UsuarioController extends Controller
         $name_business = \Auth::user()->name_business;
         $planId_admin = \Auth::user()->plan_id;
         $status_admin = \Auth::user()->status;
-
+        //dd($post);
         $flag = 1;
         $id_usu = $post['id_usu'];
         $imagen = $post['imagen'];

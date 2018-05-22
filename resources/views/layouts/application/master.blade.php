@@ -68,7 +68,7 @@
     @yield('content')
     @include('layouts.application.footer')
     <!-- customiza patrones para los operativos!-->
-    @if(Auth::user()->id_rol == 3 ||  Auth::user()->id_rol == 4 ) 
+    @if(Auth::user()->id_rol == 3 ||  Auth::user()->id_rol == 4 || Auth::user()->id_rol == 5  ) 
         <script>
             NonSideBarCssStyles();
         </script>

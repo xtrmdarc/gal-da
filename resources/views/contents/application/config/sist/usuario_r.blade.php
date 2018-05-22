@@ -29,7 +29,7 @@
                         <input type="hidden" name="id_usu" value="" />
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="display:none;">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="ct-wizard-azzure" id="wizardProfile">
@@ -51,39 +51,83 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12 ">
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label class="control-label">DNI</label>
-                                                <input type="text" name="dni" value="" class="form-control" placeholder="Ingrese dni" autocomplete="off" required="required" />
+                                        <div class="row">
+                                            <div class="col-lg-6  sides_padding15">
+                                                <div class="form-group">
+                                                    <label class="control-label">Cargo</label>
+                                                    <div class="input-group">
+                                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                                        <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                                            @if($id_usu != null)
+                                                                <option value="">
+    
+                                                                </option>
+                                                            @else
+                                                                echo '<option value="" selected>Seleccionar</option>';
+                                                                echo '<optgroup label="Seleccionar">';
+                                                                    @endif
+                                                                    <optgroup label="Seleccionar">
+                                                                        @foreach($user_rol as $r)
+                                                                            <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Nombres</label>
-                                                <input type="text" name="nombres" value="" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
+                                        
+                                       <div class="row">
+                                            <div class="col-lg-6  sides_padding15  " id="dni_div">
+                                                <div class="form-group">
+                                                    <label class="control-label">DNI</label>
+                                                    <input type="text" name="dni" value="" class="form-control" placeholder="Ingrese dni" autocomplete="off" required="required" />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-6  sides_padding15 " id="nombres_div">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nombres</label>
+                                                        <input type="text" name="nombres" value="" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6  sides_padding15 " id="app_div">
                                             <div class="form-group">
                                                 <label class="control-label">Apellido Paterno</label>
                                                 <input type="text" name="ape_paterno" value="" class="form-control" placeholder="Ingrese apellido paterno" autocomplete="off" required="required" />
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6  sides_padding15 " id="apm_div">
                                             <div class="form-group">
                                                 <label class="control-label">Apellido Materno</label>
                                                 <input type="text" name="ape_materno" value="" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" required="required" />
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label class="control-label">Email</label>
-                                                <input type="email" name="email" id="email" value="" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-6  sides_padding15" id="email_div">
+                                                <div class="form-group">
+                                                    <label class="control-label">Email</label>
+                                                    <input type="email" name="email" id="email" value="" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6  sides_padding15" id="usr_div">
+                                            <div class="form-group">
+                                                <label class="control-label">Usuario</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input type="text" name="usuario" value="" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6  sides_padding15" id="pass_div">
                                             <div class="form-group">
                                                 <label class="control-label">Contrase&ntilde;a</label>
                                                 <div class="input-group">
@@ -92,36 +136,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label class="control-label">Cargo</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-renren"></i></span>
-                                                    <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                                        @if($id_usu != null)
-                                                            <option value="">
-
-                                                            </option>
-                                                        @else
-                                                            echo '<option value="" selected>Seleccionar</option>';
-                                                            echo '<optgroup label="Seleccionar">';
-                                                                @endif
-                                                                <optgroup label="Seleccionar">
-                                                                    @foreach($user_rol as $r)
-                                                                        <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
-                                                                    @endforeach
-                                                                </optgroup>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         @if(Auth::user()->plan_id == '1')
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6  sides_padding15" id="sc_div">
                                                 <div class="form-group">
                                                     <label class="control-label">Sucursal</label>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
-                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
                                                             @if($id_usu != null)
                                                                 <option value="">
 
@@ -140,11 +162,11 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        <div class="col-lg-12" id="area-p" style="display: none">
+                                        <div class="col-lg-6 sides_padding15" id="area-p" style="display: none">
                                             <div class="form-group">
                                                 <label class="control-label">&Aacute;rea de Producci&oacute;n</label>
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-renren"></i></span>
+                                                    {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                     <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required">
                                                         @if($id_usu != null)
                                                             <option value=""></option>
@@ -161,15 +183,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label class="control-label">Usuario</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                                    <input type="text" name="usuario" value="" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

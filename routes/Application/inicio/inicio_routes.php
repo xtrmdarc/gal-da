@@ -12,6 +12,7 @@ Route::prefix('/inicio')->group(function(){
     Route::post('ListarCategorias','Application\Inicio\InicioController@listarCategorias');
     Route::post('ListarProductos','Application\Inicio\InicioController@listarProductos');
     Route::post('BuscarProducto','Application\Inicio\InicioController@buscarProducto'); 
+    Route::post('VerificarMozoPIN','Application\Inicio\InicioController@VerificarMozoPIN');
     //crud
     Route::post('RegistrarPedido','Application\Inicio\InicioController@registrarPedido');
     Route::post('ListarDetallePed','Application\Inicio\InicioController@ListarDetallePed');

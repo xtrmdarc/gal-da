@@ -10,7 +10,7 @@ use App\Models\TmProductoCatg;
 use App\Models\TmPedido;
 use App\Models\TmMesa;
 use App\Models\TmCliente;
-
+use App\Models\TmUsuario;
 
 class InicioController extends Controller
 {
@@ -44,9 +44,63 @@ class InicioController extends Controller
         return view('contents.application.inicio.index')->with($data);
     }
 
+    public function VerificarMozoPIN(Request $request){
+        
+        
+
+        $usrMozo = TmUsuario::where('PIN',$request->pin)->first();
+
+        $response = new \stdClass();
+        if(isset($usrMozo))
+        {
+            
+            if($request->estadoM == 'a' )
+            {   
+                //Este es el array que se utiliza para suplir los campos que tiene el modal de apertura de mesa convencial
+                //donde se tienen los campos de nomb_cliente, Cod_mozo ,Comentario
+                //Pa que no te pierdas
+                $sup_array = array ('cod_mozo'=>$usrMozo->id_usu,'nomb_cliente'=>"",'comentario'=>"");
+                $request->request->add($sup_array);
+                
+                $response->nro_pedido = $this->RegistrarMesa($request)->cod;
+                $response->status = 'ok';
+                //dd($response);
+            }
+            else 
+            {
+                $response->status = 'ok';
+                $response->nro_pedido = $request->nro_pedido;
+            }
+            
+        }
+        else $response->status = 'bad';
+
+        //dd($response);
+
+        return json_encode($response);
+
+    }   
+
     /*Registrar mesa*/
     public function RMesa(Request $request){  
 
+        $row = $this->RegistrarMesa($request);
+        if ($row->dup == 1){
+            //header('Location: pedido_mesa.php?Cod='.$row['cod']);
+            
+            session(['cod_tipe'=>1]);
+            //ValidarEstadoPedido($row['cod']);
+            header('Location: /inicio/PedidoMesa/'.$row->cod);
+            
+        } else {
+            //header('Location: inicio.php?Cod=d');
+            //self::Index();
+            header('Location: /inicio');
+        }
+    }
+
+    public function RegistrarMesa(Request $request)
+    {   
         $data = $request->all();
 
         date_default_timezone_set('America/Lima');
@@ -57,20 +111,10 @@ class InicioController extends Controller
         if(session('rol_usr') == 4){ $id_moso = $id_usu; } else { $id_moso = $data['cod_mozo']; };
         $row = DB::select('call  usp_restRegMesa_g( ?, ?, ?, ?, ?, ?,?, ?,?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario'],session('id_sucursal') ])[0];
         //$row = "call usp_restRegMesa( :flag, :idMesa, :idTp, :idUsu, :idMoso, :fechaP, :nombC, :comen);";
-        
-        if ($row->dup == 1){
-            //header('Location: pedido_mesa.php?Cod='.$row['cod']);
-            
-            session(['cod_tipe'=>1]);
-            //ValidarEstadoPedido($row['cod']);
-            header('Location: /inicio/PedidoMesa/'.$row->cod);
-        } else {
-            //header('Location: inicio.php?Cod=d');
-            //self::Index();
-            header('Location: /inicio');
-        }
-    
+        return $row;
+
     }
+
 
     public function ValidarEstadoP($cod){
         try {

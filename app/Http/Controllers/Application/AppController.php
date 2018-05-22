@@ -22,7 +22,6 @@ class AppController extends Controller
             case 1 : {
                 
                 self::$home = "/tablero";
-
                 //dd($home);
                 break;
             }
@@ -40,6 +39,11 @@ class AppController extends Controller
             }
             //Mozo
             case 4 :{
+                
+                self::$home = "/inicio";
+                break;
+            }
+            case 5 :{
                 
                 self::$home = "/inicio";
                 break;
@@ -74,7 +78,6 @@ class AppController extends Controller
             return redirect(self::$home);
         }
     }
-
     public static function GetSucursales(){
         
         $id_sucursal = \Auth::user()->id_sucursal;
@@ -91,4 +94,8 @@ class AppController extends Controller
         
 
     }
+    public function CambioSucursal($id){
+        session(['id_sucursal'=> $id]);
+    }
+
 }

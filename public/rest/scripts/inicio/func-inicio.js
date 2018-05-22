@@ -1,4 +1,5 @@
 $(function() {
+    
     validarApertura();
     listDelivery();
     listMostrador();
@@ -80,7 +81,7 @@ var listMostrador = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: 'inicio/ListarMostrador',
+        url: '/inicio/ListarMostrador',
         dataSrc:'',   
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -167,7 +168,7 @@ var listDelivery = function(){
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
-        url: 'inicio/ListarDelivery',
+        url: '/inicio/ListarDelivery',
         dataSrc:'',   
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -254,7 +255,7 @@ var listDelivery = function(){
 /* Registrar mesa */
 var registrarMesa = function(cod_mesa,nro_mesa,desc_c){
     $('#cod_mesa').val(cod_mesa);
-    $("#mdl-codigo").modal('show');
+    $("#mdl-mesa").modal('show');
     $("#mtm").html('Mesa '+ nro_mesa);
     $("#mtp").html(desc_c);
 }
@@ -262,15 +263,67 @@ var registrarMesa = function(cod_mesa,nro_mesa,desc_c){
 
 $('.digito').click(function(event){
     
-    $('#secret_screen').val(  $('#secret_screen').val() + $(event.target).text());
+    if($('#secret_screen').val().length < 4 )
+    {    
+        $('#secret_screen').val(  $('#secret_screen').val() + $(event.target).text());
+
+        if( $('#secret_screen').val().length == 4 ){
+
+            var estadoM = $('#estadoM').val();
+            
+            $.ajax({
+                dataType:"JSON",
+                type: "POST",
+                url: "/inicio/VerificarMozoPIN",
+                dataSrc:'',   
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:   {   pin : $('#secret_screen').val(),
+                            estadoM: estadoM,
+                            nro_pedido: $('#nro_pedido').val(),
+                            cod_mesa: $('#cod_mesa_c').val()
+                        },
+                success: function (response) {
+                    //console.log(response.status + " " + response.nro_pedido);
+                    console.log("response  "+ response);
+                    if( response.status == 'ok')
+                    {
+                        //Ajax para registrar mesa después aqui
+                        //Primera vez, registrar la mesa para que se cree el pedido
+                        //Una vez aperturada la mesa , se podrá contar con el nro_pedido ( No se puede testear aun porque no hay pedidos en las mesas)
+
+                        console.log("response  "+ response);
+                        window.location.replace('/inicio/PedidoMesa/'+response.nro_pedido);
+
+                    }
+                    else
+                        $("#mdl-codigo").modal('hide');
+                    
+                },
+                error: function(xhr, status, error) {
+                    //var err = JSON.parse(xhr.responseText);
+                    
+                    console.log('Un iorch concha :' + error );
+                }
+            });
+        
+        }
+    }
+
 });
 
 /* Registrar mesa con codigo */
-var registrarMesaCodigo = function(cod_mesa,nro_mesa,desc_c){
+var registrarMesaCodigo = function(cod_mesa,nro_mesa,desc_c,n_pedido,estadoM){
     
     $("#mdl-codigo").modal('show');
     $("#mtmc").html('Mesa '+ nro_mesa);
     $('#secret_screen').val('');
+    $('#nro_pedido').val(n_pedido);
+    $('#estadoM').val(estadoM);
+    $('#cod_mesa_c').val(cod_mesa);
+    
+    //console.log('npedido: '+n_pedido+' /n  estaadoM: '+estadoM);
 }
 
 /* Combo mesa origen */

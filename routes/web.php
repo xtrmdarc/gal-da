@@ -33,6 +33,7 @@ include 'Application/inicio/inicio_routes.php';
 include 'Application/proveedor/proveedor_routes.php';
 include 'Application/tablero/tablero_routes.php';
 //
+include 'Application/app_routes.php';
 
 Route::get('/','Web\HomeController@welcome_main')->name('welcome');
 
