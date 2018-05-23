@@ -28,7 +28,9 @@ class TmAlmacen extends Eloquent
 
 	protected $fillable = [
 		'nombre',
-		'estado'
+		'estado',
+		'id_sucursal',
+		'id_usu'
 	];
 
 	public function tm_area_prods()

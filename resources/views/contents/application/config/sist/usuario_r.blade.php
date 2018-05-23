@@ -175,9 +175,9 @@
                                                             echo '<optgroup label="Seleccionar">';
                                                                 @endif
                                                                 <optgroup label="Seleccionar">
-
-                                                                        <option value=""></option>
-
+                                                                    @foreach($user_areaProd as $r)
+                                                                        <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
+                                                                    @endforeach
                                                                 </optgroup>
                                                     </select>
                                                 </div>

@@ -168,14 +168,16 @@
                                                 {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                 <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required">
                                                     @if($id_usu != null)
-                                                        <option value=""></option>
+                                                        <option value="{{is_null($id_usu) ? '' : $id_rol}}">
+                                                            {{is_null($id_usu) ? '' : $nombre}}
+                                                        </option>
                                                     @else
                                                         echo '<option value="" selected>Seleccionar</option>';
                                                         echo '<optgroup label="Seleccionar">';
                                                     @endif
                                                     <optgroup label="Seleccionar">
-                                                        @foreach($area_prod as $r)
-                                                            <option value=""></option>
+                                                        @foreach($user_areaProd as $r)
+                                                            <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
                                                         @endforeach
                                                     </optgroup>
                                                 </select>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Models\Empresa;
 use App\Models\Sucursal;
+use App\Models\TmAlmacen;
+use App\Models\TmAreaProd;
 use App\Models\TmUsuario;
 use App\User;
 use Illuminate\Http\Request;
@@ -59,6 +61,25 @@ class AuthController extends Controller
             'id_empresa' => $empresa_id,
             'id_usu' => $user_id,
             'nombre_sucursal' => $post['name_business'],
+        ]);
+
+        $almacen = TmAlmacen::create([
+            'nombre' => 'ALMACEN 1',
+            'estado' => 'a',
+            'id_sucursal' => $sucursal_id,
+            'id_usu' => $user_id,
+        ]);
+
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'tm_almacen'");
+        $almacenId = $statement[0]->Auto_increment;
+        $almacen_Id = $almacenId - 1;
+
+        $are_prod = TmAreaProd::create([
+            'id_alm' => $almacen_Id,
+            'nombre' => 'COCINA 1',
+            'estado' => 'a',
+            'id_sucursal' => $sucursal_id,
+            'id_usu' => $user_id,
         ]);
 
         $thisUser = TmUsuario::findOrFail($user->id_usu);

@@ -64,9 +64,12 @@ class UsuarioController extends Controller
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
 
+        $area_produccion = TmAreaProd::where('id_usu',$id_usu)->get();
+
         $user_rol = TmRol::all();
         $viewdata['user_rol']= $user_rol;
         $viewdata['user_sucursal']= $user_sucursal;
+        $viewdata['user_areaProd']= $area_produccion;
         $viewdata['id_usu']= $id_usu;
         $viewdata['breadcrumb'] = '';
         
@@ -149,8 +152,26 @@ class UsuarioController extends Controller
         $contrasena_g = bcrypt($post['contrasena']);
 
         if($id_usu != ''){
-            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
-                array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));
+            if($id_rol != '3'){
+                $cod_area = 0;
+            }else {
+                $cod_area = 1;
+            }
+            $sql = DB::update("UPDATE tm_usuario SET
+						id_rol  = ?,
+						id_areap   = ?,
+						dni   = ?,
+						ape_paterno  = ?,
+                        ape_materno = ?,
+                        nombres = ?,
+                        email = ?,
+                        usuario = ?,
+                        contrasena = ?,
+                        imagen = ?,
+				    WHERE id = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu]);
+
+            /*$consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
+                array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));*/
             return redirect()->route('config.Usuarios');
         } else {
 
@@ -183,11 +204,19 @@ class UsuarioController extends Controller
 
         $viewdata = [];
         $user = $id_usu;
+
+        $id_user = \Auth::user()->id_usu;
+
         if(isset($user)){
             $user_rol = TmRol::all();
-            $area_prod = TmAreaProd::all();
+            $area_produccion = TmAreaProd::where('id_usu',$id_user)->get();
+
+            $viewdata['user_areaProd'] = $area_produccion;
             $viewdata['user_rol']= $user_rol;
-            $viewdata['area_prod']= $area_prod;
+
+            foreach($area_produccion as $a) {
+                $viewdata['nombre'] = $a->nombre;
+            }
             $stm = DB::select("SELECT * FROM v_usuarios WHERE id_usu = ?",[($user)]);
             foreach($stm as $r) {
                 $viewdata['id_usu'] = $r->id_usu;

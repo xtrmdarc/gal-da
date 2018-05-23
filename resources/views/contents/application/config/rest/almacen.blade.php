@@ -8,7 +8,13 @@
             <div class="ibox animated bounce">
                 <div class="ibox-title">
                     <div class="ibox-title-buttons pull-right">
-                        <button type="button" class="btn btn-primary btn-alm"><i class="fa fa-plus-circle"></i> Nuevo Almac&eacute;n</button>
+                        @if(Auth::user()->plan_id != '1')
+                            <button type="button" class="btn btn-primary btn-alm"><i class="fa fa-plus-circle"></i> Nuevo Almac&eacute;n</button>
+                            @else
+                            <p>
+                            Solo contamos con un alamcen en el plan free.
+                            </p>
+                        @endif
                     </div>
                     <h5><i class="fa fa-cubes"></i> Almacenes</h5>
                 </div>
@@ -29,7 +35,13 @@
             <div class="ibox animated bounce">
                 <div class="ibox-title">
                     <div class="ibox-title-buttons pull-right">
-                        <button type="button" class="btn btn-primary btn-area"><i class="fa fa-plus-circle"></i> Nueva &Aacute;rea</button>
+                        @if(Auth::user()->plan_id != '1')
+                            <button type="button" class="btn btn-primary btn-area"><i class="fa fa-plus-circle"></i> Nueva &Aacute;rea</button>
+                        @else
+                            <p>
+                                Solo contamos con una area de produccion  en el plan free.
+                            </p>
+                        @endif
                     </div>
                     <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n</h5>
                 </div>

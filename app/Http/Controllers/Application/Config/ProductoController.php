@@ -99,7 +99,7 @@ class ProductoController extends Controller
             $descC = $post['nombre_catg'];
 
             $consulta = DB::Select("call usp_configProductoCatgs( :flag, :descC, @a);",
-                array($flag,$descC));
+                array(':flag' => $flag,':descC' => $descC));
             return $consulta;
             }
     }

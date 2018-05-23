@@ -24,7 +24,28 @@ class OtrosController extends Controller
     public function datosEmpresa(){
 
         $viewdata = [];
-        $stm = DB::Select("SELECT * FROM tm_datos_empresa");
+        /*$stm = DB::Select("SELECT * FROM tm_datos_empresa");
+
+        foreach($stm as $r) {
+            $viewdata['id'] = $r->id;
+            $viewdata['razon_social'] = $r->razon_social;
+            $viewdata['abrev_rs']= $r->abrev_rs;
+            $viewdata['ruc'] = $r->ruc;
+            $viewdata['direccion']= $r->direccion;
+            $viewdata['telefono']= $r->telefono;
+            $viewdata['logo']= $r->logo;
+            $viewdata['igv']= $r->igv;
+            $viewdata['moneda']= $r->moneda;
+        }
+
+        $data = [
+            'breadcrumb'=>'config.DatosEmpresa'
+        ];
+        return view('contents.application.config.sist.datos_emp',$viewdata)->with($data);
+        */
+        $id_empresa = \Auth::user()->id_empresa;
+
+        $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
         foreach($stm as $r) {
             $viewdata['id'] = $r->id;
@@ -93,7 +114,7 @@ class OtrosController extends Controller
 
         if($id != ''){
 
-            $sql = DB::Select("UPDATE tm_datos_empresa SET
+           /* $sql = DB::Select("UPDATE tm_datos_empresa SET
 						razon_social  = ?,
 						abrev_rs   = ?,
 						ruc   = ?,
@@ -103,7 +124,18 @@ class OtrosController extends Controller
                         igv = ?,
                         moneda = ?
 				    WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$logo,$igv,$moneda,$id]);
+*/
 
+            $sql = DB::update("UPDATE empresa SET
+						razon_social  = ?,
+						abrev_rs   = ?,
+						ruc   = ?,
+						telefono  = ?,
+                        direccion = ?,
+                        logo = ?,
+                        igv = ?,
+                        moneda = ?
+				    WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$logo,$igv,$moneda,$id]);
             //return redirect()->route('config.DatosEmpresa');
             return redirect('/ajustesDatosEmpresa');
         }

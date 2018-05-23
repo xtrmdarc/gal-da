@@ -16,6 +16,7 @@ class ScAreaProd extends Migration
         //
         Schema::table('tm_area_prod', function (Blueprint $table) {
             $table->string('id_sucursal')->nullable();
+            $table->string('id_usu')->nullable();
         });
     }
 

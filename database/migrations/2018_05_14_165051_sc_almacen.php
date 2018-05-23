@@ -16,6 +16,7 @@ class ScAlmacen extends Migration
         //
         Schema::table('tm_almacen', function (Blueprint $table) {
             $table->string('id_sucursal')->nullable();
+            $table->string('id_usu')->nullable();
         });
     }
 

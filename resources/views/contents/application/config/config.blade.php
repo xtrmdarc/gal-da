@@ -16,12 +16,10 @@
                             <h4 class="list-group-item-heading">Cajas</h4>
                             <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
                         </a>
-                        @if(Auth::user()->plan_id != '1')
-                            <a class="list-group-item" href="{{ url('/ajustesAlmacen') }}">
-                                <h4 class="list-group-item-heading">Almacenes y &Aacute;reas de Producci&oacute;n</h4>
-                                <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
-                            </a>
-                        @endif
+                        <a class="list-group-item" href="{{ url('/ajustesAlmacen') }}">
+                            <h4 class="list-group-item-heading">Almacenes y &Aacute;reas de Producci&oacute;n</h4>
+                            <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
+                        </a>
                         <a class="list-group-item" href="{{ url('/ajustesSalonyMesas') }}">
                             <h4 class="list-group-item-heading">Salones y mesas</h4>
                             <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>

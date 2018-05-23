@@ -24,7 +24,9 @@ class AlmacenController extends Controller
     }
     public function ListaAlmacenes()
     {
-        $data = TmAlmacen::all();
+        $id_usu = \Auth::user()->id_usu;
+
+        $data = TmAlmacen::where('id_usu',$id_usu)->get();
 
         echo json_encode($data);
     }
@@ -53,11 +55,13 @@ class AlmacenController extends Controller
 
     public function ListaAreasP(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
+
         $cod = $post['codigo'];
-        $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ?",[($cod)]);
+        $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ? and id_usu = ?",[($cod),$id_usu]);
         foreach($stm as $k => $v){
-            $stm[$k]->Almacen = DB::select("SELECT nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
+            $stm[$k]->Almacen = DB::select("SELECT id_alm,nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
         }
         $data = array("data" => $stm);
         echo json_encode($data);

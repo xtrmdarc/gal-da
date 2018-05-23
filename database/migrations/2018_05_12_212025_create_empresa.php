@@ -19,6 +19,9 @@ class CreateEmpresa extends Migration
             $table->string('nombre_empresa')->nullable();
             $table->string('razon_social')->nullable();
             $table->string('abrev_rs')->nullable();
+            $table->string('ruc')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
             $table->string('logo')->nullable();
             $table->double('igv')->nullable();
             $table->string('moneda') ->nullable();
