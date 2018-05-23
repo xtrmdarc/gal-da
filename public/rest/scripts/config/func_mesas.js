@@ -20,6 +20,7 @@ var listarSalones = function(){
         "columns":[
             {"data":"descripcion"},
             {"data":"Mesas.total"},
+            {"data":"Mesas.total"},
             {"data":null,"render": function ( data, type, row) {
                 if(data.estado == 'a'){
                   return '<span class="label label-primary">ACTIVO</span>';
@@ -46,6 +47,8 @@ var listarMesas = function(cod_sal,desc_sal){
     $('#btn-nuevo').html('<button type="button" class="btn btn-primary" onclick="editarMesa('+mesaNueva+');"><i class="fa fa-plus-circle"></i> Nueva Mesa</button>');
     $('#id_catg').val(cod_sal);
     $('#title-mesa').text(desc_sal);
+    $('#id_sucursal_m').val(cod_sal);
+
     var table = $('#table-m')
     .DataTable({
         "destroy": true,
@@ -78,7 +81,7 @@ var listarMesas = function(cod_sal,desc_sal){
                 } 
             }},
             {"data":null,"render": function ( data, type, row) {
-                return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-edit"></i> Editar </button>'
+                return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\','+data.id_catg+');"> <i class="fa fa-edit"></i> Editar </button>'
                 +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-trash"></i> Eliminar </button></div>';
             }}
         ]
@@ -101,10 +104,11 @@ var eliminarSalon = function(cod,nomb){
 }
 
 /* Editar datos de la mesa*/
-var editarMesa = function(cod,nomb){
+var editarMesa = function(cod,nomb,cod_s){
   $('#cod_mesa').val(cod);
-  $('#nro_mesa').val(nomb);     
-  $("#mdl-mesa").modal('show');
+  $('#nro_mesa').val(nomb);
+    $('#id_catg').val(cod_s);
+    $("#mdl-mesa").modal('show');
 }
 
 /* Eliminar mesa */
@@ -138,11 +142,13 @@ $(function() {
           var salones = {
             cod_sala: 0,
             desc_sala: 0,
+            sucursal_sala: 0,
             est_salon: 0
           }
 
           salones.cod_sala = $('#cod_sala').val();
           salones.desc_sala = $('#desc_sala').val();
+          salones.sucursal_sala = $('#id_sucursal').val();
           salones.est_salon = $('#est_salon').val();
 
           $.ajax({
@@ -200,18 +206,20 @@ $(function() {
           e.preventDefault();
           var $form = $(e.target),
           fv = $form.data('formValidation');
-          
+
           var form = $(this);
 
           var mesas = {
             cod_mesa: 0,
             id_catg: 0,
-            nro_mesa: 0
+            nro_mesa: 0,
+              id_sucursal_m: 0
           }
 
           mesas.cod_mesa = $('#cod_mesa').val();
           mesas.id_catg = $('#id_catg').val();
           mesas.nro_mesa = $('#nro_mesa').val();
+            mesas.id_sucursal_m = $('#id_sucursal_m').val();
 
           $.ajax({
               dataType: 'JSON',
@@ -240,7 +248,7 @@ $(function() {
               },
               error: function(jqXHR, textStatus, errorThrown){
                   console.log(errorThrown + ' ' + textStatus);
-              }   
+              }
           });
 
         return false;

@@ -20,6 +20,7 @@ $(function() {
             cod_caja = $('#cod_caja').val();
             nomb_caja = $('#nomb_caja').val();
             estado_caja = $('#estado_caja').val();
+            id_sucursal = $('#id_sucursal').val();
 
             $.ajax({
                 dataType: 'JSON',
@@ -29,6 +30,7 @@ $(function() {
                     cod_caja: cod_caja,
                     nomb_caja: nomb_caja,
                     estado_caja: estado_caja,
+                    id_sucursal: id_sucursal,
                     _token : token
                 },
                 success: function (cod) {
@@ -78,6 +80,7 @@ var listarCajas = function(){
             },
             "columns":[
                 {"data":"descripcion"},
+                {"data":"nombre_sucursal"},
                 {"data":null,"render": function ( data, type, row) {
                     if(data.estado == 'a'){
                         return '<span class="label label-primary">ACTIVA</span>';
@@ -86,16 +89,29 @@ var listarCajas = function(){
                     }
                 }},
                 {"data":null,"render": function ( data, type, row) {
-                    return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                    if(data.id_rol_v == '1'){
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>'
+                            +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.nombre_sucursal+'\');"> <i class="fa fa-trash"></i></button></div>';
+                    }if(data.id_rol_v == '2') {
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                    }
                 }}
             ]
         });
 }
 
+/* Eliminar Caja */
+var eliminarCaja = function(cod,nomb,sucur){
+    $('#cod_caja_e').val(cod);
+    $("#mensaje-caja").html("<center><h4>"+ nomb + ' - ' + sucur + "<br><br>¿Desea eliminar?</h4></center>");
+    $("#mdl-eliminar-caja").modal('show');
+}
+
 /* Editar caja */
-var editarCaja = function(cod,nomb,est){
+var editarCaja = function(cod,nomb,sucur,est){
     $('#cod_caja').val(cod);
     $('#nomb_caja').val(nomb);
+    $('#id_sucursal').selectpicker('val', sucur);
     $('#estado_caja').selectpicker('val', est);
     $('#title-caja').text('Editar Caja');
     $('#mdl-caja').modal('show');

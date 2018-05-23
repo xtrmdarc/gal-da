@@ -8,6 +8,7 @@
     Route::get('/ajustesCaja', 'Application\Config\CajaController@index')->name('config.Cajas');
     Route::post('ajustesListaCaja', 'Application\Config\CajaController@ListaCajas')->name('config.ListaCajas');
     Route::post('ajustesCrudCaja', 'Application\Config\CajaController@CrudCaja')->name('config.CrudCaja');
+    Route::post('/ajustesEliminarCaja', 'Application\Config\CajaController@Eliminar')->name('config.Caja.Eliminar');
 
     //Almacen
 
@@ -70,7 +71,7 @@
     Route::post('/ajustesRUsuario', 'Application\Config\UsuarioController@RUUsuario');
     Route::post('/ajustesEliminar', 'Application\Config\UsuarioController@Eliminar');
 
-    //Caja
+    //Sucursal
 
     Route::get('/ajustesSucursal', 'Application\Config\SucursalController@index')->name('config.Sucursal');
     Route::post('ajustesListaSucursales', 'Application\Config\SucursalController@ListaSucursales')->name('config.ListaSucursales');

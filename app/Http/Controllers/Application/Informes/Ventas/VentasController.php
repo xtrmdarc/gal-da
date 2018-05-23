@@ -81,5 +81,25 @@ class VentasController extends Controller
             $stm[$k]->Producto = DB::Select("SELECT nombre_prod,pres_prod FROM v_productos WHERE id_pres = ".$d->id_prod)[0];
         }*/
     }
+    public function informeVentasF()
+    {
+        $viewdata = [];
+        $data = [
+            'breadcrumb'=>'inf_ventas'
+        ];
+        //Tipo de Pedido
+        $stm = DB::Select("SELECT * FROM tm_tipo_pedido");
 
+        //Clientes
+        $stm_clientes = DB::Select("SELECT id_cliente,nombre FROM v_clientes");
+
+        //Cajas
+        $stm_cajas = DB::Select("SELECT * FROM tm_caja");
+
+        $viewdata['TipoPedido'] = $stm;
+        $viewdata['Clientes'] = $stm_clientes;
+        $viewdata['Cajas'] = $stm_cajas;
+
+        return view('contents.application.informes.ventas.inf_ventasF',$viewdata)->with($data);
+    }
 }

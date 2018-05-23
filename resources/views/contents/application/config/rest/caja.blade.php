@@ -18,6 +18,7 @@
                             <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Sucursal</th>
                                 <th>Estado</th>
                                 <th class="text-right">Acciones</th>
                             </tr>
@@ -63,6 +64,33 @@
                                 </div>
                             </div>
                         </div>
+                        @if(Auth::user()->plan_id == '1')
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Sucursal</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-renren"></i></span>
+                                            <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                                @if(Auth::user()->id_usu != null)
+                                                    <option value="">
+
+                                                    </option>
+                                                @else
+                                                    echo '<option value="" selected>Seleccionar</option>';
+                                                    echo '<optgroup label="Seleccionar">';
+                                                        @endif
+                                                        <optgroup label="Seleccionar">
+                                                            @foreach($user_sucursal as $r)
+                                                                <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -78,6 +106,28 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal fade" id="mdl-eliminar-caja" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content animated bounceInRight">
+                <form id="frm-eliminar-caja" method="post" enctype="multipart/form-data" action="/ajustesEliminarCaja">
+                    @csrf
+                    <input type="hidden" name="cod_caja_e" id="cod_caja_e">
+                    <div class="modal-header mh-p">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                        <i class="fa fa-trash-o modal-icon"></i>
+                    </div>
+                    <div class="modal-body">
+                        <div id="mensaje-caja"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Aceptar</button>
                     </div>
                 </form>
             </div>

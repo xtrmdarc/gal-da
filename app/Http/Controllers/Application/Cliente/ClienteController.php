@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
-use App\Models\Sucursal;
 
 class ClienteController extends Controller
 {

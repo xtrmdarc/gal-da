@@ -22,6 +22,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Mesas</th>
+                            <th>Sucursal</th>
                             <th>Estado</th>
                             <th class="text-right">Acciones</th>
                         </tr>
@@ -74,6 +75,7 @@
                 @csrf
                 <input type="hidden" name="cod_mesa" id="cod_mesa">
                 <input type="hidden" name="id_catg" id="id_catg">
+                <input type="hidden" name="id_sucursal_m" id="id_sucursal_m">
                 <div class="modal-header mh-e">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <i class="fa fa-edit modal-icon"></i>
@@ -138,6 +140,33 @@
                             </div>
                         </div>
                     </div>
+                    @if(Auth::user()->plan_id == '1')
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label">Sucursal</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
+                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                            @if(Auth::user()->id_usu != null)
+                                                <option value="">
+
+                                                </option>
+                                            @else
+                                                echo '<option value="" selected>Seleccionar</option>';
+                                                echo '<optgroup label="Seleccionar">';
+                                                    @endif
+                                                    <optgroup label="Seleccionar">
+                                                        @foreach($user_sucursal as $r)
+                                                            <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

@@ -16,6 +16,7 @@ class ScTmSalon extends Migration
         //
         Schema::table('tm_salon', function (Blueprint $table) {
             $table->string('id_sucursal')->nullable();
+            $table->string('id_usu')->nullable();
         });
     }
 
@@ -28,5 +29,6 @@ class ScTmSalon extends Migration
     {
         //
         Schema::table('tm_salon', function(Blueprint $table) {$table->dropColumn('id_sucursal');});
+        Schema::table('tm_salon', function(Blueprint $table) {$table->dropColumn('id_usu');});
     }
 }

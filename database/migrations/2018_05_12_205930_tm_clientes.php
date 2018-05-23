@@ -34,7 +34,3 @@ class TmClientes extends Migration
         Schema::table('tm_cliente', function(Blueprint $table) {$table->dropColumn('id_usu');});
     }
 }
-
-//php artisan make:migrate empresa
-//php artisan make:migrate tm_caja
-//php artisan migrate:refresh
