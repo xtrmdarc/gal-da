@@ -22,7 +22,7 @@ class ClienteController extends Controller
         $viewdata = [];
 
         $clientes = DB::select("call usp_clientes_g( :empresaID);",
-            array($idEmpresa));
+            array(':empresaID' => $idEmpresa));
 
         $viewdata['breadcrumb'] = '';
         $data = [
@@ -71,20 +71,22 @@ class ClienteController extends Controller
             if($data['id_cliente'] != ''){
                 //$this->model->Actualizar($alm);
                 $arrayParam =  array(
-                    ':flag' => 2,
-                    ':dni' => $data['dni'],
-                    ':ruc' => $data['ruc'],
-                    ':apeP' => $data['ape_paterno'],
-                    ':apeM' => $data['ape_materno'],
-                    ':nomb' => $data['nombres'],
-                    ':razS' => $data['razon_social'],
-                    ':telf' => $data['telefono'],
-                    ':fecN' => $fecha_nac,
-                    ':correo' => $data['correo'],
-                    ':direc' => $data['direccion'],
-                    ':idCliente' => $data['id_cliente']
+                    'dni' => $data['dni'],
+                    'ruc' => $data['ruc'],
+                    'ape_paterno' => $data['ape_paterno'],
+                    'ape_materno' => $data['ape_materno'],
+                    'nombres' => $data['nombres'],
+                    'razon_social' => $data['razon_social'],
+                    'telefono' => $data['telefono'],
+                    'fecha_nac' => $fecha_nac,
+                    'correo' => $data['correo'],
+                    'direccion' => $data['direccion']
                 );
-                DB::select("call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, :idCliente)",$arrayParam);
+                TmCliente::where('id_cliente',$data['id_cliente'])
+                        ->update($arrayParam);
+
+
+                //DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, :idCliente)",$arrayParam);
                 //$consulta = "call usp_restRegCliente( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, :idCliente);";
                 
                 /*$st = $this->conexionn->prepare($consulta);

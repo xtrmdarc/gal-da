@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
                 'sucursales' => $sucursales
             ];
             session(['id_sucursal'=>$sucursales[0]->id]);
-            
+            session(['id_empresa'=>\Auth::user()->id_empresa]);
             //pass the data to the view
             $view->with( $data);
         } );

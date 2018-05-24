@@ -72,7 +72,7 @@ class AppController extends Controller
 
     }
     public static function RedirectSegunRol($roles){
-
+        
         if( self::ValidarPermisos($roles) == true){
             
             return redirect(self::$home);

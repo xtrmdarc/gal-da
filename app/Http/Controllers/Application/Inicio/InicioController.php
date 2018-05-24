@@ -941,7 +941,7 @@ class InicioController extends Controller
             $data = $request->all();
             $telefono = $data['telefono'];
             
-            $cliente = TmCliente::firstOrNew(['telefono'=>$telefono,'id_sucursal'=>session('id_sucursal')]);
+            $cliente = TmCliente::firstOrNew(['telefono'=>$telefono,'id_empresa'=>session('id_empresa')]);
 
             return response()->json($cliente);
 
