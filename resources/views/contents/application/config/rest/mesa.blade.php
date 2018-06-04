@@ -149,9 +149,7 @@
                                         <span class="input-group-addon"><i class="fa fa-renren"></i></span>
                                         <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
                                             @if(Auth::user()->id_usu != null)
-                                                <option value="">
-
-                                                </option>
+                                                <option value="">Seleccionar</option>
                                             @else
                                                 echo '<option value="" selected>Seleccionar</option>';
                                                 echo '<optgroup label="Seleccionar">';
@@ -194,6 +192,7 @@
             <form id="frm-eliminar-salon" method="post" enctype="multipart/form-data" action="/ajustesEliminarS">
                 @csrf
                 <input type="hidden" name="cod_salae" id="cod_salae">
+                <input type="hidden" name="id_sucursal_s" id="id_sucursal_s">
                 <div class="modal-header mh-p">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <i class="fa fa-trash-o modal-icon"></i>

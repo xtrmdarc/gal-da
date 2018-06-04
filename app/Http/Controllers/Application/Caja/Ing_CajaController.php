@@ -19,7 +19,7 @@ class Ing_CajaController extends Controller
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d");
         $lista1 = TmIngresosAdm::WhereDate('fecha_reg',$fecha)
-                                ->Where('id_sucursal',sesion('id_sucursal'))        
+                                ->Where('id_sucursal',session('id_sucursal'))
                                 ->Where('id_usu',session('id_usu'))
                                 ->get();
         

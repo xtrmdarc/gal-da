@@ -113,19 +113,6 @@ class OtrosController extends Controller
         }*/
 
         if($id != ''){
-
-           /* $sql = DB::Select("UPDATE tm_datos_empresa SET
-						razon_social  = ?,
-						abrev_rs   = ?,
-						ruc   = ?,
-						telefono  = ?,
-                        direccion = ?,
-                        logo = ?,
-                        igv = ?,
-                        moneda = ?
-				    WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$logo,$igv,$moneda,$id]);
-*/
-
             $sql = DB::update("UPDATE empresa SET
 						razon_social  = ?,
 						abrev_rs   = ?,

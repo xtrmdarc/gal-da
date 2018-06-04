@@ -20,7 +20,7 @@ var listarSalones = function(){
         "columns":[
             {"data":"descripcion"},
             {"data":"Mesas.total"},
-            {"data":"Mesas.total"},
+            {"data":"nombre_sucursal"},
             {"data":null,"render": function ( data, type, row) {
                 if(data.estado == 'a'){
                   return '<span class="label label-primary">ACTIVO</span>';
@@ -30,8 +30,8 @@ var listarSalones = function(){
             }},
             {"data":null,"render": function ( data, type, row) {
                 return '<div class="text-right"><button class="btn btn-info btn-xs" onclick="listarMesas('+data.id_catg+',\''+data.descripcion+'\');"> Ver </button>'
-                +'&nbsp;<button class="btn btn-success btn-xs" onclick="editarSalon('+data.id_catg+',\''+data.estado+'\',\''+data.descripcion+'\');"> <i class="fa fa-edit"></i> Editar </button>'
-                +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarSalon('+data.id_catg+',\''+data.descripcion+'\');"> <i class="fa fa-trash"></i></button></div>';
+                +'&nbsp;<button class="btn btn-success btn-xs" onclick="editarSalon('+data.id_catg+',\''+data.estado+'\',\''+data.id_sucursal+'\',\''+data.descripcion+'\');"> <i class="fa fa-edit"></i> Editar </button>'
+                +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarSalon('+data.id_catg+',\''+data.id_sucursal+'\',\''+data.descripcion+'\');"> <i class="fa fa-trash"></i></button></div>';
             }}
         ]
     });
@@ -89,17 +89,19 @@ var listarMesas = function(cod_sal,desc_sal){
 }
 
 /* Editar datos del salon */
-var editarSalon = function(cod,est,nomb){
+var editarSalon = function(cod,est,id_sucursal,nomb){
   $('#cod_sala').val(cod);
   $('#desc_sala').val(nomb);
+  $('#id_sucursal').val(id_sucursal);
   $('#est_salon').selectpicker('val', est);    
   $("#mdl-salon").modal('show');
 }
 
 /* Eliminar salon */
-var eliminarSalon = function(cod,nomb){
+var eliminarSalon = function(cod,id_sucursal,nomb){
   $('#cod_salae').val(cod);
-  $("#mensaje-es").html("<center><h4>¿Desea eliminar "+ nomb +"?</h4></center>");          
+  $('#id_sucursal_s').val(id_sucursal);
+  $("#mensaje-es").html("<center><h4>¿Desea eliminar el Salon : "+ nomb +"?</h4></center>");
   $("#mdl-eliminar-salon").modal('show');
 }
 
@@ -172,6 +174,7 @@ $(function() {
                       $('#lizq-s').css("display","block");
                       /* Ocultar tabla mesas */
                       $('#lizq-i').css("display","none");
+                      location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos registrados, correctamente.');
                   } else if(cod == 2) {
                       listarSalones();
@@ -182,6 +185,7 @@ $(function() {
                       $('#lizq-s').css("display","block");
                       /* Ocultar tabla mesas */
                       $('#lizq-i').css("display","none");
+                      location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos modificados, correctamente.');
                   }
               },
@@ -238,11 +242,13 @@ $(function() {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
+                      location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos registrados, correctamente.');
                   } else if(cod == 2) {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
+                      location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos modificados, correctamente.');
                   }
               },
@@ -304,10 +310,12 @@ $("#frm-eliminar-salon").submit(function(){
   var form = $(this);
 
     var salon = {
-        cod_salae: 0
+        cod_salae: 0,
+        id_sucursal: 0
     }
 
     salon.cod_salae = $('#cod_salae').val();
+    salon.id_sucursal = $('#id_sucursal_s').val();
 
     $.ajax({
         dataType: 'JSON',
@@ -326,9 +334,11 @@ $("#frm-eliminar-salon").submit(function(){
                 $('#lizq-s').css("display","block");
                 $('#lizq-i').css("display","none");
                 toastr.success('Datos eliminados, correctamente.');
+                location.href = "/ajustesSalonyMesas";
             } else if(cod == 0){
                 $('#mdl-eliminar-salon').modal('hide');
                 toastr.warning('Advertencia, El salon no puede ser eliminado.');
+                location.href = "/ajustesSalonyMesas";
                 return false;
             }
         },
@@ -366,9 +376,11 @@ $("#frm-eliminar-mesa").submit(function(){
                 listarMesas(codigoSalon);
                 $('#mdl-eliminar-mesa').modal('hide');
                 toastr.warning('Advertencia, Datos duplicados.');
+                location.href = "/ajustesSalonyMesas";
             } else if(cod == 0){
                 $('#mdl-eliminar-mesa').modal('hide');
                 toastr.warning('Advertencia, La mesa no puede ser eliminado.');
+                location.href = "/ajustesSalonyMesas";
                 return false;
             }
         },

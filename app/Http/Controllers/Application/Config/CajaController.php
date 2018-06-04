@@ -30,6 +30,7 @@ class CajaController extends Controller
     {
         $id_parent = \Auth::user()->parent_id;
         $id_rol = \Auth::user()->id_rol;
+        $id_usu = \Auth::user()->id_usu;
 
         //$data = TmCaja::where('id_usu',$id_usu)->get();
 
@@ -37,8 +38,10 @@ class CajaController extends Controller
         if(is_null($id_parent)){
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
+                ->where('id_usu',$id_usu)
                 ->orWhere('id_rol','=','2')
                 ->get();
+            dd($data);
             foreach($data as $k => $v){
                 $data[$k]->id_rol_v = $id_rol;
             }
@@ -48,6 +51,7 @@ class CajaController extends Controller
               //  ,array(':_idParent' => $id_parent));
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
+                ->where('id_usu',$id_usu)
                 ->orWhere('id_rol','=','2')
                 ->get();
             foreach($data as $k => $v){
@@ -88,9 +92,11 @@ class CajaController extends Controller
             //$consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
             $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
-
-            //header('Location: /ajustesCaja');
-            return redirect()->route('config.Cajas');
+            $array = [];
+            foreach($consulta_create as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }
     }
 

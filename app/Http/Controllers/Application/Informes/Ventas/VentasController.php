@@ -102,4 +102,22 @@ class VentasController extends Controller
 
         return view('contents.application.informes.ventas.inf_ventasF',$viewdata)->with($data);
     }
+    public function DatosFree(Request $request)
+    {
+        $post = $request->all();
+
+        $ifecha = date('Y-m-d H:i:s',strtotime($post['ifecha']));
+        $ffecha = date('Y-m-d H:i:s',strtotime($post['ffecha']));
+        $tped = $post['tped'];
+        $tcaj = $post['icaja'];
+        $tdoc = $post['tdoc'];
+
+        $informeCard = DB::select('call usp_informe_f_g( :ifecha, :ffecha,:tped,:tcaj,:tdoc)'
+            ,array(':ifecha' => $ifecha,':ffecha' => $ffecha,':tped' => $tped,':tcaj' => $tcaj,':tdoc' => $tdoc));
+
+        $data = array("data" => $informeCard);
+
+        $json = json_encode($data);
+        echo $json;
+    }
 }

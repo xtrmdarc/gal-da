@@ -38,6 +38,7 @@ $(function() {
                         toastr.warning('Advertencia, Datos duplicados.');
                         return false;
                     } else if(cod == 1){
+                        location.href = "/ajustesCaja"
                         listarCajas();
                         $('#mdl-caja').modal('hide');
                         toastr.success('Datos registrados, correctamente.');

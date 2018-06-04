@@ -51,7 +51,7 @@
                             <h4 class="list-group-item-heading">Usuarios</h4>
                             <p class="list-group-item-text">Alta de usuarios.</p>
                         </a>
-                        @if(Auth::user()->plan_id == '1')
+                        @if(Auth::user()->plan_id != '1')
                             <a class="list-group-item" href="{{ url('/ajustesSucursal') }}">
                                 <h4 class="list-group-item-heading">Sucursales</h4>
                                 <p class="list-group-item-text">Crear y/o modificar tus sucursales.</p>

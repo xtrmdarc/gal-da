@@ -167,11 +167,8 @@ class UsuarioController extends Controller
                         email = ?,
                         usuario = ?,
                         contrasena = ?,
-                        imagen = ?,
-				    WHERE id = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu]);
-
-            /*$consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
-                array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));*/
+                        imagen = ?
+				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu]);
             return redirect()->route('config.Usuarios');
         } else {
 
@@ -249,7 +246,7 @@ class UsuarioController extends Controller
                 $con = $a->total;
             }
             if($con == '0') {
-                $consulta_eliminar = DB::select("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
+                $consulta_eliminar = DB::delete("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
                 return redirect()->route('config.Usuarios');
             }else {
                 dd("error");

@@ -29,10 +29,10 @@
                     </div>
                     <div class="ibox-content" style="position: relative; min-height: 30px;">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group">
+                                        <div class="form-group padding_infF">
                                             <div class="input-group">
                                                 <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
                                                 <span class="input-group-addon">al</span>
@@ -42,8 +42,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-group padding_infF">
                                     <select name="tipo_ped" id="tipo_ped" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
                                         <option value="%" active>Todos los TipoPedidos</option>
                                         @foreach($TipoPedido as $r)
@@ -52,18 +52,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <select name="cliente" id="cliente" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                        <option value="%" active>Todos los clientes</option>
-                                        @foreach($Clientes as $r)
-                                            <option value="{{$r->id_cliente}}">{{$r->nombre}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-group padding_infF">
                                     <select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
                                         <option value="%">Todas las cajas</option>
                                         @foreach($Cajas as $r)
@@ -72,8 +62,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-group padding_infF">
                                     <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" autocomplete="off">
                                         <option value="%" active>Todos los comprobantes</option>
                                         <option value="1">BOLETA</option>
@@ -92,7 +82,7 @@
                                     <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>568120</h2>
+                                    <h2 id="totalVentasI"></h2>
                                     <p class="m-b-0">Total Revenue</p>
                                 </div>
                             </div>
@@ -105,7 +95,7 @@
                                     <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>1178</h2>
+                                    <h2 id="nVentasI"></h2>
                                     <p class="m-b-0">Sales</p>
                                 </div>
                             </div>
@@ -118,51 +108,46 @@
                                     <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>847</h2>
+                                    <h2 id="nClientesI"></h2>
                                     <p class="m-b-0">Customer</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="punteo">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <h5 class="no-margins"><strong>Descuento</strong></h5>
-                            <h1 class="no-margins"><strong id="des_v"></strong></h1>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5 class="no-margins"><strong>Subtotal</strong></h5>
-                            <h1 class="no-margins"><strong id="subt_v"></strong></h1>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5 class="no-margins"><strong>IGV</strong></h5>
-                            <h1 class="no-margins"><strong id="igv_v"></strong></h1>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5 class="no-margins"><strong>Total</strong></h5>
-                            <h1 class="no-margins"><strong id="total_v"></strong></h1>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            <h4>Ventas contra Cantidad</h4>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="singelBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <h5><strong><i class="fa fa-list"></i> Top de los 10 Productos mas Vendidos</strong></h5>
-                <div class="table-responsive">
-                    <meta name="csrf-token" content="{{ csrf_token() }}">
-                    <table id="table" class="table table-hover table-condensed table-striped" width="100%">
-                        <thead>
-                        <tr>
-                            <th width="10%">Fecha</th>
-                            <th>Caja</th>
-                            <th width="20%">Cliente</th>
-                            <th>Documento</th>
-                            <th class="text-right" width="15%">Pagos</th>
-                            <th class="text-right">Total venta</th>
-                            <th>Tipo de venta</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-right">Opciones</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            <h4>Dinero contra Ventast</h4>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <canvas id="singelBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -199,6 +184,6 @@
         </div>
     </div>
     </div>
-    <script src="{{URL::to('rest/scripts/informes/ventas/func-ventas.js' )}}"></script>
+    <script src="{{URL::to('rest/scripts/informes/ventas/func-ventasF.js' )}}"></script>
 
 @endsection('content')

@@ -23,6 +23,7 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Sucursal</th>
                             <th>Estado</th>
                             <th class="text-right">Acciones</th>
                         </tr>
@@ -83,6 +84,41 @@
                             </div>
                         </div>
                     </div>
+                    @if(Auth::user()->plan_id != '1')
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label">Sucursal</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
+                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                            @if(Auth::user()->id_sucursal != null)
+                                                <option value="">Seleccionar</option>
+                                            @else
+                                                echo '<option value="" selected>Seleccionar</option>';
+                                                echo '<optgroup label="Seleccionar">';
+                                                    @endif
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($user_sucursal as $r)
+                                                        <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input type="hidden" name="id_sucursal" id="id_sucursal" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->id}}" required="required" disabled/>
+                                    <input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->nombre_sucursal}}" required="required" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

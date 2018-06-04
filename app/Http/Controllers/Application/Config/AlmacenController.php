@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\TmAlmacen;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sucursal;
 
 class AlmacenController extends Controller
 {
@@ -16,23 +17,42 @@ class AlmacenController extends Controller
     }
     public function index()
     {
+        $viewdata = [];
+        $user_AdminSucursal = auth()->user()->id_empresa;
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal_free = Sucursal::where('id_empresa', $user_AdminSucursal)->first();
+
+        foreach($user_sucursal as $a) {
+            $viewdata['id_sucursal'] = $a->id;
+            $viewdata['nombre_sucursal'] = $a->nombre_sucursal;
+            $viewdata['id_usu'] = $a->id_usu;
+        }
+
+        $viewdata['user_sucursal'] = $user_sucursal;
+        $viewdata['user_sucursal_free'] = $user_sucursal_free;
+
         $data = [
             'breadcrumb'=> 'config.Almacen'  
         ];
 
-        return view('contents.application.config.rest.almacen')->with($data);
+        return view('contents.application.config.rest.almacen',$viewdata)->with($data);
     }
     public function ListaAlmacenes()
     {
         $id_usu = \Auth::user()->id_usu;
 
-        $data = TmAlmacen::where('id_usu',$id_usu)->get();
+        $data = DB::table('tm_almacen')
+            ->join('sucursal', 'tm_almacen.id_sucursal', '=', 'sucursal.id')
+            ->where('sucursal.id_usu',$id_usu)
+            ->select('tm_almacen.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
+            ->get();
 
         echo json_encode($data);
     }
 
     public function CrudAlmacen(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
         $cod = $post['cod_alm'];
         if($cod != ''){
@@ -41,15 +61,29 @@ class AlmacenController extends Controller
             $nombre = $post['nomb_alm'];
             $estado = $post['estado_alm'];
             $idAlmacen = $post['cod_alm'];
-            $consulta_update = DB::select('call usp_configAlmacenes( :flag, :nombre, :estado, :idAlm)',array($flag, $nombre, $estado,$idAlmacen));
-            return $consulta_update;
+            $idSucursal = $post['id_sucursal'];
+
+            $consulta_update = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, :idAlm, :idUsu, :_idSucursal)',
+                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idAlm' =>$idAlmacen,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $array = [];
+            foreach($consulta_update as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }else {
             //Create
             $flag = 1;
             $nombre = $post['nomb_alm'];
             $estado = $post['estado_alm'];
-            $consulta_create = DB::select('call usp_configAlmacenes( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
-            return $consulta_create;
+            $idSucursal = $post['id_sucursal'];
+
+            $consulta_create = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)',
+                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $array = [];
+            foreach($consulta_create as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }
     }
 
@@ -69,6 +103,9 @@ class AlmacenController extends Controller
 
     public function CrudAreaP(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
+        $idSucursal = \Auth::user()->id_sucursal; //CORREGIR ESTO
+
         $post = $request->all();
         $cod = $post['cod_area'];
         if($cod != ''){
@@ -79,27 +116,46 @@ class AlmacenController extends Controller
             $estado = $post['estado_area'];
             $idArea = $post['cod_area'];
 
-            $consulta = DB::Select("call usp_configAreasProd( :flag, :idAlm, :nombre, :estado, :idArea);",
-                array($flag,$idAlm,$nombre,$estado,$idArea));
-            return $consulta;
+            $consulta_update = DB::Select("call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, :idArea, :idUsu, :_idSucursal);",
+                array(':flag' => $flag,':idAlm' =>$idAlm,':nombre' =>$nombre,':estado' =>$estado,':idArea' =>$idArea,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $array = [];
+            foreach($consulta_update as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }else {
             //Create
             $flag = 1;
             $id_Alm = $post['cod_alma'];
             $nombre = $post['nomb_area'];
             $estado = $post['estado_area'];
-            $consulta_create = DB::select('call usp_configAreasProd( :flag, :idAlm, :nombre, :estado, @a)',array($flag,$id_Alm, $nombre, $estado));
-            return $consulta_create;
+            $consulta_create = DB::select('call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, @a, :idUsu, :_idSucursal)',
+                array(':flag' => $flag,':idAlm' =>$id_Alm, ':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+
+            $array = [];
+            foreach($consulta_create as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }
     }
 
     public function ComboAlm()
     {
-        $query = DB::select("SELECT * FROM tm_almacen WHERE estado = 'a'");
-        echo '<select name="cod_alma" id="cod_alma" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">';
-        foreach($query as $v) {
-            echo '<option value="'.$v->id_alm.'">'.$v->nombre.'</option>';
+        $id_usu = \Auth::user()->id_usu;
+        $id_plan = \Auth::user()->plan_id;
+
+        if($id_plan != 1){
+            $query = DB::select("SELECT * FROM tm_almacen WHERE estado = 'a' and id_usu = ?",[$id_usu]);
+            echo '<select name="cod_alma" id="cod_alma" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">';
+            foreach($query as $v) {
+                echo '<option value="'.$v->id_alm.'">'.$v->nombre.'</option>';
+            }
+            echo " </select>";
+        } else {
+            echo '<input type="hidden" name="cod_alma" id="cod_alma" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->id}}" required="required" disabled/>';
+            echo '<input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->nombre_sucursal}}" required="required" disabled/>';
         }
-        echo " </select>";
+
     }
 }

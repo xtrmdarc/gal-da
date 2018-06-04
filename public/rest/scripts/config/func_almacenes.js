@@ -22,6 +22,7 @@ $(function() {
     cod_alm = $('#cod_alm').val();
     nomb_alm = $('#nomb_alm').val();
     estado_alm = $('#estado_alm').val();
+    id_sucursal = $('#id_sucursal').val();
 
     $.ajax({
       dataType: 'JSON',
@@ -31,6 +32,7 @@ $(function() {
           cod_alm: cod_alm,
           nomb_alm: nomb_alm,
           estado_alm: estado_alm,
+          id_sucursal: id_sucursal,
           _token : token
       },
       success: function (cod) {
@@ -41,11 +43,13 @@ $(function() {
               listarAlmacenes();
               listarAreaProd();
               $('#mdl-almacen').modal('hide');
+              location.href = "/ajustesAlmacen";
               toastr.success('Datos registrados, correctamente.');
           } else if(cod == 2) {
               listarAlmacenes();
               listarAreaProd();
               $('#mdl-almacen').modal('hide');
+              location.href = "/ajustesAlmacen";
               toastr.success('Datos modificados, correctamente.');
           }
       },
@@ -103,10 +107,12 @@ $(function() {
                 listarAreaProd();
                 $('#mdl-areaprod').modal('hide');
                 toastr.success('Datos registrados, correctamente.');
+                location.href = "/ajustesAlmacen";
             } else if(cod == 2) {
                 listarAreaProd();
                 $('#mdl-areaprod').modal('hide');
                 toastr.success('Datos modificados, correctamente.');
+                location.href = "/ajustesAlmacen";
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -137,6 +143,7 @@ var listarAlmacenes = function(){
     },
 	  "columns":[
 	    {"data":"nombre"},
+        {"data":"nombre_sucursal"},
 	    {"data":null,"render": function ( data, type, row) {
 	      if(data.estado == 'a'){
 	        return '<span class="label label-primary">ACTIVO</span>';
@@ -145,7 +152,7 @@ var listarAlmacenes = function(){
 	      }
 	    }},
       {"data":null,"render": function ( data, type, row) {
-         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_alm('+data.id_alm+',\''+data.nombre+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_alm('+data.id_alm+',\''+data.nombre+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
       }}
 	  ]
 	});
@@ -207,9 +214,10 @@ var comboAlmacen = function(){
 }
 
 /* Editar Almacen */
-var editar_alm = function(cod,nomb,est){
+var editar_alm = function(cod,nomb,sucur,est){
 	$('#cod_alm').val(cod);
 	$('#nomb_alm').val(nomb);
+    $('#id_sucursal').selectpicker('val', sucur);
 	$('#estado_alm').selectpicker('val', est);
 	$('#title-alm').text('Editar Almacén');
     $('#mdl-almacen').modal('show');

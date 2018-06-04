@@ -29,11 +29,22 @@ class MesaController extends Controller
     {
         $id_usu = \Auth::user()->id_usu;
 
-        $stm = DB::select("SELECT * FROM tm_salon WHERE id_usu =".$id_usu);
+        /*$stm = DB::select("SELECT * FROM tm_salon WHERE id_usu =".$id_usu);
+
+        foreach($stm as $k => $v){
+            $stm[$k]->Mesas = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg)[0];
+        }*/
+
+        $stm = DB::table('tm_salon')
+            ->join('sucursal', 'tm_salon.id_sucursal', '=', 'sucursal.id')
+            ->where('sucursal.id_usu',$id_usu)
+            ->select('tm_salon.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
+            ->get();
 
         foreach($stm as $k => $v){
             $stm[$k]->Mesas = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg)[0];
         }
+
         $data = array("data" => $stm);
         echo json_encode($data);
     }
@@ -66,7 +77,11 @@ class MesaController extends Controller
             //    ,array($flag,$desc,$est,$idCatg));
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est, :idCatg,:idUsu, :_idSucursal);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idCatg' =>$idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
-            return $consulta;
+            $array = [];
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         } else{
             //Crear
             $flag = 1;
@@ -78,7 +93,10 @@ class MesaController extends Controller
 //                array($flag,$desc,$est));
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est,@a, :idUsu, :_idSucursal);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
-            return $consulta;
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }
     }
 
@@ -105,7 +123,10 @@ class MesaController extends Controller
   //              array($flag,$idCatg,$nroMesa,$idMesa));
             $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, :idMesa, :_idSucursal);",
                 array(':flag' => $flag,':idCatg' => $idCatg,':nroMesa' => $nroMesa,':idMesa' => $idMesa,':_idSucursal' => $id_sucursal));
-            return $consulta;
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         } else{
             //Crear
 
@@ -117,7 +138,10 @@ class MesaController extends Controller
               //  array($flag,$idCatg,$nroMesa));
             $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, @a, :_idSucursal);",
                 array(':flag' => $flag,':idCatg' => $id_sucursal_m,':nroMesa' => $nroMesa,':_idSucursal' => $id_sucursal));
-            return $consulta;
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }
     }
 
@@ -131,23 +155,14 @@ class MesaController extends Controller
 
             $flag = 3;
             $idCatg = $post['cod_salae'];
-            //$idSucursal = $post['sucursal_sala'];
+            $idSucursal = $post['id_sucursal'];
 
-           /* $consulta = DB::Select("call usp_configSalones( :flag, @a, @b, :idCatg,:idUsu, :_idSucursal);",
-                array(':flag' => $flag,':idCatg' => $idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
-            return $consulta;*/
+            $consulta = DB::Select("call usp_configSalones_g( :flag, @a, @b, :idCatg,:idUsu, :_idSucursal);",
+            array(':flag' => $flag,':idCatg' => $idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
 
-            $consulta = DB::select("SELECT count(*) AS total FROM tm_salon WHERE id_catg = ?",[($idCatg)]);
-            foreach($consulta as $a){
-                $con = $a->total;
-            }
-            if($con == '0') {
-                $consulta_eliminar = DB::select("DELETE FROM tm_salon WHERE id_catg = ?",[($idCatg)]);
-                return redirect()->route('config.SalonesMesas');
-            }else {
-                //Ummm Revisar
-                $consulta_eliminar = DB::select("DELETE FROM tm_salon WHERE id_catg = ?",[($idCatg)]);
-                return redirect()->route('config.SalonesMesas');
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
             }
         }
     }
@@ -159,21 +174,12 @@ class MesaController extends Controller
         $flag = 3;
         $idMesa = $post['cod_mesae'];
 
-        /*$consulta = DB::Select("call usp_configMesas( :flag, @a, @b, :idMesa);",
-            array($flag,$idMesa));
-        return $consulta;*/
+        $consulta = DB::Select("call usp_configMesas( :flag, @a, @b, :idMesa);",
+            array(':flag' => $flag,':idMesa' => $idMesa));
 
-        $consulta = DB::select("SELECT count(*) AS total FROM tm_pedido_mesa WHERE id_mesa = ?",[($idMesa)]);
-        foreach($consulta as $a){
-            $con = $a->total;
-        }
-        if($con == '0') {
-            $consulta_eliminar = DB::select("DELETE FROM tm_mesa WHERE id_mesa = ?",[($idMesa)]);
-            return redirect()->route('config.SalonesMesas');
-        }else {
-            //Ummm Revisar
-            $consulta_eliminar = DB::select("DELETE FROM tm_mesa WHERE id_mesa = ?",[($idMesa)]);
-            return redirect()->route('config.SalonesMesas');
+        foreach($consulta as $k)
+        {
+            return $array['cod'] = $k->cod;
         }
     }
 
