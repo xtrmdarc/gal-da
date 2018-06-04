@@ -8433,3 +8433,7 @@ body.md-skin {
 #list-prods{
   background: #fff;
 }
+.padding_infF {
+  padding-left: 10px;
+  padding-right: 10px;
+}
