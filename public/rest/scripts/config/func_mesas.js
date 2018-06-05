@@ -174,7 +174,7 @@ $(function() {
                       $('#lizq-s').css("display","block");
                       /* Ocultar tabla mesas */
                       $('#lizq-i').css("display","none");
-                      location.href = "/ajustesSalonyMesas";
+                      //location.replace("/ajustesSalonyMesas");
                       toastr.success('Datos registrados, correctamente.');
                   } else if(cod == 2) {
                       listarSalones();
@@ -185,7 +185,7 @@ $(function() {
                       $('#lizq-s').css("display","block");
                       /* Ocultar tabla mesas */
                       $('#lizq-i').css("display","none");
-                      location.href = "/ajustesSalonyMesas";
+                      //location.replace("/ajustesSalonyMesas");
                       toastr.success('Datos modificados, correctamente.');
                   }
               },
@@ -242,13 +242,13 @@ $(function() {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
-                      location.href = "/ajustesSalonyMesas";
+                      //location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos registrados, correctamente.');
                   } else if(cod == 2) {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
-                      location.href = "/ajustesSalonyMesas";
+                      //location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos modificados, correctamente.');
                   }
               },

@@ -11,6 +11,7 @@ use App\Models\TmPedido;
 use App\Models\TmMesa;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
+use App\Events\PedidoRegistrado;
 
 class InicioController extends Controller
 {
@@ -285,16 +286,25 @@ class InicioController extends Controller
                 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 
                 $fecha = date("Y-m-d H:i:s");      
-
+                
                 //echo('fecha '.$fecha);      
-                foreach($data['items'] as $d)
+                foreach($data['items'] as $d => $v)
                 {
                     //echo('entro aqui antes de db');
-                    DB::insert("INSERT INTO tm_detalle_pedido (id_pedido,id_prod,cantidad,cant,precio,comentario,fecha_pedido) VALUES (?,?,?,?,?,?,?);",[$data['cod_p'],$d['producto_id'],$d['cantidad'],$d['cantidad'],$d['precio'],$d['comentario'],$fecha]);
+                    DB::insert("INSERT INTO tm_detalle_pedido (id_pedido,id_prod,cantidad,cant,precio,comentario,fecha_pedido) VALUES (?,?,?,?,?,?,?);",[$data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha]);
                     //DB::table('tm_detalle_pedido')
-                    //$this->conexionn->prepare($sql)->execute(array($data['cod_p'],$d['producto_id'],$d['cantidad'],$d['cantidad'],$d['precio'],$d['comentario'],$fecha));
+                    //$this->conexionn->prepare($sql)->execute(array($data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha));
                     //echo('entro aqui');
+                    $data['items'][$d]['nombre_prod'] = DB::select("SELECT nombre_prod FROM v_productos WHERE id_pres = ?",[$data['items'][$d]['producto_id']])[0]->nombre_prod;
+                    //dd($data['items'][$d]['nombre_prod']);
+                    $data['items'][$d]['fecha']  = $fecha;
                 }
+                
+                $id_orden = $data['cod_p'];
+                $orden  = null;
+                $data['pedido'] = TmPedido::where('id_pedido',$data['cod_p'])->first();
+                //dd($data);
+                event(new PedidoRegistrado($data));
 
                 print_r(json_encode(1));
             } else  {
@@ -372,8 +382,8 @@ class InicioController extends Controller
         //$this->model->CancelarPedido($alm);
 
         if($data['cod_tipe'] == 1){
-            self::ValidarEstadoPedido($cod);
-            //header('Location: pedido_mesa.php?Cod='.$cod.'');
+            //self::ValidarEstadoPedido($cod);
+            header('Location: /inicio/PedidoMesa/'.$cod.'');
 
         } elseif($data['cod_tipe'] == 2){
             header('Location: pedido_mostrador.php?Cod='.$cod.'');
@@ -629,7 +639,7 @@ class InicioController extends Controller
         //print_r(json_encode($this->model->BuscarCliente($_REQUEST['criterio'])));
     }
 
-    //Replicar en todos los módulos que registran actulizan clientes
+    //Re diseñar está funcion para registro lite de cliente en delivery
     public function NuevoCliente(Request $request)
     {
         

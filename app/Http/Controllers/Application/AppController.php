@@ -35,6 +35,7 @@ class AppController extends Controller
             case 3 :{
                 
                 self::$home = "/cocina";
+                session(['id_areap'=>\Auth::user()->id_areap]);
                 break;
             }
             //Mozo
@@ -43,6 +44,7 @@ class AppController extends Controller
                 self::$home = "/inicio";
                 break;
             }
+            //Multimozo
             case 5 :{
                 
                 self::$home = "/inicio";

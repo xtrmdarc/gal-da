@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Application\AreaProd;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Events\PedidoRegistrado;
 class AreaProdController extends Controller
 {
     //
@@ -17,7 +17,7 @@ class AreaProdController extends Controller
         $data = [
             'breadcrumb' => ''
         ];
-
+        
         return view('contents.application.areaprod.areaprod')->with($data);
     }
 
@@ -26,12 +26,13 @@ class AreaProdController extends Controller
         try
         {   
             $id_areap = session('id_areap');
-            $c = DB::select("SELECT * FROM v_cocina_me WHERE id_areap = ? AND cantidad > 0 ORDER BY fecha_pedido ASC",[$id_areap]);
+            $id_sucursal = session('id_sucursal');
+            $c = DB::select("SELECT * FROM v_cocina_me WHERE id_areap = ? AND id_sucursal = ? AND cantidad > 0 ORDER BY fecha_pedido ASC",[$id_areap,$id_sucursal]);
             
             foreach($c as $k => $d)
             {   
 
-                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_me WHERE cantidad > 0 AND id_areap = ?",[$id_areap])[0];
+                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_me WHERE cantidad > 0 AND id_areap = ? AND id_sucursal = ?",[$id_areap,$id_sucursal])[0];
                 
                 $c[$k]->CProducto = DB::select("SELECT desc_c FROM v_productos WHERE id_pres =  ? ",[$d->id_prod])[0];
             }
@@ -49,11 +50,12 @@ class AreaProdController extends Controller
         try
         {
             $id_areap = session('id_areap');
-            $c = DB::select("SELECT * FROM v_cocina_mo WHERE id_areap = ? ORDER BY fecha_pedido ASC",[$id_areap]);
+            $id_sucursal = session('id_sucursal');
+            $c = DB::select("SELECT * FROM v_cocina_mo WHERE id_areap = ? AND id_sucursal = ? ORDER BY fecha_pedido ASC",[$id_areap,$id_sucursal]);
             
             foreach($c as $k => $d)
             {
-                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_mo WHERE estado <> 'c' AND estado <> 'i' AND id_areap = ?",[$id_areap])[0];
+                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_mo WHERE estado <> 'c' AND estado <> 'i' AND id_areap = ? AND id_sucursal= ? ",[$id_areap,$id_sucursal])[0];
                     
 
                 $c[$k]->CProducto = DB::select("SELECT desc_c FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
@@ -72,12 +74,13 @@ class AreaProdController extends Controller
         try
         {        
             $id_areap = session('id_areap');
+            $id_sucursal = session('id_sucursal');
             //$id_areap= 1;
-            $c = DB::select("SELECT * FROM v_cocina_de WHERE id_areap = ? ORDER BY fecha_pedido ASC",[$id_areap]);
+            $c = DB::select("SELECT * FROM v_cocina_de WHERE id_areap = ? AND id_sucursal = ? ORDER BY fecha_pedido ASC",[$id_areap,$id_sucursal]);
            
             foreach($c as $k => $d)
             {
-                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_de WHERE estado <> 'c' AND estado <> 'i' AND id_areap = ?",[$id_areap])[0];
+                $c[$k]->Total = DB::select("SELECT COUNT(id_pedido) AS nro_p FROM v_cocina_de WHERE estado <> 'c' AND estado <> 'i' AND id_areap = ? AND id_sucursal = ? ",[$id_areap,$id_sucursal])[0];
                     
 
                 $c[$k]->CProducto = DB::select("SELECT desc_c FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];

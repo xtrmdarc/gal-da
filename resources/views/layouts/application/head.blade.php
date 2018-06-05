@@ -229,6 +229,7 @@
         </nav>
 
 </div>
+
 <script>
     var now = new Date(<?php echo time() * 1000 ?>);
     //var df = new SimpleDateFormat("HH:mm:ss");

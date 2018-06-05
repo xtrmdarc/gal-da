@@ -9,7 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{URL::to('js/socket.io.js') }}"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
     <title>Ela - Bootstrap Admin Dashboard Template</title>
 

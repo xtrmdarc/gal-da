@@ -1,4 +1,6 @@
 $(function() {  
+
+    setupSocketio();
     datosGenerales();
     $('#tablero').addClass("active");
 
@@ -208,3 +210,8 @@ function datosGrafico(){
 });
 }
 */
+
+var setupSocketio = function(){
+
+	
+}

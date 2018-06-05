@@ -447,7 +447,7 @@
     <div class="modal inmodal fade" id="mdl-cancelar-pedido" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-            <form method="post" enctype="multipart/form-data" action="CancelarPedido">
+            <form method="post" enctype="multipart/form-data" action="/inicio/CancelarPedido">
                 @csrf
                 <input type="hidden" name="cod_ped" id="cod_ped">
                 <input type="hidden" name="cod_pro" id="cod_pro">
