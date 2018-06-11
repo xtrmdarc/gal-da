@@ -449,6 +449,7 @@
             <div class="modal-content animated bounceInRight">
             <form method="post" enctype="multipart/form-data" action="/inicio/CancelarPedido">
                 @csrf
+                <input type="hidden" name="cod_det_ped" id="cod_det_ped">
                 <input type="hidden" name="cod_ped" id="cod_ped">
                 <input type="hidden" name="cod_pro" id="cod_pro">
                 <input type="hidden" name="fec_ped" id="fec_ped">

@@ -12,6 +12,7 @@ use App\Models\TmMesa;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
 use App\Events\PedidoRegistrado;
+use App\Events\PedidoCancelado;
 
 class InicioController extends Controller
 {
@@ -285,26 +286,74 @@ class InicioController extends Controller
                 date_default_timezone_set('America/Lima');
                 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 
-                $fecha = date("Y-m-d H:i:s");      
-                
-                //echo('fecha '.$fecha);      
+                $fecha = date("Y-m-d H:i:s");
+
+                $productosRegistrados = [];
+                $areasProd = [];
+                //echo('fecha '.$fecha);
                 foreach($data['items'] as $d => $v)
                 {
                     //echo('entro aqui antes de db');
-                    DB::insert("INSERT INTO tm_detalle_pedido (id_pedido,id_prod,cantidad,cant,precio,comentario,fecha_pedido) VALUES (?,?,?,?,?,?,?);",[$data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha]);
+                    $id = DB::table('tm_detalle_pedido')->insertGetId([
+                        'id_pedido' => $data['cod_p'],
+                        'id_prod'=> $data['items'][$d]['producto_id'],
+                        'cantidad'=> $data['items'][$d]['cantidad'],
+                        'cant'=>$data['items'][$d]['cantidad'],
+                        'precio'=>$data['items'][$d]['precio'],
+                        'comentario'=>$data['items'][$d]['comentario'],
+                        'fecha_pedido'=>$fecha
+                    ]);
+
+                    $data['items'][$d]['id_det_ped'] = $id;
+                    //DB::insert("INSERT INTO tm_detalle_pedido (id_pedido,id_prod,cantidad,cant,precio,comentario,fecha_pedido) VALUES (?,?,?,?,?,?,?);",[$data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha]);
                     //DB::table('tm_detalle_pedido')
                     //$this->conexionn->prepare($sql)->execute(array($data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha));
                     //echo('entro aqui');
-                    $data['items'][$d]['nombre_prod'] = DB::select("SELECT nombre_prod FROM v_productos WHERE id_pres = ?",[$data['items'][$d]['producto_id']])[0]->nombre_prod;
+                    $producto = DB::select("SELECT * FROM v_productos WHERE id_pres = ?",[$data['items'][$d]['producto_id']])[0];
+                    $data['items'][$d]['nombre_prod'] = $producto->nombre_prod;
+                    $data['items'][$d]['id_areap'] = $producto->id_areap;
+                    $productosRegistrados[] = $producto;
                     //dd($data['items'][$d]['nombre_prod']);
                     $data['items'][$d]['fecha']  = $fecha;
                 }
-                
-                $id_orden = $data['cod_p'];
-                $orden  = null;
+
+                //Seleccionar todas las areas de produccion
+                /*
+                    for($i = 0; $i < count($productosRegistrados); $i++ )
+                    {
+                        $areasProd[$i] = $productosRegistrados[$i]->id_areap;
+                    }
+                */
+                foreach($productosRegistrados as $k => $v){
+
+                    $areasProd[$v->id_areap] = true;
+                }
+
+                $areasProd = array_keys($areasProd);
+
                 $data['pedido'] = TmPedido::where('id_pedido',$data['cod_p'])->first();
+                //Evento registrado Ordenes por areas de proudccion
+                foreach($areasProd as $a)
+                {
+                    $orden = $data;
+                    $orden['items']= [];
+                    $orden['id_areap'] = $a;
+                    foreach($data['items'] as $itemPedido)
+                    {
+                        if($itemPedido['id_areap'] ==  $a )
+                        {
+                            $orden['items'][] = $itemPedido;
+                        }
+                    }
+                  
+                    event(new PedidoRegistrado($orden));
+                }
+
+
+                
+                
                 //dd($data);
-                event(new PedidoRegistrado($data));
+                
 
                 print_r(json_encode(1));
             } else  {
@@ -366,11 +415,22 @@ class InicioController extends Controller
         //$alm = new Pedido();
         $cod = $data['cod_ped'];
         //$sql = "UPDATE tm_detalle_pedido SET estado = 'i' WHERE estado <> 'i' AND id_pedido = ? AND id_prod = ? AND fecha_pedido = ? LIMIT 1";
-        DB::table('tm_detalle_pedido')->where('estado','<>','i')
+        /*DB::table('tm_detalle_pedido')->where('estado','<>','i')
                                     ->where('id_pedido',$data['cod_ped'])
                                     ->where('id_prod',$data['cod_pro'])
                                     ->where('fecha_pedido',$data['fec_ped'])
                                     ->update(['estado'=>'i']);
+        */
+        DB::table('tm_detalle_pedido')->where('id_det_ped',$data['cod_det_ped'])
+                                    ->where('id_pedido',$data['cod_ped'])
+                                    ->where('estado','<>','i')
+                                    ->update(['estado'=>'i']);
+
+      
+        
+        event(new PedidoCancelado($data['cod_det_ped']));   
+        
+
        /* $this->conexionn->prepare($sql)
              ->execute(
             array(
@@ -722,7 +782,7 @@ class InicioController extends Controller
             //$c = $stm->fetch(PDO::FETCH_OBJ);
             
             /* Traemos el detalle */
-            $c->Detalle = DB::select("SELECT id_prod, cantidad, precio, estado, fecha_pedido FROM tm_detalle_pedido WHERE id_pedido = ".$c->id_pedido." AND id_prod = ".$data['prod']." ORDER BY fecha_pedido DESC");
+            $c->Detalle = DB::select("SELECT id_det_ped, id_prod, cantidad, precio, estado, fecha_pedido FROM tm_detalle_pedido WHERE id_pedido = ".$c->id_pedido." AND id_prod = ".$data['prod']." ORDER BY fecha_pedido DESC");
                 //->fetchAll(PDO::FETCH_OBJ);
             foreach($c->Detalle as $k => $d)
             {

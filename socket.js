@@ -4,7 +4,12 @@ var io = require('socket.io')(http);
 var Redis = require('ioredis');
 var redis = new Redis();
 
-redis.subscribe('pedido-registrado', function(message) {
+var channelsToSubscribe = [
+    'pedido-registrado',
+    'pedido-cancelado'
+];
+
+redis.subscribe(channelsToSubscribe, function(message) {
     
 });
 

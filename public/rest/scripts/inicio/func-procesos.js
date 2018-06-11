@@ -543,6 +543,7 @@ var subPedido = function(cod,prod){
                         $('<li class="success-element liwrithe"/>')
                         .append(
                             $('<div class="row"/>')
+                            .append('<div style="display:none" >'+ item.id_det_ped +'</div>')
                             .append(
                                 $('<div class="col-xs-1 col-sm-1 col-md-1" />')
                                 .html(item.cantidad)
@@ -558,7 +559,7 @@ var subPedido = function(cod,prod){
                             .append(
                                 $('<div class="col-xs-1 col-sm-1 col-md-1 text-right" />')
                                 .html('<button type="button" class="btn btn-xs btn-danger pull-right"'
-                                +'onclick="cancelarPedido('+cod+','+item.id_prod+',\''+item.cantidad+' '+item.Producto.nombre_prod+' '+item.Producto.pres_prod+'\',\''+item.fecha_pedido+'\')">'
+                                +'onclick="cancelarPedido('+item.id_det_ped+','+cod+','+item.id_prod+',\''+item.cantidad+' '+item.Producto.nombre_prod+' '+item.Producto.pres_prod+'\',\''+item.fecha_pedido+'\')">'
                                 +'<i class="fa fa-times"></i></button>')
                                 )
                         )
@@ -598,7 +599,9 @@ var subPedido = function(cod,prod){
 }
 
 /* Cancelar pedido de la lista */
-var cancelarPedido = function(cod_ped,cod_pro,des_ped,fec_ped){
+var cancelarPedido = function(cod_det_ped,cod_ped,cod_pro,des_ped,fec_ped){
+    
+    $('#cod_det_ped').val(cod_det_ped);
     $('#cod_ped').val(cod_ped);
     $('#cod_pro').val(cod_pro);
     $('#fec_ped').val(fec_ped);      

@@ -257,6 +257,9 @@
 <script src="{{URL::to('rest/scripts/areaprod/func_areap.js')}}"></script>
 
 <script type="text/javascript">
+    
     $('#area-p').addClass("active");
+    ActualizarPedidos({!! json_encode($ordenes) !!});
+
 </script>
 @endsection

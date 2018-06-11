@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
     <title>Ela - Bootstrap Admin Dashboard Template</title>
 
-
+    
     <link href="{{ URL::to('rest/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::to('rest/css/plugins/iCheck/skins/all.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('rest/css/plugins/select/bootstrap-select.css') }}" rel="stylesheet">
@@ -140,6 +140,7 @@
 <!-- DataTimePicker -->
 <script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
+{{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>--}}
 
 </body>
 

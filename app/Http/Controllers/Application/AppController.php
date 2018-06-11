@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Application\AppController;
 use App\Models\Sucursal;
 use App\Models\Empresa;
 
@@ -35,6 +36,8 @@ class AppController extends Controller
             case 3 :{
                 
                 self::$home = "/cocina";
+                //$sucursales =  AppController::GetSucursales();
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 session(['id_areap'=>\Auth::user()->id_areap]);
                 break;
             }

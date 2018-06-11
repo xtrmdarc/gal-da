@@ -7470,3 +7470,57 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   padding: 8px;
   min-width:260px;
 }
+
+.nopadding{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.center-notify{
+  top:0px;
+  right: auto;
+  text-align: center;
+}
+
+.heartbit-pedido-activo{
+  top:-6% !important;
+  right:auto !important;
+
+}
+
+.point-pedido-activo{
+  top:19% !important;
+  right:43% !important;
+}
+
+.pedido-en-preparacion
+{ 
+  background-color: #ffffba;
+
+}
+
+.pedido-demorando
+{
+  background-color: #ffb3ba;
+}
+
+.pedido-cancelado{
+  opacity: 0.4  ;
+}
+
+.context-menu-pedido{
+  padding: 4px;
+  margin-top: -0.75rem;
+  padding-left: 10px;
+  padding-left: 8px;
+  vertical-align: middle;
+  
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.tooltip .bs-tooltip-top{
+  background-color: white !important;
+  color: black;
+}
+

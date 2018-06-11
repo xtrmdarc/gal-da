@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\PedidoRegistrado;
+use App\Models\TmPedido;
+use App\Models\TmDetallePedido;
+
 class AreaProdController extends Controller
 {
     //
@@ -14,10 +17,57 @@ class AreaProdController extends Controller
         $this->middleware('auth');
     }
     public function index(){
+        
+        //falta area produccion
+        $ordenes = DB::table('tm_pedido')
+                            ->select(DB::raw('distinct tm_pedido.id_pedido'))
+                            ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
+                            ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
+                            ->where('tm_pedido.id_sucursal',session('id_sucursal'))
+                            ->where('tm_pedido.estado','a')
+                            ->where('tm_producto.id_areap',session('id_areap'))  
+                            ->get();
+
+        
+        $ordenes->transform(function($i) {
+            return (array)$i;
+        });
+
+        $ordenes = $ordenes->toArray();
+        /*for($i = 0 ; $i< count($ordenes);$i++)
+        {
+            $ordenesArr[i] = 
+        }*/
+
+        $productosRegistrados = [];
+        $areasProd = [];
+        foreach($ordenes as $k => $v)
+        {   
+            
+            $ordenes[$k]['pedido'] = TmPedido::where('id_pedido',$v['id_pedido'])->first();
+            $ordenes[$k]['items'] = TmDetallePedido::where('id_pedido',$v['id_pedido'])
+                                    ->where('estado','<>','i')
+                                    ->get()->toArray();
+            
+            for($i = 0 ; $i< count($ordenes[$k]['items']) ;$i++ )
+            {
+                $producto = DB::select("SELECT * FROM v_productos WHERE id_pres = ? AND id_areap",[$ordenes[$k]['items'][$i]['id_prod']])[0];  
+                $ordenes[$k]['items'][$i]['nombre_prod'] = $producto->nombre_prod;
+                $ordenes[$k]['items'][$i]['id_areap'] = $producto->id_areap;
+                $ordenes[$k]['items'][$i]['fecha']  = $ordenes[$k]['items'][$i]['fecha_pedido'];
+                $productosRegistrados[] = $producto;
+            }
+        }
+               
+        //
+
         $data = [
-            'breadcrumb' => ''
+            'breadcrumb' => '',
+            'ordenes'=> $ordenes
         ];
         
+
+
         return view('contents.application.areaprod.areaprod')->with($data);
     }
 
@@ -101,12 +151,13 @@ class AreaProdController extends Controller
 
         try
         {   
+            $data = $request->all();
             date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
 
             //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
-            DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_prod'=> $data['cod_prod'],'fecha_pedido'=>$data['fecha_p']])
+            DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
                                             ->update(['estado'=>'p','fecha_envio'=>$fecha]);
             /* $this->conexionn->prepare($sql)
               ->execute(array(
@@ -115,13 +166,14 @@ class AreaProdController extends Controller
                 $data['cod_prod'],
                 $data['fecha_p']
                  ));*/
+            return json_encode(1);
         }
         catch(Exception $e)
         {
             die($e->getMessage());
         }
 
-        print_r(json_encode($this->model->Preparacion($_POST)));
+        //print_r(json_encode($this->model->Preparacion($_POST)));
 
     }
 
