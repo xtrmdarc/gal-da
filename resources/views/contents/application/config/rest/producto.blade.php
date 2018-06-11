@@ -35,6 +35,31 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Sucursal</label>
+                                                    <div class="input-group">
+                                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                                            @if($id_usu != null)
+                                                                <option value="">
+
+                                                                </option>
+                                                            @else
+                                                                echo '<option value="" selected>Seleccionar</option>';
+                                                                echo '<optgroup label="Seleccionar">';
+                                                                    @endif
+                                                                    <optgroup label="Seleccionar">
+                                                                        @foreach($user_sucursal as $r)
+                                                                            <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-6">
                                                 <a class="btn btn-default btn-ccatg">Cancelar</a>
                                             </div>
@@ -47,7 +72,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <ul class="folder-list" style="padding: 0">
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
-                                    <div id="ul-cont"></div>
+                                    {{--/*<div id="ul-cont"></div>
+                                    <hr>*/--}}
+                                    <div id="ul-cont-sucursalesProd">
+                                    </div>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -62,14 +90,14 @@
                                 <div class="ibox-content display-flexx">
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-primary">
-                                            <img class="filtered" src="{{ URL::to('img/otros/icon-01.png' ) }}" width="80" height="40">
+                                            <img class="filtered" src="{{ URL::to('rest/img/otros/icon-01.png' ) }}" width="80" height="40">
                                             <span>Platos/bebidas</span>
                                         </a>
                                         <!--<a class="btn dim btn-default m-n btn-prodnuevo"><i class="fa fa-lg fa-plus"></i></a>-->
                                     </div>
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-default" href="/ajustesProductosInsumos">
-                                            <img class="filtered" src="{{ URL::to('img/otros/icon-02.png' ) }}" width="80" height="40">
+                                            <img class="filtered" src="{{ URL::to('rest/img/otros/icon-02.png' ) }}" width="80" height="40">
                                             <span>Insumos</span>
                                         </a>
                                     </div>
@@ -145,6 +173,18 @@
                         </div>
                     </div>
                     <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Sucursal</label>
+                                <select name="id_sucursal_d" id="id_sucursal_d" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
+                                    @foreach($user_sucursal as $r)
+                                        <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

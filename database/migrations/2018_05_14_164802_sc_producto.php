@@ -16,6 +16,7 @@ class ScProducto extends Migration
         //
         Schema::table('tm_producto', function (Blueprint $table) {
             $table->string('id_sucursal')->nullable();
+            $table->string('id_usu')->nullable();
         });
     }
 

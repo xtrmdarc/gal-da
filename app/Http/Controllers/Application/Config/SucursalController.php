@@ -52,6 +52,8 @@ class SucursalController extends Controller
             $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu)',array($flag, $nombre, $estado, $id_usu));
 
             return redirect('/ajustesCaja');*/
+
+            dd($array['cod'] = 0);
             $new_sucursal = Sucursal::create([
                 'id_empresa' => $id_empresa,
                 'id_usu' => $id_usu,
@@ -61,6 +63,8 @@ class SucursalController extends Controller
                 'moneda' => $post['moneda_sucursal'],
                 'estado' => $post['estado_sucursal'],
             ]);
+
+
 
             return redirect('/ajustesSucursal');
         }

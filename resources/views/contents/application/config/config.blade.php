@@ -24,10 +24,12 @@
                             <h4 class="list-group-item-heading">Salones y mesas</h4>
                             <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
                         </a>
-                        <a class="list-group-item" href="{{ url('/ajustesProductos') }}">
-                            <h4 class="list-group-item-heading">Productos</h4>
-                            <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
-                        </a>
+                        @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
+                            <a class="list-group-item" href="{{ url('/ajustesProductos') }}">
+                                <h4 class="list-group-item-heading">Productos</h4>
+                                <p class="list-group-item-text">Creaci&oacute;n, modificaci&oacute;n.</p>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

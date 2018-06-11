@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Application\Config;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\TmAlmacen;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sucursal;
 
@@ -129,8 +128,14 @@ class AlmacenController extends Controller
             $id_Alm = $post['cod_alma'];
             $nombre = $post['nomb_area'];
             $estado = $post['estado_area'];
+
+            $id_sucursal_alm = DB::select("SELECT id_sucursal FROM tm_almacen WHERE id_alm = ?",array($id_Alm));
+            foreach($id_sucursal_alm as $k){
+                $id_sucursal_alm_d = $k->id_sucursal;
+            }
+
             $consulta_create = DB::select('call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, @a, :idUsu, :_idSucursal)',
-                array(':flag' => $flag,':idAlm' =>$id_Alm, ':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+                array(':flag' => $flag,':idAlm' =>$id_Alm, ':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $id_sucursal_alm_d));
 
             $array = [];
             foreach($consulta_create as $k)

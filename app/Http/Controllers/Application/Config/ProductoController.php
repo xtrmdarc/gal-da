@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sucursal;
 
 class ProductoController extends Controller
 {
@@ -15,12 +16,19 @@ class ProductoController extends Controller
     }
     public function index()
     {
+        $id_usu = \Auth::user()->id_usu;
+        $user_AdminSucursal = auth()->user()->id_empresa;
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+
         $viewdata = [];
-        $stm = DB::Select("SELECT * FROM tm_area_prod WHERE estado ='a'");
-        $stmcatg = DB::Select("SELECT * FROM tm_producto_catg");
+        $stm = DB::select("SELECT * FROM tm_area_prod WHERE estado = 'a' and id_usu = ? ",[$id_usu]);
+
+        $stmcatg = DB::Select("SELECT * FROM tm_producto_catg WHERE id_usu = ?",[$id_usu]);
 
         $viewdata['areasP'] = $stm;
         $viewdata['catgs'] = $stmcatg;
+        $viewdata['id_usu'] = $id_usu;
+        $viewdata['user_sucursal'] = $user_sucursal;
         $viewdata['breadcrumb'] = '';
         $data = [
             'breadcrumb' => 'config.Productos'
@@ -35,13 +43,13 @@ class ProductoController extends Controller
 
     public function ListaProd(Request $request)
     {
+        $id_sucursal = \Auth::user()->id_sucursal;
         $post = $request->all();
         $cod = $post['cod'];
         $cat = $post['cat'];
 
-        $stm = Db::Select("SELECT * FROM tm_producto WHERE id_prod like ? AND id_catg like ? ORDER BY id_prod DESC",
-            array($cod,$cat));
-
+        $stm = Db::Select("SELECT * FROM tm_producto WHERE id_prod like ? AND id_catg like ? and id_sucursal = ? ORDER BY id_prod DESC",
+            array($cod,$cat,$id_sucursal));
         $data = array("data" => $stm);
 
         $json = json_encode($stm);
@@ -68,6 +76,21 @@ class ProductoController extends Controller
         echo $json;
     }
 
+    public function ListaSucursalesProd()
+    {
+        $id_usu = \Auth::user()->id_usu;
+
+        $stm = DB::table('sucursal')
+            ->leftJoin('tm_producto_catg', 'sucursal.id', '=', 'tm_producto_catg.id_sucursal')
+            ->where('tm_producto_catg.id_usu',$id_usu)
+            ->get();
+
+        $data = array("data" => $stm);
+
+        $json = json_encode($data);
+        echo $json;
+    }
+
     public function ListaCatgs()
     {
         $stm = DB::Select("SELECT * FROM tm_producto_catg");
@@ -80,6 +103,8 @@ class ProductoController extends Controller
 
     public function CrudCatg(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
+
         $post = $request->all();
         $cod_catg = $post['cod_catg'];
         if($cod_catg != ''){
@@ -88,8 +113,8 @@ class ProductoController extends Controller
             $descC = $post['nombre_catg'];
             $idCatg = $post['cod_catg'];
 
-            $consulta =  DB::Select("call usp_configProductoCatgs( :flag, :descC, :idCatg);",
-                array($flag,$descC,$idCatg));;
+            $consulta =  DB::Select("call usp_configProductoCatgs_g( :flag, :descC, :idCatg);",
+                array($flag,$descC,$idCatg));
             dd($consulta);
             return $consulta;
 
@@ -97,10 +122,16 @@ class ProductoController extends Controller
             //Crear
             $flag = 1;
             $descC = $post['nombre_catg'];
+            $idSucursal = $post['id_sucursal'];
 
-            $consulta = DB::Select("call usp_configProductoCatgs( :flag, :descC, @a);",
-                array(':flag' => $flag,':descC' => $descC));
-            return $consulta;
+            $consulta = DB::Select("call usp_configProductoCatgs_g( :flag, :descC, @a,:idSucursal,:idUsu);",
+                array(':flag' => $flag,':descC' => $descC,':idSucursal' => $idSucursal,':idUsu' => $id_usu));
+
+            $array = [];
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
             }
     }
 
@@ -141,9 +172,19 @@ class ProductoController extends Controller
 
     public function CrudProd(Request $request)
     {
+        $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
-        $codProd = $post['cod_prod'];
+        $id_sucursal_d = $post['id_sucursal_d'];
+        /*
+        $areasProduccion_d = DB::Select("SELECT * FROM tm_area_prod WHERE estado = 'a' and id_usu = ? and id_sucursal = ?;",
+            array($id_usu,$id_sucursal_d));
 
+        $data = array("data" => $areasProduccion_d);
+
+        $json = json_encode($data);
+        echo $json;*/
+
+        $codProd = $post['cod_prod'];
         if($codProd != ''){
             //Actualizar
             $flag = 2;
@@ -166,15 +207,20 @@ class ProductoController extends Controller
             $nombP = $post['nombre_prod'];
             $descP = $post['descripcion'];
 
-            $consulta = DB::Select("call usp_configProducto( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, @a, @b);",
-            array($flag,$idTipo,$idCatg,$idArea,$nombP,$descP));
+            $consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, @a, @b,:idSucursal,:idUsu);",
+            array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
+            }
+            $array = [];
+            foreach($consulta as $k)
+            {
+                return $array['cod'] = $k->cod;
             }
     }
 
     public function CrudPres(Request $request)
     {
         $post = $request->all();
-        dd($post);
+
         $idProd = $post['cod_producto'];
         $codP = $post['cod_produ'];
         $presP = $post['nombre_pres'];
@@ -195,7 +241,7 @@ class ProductoController extends Controller
             //Registrar
             $flag = 1;
             $consulta = DB::Select("call usp_configProductoPres( :flag, :idProd, :codP, :presP, :precio, :rec, :stock, :estado, @a);"
-            ,array($flag,$idProd,$codP,$presP,$precio,$rec,$stock,$estado));
+            ,array(':flag' => $flag,':idProd' => $idProd,':codP' => $codP,':presP' => $presP,':precio' => $precio,':rec' => $rec,':stock' => $stock,':estado' => $estado));
             dd($consulta);
             return $consulta;
         }

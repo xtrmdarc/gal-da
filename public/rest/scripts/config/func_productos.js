@@ -1,10 +1,69 @@
 $(function() {
     var cat = '%';
+    areaP_x_sucursales();
     listarCategorias();
+    listarSucursales();
     listarProductos(cat);
     comboCategoria();
     mensaje();
 });
+/* Mostrar datos en la lista de Sucursales por id_usu */
+
+var areaP_x_sucursales = function (){
+    $('select[name="id_sucursal_d"]').on('change', function() {
+        var sucursalId = $(this).val();
+
+        console.log(sucursalId);
+
+        $.ajax({
+            type: "POST",
+            url: "/ajustesCrudProd",
+            data: {id_sucursal_d : sucursalId },
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                console.log(data);
+                //remove disabled from province and change the options
+                $('select[name="cod_area"]').prop("disabled", false);
+                $('select[name="cod_area"]').html(data.response);
+            }
+        });
+    });
+}
+var listarSucursales = function(){
+    $('#ul-cont-sucursalesProd').empty();
+    $.ajax({
+        type: "POST",
+        url: "/ajustesListarSucursalesProd",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(item){
+            $.each(item.data, function(i, campo) {
+                $('#ul-cont-sucursalesProd')
+                    .append(
+                    $('<ul id="ul-cont-sucurProd"/>')
+                        .append(
+                        $('<li/>')
+                            .html('<a style="display: inline-block;" onclick="listarProductos('+campo.id+')"><i class="fa fa-caret-right"></i> '+campo.nombre_sucursal+'</a>'
+                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            .append(
+                            $('<ul/>')
+                                .append(
+                                $('<li style="margin-left: 10px;"/>')
+                                    .html('<a style="display: inline-block;" onclick="listarProductos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
+                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            )
+                        )
+                    )
+                )
+            });
+        }
+    });
+}
 
 /* Mostrar datos en la lista categorias */
 var listarCategorias = function(){
@@ -322,7 +381,8 @@ $(function() {
                 cod_area: 0,
                 nombre_prod: 0,
                 descripcion: 0,
-                estado_catg: 0
+                estado_catg: 0,
+                id_sucursal_d: 0
             }
 
             producto.cod_prod = $('#cod_prod').val();
@@ -332,6 +392,7 @@ $(function() {
             producto.nombre_prod = $('#nombre_prod').val();
             producto.descripcion = $('#descripcion').val();
             producto.estado_catg = $('#estado_catg').val();
+            producto.id_sucursal_d = $('#id_sucursal_d').val();
 
             $.ajax({
                 dataType: 'JSON',
@@ -441,7 +502,8 @@ $("#frm-categoria").submit(function(){
 
         var categoria = {
             cod_catg: 0,
-            nombre_catg: 0
+            nombre_catg: 0,
+            id_sucursal: 0
         }
 
         if($('#nombre_catg').val() == '')
@@ -452,6 +514,7 @@ $("#frm-categoria").submit(function(){
 
         categoria.cod_catg = $('#id_catg').val();
         categoria.nombre_catg = $('#nombre_catg').val();
+        categoria.id_sucursal = $('#id_sucursal').val();
 
         $.ajax({
             dataType: 'JSON',
@@ -472,6 +535,7 @@ $("#frm-categoria").submit(function(){
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos registrados, correctamente.');
+                    location.href = "/ajustesProductos";
                     return false;
                 } else if(cod == 2) {
                     listarCategorias();
@@ -480,6 +544,7 @@ $("#frm-categoria").submit(function(){
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos modificados, correctamente.');
+                    location.href = "/ajustesProductos";
                     return false;
                 }
             },

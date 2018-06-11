@@ -32,6 +32,7 @@
     //Productos
 
     Route::get('/ajustesProductos', 'Application\Config\ProductoController@index')->name('config.Productos');
+    Route::post('ajustesListarSucursalesProd', 'Application\Config\ProductoController@ListaSucursalesProd');
     Route::post('ajustesListarCatg', 'Application\Config\ProductoController@ListaCatgs');
     Route::post('ajustesCrudCatg', 'Application\Config\ProductoController@CrudCatg');
     Route::post('ajustesCrudProd', 'Application\Config\ProductoController@CrudProd');

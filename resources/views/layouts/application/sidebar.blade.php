@@ -21,9 +21,6 @@
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Administracion</li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                            <li><a href="/ajustesProductos"> <i class="fa fa-suitcase"></i><span class="hide-menu">Productos</span></a></li>
-                        @endif
-                        @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
@@ -39,7 +36,21 @@
                             <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                            <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
+                            <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>
+                                    <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
+                                    <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Areas de Produccion</a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
+                                    <li><a href="{{route('config.Productos')}}">Productos </a></li>
+                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
+                                    <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
+                                    <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
+                                    <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
+                                </ul>
+                            </li>
                         @endif
                         <li class="nav-devider"></li>
 
@@ -79,10 +90,47 @@
                             </ul>
                         </li>
                         @if(Auth::user()->id_rol == '1')
-                            <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                        <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                           {{--/*
+                            <li><a class="has-arrow " href="#" aria-expanded="false"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{{route('config.Informes')}}">Todos los Informes</a></li>
+                                    <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Ventas</b></span></li>
+                                    <li><a href="{{route('config.Cajas')}}">Todas las Ventas </a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Ventas por Producto</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Ventas por mesero</a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Ventas por forma de pago </a></li>
+                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Compras</b></span></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Todos las Comprass </a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Comopras por proveedor </a></li>
+                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Finanzas</b></span></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Aper y Cierre de Caja </a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Todos los Ingresos </a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Todos los Egresos </a></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Egresos por Remuneracion </a></li>
+                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Inventario</b></span></li>
+                                    <li><a href="{{route('config.SalonesMesas')}}">Kardex </a></li>
+                                </ul>
+                            </li>
+                           */--}}
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                            <li ><a href="/ajustes"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a></li>
+                        <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>
+                                <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
+                                <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
+                                <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
+                                <li><a href="{{route('config.Almacen')}}">Areas de Produccion</a></li>
+                                <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
+                                <li><a href="{{route('config.Productos')}}">Productos </a></li>
+                                <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
+                                <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
+                                <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
+                                <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
+                                <li><a href="{{route('config.Sucursal')}}">Sucursales </a></li>
+                            </ul>
+                        </li>
                         @endif
                         <li class="nav-devider"></li>
                 @endif

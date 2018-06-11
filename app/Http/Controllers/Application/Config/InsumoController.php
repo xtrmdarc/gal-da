@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sucursal;
 
 class InsumoController extends Controller
 {
@@ -16,10 +17,16 @@ class InsumoController extends Controller
     public function index()
     {
         //ComboCatg
+        $id_usu = \Auth::user()->id_usu;
+        $user_AdminSucursal = auth()->user()->id_empresa;
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+
         $viewdata = [];
         $stm = DB::Select("SELECT * FROM tm_insumo_catg");
         $stm_unidadM = DB::Select("SELECT * FROM tm_tipo_medida");
 
+        $viewdata['id_usu'] = $id_usu;
+        $viewdata['user_sucursal'] = $user_sucursal;
         $viewdata['comboCatg'] = $stm;
         $viewdata['unidadM'] = $stm_unidadM;
         $viewdata['breadcrumb'] = 'config.Insumos';
