@@ -32,8 +32,6 @@ class CajaController extends Controller
         $id_rol = \Auth::user()->id_rol;
         $id_usu = \Auth::user()->id_usu;
 
-        //$data = TmCaja::where('id_usu',$id_usu)->get();
-
         //Admin
         if(is_null($id_parent)){
             $data = DB::table('v_cajas_g')
@@ -41,14 +39,12 @@ class CajaController extends Controller
                 ->where('id_usu',$id_usu)
                 ->orWhere('id_rol','=','2')
                 ->get();
-            dd($data);
+
             foreach($data as $k => $v){
                 $data[$k]->id_rol_v = $id_rol;
             }
         } else {
             //Cajero
-            //$data = DB::select('call usp_cajas_g( :_idParent)'
-              //  ,array(':_idParent' => $id_parent));
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
                 ->where('id_usu',$id_usu)
@@ -59,8 +55,6 @@ class CajaController extends Controller
             }
         }
 
-        //$data = DB::table('v_cajas_g')
-          //  ->get();
         echo json_encode($data);
     }
 
@@ -81,7 +75,11 @@ class CajaController extends Controller
             //$consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
             $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu, :_idSucursal)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idCaja' => $idCaja,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
-            return redirect('/ajustesCaja');
+            $array = [];
+            foreach($consulta_update as $k)
+            {
+                return $array['cod'] = $k->cod;
+            }
         }else {
             //Create
             $flag = 1;
@@ -106,6 +104,7 @@ class CajaController extends Controller
 
         $cod_caja = $post['cod_caja_e'];
 
+        /*
         $consulta = DB::select("SELECT count(*) AS total FROM tm_caja WHERE id_caja = ?",[($cod_caja)]);
         foreach($consulta as $a){
             $con = $a->total;
@@ -118,5 +117,6 @@ class CajaController extends Controller
             $consulta_eliminar = DB::select("DELETE FROM tm_caja WHERE id_caja = ?",[($cod_caja)]);
             return redirect()->route('config.Cajas');
         }
+*/
     }
 }

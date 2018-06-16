@@ -38,7 +38,6 @@ $(function() {
                         toastr.warning('Advertencia, Datos duplicados.');
                         return false;
                     } else if(cod == 1){
-                        location.href = "/ajustesCaja"
                         listarCajas();
                         $('#mdl-caja').modal('hide');
                         toastr.success('Datos registrados, correctamente.');
@@ -129,4 +128,5 @@ $('#mdl-caja').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-caja').formValidation('resetForm', true);
     $('#estado_caja').selectpicker('val', 'a');
+    $('#id_sucursal').selectpicker('val', '');
 });

@@ -16,6 +16,16 @@ class AlmacenController extends Controller
     }
     public function index()
     {
+        /*Almacen*/
+
+        $id_usu = \Auth::user()->id_usu;
+
+        $lista_almacenes = DB::table('tm_almacen')
+            ->join('sucursal', 'tm_almacen.id_sucursal', '=', 'sucursal.id')
+            ->where('sucursal.id_usu',$id_usu)
+            ->select('tm_almacen.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
+            ->get();
+
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
@@ -29,6 +39,7 @@ class AlmacenController extends Controller
 
         $viewdata['user_sucursal'] = $user_sucursal;
         $viewdata['user_sucursal_free'] = $user_sucursal_free;
+        $viewdata['lista_almacenes'] = $lista_almacenes;
 
         $data = [
             'breadcrumb'=> 'config.Almacen'  

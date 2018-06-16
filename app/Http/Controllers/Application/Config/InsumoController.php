@@ -36,6 +36,22 @@ class InsumoController extends Controller
 
         return view('contents.application.config.rest.insumo',$viewdata)->with($data);
     }
+
+    public function ListaSucursalesInsum()
+    {
+        $id_sucursal = session('id_sucursal');
+
+        $stm = DB::table('sucursal')
+            ->leftJoin('tm_insumo_catg', 'sucursal.id', '=', 'tm_insumo_catg.id_sucursal')
+            ->where('tm_insumo_catg.id_sucursal',$id_sucursal)
+            ->get();
+
+        $data = array("data" => $stm);
+
+        $json = json_encode($data);
+        echo $json;
+    }
+
     public function ListaCatgs()
     {
         $stm = DB::Select("SELECT * FROM tm_insumo_catg");
@@ -47,13 +63,14 @@ class InsumoController extends Controller
 
     public function ListaIns(Request $request)
     {
+        $id_sucursal = session('id_sucursal');
         $post = $request->all();
 
         $cod = $post['cod'];
         $cat = $post['cat'];
 
-        $stm = DB::Select("SELECT * FROM v_insumos WHERE id_ins like ? AND id_catg like ? ORDER BY id_ins DESC",
-        array($cod,$cat));
+        $stm = DB::Select("SELECT * FROM v_insumos WHERE id_ins like ? AND id_catg like ? and id_sucursal = ? ORDER BY id_ins DESC",
+        array($cod,$cat,$id_sucursal));
 
         $data = array("data" => $stm);
         $json = json_encode($stm);
@@ -62,6 +79,8 @@ class InsumoController extends Controller
 
     public function CrudCatg(Request $request)
     {
+        $id_sucursal = session('id_sucursal');
+
         $post = $request->all();
 
         $descC = $post['nombre_catg'];
@@ -79,14 +98,19 @@ class InsumoController extends Controller
            //Crear
            $flag = 1;
 
-           $consulta = DB::Select("call usp_configInsumoCatgs( :flag, :descC, @a);"
-           ,array($flag,$descC));
-          return $consulta;
+           $consulta = DB::Select("call usp_configInsumoCatgs_g( :flag, :descC, @a,:idSucursal);"
+           ,array(':flag' => $flag,':descC' => $descC, ':idSucursal' => $id_sucursal));
+           $array = [];
+           foreach($consulta as $k)
+           {
+               return $array['cod'] = $k->cod;
+           }
         }
     }
 
     public function CrudIns(Request $request)
     {
+        $id_sucursal = session('id_sucursal');
         $post = $request->all();
 
        if($post['cod_ins'] != ''){
@@ -101,7 +125,7 @@ class InsumoController extends Controller
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
 
-           $consulta = DB::Select("call usp_configInsumo( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns);"
+           $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns);"
            ,array($flag,$idCatg,$idMed,$cod,$nombre,$stock,$estado,$idIns));
 
            return $consulta;
@@ -117,8 +141,8 @@ class InsumoController extends Controller
            $idIns = $post['cod_ins'];
            $flag = 1;
 
-           $consulta = DB::Select("call usp_configInsumo( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b);",
-               array($flag,$idCatg,$idMed,$cod,$nombre,$stock));
+           $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b,:idSucursal);",
+               array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' =>$stock,':idSucursal' => $id_sucursal ));
            return $consulta;
         }
     }

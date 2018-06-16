@@ -43,13 +43,11 @@ $(function() {
               listarAlmacenes();
               listarAreaProd();
               $('#mdl-almacen').modal('hide');
-              location.href = "/ajustesAlmacen";
               toastr.success('Datos registrados, correctamente.');
           } else if(cod == 2) {
               listarAlmacenes();
               listarAreaProd();
               $('#mdl-almacen').modal('hide');
-              location.href = "/ajustesAlmacen";
               toastr.success('Datos modificados, correctamente.');
           }
       },
@@ -107,12 +105,10 @@ $(function() {
                 listarAreaProd();
                 $('#mdl-areaprod').modal('hide');
                 toastr.success('Datos registrados, correctamente.');
-                location.href = "/ajustesAlmacen";
             } else if(cod == 2) {
                 listarAreaProd();
                 $('#mdl-areaprod').modal('hide');
                 toastr.success('Datos modificados, correctamente.');
-                location.href = "/ajustesAlmacen";
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -188,7 +184,7 @@ var listarAreaProd = function(){
 	      }
 	    }},
       {"data":null,"render": function ( data, type, row) {
-         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_area('+data.id_areap+');"><i class="fa fa-edit"></i>Editar</button>';
+         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_area('+data.id_areap+','+data.id_alm+');"><i class="fa fa-edit"></i>Editar</button>';
       }}
 	  ]
 	});
@@ -226,7 +222,7 @@ var editar_alm = function(cod,nomb,sucur,est){
 /* Editar Area de produccion */
 var editar_area = function(cod){
     var token = $('meta[name="csrf-token"]').attr('content');
-    comboAlmacen();
+    //comboAlmacen();
     $.ajax({
       type: "POST",
       url: "/ajustesListaAreasP",
@@ -241,6 +237,7 @@ var editar_area = function(cod){
             $('#nomb_area').val(campo.nombre);
             $('#estado_area').selectpicker('val', campo.estado);
             $('#cod_alma').selectpicker('val', campo.id_alm);
+            $('#id_almacen_g').selectpicker('val', campo.id_alm);
             $('#title-area').text('Editar Área de producción');
             $('#mdl-areaprod').modal('show');
         });
@@ -267,6 +264,7 @@ $('#mdl-almacen').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-almacen').formValidation('resetForm', true);
     $('#estado_alm').selectpicker('val', 'a');
+    $('#id_sucursal').selectpicker('val', '');
 });
 
 $('#mdl-areaprod').on('hidden.bs.modal', function() {

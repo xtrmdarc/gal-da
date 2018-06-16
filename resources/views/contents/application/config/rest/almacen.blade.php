@@ -161,13 +161,37 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 <label class="control-label">Almac&eacute;n</label>
-                                <div id="combo_alm"></div>
+                                <div class="input-group">
+                                    <select name="id_almacen_g" id="id_almacen_g" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                        @if(Auth::user()->id_sucursal != null)
+                                            <option value="">Seleccionar</option>
+                                        @else
+                                            echo '<option value="" selected>Seleccionar</option>';
+                                            echo '<optgroup label="Seleccionar">';
+                                                @endif
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($lista_almacenes as $r)
+                                                        <option value="{{$r->id_alm}}">{{$r->nombre}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {{--/*
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Almac&eacute;n</label>
+                                    <div id="combo_alm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    */--}}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

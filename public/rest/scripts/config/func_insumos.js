@@ -2,6 +2,7 @@ $(function() {
     var cat = '%';
     listarCategorias();
     listarInsumos(cat);
+    listarSucursales();
     comboCategoria();
     mensaje();
 });
@@ -28,6 +29,39 @@ var listarCategorias = function(){
                   )
                 )
           });
+        }
+    });
+}
+
+var listarSucursales = function(){
+    $('#ul-cont-sucursalesInsum').empty();
+    $.ajax({
+        type: "POST",
+        url: "/ajustesListarSucursalesInsum",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(item){
+            $.each(item.data, function(i, campo) {
+                $('#ul-cont-sucursalesInsum')
+                    .append(
+                    $('<ul id="ul-cont-sucurInsum"/>')
+                        .append(
+                        $('<li/>')
+                            .html('<a style="display: inline-block;" onclick="listarInsumos('+campo.id+')"><i class="fa fa-caret-right"></i> '+campo.nombre_sucursal+'</a>'
+                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            .append(
+                            $('<ul/>')
+                                .append(
+                                $('<li style="margin-left: 10px;"/>')
+                                    .html('<a style="display: inline-block;" onclick="listarInsumos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
+                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            )
+                        )
+                    )
+                )
+            });
         }
     });
 }

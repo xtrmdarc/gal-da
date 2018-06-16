@@ -69,7 +69,10 @@
                                 <div class="hr-line-dashed"></div>
                                 <ul class="folder-list" style="padding: 0">
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
+                                    {{--/*
                                     <div id="ul-categorias"></div>
+                                    */--}}
+                                    <div id="ul-cont-sucursalesInsum">
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -84,14 +87,14 @@
                                 <div class="ibox-content display-flexx">
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-default" href="/ajustesProductos">
-                                            <img class="filtered" src="{{ URL::to('img/otros/icon-01.png' ) }}" width="80" height="40">
+                                            <img class="filtered" src="{{ URL::to('rest/img/otros/icon-01.png' ) }}" width="80" height="40">
                                             <span>Platos/bebidas</span>
                                         </a>
                                         <!--<a class="btn dim btn-default m-n btn-prodnuevo"><i class="fa fa-lg fa-plus"></i></a>-->
                                     </div>
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-primary">
-                                            <img class="filtered" src="{{ URL::to('img/otros/icon-02.png' ) }}" width="80" height="40">
+                                            <img class="filtered" src="{{ URL::to('rest/img/otros/icon-02.png' ) }}" width="80" height="40">
                                             <span>Insumos</span>
                                         </a>
                                     </div>

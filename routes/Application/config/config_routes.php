@@ -44,6 +44,7 @@
     //Insumos
 
     Route::get('/ajustesProductosInsumos', 'Application\Config\InsumoController@index')->name('config.Insumos');
+    Route::post('ajustesListarSucursalesInsum', 'Application\Config\InsumoController@ListaSucursalesInsum');
     Route::post('ajustesListarCatgI', 'Application\Config\InsumoController@ListaCatgs');
     Route::post('ajustesCrudCatgI', 'Application\Config\InsumoController@CrudCatg');
     Route::post('ajustesCrudIns', 'Application\Config\InsumoController@CrudIns');
