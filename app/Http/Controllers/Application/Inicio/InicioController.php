@@ -13,6 +13,7 @@ use App\Models\TmCliente;
 use App\Models\TmUsuario;
 use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
+use App\Events\VentaEfectuada;
 
 class InicioController extends Controller
 {
@@ -218,7 +219,7 @@ class InicioController extends Controller
                 3,
                 1,//id_usu
                 $fecha,
-                trim($data['nombCli']).trim($data['appCli']).trim($data['apmCli']),
+                trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
                 $data['direcCli'],
                 $data['telefCli'],
                 $data['comentario'],
@@ -330,8 +331,14 @@ class InicioController extends Controller
                 }
 
                 $areasProd = array_keys($areasProd);
+                $var  = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0]->nombre;
+
+                $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0];
+                $nombrePedido = '';
+                if(isset($nombrePedidoDB->nombre)) $nombrePedido = $nombrePedidoDB->nombre;
 
                 $data['pedido'] = TmPedido::where('id_pedido',$data['cod_p'])->first();
+                $data['pedido']['nombre']  = $nombrePedido;
                 //Evento registrado Ordenes por areas de proudccion
                 foreach($areasProd as $a)
                 {
@@ -350,7 +357,7 @@ class InicioController extends Controller
                 }
 
 
-                
+               
                 
                 //dd($data);
                 
@@ -501,8 +508,7 @@ class InicioController extends Controller
            
             try
             {
-                date_default_timezone_set('America/Lima');
-                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+                
                 $fecha = date("Y-m-d H:i:s");
                 $id_usu = session('id_usu');
                 $id_apc = session('id_apc');
@@ -542,7 +548,7 @@ class InicioController extends Controller
                 $a = $data['idProd'];
                 $b = $data['cantProd'];
                 $c = $data['precProd'];
-
+    
                 for($x=0; $x < sizeof($a); ++$x){
                     if ($b[$x] > 0){
                         $params = array($cod,$a[$x],$b[$x],$c[$x]);
@@ -557,10 +563,12 @@ class InicioController extends Controller
                     1,
                     $cod,
                     $data['cod_pedido'],
-                    $fecha
+                    $fecha.''
                 );
-                DB::select('call usp_restEmitirVentaDet( ?, ?, ?, ?)',$arrayParam2);
-                
+                DB::statement('call usp_restEmitirVentaDet( ?, ?, ?, ?)',$arrayParam2);
+
+                $ordenVendida = TmPedido::find($data['cod_pedido']);
+                event(new VentaEfectuada($ordenVendida));
                 //$stm = $this->conexionn->prepare($cons);
                 //$stm->execute($arrayParam);
 

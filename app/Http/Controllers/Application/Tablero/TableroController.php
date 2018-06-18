@@ -24,7 +24,8 @@ class TableroController extends Controller
             'breadcrumb'=> ''  
             
         ];
-        return view('contents.application.tablero.tablero')->with($data) ;
+  
+        return view('contents.application.tablero.tablero') ;
     }
 
     public function datosGrls(Request $request)

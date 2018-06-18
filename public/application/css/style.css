@@ -7508,6 +7508,10 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   opacity: 0.4  ;
 }
 
+.pedido-atendido{
+  background-color: #B5FFC8;
+}
+
 .context-menu-pedido{
   padding: 4px;
   margin-top: -0.75rem;

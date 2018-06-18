@@ -354,9 +354,16 @@ var preparacion = function(cod_ped,cod_det_ped){
 				/*pedidosMesa();
 				pedidosMostrador();
 				pedidosDelivery();*/
-				console.log(data);
+				if(datos == 1){
 				$('#pedido_'+cod_det_ped).addClass('pedido-en-preparacion');
-				$('#pedido_notify_'+cod_det_ped).addClass('hidden');
+					//$('#pedido_notify_'+cod_det_ped).addClass('hidden');
+				}
+				else {
+					$('#pedido_'+cod_det_ped).removeClass('pedido-en-preparacion');
+					//$('#pedido_notify_'+cod_det_ped).addClass('hidden');
+				}
+				//console.log(data);
+				
 			},
 		error: function(jqXHR, textStatus, errorThrown){
 				console.log(errorThrown + ' ' + textStatus);
@@ -364,26 +371,45 @@ var preparacion = function(cod_ped,cod_det_ped){
   });
 }
 
-var atendido = function(cod_ped,cod_prod,fecha_p){
-	$.ajax({
-      dataType: 'JSON',
-      type: 'POST',
-      url: '?c=AreaProd&a=Atendido',
-      data: {
-      	cod_ped: cod_ped,
-      	cod_prod: cod_prod,
-      	fecha_p: fecha_p
-      },
-      success: function (datos) {
-      	pedidosMesa();
-		pedidosMostrador();
-		pedidosDelivery();
-      },
-      error: function(jqXHR, textStatus, errorThrown){
-          console.log(errorThrown + ' ' + textStatus);
-      }   
-  });
+var atendido = function(cod_ped,cod_det_ped){
+	console.log("#pedido_"+ cod_ped);
+	$("#pedido_"+ cod_det_ped).popover({
+		placement:'top',
+		html: true,
+		title : `<span class="text-success"><strong>Pedido Cancelado</strong></span>`,
+		content : `<a onclick="privateLib.atendidoMethodCall(${cod_ped},${cod_det_ped})" class="btn btn-primary"> Aceptar</a><a onclick="$('#pedido_`+ cod_det_ped+`').popover('hide')" class="btn "> Cancelar</a>`,
+		trigger: 'manual'
+
+	});	
+	$('#pedido_'+cod_det_ped).popover('show');
 }
+
+var atendidoMethodCall = function(cod_ped,cod_det_ped) {
+	$('#pedido_'+cod_det_ped).popover('hide');
+	$.ajax({
+		dataType: 'JSON',
+		type: 'POST',
+		url: '/cocina/Atendido',
+		data: {
+			cod_ped: cod_ped,
+			cod_det_ped: cod_det_ped,
+			//fecha_p: fecha_p
+		},
+		headers: {
+		  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		success: function (datos) {
+			/*pedidosMesa();
+		  pedidosMostrador();
+		  pedidosDelivery();*/
+		  console.log(datos)
+		  $('#pedido_'+cod_det_ped).addClass('pedido-atendido');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log(errorThrown + ' ' + textStatus);
+		}   
+	});
+} 
 	
 var setupSocketio = function(){
 	
@@ -391,6 +417,7 @@ var setupSocketio = function(){
 	
     socket.on("pedido-registrado:App\\Events\\PedidoRegistrado", function(data){
 		console.log(ordenes);
+		console.log(data.orden);
 		for(var i = 0; i<ordenes.length; i++)
 		{
 			if(data.orden.pedido.id_pedido == ordenes[i].pedido.id_pedido){
@@ -401,7 +428,7 @@ var setupSocketio = function(){
 				for(var j = 0; j< N; j++)
 				{
 					console.log('id_det_ped '+ pedidos[j].id_det_ped);
-					$('#'+ordenes[i].IdListaPedidos).append(NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha));
+					$('#'+ordenes[i].IdListaPedidos).append(NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a'));
 					ordenes[i].items.push(pedidos[j]);
 				}
 				
@@ -450,22 +477,42 @@ var setupSocketio = function(){
 
 		console.log('pedido-cancelado');
 	});
+	socket.on("venta-efectuada:App\\Events\\VentaEfectuada", function(data){
+		//implementar Venta efectuada (Descartar la orden cuando se disapare este evento)
+		console.log(data);
+		for(var i = 0; i< ordenes.length; i++)
+		{
+			if(data.orden.id_pedido == ordenes[i].pedido.id_pedido)
+			{
+				$('#div_orden_'+data.orden.id_pedido).remove();
+				ordenes.splice(i,1);
+				
 }
+		}
 
+		
+	});
+}
+var DeleteOrder = function(orden,i){
+	
+	for(var j = 0 ; j<orden.items.length;j++){	
+	}
+}
 var NewOrder = function (orden){
 
 	var pedidos = orden.items;
 
-	var sepuede = '<span style="color:red">asdas</span>';
+	var nombre_orden = orden.pedido.nombre;
 	var pedidosHtml = ``;
 	
+	var orden_id = 'div_orden_'+orden.pedido.id_pedido;
 	var id_pedidoListaPedidos = 'ul_pedidos_'+orden.pedido.id_pedido;
 	var id_ordenDemora =  'timer_demora_' + orden.pedido.id_pedido;
 	//console.log(orden.pedido.fecha_pedido);
 
 	for (var i = 0; i< pedidos.length;i++)
 	{	
-		pedidosHtml = pedidosHtml + NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha);
+		pedidosHtml = pedidosHtml + NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado);
 	}
 
 	var html = ` <div class="col-sm-6 col-md-4 col-lg-3 pedido-post-it" >
@@ -473,7 +520,7 @@ var NewOrder = function (orden){
 						<div class="card-header post-it-header ">
 							<div class="row">
 								<div class="col-4 col-sm-4 text-left">
-									<span><b>${sepuede} </b></span>
+									<span><b>${nombre_orden} </b></span>
 								</div>
 								<div id="${id_ordenDemora}"  class="col-4 col-sm-4 text-center ">
 									00:00 
@@ -502,30 +549,38 @@ var NewOrder = function (orden){
 	StartTimerDemora(id_ordenDemora,orden.pedido.fecha_pedido);
 }
 
-function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha ){
+function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado ){
 
 
 	var id_pedidoDemora =  `pedido_demora_`+id_det_ped;
 	var id_pedido = 'pedido_'+id_det_ped;
 	var id_pedidoNotify = `pedido_notify_`+id_det_ped;
-	StartTimerDemora(id_pedidoDemora,fecha);	
+	var id_pedidoAlertaDemora = `pedido_alerta_`+id_det_ped;
+	StartTimerDemora(id_pedidoDemora,fecha,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);	
 	
-
+	var clasePedido = '';
+	switch(estado){
+		case 'c':{clasePedido= 'pedido-atendido';break;}
+		case 'a':{clasePedido= '';break;}
+		case 'p':{clasePedido= 'pedido-en-preparacion';break;}
+		case 'i':{clasePedido= 'pedido-cancelado';break;}
+	}
 	
 	
-	return `<li id="${id_pedido}" class="list-group-item " data-toogle="popover" onclick="privateLib.preparacion(${id_ped},${id_det_ped})" >
+	return `<li id="${id_pedido}" class="list-group-item ${clasePedido} "  data-toogle="popover"  >
 				<div class="row"   >		
-					<div class="col-7 col-sm-7">
-						${nombre}
+					<div class="col-7 col-sm-7" onclick="privateLib.preparacion(${id_ped},${id_det_ped})">
+						${cantidad+ ' '}${nombre}
 						<div class="row">
 							<div class="col-sm-12">
 								${comentarios}
 							</div>
 						</div>
 					</div>
+					<div id="${id_pedidoAlertaDemora}"  class="col-1 col-sm-1 hidden no-padding" style="" ><img width="30px" height="30px" style="margin-top:-6px" src="application/images/pedido-demora.png" ></img> </div>
 					<div id="${id_pedidoNotify}" class="col-1 col-sm-1 notify nopadding center-notify">  <div class="heartbit heartbit-pedido-activo"></div> <span class="point point-pedido-activo"></span> </div>
 					<div id = "${id_pedidoDemora}" class="col-2 col-sm-2 nopadding text-center"><span class="ca	rd-text"> 00:00 </span></div>
-					<div class="col-2 col-sm-2 text-right"><a class="btn btn-primary"  href="#">V</a></div>
+					<div class="col-2 col-sm-2 text-right"><a class="btn btn-primary " onclick="privateLib.atendido(${id_ped},${id_det_ped})" style="padding:10px;color:white"   href="#">&#10004;</a></div>
 				</div>
 				
 			</li>
@@ -534,27 +589,41 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha ){
 	
 }
 
-function StartTimerDemora(id_elemento,tiempo){
+function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify,){
 
 	var now = new Date(0,0,0,0,0,0,0);
 	var start = new Date() - new Date(tiempo);
 	var demora = new Date(0,0,0,0,0,0,0);
-	console.log(start);
-	console.log(demora);
-	console.log(tiempo);
+	//console.log(start);
+	//console.log(demora);
+	//console.log(tiempo);
 	//console.log(start.getTime());
-	console.log(demora.getTime());
+	//console.log(demora.getTime());
+	/*setTimeout(function(){
+		$('#'+id_pedido).addClass('pedido-demorando');
+	},1000*2);*/
 	//console.log(tiempo.getTime());
 	setInterval(function(){
 		//var startMS = start.getTime();
 		//var startMS = nowMS - id_elemento.getTime();
         start += 1000;
 		demora.setTime(now.getTime() + start);
-		console.log(demora);
+		//console.log(demora);
         var timer = document.getElementById(id_elemento);
         if(timer){
             timer.innerHTML =/* digits2(demora.getHours()) + ":" +*/ digits2(demora.getMinutes())+ ":"+digits2(demora.getSeconds());
             //clock.innerHTML = 'hola';
+			
+			if(demora.getMinutes() >= 15 ) {
+				if(!$('#'+id_pedido).hasClass('pedido-demorando')){
+					
+					$('#'+id_pedidoAlertaDemora).removeClass('hidden');
+					$('#'+id_pedidoNotify).addClass('hidden');
+					//$('#'+id_pedidoAlertaDemora).css('');
+					
+				}
+			}
+				
 		}
 		
 	} , 1000 );
@@ -565,7 +634,7 @@ function digits2(number) {
 }
 
 
-return {ordenes,NewOrder,preparacion};
+return {ordenes,NewOrder,preparacion,atendido,atendidoMethodCall};
 })();
 
 function ActualizarPedidos(pordenes)

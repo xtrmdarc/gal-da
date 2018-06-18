@@ -45,6 +45,12 @@ class AreaProdController extends Controller
         {   
             
             $ordenes[$k]['pedido'] = TmPedido::where('id_pedido',$v['id_pedido'])->first();
+            //Nombre pedido (delivery,Mostrador o Mesa)
+            $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$v['id_pedido']])[0];
+            $nombrePedido = '';
+            if(isset($nombrePedidoDB)) $nombrePedido = $nombrePedidoDB->nombre;
+            $ordenes[$k]['pedido']['nombre']  = $nombrePedido;
+            
             $ordenes[$k]['items'] = TmDetallePedido::where('id_pedido',$v['id_pedido'])
                                     ->where('estado','<>','i')
                                     ->get()->toArray();
@@ -156,9 +162,19 @@ class AreaProdController extends Controller
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
 
+            
             //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
+            $val = DB::table('tm_detalle_pedido')   -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
+                                                    -> where('estado','a')
+                                                    ->update(['estado'=>'p','fecha_envio'=>$fecha]);
+
+
+            if($val == 0){
             DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
-                                            ->update(['estado'=>'p','fecha_envio'=>$fecha]);
+                                            -> where('estado','p')
+                                            ->update(['estado'=>'a','fecha_envio'=>$fecha]);
+            }
+
             /* $this->conexionn->prepare($sql)
               ->execute(array(
                 $fecha,
@@ -166,7 +182,7 @@ class AreaProdController extends Controller
                 $data['cod_prod'],
                 $data['fecha_p']
                  ));*/
-            return json_encode(1);
+            return json_encode($val);
         }
         catch(Exception $e)
         {
@@ -178,15 +194,17 @@ class AreaProdController extends Controller
     }
 
     public function Atendido(Request $request){
-        
-        try
+
+        $data = $request->all();
+        try 
         {   
-            date_default_timezone_set('America/Lima');
+            
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
+            
 
             //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
-            DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_prod'=> $data['cod_prod'],'fecha_pedido'=>$data['fecha_p']])
+            DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
                                             ->update(['estado'=>'c','fecha_envio'=>$fecha]);
 /*            $this->conexionn->prepare($sql)
               ->execute(array(
@@ -195,6 +213,8 @@ class AreaProdController extends Controller
                 $data['cod_prod'],
                 $data['fecha_p']
                  ));*/
+
+            return json_encode(1);
         }
         catch(Exception $e)
         {

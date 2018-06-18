@@ -6,7 +6,8 @@ var redis = new Redis();
 
 var channelsToSubscribe = [
     'pedido-registrado',
-    'pedido-cancelado'
+    'pedido-cancelado',
+    'venta-efectuada'
 ];
 
 redis.subscribe(channelsToSubscribe, function(message) {

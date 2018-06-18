@@ -183,7 +183,7 @@ class ProductoController extends Controller
 
         $json = json_encode($data);
         echo $json;*/
-
+        
         $codProd = $post['cod_prod'];
         if($codProd != ''){
             //Actualizar
