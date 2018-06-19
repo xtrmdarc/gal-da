@@ -140,31 +140,29 @@
                             </div>
                         </div>
                     </div>
-                    @if(Auth::user()->plan_id == '1')
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label class="control-label">Sucursal</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
-                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                            @if(Auth::user()->id_usu != null)
-                                                <option value="">Seleccionar</option>
-                                            @else
-                                                echo '<option value="" selected>Seleccionar</option>';
-                                                echo '<optgroup label="Seleccionar">';
-                                                    @endif
-                                                    <optgroup label="Seleccionar">
-                                                        @foreach($user_sucursal as $r)
-                                                            <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                        </select>
-                                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="control-label">Sucursal</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-renren"></i></span>
+                                    <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                        @if(Auth::user()->id_usu != null)
+                                            <option value="">Seleccionar</option>
+                                        @else
+                                            echo '<option value="" selected>Seleccionar</option>';
+                                            echo '<optgroup label="Seleccionar">';
+                                                @endif
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($user_sucursal as $r)
+                                                        <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

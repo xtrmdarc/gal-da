@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Application\Config;
 
+use App\Models\TmMesa;
+use App\Models\TmSalon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -174,8 +176,20 @@ class MesaController extends Controller
         $flag = 3;
         $idMesa = $post['cod_mesae'];
 
-        $consulta = DB::Select("call usp_configMesas( :flag, @a, @b, :idMesa);",
-            array(':flag' => $flag,':idMesa' => $idMesa));
+        $lista_mesas =  TmMesa::where('id_mesa',$idMesa)->get();
+
+        foreach($lista_mesas as $v){
+            $id_catg_s = $v->id_catg;
+        }
+
+        $id_sucursal_salon =  DB::select("SELECT id_sucursal FROM tm_salon WHERE id_catg =".$id_catg_s);
+
+        foreach($id_sucursal_salon as $r){
+            $id_catg_sucursal = $r->id_sucursal;
+        }
+        dd($idMesa);
+        $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal);",
+            array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal));
 
         foreach($consulta as $k)
         {

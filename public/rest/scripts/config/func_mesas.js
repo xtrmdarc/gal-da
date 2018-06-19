@@ -242,13 +242,11 @@ $(function() {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
-                      //location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos registrados, correctamente.');
                   } else if(cod == 2) {
                       $('#mdl-mesa').modal('hide');
                       listarSalones();
                       listarMesas(mesas.id_catg);
-                      //location.href = "/ajustesSalonyMesas";
                       toastr.success('Datos modificados, correctamente.');
                   }
               },
@@ -376,11 +374,9 @@ $("#frm-eliminar-mesa").submit(function(){
                 listarMesas(codigoSalon);
                 $('#mdl-eliminar-mesa').modal('hide');
                 toastr.warning('Advertencia, Datos duplicados.');
-                location.href = "/ajustesSalonyMesas";
             } else if(cod == 0){
                 $('#mdl-eliminar-mesa').modal('hide');
                 toastr.warning('Advertencia, La mesa no puede ser eliminado.');
-                location.href = "/ajustesSalonyMesas";
                 return false;
             }
         },

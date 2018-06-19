@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OtrosController extends Controller
 {
@@ -24,25 +25,7 @@ class OtrosController extends Controller
     public function datosEmpresa(){
 
         $viewdata = [];
-        /*$stm = DB::Select("SELECT * FROM tm_datos_empresa");
 
-        foreach($stm as $r) {
-            $viewdata['id'] = $r->id;
-            $viewdata['razon_social'] = $r->razon_social;
-            $viewdata['abrev_rs']= $r->abrev_rs;
-            $viewdata['ruc'] = $r->ruc;
-            $viewdata['direccion']= $r->direccion;
-            $viewdata['telefono']= $r->telefono;
-            $viewdata['logo']= $r->logo;
-            $viewdata['igv']= $r->igv;
-            $viewdata['moneda']= $r->moneda;
-        }
-
-        $data = [
-            'breadcrumb'=>'config.DatosEmpresa'
-        ];
-        return view('contents.application.config.sist.datos_emp',$viewdata)->with($data);
-        */
         $id_empresa = \Auth::user()->id_empresa;
 
         $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
@@ -58,7 +41,13 @@ class OtrosController extends Controller
             $viewdata['igv']= $r->igv;
             $viewdata['moneda']= $r->moneda;
         }
-
+        if(is_null($viewdata['logo']) or $viewdata['logo'] == '') {
+            $viewdata['logo'] = '';
+            $viewdata['logo_g']= $viewdata['logo'];
+        }else {
+            $url = Storage::disk('s3')->url($viewdata['logo']);
+            $viewdata['logo_g']= $url;
+        }
         $data = [
             'breadcrumb'=>'config.DatosEmpresa'
         ];
@@ -113,17 +102,46 @@ class OtrosController extends Controller
         }*/
 
         if($id != ''){
+            $stm = DB::Select("SELECT * FROM empresa where id = ".$id);
+
+            foreach($stm as $r) {
+                $viewdata['logo']= $r->logo;
+            }
+
+            if(!(is_null($viewdata['logo']) or $viewdata['logo'] == '')) {
+                $url = Storage::disk('s3')->delete($viewdata['logo']);
+            }
+            if($request->hasFile('logo')) {
+
+                //get filename with extension
+                $filenamewithextension = $request->file('logo')->getClientOriginalName();
+
+                //get filename without extension
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+                //get file extension
+                $extension = $request->file('logo')->getClientOriginalExtension();
+
+                //filename to store
+                $filenametostore = $filename.'_'.time().'.'.$extension;
+
+                //Upload File to s3
+                Storage::disk('s3')->put($filenametostore, fopen($request->file('logo'), 'r+'), 'public');
+
+                //Store $filenametostore in the database
+            }
+
             $sql = DB::update("UPDATE empresa SET
-						razon_social  = ?,
-						abrev_rs   = ?,
-						ruc   = ?,
-						telefono  = ?,
-                        direccion = ?,
-                        logo = ?,
-                        igv = ?,
-                        moneda = ?
-				    WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$logo,$igv,$moneda,$id]);
-            //return redirect()->route('config.DatosEmpresa');
+                    razon_social  = ?,
+                    abrev_rs   = ?,
+                    ruc   = ?,
+                    telefono  = ?,
+                    direccion = ?,
+                    logo = ?,
+                    igv = ?,
+                    moneda = ?
+                WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id]);
+
             return redirect('/ajustesDatosEmpresa');
         }
     }

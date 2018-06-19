@@ -1,4 +1,22 @@
 <!-- header header  -->
+@php
+    $id_empresa = \Auth::user()->id_empresa;
+
+    $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
+
+    foreach($stm as $r) {
+        $logo = $r->logo;
+    }
+
+    if(is_null($logo) or $logo == '') {
+    $logo = '';
+
+    $logo_g = $logo;
+    } else {
+        $url = Storage::disk('s3')->url($logo);
+        $logo_g = $url;
+    }
+@endphp
 <div class="header">
 
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
@@ -7,7 +25,7 @@
                
                 <a class="navbar-brand" href="index.html">
                     <!-- Logo icon -->
-                    <b><img src="{{ URL::to('application/images/logo.png') }}" alt="homepage" class="dark-logo" /></b>
+                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 30px;" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     <span><img src="{{ URL::to('application/images/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>
