@@ -66,13 +66,15 @@ class AreaProdController extends Controller
         }
                
         //
-
+        $id_sucursal = session('id_sucursal');
+        $id_areap = session('id_areap');
+        
         $data = [
             'breadcrumb' => '',
-            'ordenes'=> $ordenes
+            'ordenes'=> $ordenes,
+            'id_sucursal' => $id_sucursal,
+            'id_areap' => $id_areap
         ];
-        
-
 
         return view('contents.application.areaprod.areaprod')->with($data);
     }

@@ -1,8 +1,11 @@
 var privateLib = (function(){
 	
 	var ordenes =[];
-	
+	var vl_pedidos =[];
+	var id_sucursal, id_areap;
 $(function() {
+	id_sucursal = $('#id_sucursal').val();
+	id_areap = $('#id_areap').val();
 	console.log(ordenes);
 	pedidosMesa();
 	pedidosMostrador();
@@ -10,7 +13,8 @@ $(function() {
 	setInterval(pedidosMesa, 10000);
 	setInterval(pedidosMostrador,10000); 
 	setupSocketio();
-
+	
+	console.log('suc'+id_sucursal+ ' areap '+ id_areap);
 	$("#li_pedido").popover({
 		placement:'top',
 		html: true,
@@ -128,7 +132,7 @@ var pedidosMesa = function(){
 
 /* Mostrar todos los pedidos realizados en el mostrador o para llevar */
 var pedidosMostrador = function(){
-	moment.locale('es');
+	/*moment.locale('es');
 	$('#list_pedidos_most').empty();
 	$('#cant_pedidos_most').empty();
 	$.ajax({     
@@ -229,11 +233,12 @@ var pedidosMostrador = function(){
     		})
         }
     });
+*/
 }
 
 /* Mostrar todos los pedidos realizados en el mostrador o para llevar */
 var pedidosDelivery = function(){
-	moment.locale('es');
+	/*moment.locale('es');
 	$('#list_pedidos_del').empty();
 	$('#cant_pedidos_del').empty();
 	$.ajax({     
@@ -333,7 +338,7 @@ var pedidosDelivery = function(){
 					);			
     		})
         }
-    });
+    });*/
 }
 
 var preparacion = function(cod_ped,cod_det_ped){
@@ -414,8 +419,8 @@ var atendidoMethodCall = function(cod_ped,cod_det_ped) {
 var setupSocketio = function(){
 	
 	var socket = io.connect('http://192.168.10.10:3000');
-	
-    socket.on("pedido-registrado:App\\Events\\PedidoRegistrado", function(data){
+	console.log("pedido-registrado"+id_areap+id_sucursal);
+    socket.on("pedido-registrado"+id_sucursal+id_areap+":App\\Events\\PedidoRegistrado", function(data){
 		console.log(ordenes);
 		console.log(data.orden);
 		for(var i = 0; i<ordenes.length; i++)
@@ -443,7 +448,7 @@ var setupSocketio = function(){
 
 		console.log(data.orden);
 	});
-	socket.on("pedido-cancelado:App\\Events\\PedidoCancelado", function(data){
+	socket.on("pedido-cancelado"+id_sucursal+id_areap+":App\\Events\\PedidoCancelado", function(data){
 		//implementar evento
 		console.log(data);
 		$("#pedido_"+data.id_det_ped).popover({
@@ -477,17 +482,18 @@ var setupSocketio = function(){
 
 		console.log('pedido-cancelado');
 	});
-	socket.on("venta-efectuada:App\\Events\\VentaEfectuada", function(data){
+	socket.on("venta-efectuada"+id_sucursal+":App\\Events\\VentaEfectuada", function(data){
 		//implementar Venta efectuada (Descartar la orden cuando se disapare este evento)
 		console.log(data);
+		console.log('venta efectuada');
 		for(var i = 0; i< ordenes.length; i++)
 		{
 			if(data.orden.id_pedido == ordenes[i].pedido.id_pedido)
 			{
 				$('#div_orden_'+data.orden.id_pedido).remove();
 				ordenes.splice(i,1);
-				
-}
+				console.log('entro en operacion de eliminar');
+			}
 		}
 
 		
@@ -515,7 +521,7 @@ var NewOrder = function (orden){
 		pedidosHtml = pedidosHtml + NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado);
 	}
 
-	var html = ` <div class="col-sm-6 col-md-4 col-lg-3 pedido-post-it" >
+	var html = ` <div id="${orden_id}" class="col-sm-6 col-md-4 col-lg-3 pedido-post-it" >
 					<div class="card post-it ">
 						<div class="card-header post-it-header ">
 							<div class="row">

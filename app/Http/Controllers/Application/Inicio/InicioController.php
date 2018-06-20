@@ -353,7 +353,7 @@ class InicioController extends Controller
                         }
                     }
                   
-                    event(new PedidoRegistrado($orden));
+                    event(new PedidoRegistrado($orden,$a));
                 }
 
 
@@ -433,9 +433,9 @@ class InicioController extends Controller
                                     ->where('estado','<>','i')
                                     ->update(['estado'=>'i']);
 
-      
-        
-        event(new PedidoCancelado($data['cod_det_ped']));   
+        $aux = DB::select('SELECT p.id_sucursal as id_sucursal, p.id_areap as id_areap FROM tm_detalle_pedido dp join tm_producto p on dp.id_prod = p.id_prod where dp.id_det_ped = ?',[$data['cod_det_ped']])[0];
+  
+        event(new PedidoCancelado($data['cod_det_ped'],$aux->id_sucursal,$aux->id_areap ));   
         
 
        /* $this->conexionn->prepare($sql)
@@ -453,9 +453,9 @@ class InicioController extends Controller
             header('Location: /inicio/PedidoMesa/'.$cod.'');
 
         } elseif($data['cod_tipe'] == 2){
-            header('Location: pedido_mostrador.php?Cod='.$cod.'');
+            header('Location: /inicio/PedidoMostrador/'.$cod.'');
         } elseif($data['cod_tipe'] == 3){
-            header('Location: pedido_delivery.php?Cod='.$cod.'');
+            header('Location: /inicio/PedidoDelivery/'.$cod.'');
         }
     }
 

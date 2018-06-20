@@ -1,10 +1,181 @@
 @extends('layouts.application.master')
 
 @section('content')
+
 <div class="page-wrapper">
-<br>
-<div class="tabs-container">
-    {{--
+<input type="hidden" id="id_sucursal" value="{{$id_sucursal}}"/>
+<input type="hidden" id="id_areap" value="{{$id_areap}}"/>
+
+
+<div class="row">
+    <div class="col-md-12">
+        
+        {{--<div class="card nopadding panel-cocina ">
+            <div class="card-body ">--}}  
+                <ul class="nav nav-pills  text-center switch-cocina" style="display:block">
+                    <li class=" nav-item" style="display:inline-block" > <a href="#navpills-1" class="nav-link active show" data-toggle="tab" aria-expanded="false">Pedidos</a> </li>
+                    <li class="nav-item" style="display:inline-block"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false">Lista</a> </li>
+                </ul>
+        
+                <div class="tab-content br-n pn">
+                    <div id="navpills-1" class="tab-pane active show">
+                        <div id="pedidos-container" class="row">
+                            
+                        </div>
+                    </div>
+                    <div id="navpills-2" class="tab-pane">
+                        
+                                <div class="row">
+                                        <div class="col-sm-3">  
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                    <p>
+                                                                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                                            Más opciones +
+                                                                        </a>
+                                                                        {{--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                                            Button with data-target
+                                                                        </button>--}}
+                                                                    </p>
+                                                                <div class="collapse" id="collapseExample">
+                                                                
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Tipo</label>
+                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                            <option value="1">MESA</option>
+                                                                            <option value="2">MOSTRADOR</option>
+                                                                            <option value="3">DELIVERY</option>
+                                                                        </select>
+                                                                        <small class="form-control-feedback"> Filtro por tipo de pedido </small>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Mozo</label>
+                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                            <option value="1">MOZ02</option>
+                                                                            <option value="2">MOSTRADOR</option>
+                                                                            <option value="3">DELIVERY</option>
+                                                                        </select>
+                                                                        <small class="form-control-feedback"> Filtro por mozo </small>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Hora Inicio</label>
+                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                            <option value="1">10:20</option>
+                                                                            <option value="2">MOSTRADOR</option>
+                                                                            <option value="3">DELIVERY</option>
+                                                                        </select>
+                                                                        <small class="form-control-feedback"> Filtro desde hora inicio </small>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Hora Fin</label>
+                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                            <option value="1">15:20</option>
+                                                                            <option value="2">MOSTRADOR</option>
+                                                                            <option value="3">DELIVERY</option>
+                                                                        </select>
+                                                                        <small class="form-control-feedback"> Filtro hasta hora fin </small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Estado</label>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                                            <label class="form-check-label" for="defaultCheck1">
+                                                                                Activo
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
+                                                                            <label class="form-check-label" for="defaultCheck2">
+                                                                                Preparacion
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
+                                                                            <label class="form-check-label" for="defaultCheck2">
+                                                                                Listo
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
+                                                                            <label class="form-check-label" for="defaultCheck2">
+                                                                                Cancelado
+                                                                            </label>
+                                                                        </div>
+                                                                    <small class="form-control-feedback"> Filtro hasta hora fin </small>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="col-sm-9">
+                                                <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                        <div class="card ">
+                                                                <div class="card-body">
+                                                                    
+                                                                    <div class="table-responsive m-t-0">
+                                                                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Usuario</th>
+                                                                                    <th>Tipo</th>
+                                                                                    <th>Cantidad</th>
+                                                                                    <th>Pedido</th>
+                                                                                    <th>Estado</th>
+                                                                                    <th>Hora</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>Usuario</th>
+                                                                                    <th>Tipo</th>
+                                                                                    <th>Cantidad</th>
+                                                                                    <th>Pedido</th>
+                                                                                    <th>Estado</th>
+                                                                                    <th>Hora</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                                <tr>
+                                                                                    <td>Donna Snider</td>
+                                                                                    <td>Customer Support</td>
+                                                                                    <td>New York</td>
+                                                                                    <td>27</td>
+                                                                                    <td>2011/01/25</td>
+                                                                                    <td>$112,000</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                    
+                                            </div>
+                                               
+                                        </div>
+                                    </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            {{--</div>
+        </div>--}}
+    </div>
+</div>
+{{--<div class="tabs-container">
+    
     <ul class="nav nav-tabs right">
         <li class="active" id="tab1"><a data-toggle="tab" href="#tab-1"><i class="fa fa-cube"></i>MESA&nbsp;&nbsp;<span class="label label-primary" id="cant_pedidos_mesa"></span></a></li>
         <li id="tab2"><a data-toggle="tab" href="#tab-2"><i class="fa fa-columns"></i>MOSTRADOR&nbsp;&nbsp;<span class="label label-primary" id="cant_pedidos_most"></span></a></li>
@@ -106,12 +277,11 @@
             </div>
         </div>
     </div>
-    --}}
+    
     
 </div>
-
-<div id="pedidos-container" class="row">
-    {{--<div class="col-sm-3" style="margin-left:5%">
+--}}
+{{--<div class="col-sm-3" style="margin-left:5%">
         <div class="card post-it ">
             <div class="card-header post-it-header text-center">
                 01: 20 m
@@ -154,9 +324,9 @@
             </ul>
 
         </div>
-    </div>
-    
-    <div class="col-sm-3" style="margin-left:5%">
+        </div>
+
+        <div class="col-sm-3" style="margin-left:5%">
         <div class="card post-it ">
             <div class="card-header post-it-header ">
                 <span class="text-left">
@@ -204,9 +374,9 @@
             </ul>
 
         </div>
-    </div>
+        </div>
 
-    <div class="col-sm-3" style="margin-left:5%">
+        <div class="col-sm-3" style="margin-left:5%">
         <div class="card post-it ">
             <div class="card-header post-it-header ">
                 <div class="row-fluid">
@@ -246,20 +416,17 @@
             </ul>
 
         </div>
-    </div>
-    --}}
-    
-    
-</div>
+        </div>
+        --}}
 </div>
 <script src="{{URL::to('js/socket.io.js') }}"></script>
 <script src="{{URL::to('rest/js/plugins/buzz/buzz.min.js')}}"></script>
 <script src="{{URL::to('rest/scripts/areaprod/func_areap.js')}}"></script>
 
 <script type="text/javascript">
-    
-    $('#area-p').addClass("active");
-    ActualizarPedidos({!! json_encode($ordenes) !!});
-
+    $(function() {
+        $('#area-p').addClass("active");
+        ActualizarPedidos({!! json_encode($ordenes) !!});
+    });
 </script>
 @endsection

@@ -7528,3 +7528,13 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   color: black;
 }
 
+.switch-cocina{
+  margin-top: 10px;
+}
+.panel-cocina {
+  height: 100%;
+}
+
+.form-check-label{
+  font-weight: inherit;
+}

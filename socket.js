@@ -10,15 +10,19 @@ var channelsToSubscribe = [
     'venta-efectuada'
 ];
 
-redis.subscribe(channelsToSubscribe, function(message) {
+/*redis.subscribe(channelsToSubscribe, function(message) {
+    
+});*/
+redis.psubscribe('*', function(message) {
     
 });
 
-redis.on('message', function(channel, message) {
-    console.log('Message Recieved: ' + message);
+redis.on('pmessage', function(channel,pattern, message) {
+    console.log('Message Recieved:  '+channel +' '+ pattern + message );
     message = JSON.parse(message);
-    io.emit(channel + ':' + message.event, message.data);
+    io.emit(pattern + ':' + message.event, message.data);
 });
+
 
 io.on('connection',function(socket){
     console.log('user connected');

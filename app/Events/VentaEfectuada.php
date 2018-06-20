@@ -20,7 +20,7 @@ class VentaEfectuada implements ShouldBroadcast
      * @return void
      */
     public $orden;
-
+    
      
     public function __construct($orden)
     {
@@ -35,6 +35,6 @@ class VentaEfectuada implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['venta-efectuada'];
+        return ['venta-efectuada'.$this->orden['id_sucursal']];
     }
 }

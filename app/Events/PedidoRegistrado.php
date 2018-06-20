@@ -16,6 +16,8 @@ class PedidoRegistrado  implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $orden;
+    public $area_prod;
+    public $id_sucursal;
   
 
     /**
@@ -23,12 +25,13 @@ class PedidoRegistrado  implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($porden)
+    public function __construct($porden,$area_prod)
     {
         //
        
         $this->orden = (object)$porden;  
-        
+        $this->id_sucursal = $porden['pedido']['id_sucursal'];
+        $this->area_prod = $area_prod;
     }
 
     /**
@@ -40,7 +43,7 @@ class PedidoRegistrado  implements ShouldBroadcast
     {
         //return new PrivateChannel('channel-name');
         
-        return ['pedido-registrado'];
+        return ['pedido-registrado'.$this->id_sucursal.$this->area_prod];
     }
 
     
