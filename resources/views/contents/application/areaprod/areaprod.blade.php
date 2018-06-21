@@ -24,108 +24,108 @@
                         </div>
                     </div>
                     <div id="navpills-2" class="tab-pane">
-                        
                                 <div class="row">
                                         <div class="col-sm-3">  
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <div class="form-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                    <p>
-                                                                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                                            Más opciones +
-                                                                        </a>
-                                                                        {{--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                                                            Button with data-target
-                                                                        </button>--}}
-                                                                    </p>
-                                                                <div class="collapse" id="collapseExample">
-                                                                
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Tipo</label>
-                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
-                                                                            <option value="1">MESA</option>
-                                                                            <option value="2">MOSTRADOR</option>
-                                                                            <option value="3">DELIVERY</option>
-                                                                        </select>
-                                                                        <small class="form-control-feedback"> Filtro por tipo de pedido </small>
+                                                    <form id="vl_form_lista" method="post" enctype="multipart/form-data" >
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                        <p>
+                                                                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                                                Más opciones +
+                                                                            </a>
+                                                                            {{--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                                                Button with data-target
+                                                                            </button>--}}
+                                                                        </p>
+                                                                    <div class="collapse" id="collapseExample">
+                                                                    
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Tipo</label>
+                                                                            <select name="id_tipo_pedido" id="id_tipo_pedido" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                                <option value="1">MESA</option>
+                                                                                <option value="2">MOSTRADOR</option>
+                                                                                <option value="3">DELIVERY</option>
+                                                                            </select>
+                                                                            <small class="form-control-feedback"> Filtro por tipo de pedido </small>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Mozo</label>
+                                                                            <select name="id_mozo" id="id_mozo" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                                <option value="1">MOZ02</option>
+                                                                                <option value="2">MOSTRADOR</option>
+                                                                                <option value="3">DELIVERY</option>
+                                                                            </select>
+                                                                            <small class="form-control-feedback"> Filtro por mozo </small>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Hora Inicio</label>
+                                                                            <select name="hora_inicio" id="hora_inicio" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                                <option value="1">10:20</option>
+                                                                                <option value="2">MOSTRADOR</option>
+                                                                                <option value="3">DELIVERY</option>
+                                                                            </select>
+                                                                            <small class="form-control-feedback"> Filtro desde hora inicio </small>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Hora Fin</label>
+                                                                            <select name="hora_fin" id="hora_fin" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
+                                                                                <option value="1">15:20</option>
+                                                                                <option value="2">MOSTRADOR</option>
+                                                                                <option value="3">DELIVERY</option>
+                                                                            </select>
+                                                                            <small class="form-control-feedback"> Filtro hasta hora fin </small>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Mozo</label>
-                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
-                                                                            <option value="1">MOZ02</option>
-                                                                            <option value="2">MOSTRADOR</option>
-                                                                            <option value="3">DELIVERY</option>
-                                                                        </select>
-                                                                        <small class="form-control-feedback"> Filtro por mozo </small>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Hora Inicio</label>
-                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
-                                                                            <option value="1">10:20</option>
-                                                                            <option value="2">MOSTRADOR</option>
-                                                                            <option value="3">DELIVERY</option>
-                                                                        </select>
-                                                                        <small class="form-control-feedback"> Filtro desde hora inicio </small>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Hora Fin</label>
-                                                                        <select name="estado_area" id="estado_area" class="selectpicker show-tick form-control"  data-live-search="false" autocomplete="off" required="required">
-                                                                            <option value="1">15:20</option>
-                                                                            <option value="2">MOSTRADOR</option>
-                                                                            <option value="3">DELIVERY</option>
-                                                                        </select>
+                                                                        <label class="control-label">Estado</label>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="a" name="estado_cb" id="activo_cb">
+                                                                                <label class="form-check-label" for="defaultCheck1">
+                                                                                    Activo
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="p" name="estado_cb" id="prep_cb" >
+                                                                                <label class="form-check-label" for="defaultCheck2">
+                                                                                    Preparacion
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="c" name="estado_cb" id="atendido_cb" >
+                                                                                <label class="form-check-label" for="defaultCheck3">
+                                                                                    Listo
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" value="i" name="estado_cb" id="cancelado_cb" >
+                                                                                <label class="form-check-label" for="defaultCheck4">
+                                                                                    Cancelado
+                                                                                </label>
+                                                                            </div>
                                                                         <small class="form-control-feedback"> Filtro hasta hora fin </small>
                                                                     </div>
+                                                                    <button type="button" class="btn btn-primary" style="float:right;" onclick="privateLib.BuscarPedidosLista()"><i class="fa fa-check-square-o"></i> Consultar</button>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Estado</label>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                                            <label class="form-check-label" for="defaultCheck1">
-                                                                                Activo
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                                                                            <label class="form-check-label" for="defaultCheck2">
-                                                                                Preparacion
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                                                                            <label class="form-check-label" for="defaultCheck2">
-                                                                                Listo
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
-                                                                            <label class="form-check-label" for="defaultCheck2">
-                                                                                Cancelado
-                                                                            </label>
-                                                                        </div>
-                                                                    <small class="form-control-feedback"> Filtro hasta hora fin </small>
-                                                                </div>
-                                                            
+                                                                    
                                                             </div>
-                                                                
                                                         </div>
-                                                    </div>
+                                                    </form>
+                                                    
                                                 </div>
                                             </div>
                                             
                                         </div>
-                                        
                                         <div class="col-sm-9">
                                                 <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                         <div class="card ">
-                                                                <div class="card-body">
-                                                                    
+                                                                <div class="card-body"> 
                                                                     <div class="table-responsive m-t-0">
-                                                                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                                                        <table id="vl_tabla_pedidos" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Usuario</th>
@@ -136,7 +136,7 @@
                                                                                     <th>Hora</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tfoot>
+                                                                            <tfoot >
                                                                                 <tr>
                                                                                     <th>Usuario</th>
                                                                                     <th>Tipo</th>
@@ -146,14 +146,8 @@
                                                                                     <th>Hora</th>
                                                                                 </tr>
                                                                             </tfoot>
-                                                                                <tr>
-                                                                                    <td>Donna Snider</td>
-                                                                                    <td>Customer Support</td>
-                                                                                    <td>New York</td>
-                                                                                    <td>27</td>
-                                                                                    <td>2011/01/25</td>
-                                                                                    <td>$112,000</td>
-                                                                                </tr>
+                                                                            <tbody id="vl_tabla_body_pedidos">
+                                                                                
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -426,7 +420,7 @@
 <script type="text/javascript">
     $(function() {
         $('#area-p').addClass("active");
-        ActualizarPedidos({!! json_encode($ordenes) !!});
+        ActualizarPedidos({!! json_encode($ordenes) !!},{!! json_encode($vl_pedidos) !!});
     });
 </script>
 @endsection

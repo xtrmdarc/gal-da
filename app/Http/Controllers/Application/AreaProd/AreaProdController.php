@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Events\PedidoRegistrado;
 use App\Models\TmPedido;
 use App\Models\TmDetallePedido;
+use App\Models\TmTipoPedido;
 
 class AreaProdController extends Controller
 {
@@ -50,7 +51,8 @@ class AreaProdController extends Controller
             $nombrePedido = '';
             if(isset($nombrePedidoDB)) $nombrePedido = $nombrePedidoDB->nombre;
             $ordenes[$k]['pedido']['nombre']  = $nombrePedido;
-            
+            $tipoPedido = TmTipoPedido::where('id_tipo_pedido',$ordenes[$k]['pedido']['id_tipo_pedido'])->first()->descripcion; 
+
             $ordenes[$k]['items'] = TmDetallePedido::where('id_pedido',$v['id_pedido'])
                                     ->where('estado','<>','i')
                                     ->get()->toArray();
@@ -61,6 +63,8 @@ class AreaProdController extends Controller
                 $ordenes[$k]['items'][$i]['nombre_prod'] = $producto->nombre_prod;
                 $ordenes[$k]['items'][$i]['id_areap'] = $producto->id_areap;
                 $ordenes[$k]['items'][$i]['fecha']  = $ordenes[$k]['items'][$i]['fecha_pedido'];
+                $ordenes[$k]['items'][$i]['nombre_usuario'] = $nombrePedido;
+                $ordenes[$k]['items'][$i]['tipo_usuario'] = $tipoPedido;
                 $productosRegistrados[] = $producto;
             }
         }
@@ -73,10 +77,52 @@ class AreaProdController extends Controller
             'breadcrumb' => '',
             'ordenes'=> $ordenes,
             'id_sucursal' => $id_sucursal,
-            'id_areap' => $id_areap
+            'id_areap' => $id_areap,
+            'vl_pedidos'=>$this->PedidosLista(new Request())
         ];
 
         return view('contents.application.areaprod.areaprod')->with($data);
+    }
+
+
+    public function PedidosLista(Request $request){
+
+        $data = $request->all();
+        //dd($data);
+        //mozo
+        //estados
+        $estados;
+        //$estado = $data['estados'];
+
+        //Tipo de pedido
+        //H-inicio
+        //H-fin
+        //
+        if(isset($data['estados']))$estados = $data['estados'];else $estados = array('a','i','p','c');
+        
+        $pedidos =  DB::table('tm_pedido')
+                    ->select(DB::raw('tm_detalle_pedido.id_det_ped, tm_detalle_pedido.cantidad,tm_producto.nombre as nombre_prod,tm_detalle_pedido.estado,tm_detalle_pedido.fecha_pedido as fecha,tm_pedido.id_tipo_pedido,tm_pedido.id_pedido'))
+                    ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
+                    ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
+                    ->where('tm_pedido.id_sucursal',session('id_sucursal'))
+                    ->where('tm_producto.id_areap',session('id_areap'))  
+                    ->WhereIn('tm_detalle_pedido.estado',$estados)
+                    ->get();
+    
+        foreach($pedidos as $k){
+
+            $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$k->id_pedido])[0];
+            $nombrePedido = '';
+            if(isset($nombrePedidoDB)) $nombrePedido = $nombrePedidoDB->nombre;
+            
+            $tipoPedido = TmTipoPedido::where('id_tipo_pedido',$k->id_tipo_pedido)->first()->descripcion; 
+
+            $k->nombre_usuario = $nombrePedido;
+            $k->tipo_usuario = $tipoPedido;
+        }
+
+        return $pedidos;
+
     }
 
     public function ListarM(){

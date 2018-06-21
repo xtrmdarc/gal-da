@@ -368,7 +368,6 @@ var preparacion = function(cod_ped,cod_det_ped){
 					//$('#pedido_notify_'+cod_det_ped).addClass('hidden');
 				}
 				//console.log(data);
-				
 			},
 		error: function(jqXHR, textStatus, errorThrown){
 				console.log(errorThrown + ' ' + textStatus);
@@ -433,8 +432,11 @@ var setupSocketio = function(){
 				for(var j = 0; j< N; j++)
 				{
 					console.log('id_det_ped '+ pedidos[j].id_det_ped);
-					$('#'+ordenes[i].IdListaPedidos).append(NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a'));
+					var pedidosHtml = NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a',pedidos[j].nombre_usuario,pedidos[j].tipo_usuario);
+					$('#'+ordenes[i].IdListaPedidos).append(pedidosHtml[0]);
+					$('#vl_tabla_body_pedidos').append(pedidosHtml[1]);
 					ordenes[i].items.push(pedidos[j]);
+					vl_pedidos.push(pedidos[j]);
 				}
 				
 				return;
@@ -510,6 +512,7 @@ var NewOrder = function (orden){
 
 	var nombre_orden = orden.pedido.nombre;
 	var pedidosHtml = ``;
+	var vl_pedidosHtml = '';
 	
 	var orden_id = 'div_orden_'+orden.pedido.id_pedido;
 	var id_pedidoListaPedidos = 'ul_pedidos_'+orden.pedido.id_pedido;
@@ -518,7 +521,10 @@ var NewOrder = function (orden){
 
 	for (var i = 0; i< pedidos.length;i++)
 	{	
-		pedidosHtml = pedidosHtml + NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado);
+		var pedidoHtml = NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado,pedidos[i].nombre_usuario,pedidos[i].tipo_usuario);
+		pedidosHtml = pedidosHtml + pedidoHtml[0];
+		vl_pedidosHtml = vl_pedidosHtml + pedidoHtml[1];
+		vl_pedidos.push(pedidos[i]);
 	}
 
 	var html = ` <div id="${orden_id}" class="col-sm-6 col-md-4 col-lg-3 pedido-post-it" >
@@ -549,31 +555,39 @@ var NewOrder = function (orden){
 
 	$('#pedidos-container')
 		.append(html);
+		
+	$('#vl_tabla_body_pedidos')
+		.append(vl_pedidosHtml);
+		
 	
 	orden.IdListaPedidos = id_pedidoListaPedidos;
 	ordenes.push(orden);
 	StartTimerDemora(id_ordenDemora,orden.pedido.fecha_pedido);
 }
 
-function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado ){
+function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado,nombre_usuario,tipo_usuario ){
 
 
 	var id_pedidoDemora =  `pedido_demora_`+id_det_ped;
 	var id_pedido = 'pedido_'+id_det_ped;
+	var vl_id_pedido = 'vl_pedido_'+id_det_ped;
 	var id_pedidoNotify = `pedido_notify_`+id_det_ped;
 	var id_pedidoAlertaDemora = `pedido_alerta_`+id_det_ped;
 	StartTimerDemora(id_pedidoDemora,fecha,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);	
 	
 	var clasePedido = '';
+	var estadoPedido= '';
+	var vl_claseEstado = '';
 	switch(estado){
-		case 'c':{clasePedido= 'pedido-atendido';break;}
-		case 'a':{clasePedido= '';break;}
-		case 'p':{clasePedido= 'pedido-en-preparacion';break;}
-		case 'i':{clasePedido= 'pedido-cancelado';break;}
+		case 'c':{clasePedido = 'pedido-atendido';estadoPedido = 'Atendido'; vl_claseEstado = 'vl-estado-atendido';break;}
+		case 'a':{clasePedido= '';estadoPedido = 'activo'; vl_claseEstado = 'vl-estado-activo';break;}
+		case 'p':{clasePedido= 'pedido-en-preparacion';estadoPedido = 'Preparacion'; vl_claseEstado = 'vl-estado-en-preparacion';break;}
+		case 'i':{clasePedido= 'pedido-cancelado';estadoPedido = 'Cancelado'; vl_claseEstado = 'vl-estado-cancelado';break;}
 	}
 	
+	var arrNewPedidos = [];
 	
-	return `<li id="${id_pedido}" class="list-group-item ${clasePedido} "  data-toogle="popover"  >
+	arrNewPedidos[0]= `<li id="${id_pedido}" class="list-group-item ${clasePedido} "  data-toogle="popover"  >
 				<div class="row"   >		
 					<div class="col-7 col-sm-7" onclick="privateLib.preparacion(${id_ped},${id_det_ped})">
 						${cantidad+ ' '}${nombre}
@@ -592,9 +606,68 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 			</li>
 			
 			`;
+
+	arrNewPedidos[1] = `<tr id="${vl_id_pedido}">
+							<td>${nombre_usuario}</td>
+							<td>${tipo_usuario}</td>
+							<td>${cantidad}</td>
+							<td>${nombre}</td>
+							<td><a class="btn ${vl_claseEstado}"> ${estadoPedido}  </a></td>
+							<td>${fecha}</td>
+						</tr>
+						`;
+	return arrNewPedidos;
+}
+var BuscarPedidosLista = function (){
+	var estados = [];
+	var datos={};
+	$('input:checked[name="estado_cb"]').each(function() {
+		estados.push($(this).val());
+	});
+	$('#vl_form_lista :input').each(function() {
+		
+		datos[$(this).attr('name')] = $(this).val();
+	});
 	
+	datos['estados'] = estados;
+
+	$.ajax({
+		type: 'POST',
+		url: '/cocina/FiltroListaPedido',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		data: datos,
+		dataSrc:'',
+		success: function (data) {
+		//alert("Email has been sent!");
+			actualizarVLPedidos(data);
+		console.log('funciona');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log(errorThrown + ' ' + textStatus);
+		}   
+	});
+
 }
 
+
+var actualizarVLPedidos = function(pedidos){
+	
+	for(var k = 0; k< vl_pedidos.length; k++)
+	{	console.log('#vl_pedido_'+vl_pedidos[k].id_det_ped);
+		$('#vl_pedido_'+vl_pedidos[k].id_det_ped).remove();
+		
+		//vl_pedidos.splice(k,1);
+	}
+	var vl_pedidosHtml = '';
+	for(var j = 0 ; j< pedidos.length;j++)
+	{	console.log(pedidos[j]);	
+		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
+		vl_pedidos.push(pedidos[j]);
+	}
+	$('#vl_tabla_body_pedidos').append(vl_pedidosHtml);
+}
 function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify,){
 
 	var now = new Date(0,0,0,0,0,0,0);
@@ -640,14 +713,16 @@ function digits2(number) {
 }
 
 
-return {ordenes,NewOrder,preparacion,atendido,atendidoMethodCall};
+return {ordenes,NewOrder,preparacion,atendido,atendidoMethodCall,actualizarVLPedidos,BuscarPedidosLista};
 })();
 
-function ActualizarPedidos(pordenes)
+function ActualizarPedidos(pordenes,vl_pedidos)
 {
-	console.log("called	" + privateLib.ordenes);
+
 	for(var i =0; i<pordenes.length;i++)
 	{
 		privateLib.NewOrder(pordenes[i]);
 	}
+	
+	privateLib.actualizarVLPedidos(vl_pedidos);
 }

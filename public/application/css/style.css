@@ -7538,3 +7538,16 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .form-check-label{
   font-weight: inherit;
 }
+
+.vl-estado-cancelado{
+  background-color: #FF4848;
+}
+.vl-estado-en-preparacion{
+  background-color: #CDD11B;
+}
+.vl-estado-activo{
+  background-color: #1fbdb7;
+}
+.vl-estado-atendido{
+  background-color: #1FCB4A;
+} 

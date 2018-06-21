@@ -11,9 +11,11 @@ use App\Models\TmPedido;
 use App\Models\TmMesa;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
+use App\Models\TmTipoPedido;
 use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
 use App\Events\VentaEfectuada;
+
 
 class InicioController extends Controller
 {
@@ -292,6 +294,17 @@ class InicioController extends Controller
                 $productosRegistrados = [];
                 $areasProd = [];
                 //echo('fecha '.$fecha);
+                $var  = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0]->nombre;
+
+                $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0];
+                $nombrePedido = '';
+                if(isset($nombrePedidoDB->nombre)) $nombrePedido = $nombrePedidoDB->nombre;
+
+                $data['pedido'] = TmPedido::where('id_pedido',$data['cod_p'])->first();
+                $data['pedido']['nombre']  = $nombrePedido;
+
+                $tipoPedido = TmTipoPedido::where('id_tipo_pedido',$data['pedido']['id_tipo_pedido'])->first()->descripcion; 
+                
                 foreach($data['items'] as $d => $v)
                 {
                     //echo('entro aqui antes de db');
@@ -316,6 +329,9 @@ class InicioController extends Controller
                     $productosRegistrados[] = $producto;
                     //dd($data['items'][$d]['nombre_prod']);
                     $data['items'][$d]['fecha']  = $fecha;
+                    $data['items'][$d]['nombre_usuario']  = $nombrePedido;
+                    $data['items'][$d]['tipo_usuario']= $tipoPedido;
+                    $data['items'][$d]['estado'] = 'a';
                 }
 
                 //Seleccionar todas las areas de produccion
@@ -331,14 +347,7 @@ class InicioController extends Controller
                 }
 
                 $areasProd = array_keys($areasProd);
-                $var  = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0]->nombre;
-
-                $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$data['cod_p']])[0];
-                $nombrePedido = '';
-                if(isset($nombrePedidoDB->nombre)) $nombrePedido = $nombrePedidoDB->nombre;
-
-                $data['pedido'] = TmPedido::where('id_pedido',$data['cod_p'])->first();
-                $data['pedido']['nombre']  = $nombrePedido;
+                
                 //Evento registrado Ordenes por areas de proudccion
                 foreach($areasProd as $a)
                 {
