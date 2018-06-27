@@ -32,7 +32,8 @@ class TmTipoDoc extends Eloquent
 	protected $fillable = [
 		'descripcion',
 		'serie',
-		'numero'
+		'numero',
+		'id_sucursal'
 	];
 
 	public function tm_compras()

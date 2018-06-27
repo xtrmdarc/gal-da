@@ -29,7 +29,7 @@ $(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (datos) {
+                success: function (datos,cod) {
                     $('#mdl-tipodoc').modal('hide');
                     listarTiposDoc();
                     toastr.info('Se ha modificado correctamente los datos!');

@@ -1,6 +1,7 @@
 <!-- header header  -->
 @php
     $id_empresa = \Auth::user()->id_empresa;
+    $idUsu = \Auth::user()->id_usu;
 
     $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
@@ -15,6 +16,21 @@
     } else {
         $url = Storage::disk('s3')->url($logo);
         $logo_g = $url;
+    }
+
+    $stm = DB::Select("SELECT * FROM tm_usuario where id_usu =".$idUsu);
+
+    foreach($stm as $r) {
+    $imagen = $r->imagen;
+    }
+
+    if(is_null($imagen) or $imagen == '') {
+    $imagen = '';
+
+    $imagen_g = $imagen;
+    } else {
+    $url = Storage::disk('s3')->url($imagen);
+    $imagen_g = $url;
     }
 @endphp
 <div class="header">
@@ -227,13 +243,10 @@
                     <!-- End Messages -->
                     <!-- Profile -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ URL::to('application/images/users/5.jpg') }}" alt="user" class="profile-pic" /></a>
+                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ !empty($imagen_g) ? $imagen_g : URL::to('application/images/user-1.png') }}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
-                                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
-                                <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                                <li><a href="{{ route('ajustes.i_perfil') }}"><i class="ti-user"></i> Mi Perfil</a></li>
                                 <li><a href="{{ route('logout') }}"  onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

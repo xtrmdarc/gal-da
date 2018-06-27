@@ -64,7 +64,7 @@ class OtrosController extends Controller
 
     public function ListarTD()
     {
-        $stm = DB::Select("SELECT * FROM tm_tipo_doc");
+        $stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
         echo json_encode($stm);
     }
 
@@ -76,10 +76,9 @@ class OtrosController extends Controller
         $numero = $post['numero'];
 
         if($cod_td != '' and $serie != '' and $numero != ''){
-            $sql = DB::Select("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
-            //return view('contents.config.sist.tipo_doc');
+            $sql = DB::update("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
+            return $array['cod'] = 1;
         }
-        return back();
     }
 
     public function GuardarDE(Request $request){
@@ -94,12 +93,6 @@ class OtrosController extends Controller
         $direccion = $post['direccion'];
         $logo = $post['logo'];
         $igv = $post['igv'];
-
-        /*if( !empty( $_FILES['logo']['name'] ) ){
-            $logo = date('ymdhis') . '-' . strtolower($_FILES['logo']['name']);
-            move_uploaded_file ($_FILES['logo']['tmp_name'], 'assets/img/' . $logo);
-            $alm->__SET('logo', $logo);
-        }*/
 
         if($id != ''){
             $stm = DB::Select("SELECT * FROM empresa where id = ".$id);

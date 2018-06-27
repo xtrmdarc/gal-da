@@ -42,7 +42,8 @@ class TmProveedor extends Eloquent
 		'telefono',
 		'email',
 		'contacto',
-		'estado'
+		'estado',
+		'id_sucursal'
 	];
 
 	public function tm_compras()

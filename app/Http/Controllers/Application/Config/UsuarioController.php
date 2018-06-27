@@ -7,7 +7,6 @@ use App\Models\Sucursal;
 use App\Models\TmRol;
 use App\Models\TmAreaProd;
 use App\Models\TmUsuario;
-use App\Helpers\WebAuth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,32 +26,30 @@ class UsuarioController extends Controller
 
         $viewdata = [];
 
-        if($user_plan == 1) {
-            if(is_null($user)) {
-                $owner = $user;
-                $viewData['owner'] = $owner;
-                $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                    array(':idParent' => $id_usu));
-                $viewdata['users'] = $subUsers;
-                $viewdata['breadcrumb'] = '';
-                $data = [
-                    'breadcrumb' => 'config.Usuarios'
-                ];
+        if(is_null($user)) {
+            $owner = $user;
+            $viewData['owner'] = $owner;
+            $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
+                array(':idParent' => $id_usu));
+            $viewdata['users'] = $subUsers;
+            $viewdata['breadcrumb'] = '';
+            $data = [
+                'breadcrumb' => 'config.Usuarios'
+            ];
 
-                return view('contents.application.config.sist.usuario',$viewdata)->with($data);
-            } else {
-                $owner = TmUsuario::where('id_usu', $user)->first();
-                $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                    array($user));
-                $viewData['owner'] = $owner;
-                $viewData['users'] = $subUsers;
-                $viewdata['breadcrumb'] = '';
-                $data = [
-                    'breadcrumb' => 'config.Usuarios'
-                ];
+            return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+        } else {
+            $owner = TmUsuario::where('id_usu', $user)->first();
+            $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
+                array($user));
+            $viewData['owner'] = $owner;
+            $viewData['users'] = $subUsers;
+            $viewdata['breadcrumb'] = '';
+            $data = [
+                'breadcrumb' => 'config.Usuarios'
+            ];
 
-                return view('contents.application.config.sist.usuario',$viewdata)->with($data);
-            }
+            return view('contents.application.config.sist.usuario',$viewdata)->with($data);
         }
     }
 

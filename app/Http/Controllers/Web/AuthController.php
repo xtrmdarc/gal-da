@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use App\Models\Sucursal;
 use App\Models\TmAlmacen;
 use App\Models\TmAreaProd;
+use App\Models\TmTipoDoc;
 use App\Models\TmUsuario;
 use App\User;
 use Illuminate\Http\Request;
@@ -80,6 +81,32 @@ class AuthController extends Controller
             'estado' => 'a',
             'id_sucursal' => $sucursal_id,
             'id_usu' => $user_id,
+        ]);
+
+        //4 Tipos de Documentos
+        $tipo_doc_boleta = TmTipoDoc::create([
+            'descripcion' => 'BOLETA',
+            'serie' => '001',
+            'numero' => '0000001',
+            'id_sucursal' => $sucursal_id,
+        ]);
+        $tipo_doc_factura = TmTipoDoc::create([
+            'descripcion' => 'FACTURA',
+            'serie' => '001',
+            'numero' => '0000001',
+            'id_sucursal' => $sucursal_id,
+        ]);
+        $tipo_doc_ticket = TmTipoDoc::create([
+            'descripcion' => 'TICKET',
+            'serie' => '001',
+            'numero' => '0000001',
+            'id_sucursal' => $sucursal_id,
+        ]);
+        $tipo_doc_otros = TmTipoDoc::create([
+            'descripcion' => 'OTROS',
+            'serie' => '001',
+            'numero' => '0000001',
+            'id_sucursal' => $sucursal_id,
         ]);
 
         $thisUser = TmUsuario::findOrFail($user->id_usu);

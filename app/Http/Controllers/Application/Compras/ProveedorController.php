@@ -15,8 +15,9 @@ class ProveedorController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        
-        $proveedores = TmProveedor::all();
+
+        $idSucursal = session("id_sucursal");
+        $proveedores = TmProveedor::where('id_sucursal',$idSucursal)->get();
 
         $data =[
             'proveedores' => $proveedores,

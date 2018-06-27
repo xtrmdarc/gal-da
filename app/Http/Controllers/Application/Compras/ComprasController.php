@@ -18,7 +18,8 @@ class ComprasController extends Controller
     }
     public function index(){
 
-        $proveedores = TmProveedor::all();
+        $idSucursal = session("id_sucursal");
+        $proveedores = TmProveedor::where('id_sucursal',$idSucursal)->get();
 
         $data =[
             'proveedores' => $proveedores,
@@ -93,6 +94,7 @@ class ComprasController extends Controller
         try
         {   
             $data = $request->all();
+            dd($data);
             $arrayParam =  array(
                 ':flag' => 1,
                 ':ruc' => $data['ruc'],
@@ -102,10 +104,7 @@ class ComprasController extends Controller
                 ':email' => $data['email'],
                 ':contc' => $data['contacto']
             );
-            $st = DB::select("call usp_comprasRegProveedor( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a);",$arrayParam);
-            
-            /*$st = $this->conexionn->prepare($consulta);
-            $st->execute($arrayParam);*/
+            $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a,:idSucursal);",$arrayParam);
 
             foreach ($st as $row) {
                 return json_encode($row->dup);

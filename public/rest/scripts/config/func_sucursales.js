@@ -98,16 +98,19 @@ var listarSucursales = function(){
                     }
                 }},
                 {"data":null,"render": function ( data, type, row) {
-                    return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id_caja+',\''+data.descripcion+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                    return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+data.nombre_sucursal+'\',\''+data.direccion+'\',\''+data.telefono+'\',\''+data.moneda+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
                 }}
             ]
         });
 }
 
 /* Editar Sucursal */
-var editarSucursal = function(cod,nomb,est){
+var editarSucursal = function(cod,nomb,direcc,telef,mone,est){
     $('#cod_sucursal').val(cod);
     $('#nomb_sucursal').val(nomb);
+    $('#direccion_sucursal').val(direcc);
+    $('#telefono_sucursal').val(telef);
+    $('#moneda_sucursal').val(mone);
     $('#estado_sucursal').selectpicker('val', est);
     $('#title-sucursal').text('Editar Sucursal');
     $('#mdl-sucursal').modal('show');

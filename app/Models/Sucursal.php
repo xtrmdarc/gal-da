@@ -17,5 +17,6 @@ class Sucursal extends Model
         'direccion',
         'telefono',
         'moneda',
+        'id_sucursal',
     ];
 }

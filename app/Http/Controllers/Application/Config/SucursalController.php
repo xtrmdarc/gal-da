@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Config;
 use App\Models\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class SucursalController extends Controller
 {
@@ -36,24 +37,28 @@ class SucursalController extends Controller
         $cod = $post['cod_sucursal'];
         if($cod != ''){
             //Update
-            $flag = 2;
-            $nombre = $post['nomb_caja'];
-            $estado = $post['estado_caja'];
-            $idCaja = $post['cod_caja'];
-            //$consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
-            $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu)',array($flag, $nombre, $estado,$idCaja,$id_usu));
-            return redirect('/ajustesCaja');
+            $nombre_sucursal = $post['nomb_sucursal'];
+            $direccion = $post['direccion_sucursal'];
+            $telefono = $post['telefono_sucursal'];
+            $moneda = $post['moneda_sucursal'];
+            $estado = $post['estado_sucursal'];
+
+            $sql = DB::update("UPDATE sucursal SET
+                    nombre_sucursal  = ?,
+                    direccion   = ?,
+                    telefono   = ?,
+                    moneda  = ?,
+                    estado = ?
+                WHERE id = ? and id_empresa = ?",
+                [$nombre_sucursal,$direccion,$telefono,$moneda,$estado,$cod,$id_empresa]);
+            if(empty($new_sucursal)) {
+                return $array['cod'] = 2;
+            }else {
+                return $array['cod'] = 0;
+            }
         }else {
-           /* //Create
-            $flag = 1;
-            $nombre = $post['nomb_caja'];
-            $estado = $post['estado_caja'];
-            //$consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
-            $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu)',array($flag, $nombre, $estado, $id_usu));
+           //Create
 
-            return redirect('/ajustesCaja');*/
-
-            dd($array['cod'] = 0);
             $new_sucursal = Sucursal::create([
                 'id_empresa' => $id_empresa,
                 'id_usu' => $id_usu,
@@ -64,9 +69,11 @@ class SucursalController extends Controller
                 'estado' => $post['estado_sucursal'],
             ]);
 
-
-
-            return redirect('/ajustesSucursal');
+            if(!empty($new_sucursal)) {
+                return $array['cod'] = 1;
+            }else {
+                return $array['cod'] = 0;
+            }
         }
     }
 }
