@@ -7551,3 +7551,14 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .vl-estado-atendido{
   background-color: #1FCB4A;
 } 
+
+.notify_pedidos_listos{
+  background-color:white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #000;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+}

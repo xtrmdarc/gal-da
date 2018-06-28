@@ -1,5 +1,8 @@
+
+var id_sucursal;
 $(function() {
-    
+    id_sucursal = $('#id_sucursal').val();
+    setupSocketio();
     validarApertura();
     listDelivery();
     listMostrador();
@@ -91,7 +94,7 @@ var listMostrador = function(){
                 if(item.estado == 'a'){
                     $('#list-mostrador')
                     .append(
-                        $('<a href="inicio/PedidoMostrador/'+item.id_pedido+'"/>')
+                        $('<a  href="inicio/PedidoMostrador/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -105,13 +108,17 @@ var listMostrador = function(){
                                 .html('<i class="fa fa-clock-o"></i>&nbsp;'+moment(item.fecha_pedido).format('h:mm A'))
                                 ) 
                             .append(
+                                $('<div id="ind_mostrador_pedidos_listos_'+item.id_pedido+'" class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
+                                .html(''+item.pedidos_listos)
+                                ) 
+                            .append(
                                 $('<div class="col-xs-3 col-sm-3 col-md-3 text-center"/>')
                                 .html('<div class="progress estado">'
                                     +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-warning animated">'
                                     +'<span>Pedido abierto...</span></div></div>')
                                 )
                             .append(
-                                $('<div class="col-xs-5 col-sm-5 col-md-5"/>')
+                                $('<div class="col-xs-3 col-sm-3 col-md-3"/>')
                                 .html('<i class="fa fa-user"></i>&nbsp;'+item.nomb_cliente)
                                 )
                             .append(
@@ -138,13 +145,17 @@ var listMostrador = function(){
                                 .html('<i class="fa fa-clock-o"></i>&nbsp;'+moment(item.fecha_pedido).format('h:mm A'))
                                 )
                             .append(
-                                $('<div class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
+                                $('<div id="ind_mostrador_pedidos_listos_'+item.id_pedido+'" class="col-xs-2 col-sm-2 col-md-2 text-center"/>')
+                                .html(''+item.pedidos_listos)
+                                ) 
+                            .append(
+                                $('<div class="col-xs-3 col-sm-3 col-md-3 text-center"/>')
                                 .html('<div class="progress estado" >'
                                     +'<div style="width: 100%" aria-valuemax="50" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-primary animated ">'
                                     +'<span>Pagado y en espera...</span></div></div>')
                                 )
                             .append(
-                                $('<div class="col-xs-6 col-sm-6 col-md-6"/>')
+                                $('<div class="col-xs-3 col-sm-3 col-md-3"/>')
                                 .html('<i class="fa fa-user"></i>&nbsp;'+item.nomb_cliente)
                                 )
                             .append(
@@ -179,7 +190,7 @@ var listDelivery = function(){
                     
                     $('#list-preparacion')
                     .append(
-                        $('<a href="inicio/PedidoDelivery/'+item.id_pedido+'"/>')
+                        $('<a  href="inicio/PedidoDelivery/'+item.id_pedido+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -193,7 +204,11 @@ var listDelivery = function(){
                                 .html('<i class="fa fa-clock-o"></i>&nbsp;'+moment(item.fecha_pedido).format('h:mm A'))
                                 )
                             .append(
-                                $('<div class="col-xs-4 col-sm-4 col-md-4"/>')
+                                $('<div id="ind_delivery_pedidos_listos_'+item.id_pedido+'" class="col-xs-1 col-sm-1 col-md-1 text-center"/>')
+                                .html(''+item.pedidos_listos)
+                                )
+                            .append(
+                                $('<div class="col-xs-3 col-sm-3 col-md-3"/>')
                                 .html('<i class="fa fa-building"></i>&nbsp;'+item.direccion)
                                 )
                             .append(
@@ -548,6 +563,20 @@ var mensaje = function(){
     }else if ($("#cod_m").val() == 'f'){
         toastr.warning('Advertencia, La mesa ya ha sido facturada.');
     }
+}
+
+var setupSocketio = function(){
+    var socket = io.connect('http://192.168.10.10:3000');
+    
+    socket.on("pedido-listo"+id_sucursal+":App\\Events\\PedidoListo", function(data){
+        var n_pedidos_mesa_aux = parseInt($('#ind_mesa_pedidos_listos_'+data.id_pedido).text());
+        var n_pedidos_mostrador_aux = parseInt($('#ind_mostrador_pedidos_listos_'+data.id_pedido).text());
+        var n_pedidos_delivery_aux = parseInt($('#ind_delivery_pedidos_listos_'+data.id_pedido).text());
+        $('#ind_mesa_pedidos_listos_'+data.id_pedido).html(n_pedidos_mesa_aux+1);
+        $('#ind_mostrador_pedidos_listos_'+data.id_pedido).html(n_pedidos_mostrador_aux+1);
+        $('#ind_delivery_pedidos_listos_'+data.id_pedido).html(n_pedidos_delivery_aux+1);
+        console.log(n_pedidos_mesa_aux,n_pedidos_mostrador_aux,n_pedidos_delivery_aux);
+    });
 }
 
 var refresh = function(){

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\PedidoRegistrado;
+use App\Events\PedidoListo;
 use App\Models\TmPedido;
 use App\Models\TmDetallePedido;
 use App\Models\TmTipoPedido;
@@ -252,8 +253,9 @@ class AreaProdController extends Controller
             
 
             //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
-            DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
+            DB::table('tm_detalle_pedido')  ->where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
                                             ->update(['estado'=>'c','fecha_envio'=>$fecha]);
+            event(new PedidoListo($data['cod_ped'],$data['cod_det_ped'],session('id_sucursal')));
 /*            $this->conexionn->prepare($sql)
               ->execute(array(
                 $fecha,

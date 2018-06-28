@@ -28,7 +28,7 @@ class InicioController extends Controller
        
 
         $ListarCM = TmSalon::where('estado','<>','i')
-                            ->where('id_sucursal',session('id_sucursal'))->get();
+                            ->where('id_sucursal',session('id_sucursal'))->get();   
         //crear sp y filtro parametro id_sucursal
         $ListarMesa = DB::table('v_listar_mesas')
                             ->where('id_sucursal',session('id_sucursal'))->get();
@@ -207,7 +207,9 @@ class InicioController extends Controller
                 [   'nombres'=>$data['nombCli'],
                     'ape_paterno'=>$data['appCli'],
                     'ape_materno'=>$data['apmCli'],
-                    'direccion'=>$data['direcCli']
+                    'direccion'=>$data['direcCli'],
+                    'id_empresa'=> session('id_empresa'),
+                    'id_usu' =>session('id_usu')
                 ]
             );
             $cliente->save();
@@ -473,7 +475,7 @@ class InicioController extends Controller
 
         try
         {
-           /* $alm = new Mesa();
+            /* $alm = new Mesa();
             $alm->__SET('c_mesa', $_REQUEST['c_mesa']);
             $alm->__SET('co_mesa', $_REQUEST['co_mesa']);
             $row = $this->model->CambiarMesa($alm);
@@ -823,7 +825,7 @@ class InicioController extends Controller
             /*$stm = $this->conexionn->prepare("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
             $stm->execute();
             $c = $stm->fetchAll(PDO::FETCH_OBJ);*/
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c' AND p.id_sucursal = ?",[session('id_sucursal')]);
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c' AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_llevar WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];
@@ -873,7 +875,7 @@ class InicioController extends Controller
             //$stm = $this->conexionn->prepare("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'");
             //$stm->execute();
             //$c = $stm->fetchAll(PDO::FETCH_OBJ);
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido WHERE p.estado <> 'i' AND p.estado <> 'c'AND p.id_sucursal = ?",[session('id_sucursal')]);
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c'AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_delivery WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];

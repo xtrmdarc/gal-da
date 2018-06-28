@@ -3,6 +3,7 @@ var privateLib = (function(){
 	var ordenes =[];
 	var vl_pedidos =[];
 	var id_sucursal, id_areap;
+	var vl_table;
 $(function() {
 	id_sucursal = $('#id_sucursal').val();
 	id_areap = $('#id_areap').val();
@@ -13,7 +14,7 @@ $(function() {
 	setInterval(pedidosMesa, 10000);
 	setInterval(pedidosMostrador,10000); 
 	setupSocketio();
-	
+	vl_table = $('#vl_tabla_pedidos').DataTable();
 	console.log('suc'+id_sucursal+ ' areap '+ id_areap);
 	$("#li_pedido").popover({
 		placement:'top',
@@ -654,19 +655,28 @@ var BuscarPedidosLista = function (){
 
 var actualizarVLPedidos = function(pedidos){
 	
+	
+	vl_table.destroy(false);
+	//$('#vl_tabla_pedidos').empty();
 	for(var k = 0; k< vl_pedidos.length; k++)
 	{	console.log('#vl_pedido_'+vl_pedidos[k].id_det_ped);
 		$('#vl_pedido_'+vl_pedidos[k].id_det_ped).remove();
 		
 		//vl_pedidos.splice(k,1);
 	}
+	for(var c = 0; c< vl_pedidos.length; c++)
+	{
+		vl_pedidos.splice(c,1);
+	}
 	var vl_pedidosHtml = '';
+	
 	for(var j = 0 ; j< pedidos.length;j++)
 	{	console.log(pedidos[j]);	
 		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
 		vl_pedidos.push(pedidos[j]);
 	}
 	$('#vl_tabla_body_pedidos').append(vl_pedidosHtml);
+	vl_table= $('#vl_tabla_pedidos').DataTable();
 }
 function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify,){
 

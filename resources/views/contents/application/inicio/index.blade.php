@@ -5,6 +5,7 @@
 <input type="hidden" id="cod_ape" value="2"/>   
 <input type="hidden" id="cod_m" value="{{session('Cod')}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
+<input type="hidden" id="id_sucursal" value="{{session('id_sucursal')}}"/>
 
 <div class="wrapper wrapper-content animated bounce">
 <div class="row">
@@ -50,7 +51,8 @@
                                         {{session(['cod_tipe'=>1])}}
                                         @if(Auth::user()->id_rol != 5)  
                                             <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
-                                                <button style="width: 122px" class="btn btn-info dim btn-large-dim" type="button"> <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
+                                           
+                                                <button style="width: 122px" class="btn btn-info dim btn-large-dim" type="button"> <div id="{{'ind_mesa_pedidos_listos_'.$r->id_pedido}}" class="notify_pedidos_listos" style="" >{{$r->pedidos_listos}}</div>   <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                                 </span></button>
                                             </a> 
                                         @else 
@@ -64,7 +66,8 @@
                                         {{session(['cod_tipe'=>1])}}
                                         @if(Auth::user()->id_rol != 5)
                                             <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
-                                                <button style="width: 122px" class="btn btn-danger dim btn-large-dim" type="button"> <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
+                                                 
+                                                <button style="width: 122px" class="btn btn-danger dim btn-large-dim" type="button"><div id="{{'ind_mesa_pedidos_listos_'.$r->id_pedido}}" class="notify_pedidos_listos" style="" >{{$r->pedidos_listos}}</div>  <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                                 </span></button>
                                             </a>
                                         @else 
@@ -100,10 +103,13 @@
                                 <div class="col-md-2" style="text-align: center;">
                                     <strong>HORA DE PEDIDO</strong>
                                 </div>
+                                <div class="col-md-2" style="text-align: center;">
+                                    <strong>PEDIDOS LISTOS</strong>
+                                </div>
                                 <div class="col-md-3" style="text-align: center;">
                                     <strong>ESTADO</strong>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <strong>CLIENTE</strong>
                                 </div>
                                 <div class="col-md-1">
@@ -132,7 +138,10 @@
                                 <div class="col-md-2" style="text-align: center;">
                                     <strong>HORA DE PEDIDO</strong>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-1" style="text-align: center;">
+                                    <strong>PEDIDOS LISTOS</strong>
+                                </div>
+                                <div class="col-md-3">
                                     <strong>DIRECCI&Oacute;N</strong>
                                 </div>
                                 <div class="col-md-2">
@@ -202,7 +211,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Nombre Cliente</label>
-                            <input type="text" name="nomb_cliente" class="form-control" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
+                            <input type="text" name="nomb_cliente" class="form-control" value="PUBLICO EN GENERAL" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
                         </div>
                     </div>
                     <?php if(session('rol_usr') <> 4) { ?>
@@ -248,7 +257,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Nombre Cliente</label>
-                            <input type="text" name="nomb_cliente" class="form-control" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
+                            <input type="text" name="nomb_cliente" class="form-control" value="PUBLICO EN GENERAL" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
                         </div>
                     </div>
                     <div class="col-sm-12">

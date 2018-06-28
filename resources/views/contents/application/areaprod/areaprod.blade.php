@@ -32,7 +32,7 @@
                                                         <div class="form-body">
                                                             <div class="row">
                                                                 <div class="col-sm-12">
-                                                                        <p>
+                                                                        <p style="display:none;">
                                                                             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                                                 Más opciones +
                                                                             </a>
@@ -80,7 +80,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="control-label">Estado</label>
+                                                                        <h3 class="primary-text">Estado</h3>
                                                                             <div class="form-check">
                                                                                 <input class="form-check-input" type="checkbox" value="a" name="estado_cb" id="activo_cb">
                                                                                 <label class="form-check-label" for="defaultCheck1">
