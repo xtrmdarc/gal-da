@@ -6,14 +6,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-two">
-
-
-                            <h3>Allison Walker</h3>
-                            <div class="desc">
-                                Agrega o Modifica tu perfil, pagos o suscripcion.
-                            </div>
                             <div class="card-body p-b-0">
                                 <h1 class="card-title"><i class="fa fa-user mid-icon"></i> Administracion de Cuenta</h1>
+                                <h3 style="margin: 18px 0 32px;">Hola <b>{{$nombres}}</b></h3>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
@@ -101,17 +96,21 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
-                                                    <form class="form-horizontal form-material">
-                                                        <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
-                                                        <span>Modifica tus contrasenias.</span>
+                                                    <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
+                                                    <span>Modifica tus contrasenias.</span>
 
+                                                    <form id="form-change-password" class="form-horizontal form-material">
                                                         <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Password Actual</label>
+                                                            <label class="col-md-12">Password</label>
                                                             <div class="col-md-12">
-                                                                <input type="password" value="password" class="form-control form-control-line">
+                                                                <input type="password" value="*************" class="form-control form-control-line" disabled>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
+
+                                                        <button id="cambiar_password_s" type="button" class="btn btn-default btn-outline m-b-10">Cambiar Password</button>
+                                                    </form>
+                                                    <form id="form-change-password-reset" class="form-horizontal form-material" style="display: none;">
+                                                        <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Nuevo Password</label>
                                                             <div class="col-md-12">
                                                                 <input type="password" value="password" class="form-control form-control-line">
@@ -127,6 +126,7 @@
                                                         <div class="form-group">
                                                             <div class="col-sm-12">
                                                                 <button class="btn btn-success"> Guardar </button>
+                                                                <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancel</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -270,7 +270,7 @@
             </div>
         </div>
     </div>
-    <script src="{{URL::to('rest/scripts/informes/func_inf.js' )}}"></script>
+    <script src="{{URL::to('rest/scripts/usuario/usuario_perfil.js' )}}"></script>
 
     <script type="text/javascript">
         $('#navbar-c').addClass("white-bg");
