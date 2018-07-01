@@ -76,9 +76,9 @@ $fechaa = date("m-Y h:i: A");
                         <div class="form-group">
                             <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" autocomplete="off">
                                 <option value="%" active>Todos los comprobantes</option>
-                                <option value="1">BOLETA</option>
-                                <option value="2">FACTURA</option>
-                                <option value="3">TICKET</option>
+                                @foreach($Comprobantes as $r)
+                                    <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

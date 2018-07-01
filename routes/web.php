@@ -32,6 +32,7 @@ include 'Application/informes/informes_routes.php';
 include 'Application/inicio/inicio_routes.php';
 include 'Application/proveedor/proveedor_routes.php';
 include 'Application/tablero/tablero_routes.php';
+include 'Application/tablero_f/tablero_f_routes.php';
 include 'Application/usuario/usuario_routes.php';
 //
 include 'Application/app_routes.php';

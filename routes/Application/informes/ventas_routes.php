@@ -26,4 +26,7 @@ Route::post('informesDatosFpago', 'Application\Informes\Ventas\FPagoController@D
 
 Route::get('/informesVentasF', 'Application\Informes\Ventas\VentasController@informeVentasF')->name('inf_ventasF');
 Route::post('informesVentasF', 'Application\Informes\Ventas\VentasController@DatosFree')->name('config.Ventas.DatosFree');
+
+Route::get('/informesVentasTF', 'Application\Informes\Ventas\VentasController@index')->name('inf_ventasF');
+Route::post('informesVentasTF', 'Application\Informes\Ventas\VentasController@Datos')->name('config.Ventas.DatosFree');
 ?>

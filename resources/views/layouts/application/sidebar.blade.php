@@ -20,6 +20,7 @@
                         @endif
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Administracion</li>
+                        <li><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif

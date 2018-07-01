@@ -21,9 +21,15 @@ class AppController extends Controller
         {
             //Administracion
             case 1 : {
-                
-                self::$home = "/tablero";
-                //dd($home);
+                if($user->plan_id != 1){
+                    self::$home = "/tablero";
+                    //dd($home);
+                } else {
+                    if($user->plan_id == 1) {
+                        self::$home = "/tableroF";
+                        //dd($home);
+                    }
+                }
                 break;
             }
             //Cajero
