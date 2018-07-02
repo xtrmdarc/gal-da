@@ -2,6 +2,7 @@
 require_once 'rest/imprimir/num_letras.php';
 require_once('rest/assets/pdf/cellfit.php');
 $de = session('datosempresa');
+
 $texto = 'Guarda tu voucher. Es el sustento para validar tu compra. No se aceptan devoluciones de dinero.';
 
 class FPDF_CellFiti extends FPDF_CellFit
@@ -34,15 +35,15 @@ $pdf->SetMargins(-20,-20,-20);
 $pdf->AddFont('LucidaConsole','','lucidaconsole.php');
 $pdf->SetFont('LucidaConsole','',9);
 //DETALLE DE LA EMPRESA
-foreach($de as $reg) {
+
 	$pdf->SetXY(5, 5);//modificar solo esto
-	$pdf->CellFitScale(64, 3,utf8_decode($reg['razon_social']), 0, 1, 'C');
+	$pdf->CellFitScale(64, 3,utf8_decode($de->razon_social), 0, 1, 'C');
 	$pdf->SetXY(5, 8);//modificar solo esto
-	$pdf->CellFitScale(64, 3,'RUC : '.utf8_decode($reg['ruc']), 0, 1, 'C');
+	$pdf->CellFitScale(64, 3,'RUC : '.utf8_decode($de->ruc), 0, 1, 'C');
 	$pdf->SetXY(5, 11);//modificar solo esto
-	$pdf->CellFitScale(64, 3,'Dir: '.utf8_decode($reg['direccion']), 0, 1, 'C');
+	$pdf->CellFitScale(64, 3,'Dir: '.utf8_decode($de->direccion), 0, 1, 'C');
 	$pdf->SetXY(5, 14);//modificar solo esto
-	$pdf->CellFitScale(64, 3,'Telf: '.utf8_decode($reg['telefono']), 0, 1, 'C');
+	$pdf->CellFitScale(64, 3,'Telf: '.utf8_decode($de->telefono), 0, 1, 'C');
 	$pdf->SetFont('LucidaConsole','',9);
 	$pdf->SetXY(5, 19);//modificar solo esto
 	$pdf->CellFitScale(64, 3,utf8_decode($data->desc_td).' DE VENTA: '.utf8_decode($data->ser_doc).'-'.utf8_decode($data->nro_doc), 0, 1, 'C');
@@ -89,7 +90,7 @@ foreach($de as $reg) {
 	$pdf->SetXY(2, $y);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+3);//modificar solo esto
-	$pdf->CellFitScale(55, 3,'Importe Total: '.$_SESSION["moneda"], 0, 1, 'R');
+	$pdf->CellFitScale(55, 3,'Importe Total: '.session('moneda'), 0, 1, 'R');
 	$pdf->SetXY(57, $y+3);//modificar solo esto
 	$pdf->CellFitScale(15, 3,number_format(($data->total),2), 0, 1, 'R');
 	$pdf->SetXY(2, $y+6);//modificar solo esto
@@ -102,21 +103,21 @@ foreach($de as $reg) {
 
 	if($data->id_tdoc == 1){
 		$pdf->SetXY(2, $y+6+$z);//modificar solo esto
-		$pdf->CellFitScale(55, 3,'Dscto: '.$_SESSION["moneda"], 0, 1, 'R');
+		$pdf->CellFitScale(55, 3,'Dscto: '.session('moneda'), 0, 1, 'R');
 		$pdf->SetXY(57, $y+6+$z);//modificar solo esto
 		$pdf->CellFitScale(15, 3,'-'.number_format(($data->descu),2), 0, 1, 'R');
 		$a = 3;
 	}else{
 		$pdf->SetXY(2, $y+6+$z);//modificar solo esto
-		$pdf->CellFitScale(55, 3,'SubTotal: '.$_SESSION["moneda"], 0, 1, 'R');
+		$pdf->CellFitScale(55, 3,'SubTotal: '.session('moneda'), 0, 1, 'R');
 		$pdf->SetXY(57, $y+6+$z);//modificar solo esto
 		$pdf->CellFitScale(15, 3,number_format(($sbt),2), 0, 1, 'R');
 		$pdf->SetXY(2, $y+6+$z+3);//modificar solo esto
-		$pdf->CellFitScale(55, 3,'IGV('.$data->igv.'): '.$_SESSION["moneda"], 0, 1, 'R');
+		$pdf->CellFitScale(55, 3,'IGV('.$data->igv.'): '.session('moneda'), 0, 1, 'R');
 		$pdf->SetXY(57, $y+6+$z+3);//modificar solo esto
 		$pdf->CellFitScale(15, 3,number_format(($igv),2), 0, 1, 'R');
 		$pdf->SetXY(2, $y+6+$z+6);//modificar solo esto
-		$pdf->CellFitScale(55, 3,'Dscto: '.$_SESSION["moneda"], 0, 1, 'R');
+		$pdf->CellFitScale(55, 3,'Dscto: '.session('moneda'), 0, 1, 'R');
 		$pdf->SetXY(57, $y+6+$z+6);//modificar solo esto
 		$pdf->CellFitScale(15, 3,'-'.number_format(($data->descu),2), 0, 1, 'R');
 		$a = 9;
@@ -125,7 +126,7 @@ foreach($de as $reg) {
 	$pdf->SetXY(2, $y+6+$z+$a);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+6+$z+$a+3);//modificar solo esto
-	$pdf->CellFitScale(55, 3,'TOTAL A PAGAR: '.$_SESSION["moneda"], 0, 1, 'R');
+	$pdf->CellFitScale(55, 3,'TOTAL A PAGAR: '.session('moneda'), 0, 1, 'R');
 	$pdf->SetXY(57, $y+6+$z+$a+3);//modificar solo esto
 	$pdf->CellFitScale(15, 3,number_format(($data->total - $data->descu),2), 0, 1, 'R');
 	$pdf->SetXY(2, $y+6+$z+$a+6);//modificar solo esto
@@ -137,7 +138,7 @@ foreach($de as $reg) {
 	$pdf->SetFont('LucidaConsole','',8);
 	$pdf->SetXY(2, $y+6+$z+$a+20);//modificar solo esto
 	$pdf->MultiCell(70, 3,$texto,0,'J',0,15);
-}
+
 $pdf->AutoPrint(true);
 $pdf->Output();
 ?>
