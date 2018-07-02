@@ -642,12 +642,12 @@ class InicioController extends Controller
             $c = DB::table($tabla)->where('id_pedido',$data['cod'])->first();
             //$c = $stm->fetch(PDO::FETCH_OBJ);
             
-           
+            
             $c->Detalle = DB::select("SELECT SUM(cantidad) AS cantidad, precio, comentario, estado FROM tm_detalle_pedido WHERE id_pedido = ".$c->id_pedido." AND estado <> 'i' GROUP BY id_prod ORDER BY fecha_pedido DESC");
             
             /* Traemos el detalle */
             
-              
+            //dd($c);
             return json_encode($c);
 
        // print_r(json_encode($this->model->DatosGrles($_POST)));
@@ -991,16 +991,66 @@ class InicioController extends Controller
         }
     }
 
-    public function Imprimir(){
+    public function Imprimir($cod){
 
-        $data = $this->model->ObtenerDatosImp($_REQUEST['Cod']);
-        require_once 'view/inicio/imprimir/comp.php';
+        try{
 
+            //$data = $this->model->ObtenerDatosImp($all['Cod']);
+    
+            //$stm = DB::selet("SELECT * FROM v_ventas_con WHERE id_ped = ?");
+            $data = DB::table('v_ventas_con')->where('id_ped',$cod)->first();
+            //$stm->execute(array($data));
+            //$data = $stm->fetch(PDO::FETCH_OBJ);
+            $data->Cliente = DB::table('v_clientes')->where('id_cliente',$data->id_cli)->first();
+            //$this->conexionn->query("SELECT * FROM v_clientes WHERE id_cliente = " . $c->id_cli)
+                //->fetch(PDO::FETCH_OBJ);
+            /* Traemos el detalle */
+            $data->Detalle = DB::select("SELECT id_prod,SUM(cantidad) AS cantidad, precio FROM tm_detalle_venta WHERE id_venta = ? GROUP BY id_prod",[$data->id_ven]);
+            //$this->conexionn->query("SELECT id_prod,SUM(cantidad) AS cantidad, precio FROM tm_detalle_venta WHERE id_venta = " . $c->id_ven." GROUP BY id_prod")
+                //->fetchAll(PDO::FETCH_OBJ);
+            foreach($data->Detalle as $k => $d)
+            {
+                $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
+                    //->fetch(PDO::FETCH_OBJ);
+            }
+            require_once 'rest/imprimir/comp.php';
+            return json_encode(1);
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 
-    public function ImprimirPC(){
-        $data = $this->model->ObtenerDatosImpPC($_REQUEST['Cod']);
-        require_once 'view/inicio/imprimir/comp_pc.php';
+    public function ImprimirPC($cod){
+        
+        
+        //$data = $this->model->ObtenerDatosImpPC($all['Cod']);
+        try
+        {        
+            $data = DB::table('v_pedido_mesa')->where('id_pedido',$cod)->first();
+            //$this->conexionn->prepare("SELECT * FROM v_pedido_mesa WHERE id_pedido = ?");
+            //$stm->execute(array($data));
+            //$data = $stm->fetch(PDO::FETCH_OBJ);
+            /* Traemos el detalle */
+            $data->Detalle = DB::select("SELECT id_prod,SUM(cantidad) AS cantidad, precio FROM tm_detalle_pedido WHERE id_pedido = ? AND estado <> 'i' GROUP BY id_prod",[$data->id_pedido]);
+            // $this->conexionn->query("SELECT id_prod,SUM(cantidad) AS cantidad, precio FROM tm_detalle_pedido WHERE id_pedido = " . $c->id_pedido." AND estado <> 'i' GROUP BY id_prod")
+                //->fetchAll(PDO::FETCH_OBJ);
+            foreach($data->Detalle as $k => $d)
+            {
+                $data->Detalle[$k]->Producto = DB::table('v_productos')->where('id_pres',$d->id_prod)->first();
+                //$this->conexionn->query("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = " . $d->id_prod)
+                    //->fetch(PDO::FETCH_OBJ);
+            }
+            
+            require_once 'rest/imprimir/comp_pc.php';
+            return json_encode(1);
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+        
     }
 
     public function preCuenta(Request $request){
@@ -1013,6 +1063,8 @@ class InicioController extends Controller
             //$this->conexionn->prepare($sql)->execute(array($est,$data['cod']));
             DB::table('tm_mesa')->where('id_mesa',$data['cod'])
                                 ->update(['estado'=>$est]);
+            
+            return 1;
         }
         catch (Exception $e) 
         {

@@ -498,6 +498,9 @@ var liberarDelivery = function(cod,nro){
           cod: cod
       },
       url: '/inicio/DetalleDelivery',
+      headers:{
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
       success: function (data){
         $.each(data, function(i, item) {
             var calc = item.precio * item.cantidad;

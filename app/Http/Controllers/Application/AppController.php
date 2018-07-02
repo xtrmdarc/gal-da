@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Application;
 
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Application\AppController;
@@ -17,6 +17,7 @@ class AppController extends Controller
 
     public static function LoginAuthenticated(Request $request, $user){
 
+        session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
         switch($user->id_rol)
         {
             //Administracion
@@ -107,6 +108,10 @@ class AppController extends Controller
     }
     public function CambioSucursal($id){
         session(['id_sucursal'=> $id]);
+    }
+
+    public static function DatosEmpresa($id_empresa){
+        return DB::table('tm_datos_empresa')->where('id',$id_empresa)->get();
     }
 
 }

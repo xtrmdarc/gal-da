@@ -13,6 +13,8 @@ Route::prefix('/inicio')->group(function(){
     Route::post('ListarProductos','Application\Inicio\InicioController@listarProductos');
     Route::post('BuscarProducto','Application\Inicio\InicioController@buscarProducto'); 
     Route::post('VerificarMozoPIN','Application\Inicio\InicioController@VerificarMozoPIN');
+    Route::get('ImprimirPC/{cod}','Application\Inicio\InicioController@ImprimirPC');
+    Route::get('Imprimir/{cod}','Application\Inicio\InicioController@Imprimir');
     //crud
     Route::post('RegistrarPedido','Application\Inicio\InicioController@registrarPedido');
     Route::post('ListarDetallePed','Application\Inicio\InicioController@ListarDetallePed');

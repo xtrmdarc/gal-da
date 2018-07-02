@@ -617,11 +617,12 @@ var desocuparMesa = function(cod_ped){
 
 /* Imprimir Pre Cuenta*/
 var impPreCuenta = function(ped,cod,est){
+    console.log(ped,cod,est);
     $.ajax({
         url: '/inicio/preCuenta',
         type: "post",
         dataType: "json",
-        dataSrc:'',   
+      
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -631,10 +632,13 @@ var impPreCuenta = function(ped,cod,est){
         },
         success: function (r) {
             return true;
-        }
+        }, 
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown + ' ' + textStatus);
+        }   
     }).done(function(){
-        var ini = window.open('pedido_mesa.php?c=Inicio&a=ImprimirPC&Cod='+ped,'_blank');
-    }); 
+        var ini =  window.open('/inicio/ImprimirPC/'+   ped,'_blank');
+    });
 }
 
 var facturar = function(cod,tip){
@@ -823,7 +827,7 @@ $("#frm-facturar").submit(function(){
                 console.log(errorThrown + ' ' + textStatus);
             }   
         }).done(function(){
-            var ini = window.open('?c=Inicio&a=Imprimir&Cod='+cod,'_blank');
+            var ini = window.open('/inicio/Imprimir/'+   cod,'_blank');
         });
         return false;
     }
