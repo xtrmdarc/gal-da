@@ -381,8 +381,8 @@ var atendido = function(cod_ped,cod_det_ped){
 	$("#pedido_"+ cod_det_ped).popover({
 		placement:'top',
 		html: true,
-		title : `<span class="text-success"><strong>Pedido Cancelado</strong></span>`,
-		content : `<a onclick="privateLib.atendidoMethodCall(${cod_ped},${cod_det_ped})" class="btn btn-primary"> Aceptar</a><a onclick="$('#pedido_`+ cod_det_ped+`').popover('hide')" class="btn "> Cancelar</a>`,
+		title : `<span class="text-success"><strong>Pedido atendido</strong></span>`,
+		content : `<a onclick="privateLib.atendidoMethodCall(${cod_ped},${cod_det_ped})" class="btn btn-primary"> Aceptar</a><a onclick="$('#pedido_`+ cod_det_ped+`').popover('hide')" class="btn btn-danger"> Cancelar</a>`,
 		trigger: 'manual'
 
 	});	
@@ -502,11 +502,7 @@ var setupSocketio = function(){
 		
 	});
 }
-var DeleteOrder = function(orden,i){
-	
-	for(var j = 0 ; j<orden.items.length;j++){	
-	}
-}
+
 var NewOrder = function (orden){
 
 	var pedidos = orden.items;
@@ -539,8 +535,10 @@ var NewOrder = function (orden){
 									00:00 
 								</div>
 								<div class="col-4 col-sm-4 text-right">
-									<!--<a class="btn btn-primary" style="float:right;" href="#">Info</a>--!>
-									&#9432
+									<a class="btn btn-primary" data-toggle="collapse" href="#${id_pedidoListaPedidos}" role="button" aria-expanded="true" aria-controls="${id_pedidoListaPedidos}">
+										+
+									</a>
+									<!--<a class="btn btn-primary" style="float:right;" href="#">Info</a> &#9432--!>
 								</div>
 							</div>
 						</div>
@@ -619,6 +617,51 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 						`;
 	return arrNewPedidos;
 }
+
+$('#area_prod_cb').on('change',function(){
+
+	var id_areap = this.value;
+	
+	$('#id_areap').val(id_areap);
+	console.log(id_areap);
+	//Actualizar todo ordenes
+	DeleteAllOrders();
+	$.ajax({
+		dataType: 'JSON',
+		type: 'POST',
+		url: '/cocina/CocinaData',
+		data: {
+			id_sucursal : id_sucursal,
+			id_areap : id_areap
+		},
+		headers: {
+		  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		success: function (datos) {
+			console.log(datos.ordenes);
+			console.log(datos.lista);
+		  	ActualizarPedidos(datos.ordenes,datos.lista);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log(errorThrown + ' ' + textStatus);
+		}   
+	});
+
+	
+	//Actualizar VL Pedidos
+
+});
+
+
+var DeleteAllOrders = function(){
+
+	for(var i = 0; i< ordenes.length;i++)
+	{
+		$('#div_orden_'+ordenes[i].id_pedido).remove();
+	}	
+	ordenes.splice(0,ordenes.length);
+};
+
 var BuscarPedidosLista = function (){
 	var estados = [];
 	var datos={};
@@ -643,7 +686,7 @@ var BuscarPedidosLista = function (){
 		success: function (data) {
 		//alert("Email has been sent!");
 			actualizarVLPedidos(data);
-		console.log('funciona');
+			console.log('funciona');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log(errorThrown + ' ' + textStatus);
@@ -651,7 +694,6 @@ var BuscarPedidosLista = function (){
 	});
 
 }
-
 
 var actualizarVLPedidos = function(pedidos){
 	
@@ -664,10 +706,9 @@ var actualizarVLPedidos = function(pedidos){
 		
 		//vl_pedidos.splice(k,1);
 	}
-	for(var c = 0; c< vl_pedidos.length; c++)
-	{
-		vl_pedidos.splice(c,1);
-	}
+	
+	vl_pedidos.splice(0,vl_pedidos.length);
+	
 	var vl_pedidosHtml = '';
 	
 	for(var j = 0 ; j< pedidos.length;j++)

@@ -23,11 +23,11 @@
     <link href="{{ URL::to('application/css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('application/css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
-    <link href="{{ URL::to('application/css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet" />
+    {{--<link href="{{ URL::to('application/css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet" />--}}
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::to('rest/css/plugins/dataTables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-
-    <link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    
+    {{--<link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">--}}
 
     <!-- Custom CSS -->
     <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
@@ -42,13 +42,16 @@
 
 
     <!-- Custom PATCH CSS -->
-
-
-    <script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>
-
+    {{--<script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>--}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
     <!--Custom JavaScript -->
     <script src="{{ URL::to('application/js/custom.min.js') }}"></script>
 
+    
+
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
 </head>
@@ -78,10 +81,12 @@
     @endif
 
 </div>
-<!-- End Wrapper -->
+<!-- End Wrapper -->s
 <!-- All Jquery -->
 @php /* <script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script> */@endphp
         <!-- Bootstrap tether Core JavaScript -->
+
+
 <script src="{{ URL::to('application/js/lib/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ URL::to('application/js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- slimscrollbar scrollbar JavaScript -->
@@ -109,6 +114,7 @@
 
 
 <script src="{{ URL::to('rest/js/bootstrap.min.js') }}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="{{ URL::to('rest/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
 <script src="{{ URL::to('rest/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- Custom and plugin javascript -->
@@ -140,6 +146,7 @@
 <!-- DataTimePicker -->
 <script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
+
 {{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>--}}
 
 </body>

@@ -65,7 +65,7 @@
                             <li><a href="/inicio"> <i class="fa fa-dashboard"></i><span class="hide-menu">Pedidos</span></a></li>
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '3')
-                            <li><a href=""> <i class="fa fa-dashboard"></i><span class="hide-menu">Cocina</span></a></li>
+                            <li><a href="/cocina"> <i class="fa fa-dashboard"></i><span class="hide-menu">Cocina</span></a></li>
                         @endif
                         <li class="nav-label"> Administración</li>
                         <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>

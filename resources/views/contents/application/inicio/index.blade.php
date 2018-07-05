@@ -202,9 +202,15 @@
         @csrf
         <input type="hidden" name="cod_mesa" id="cod_mesa">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                {{--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>--}}
+             
                 <h4 class="modal-title" id="mtm"></h4>
                 <small class="font-bold" id="mtp"></small>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -213,7 +219,7 @@
                             <label class="control-label">Nombre Cliente</label>
                             <input type="text" name="nomb_cliente" class="form-control" value="PUBLICO EN GENERAL" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
                         </div>
-                    </div>
+                    </div>  
                     <?php if(session('rol_usr') <> 4) { ?>
                     <div class="col-sm-12">
                         <div class="form-group">

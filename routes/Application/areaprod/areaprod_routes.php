@@ -8,6 +8,8 @@ Route::prefix('cocina')->group(function(){
     Route::post('/Preparacion','Application\AreaProd\AreaProdController@Preparacion');
     Route::post('/Atendido','Application\AreaProd\AreaProdController@Atendido');
     Route::post('/FiltroListaPedido','Application\AreaProd\AreaProdController@PedidosLista');
+    Route::post('/CocinaData','Application\AreaProd\AreaProdController@CocinaData');
+    
 });
 
 

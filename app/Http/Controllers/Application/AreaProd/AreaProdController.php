@@ -10,6 +10,7 @@ use App\Events\PedidoListo;
 use App\Models\TmPedido;
 use App\Models\TmDetallePedido;
 use App\Models\TmTipoPedido;
+use App\Models\TmAreaProd;
 
 class AreaProdController extends Controller
 {
@@ -21,13 +22,64 @@ class AreaProdController extends Controller
     public function index(){
         
         //falta area produccion
+
+        
+        $id_sucursal = session('id_sucursal');
+        $id_areap = session('id_areap');
+
+        if(\Auth::user()->id_rol= 1)
+        {
+            $areas_prod = TmAreaProd::where('id_sucursal',$id_sucursal)->get();
+            
+            $id_areap =  $areas_prod[0]->id_areap;
+        }
+        
+        
+               
+        //
+        $ordenes = $this->GetOrdenes($id_sucursal,$id_areap);
+        
+
+        $data = [
+            'breadcrumb' => '',
+            'ordenes'=> $ordenes,
+            'id_sucursal' => $id_sucursal,
+            'id_areap' => $id_areap,
+            'vl_pedidos'=> $this->GetPedidosLista($id_sucursal,$id_areap,null)
+        ];
+
+        if(\Auth::user()->id_rol= 1)
+        {
+            $data['areas_prod'] = $areas_prod;
+        }
+        
+        return view('contents.application.areaprod.areaprod')->with($data);
+    }
+    
+    public function CocinaData(Request $request)
+    {
+        $data = $request->all();
+        
+        $ordenes = $this->GetOrdenes($data['id_sucursal'],$data['id_areap']);
+        $lista = $this->GetPedidosLista($data['id_sucursal'],$data['id_areap'],null);
+
+        $data=  [
+            'ordenes' => $ordenes,
+            'lista' => $lista
+        ];
+
+        return json_encode($data);
+    }
+
+    public function GetOrdenes($id_sucursal,$id_areap){ 
+
         $ordenes = DB::table('tm_pedido')
                             ->select(DB::raw('distinct tm_pedido.id_pedido'))
                             ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
                             ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
-                            ->where('tm_pedido.id_sucursal',session('id_sucursal'))
+                            ->where('tm_pedido.id_sucursal',$id_sucursal)
                             ->where('tm_pedido.estado','a')
-                            ->where('tm_producto.id_areap',session('id_areap'))  
+                            ->where('tm_producto.id_areap',$id_areap)  
                             ->get();
 
         
@@ -41,7 +93,7 @@ class AreaProdController extends Controller
             $ordenesArr[i] = 
         }*/
 
-        $productosRegistrados = [];
+        //$productosRegistrados = [];
         $areasProd = [];
         foreach($ordenes as $k => $v)
         {   
@@ -66,50 +118,27 @@ class AreaProdController extends Controller
                 $ordenes[$k]['items'][$i]['fecha']  = $ordenes[$k]['items'][$i]['fecha_pedido'];
                 $ordenes[$k]['items'][$i]['nombre_usuario'] = $nombrePedido;
                 $ordenes[$k]['items'][$i]['tipo_usuario'] = $tipoPedido;
-                $productosRegistrados[] = $producto;
+                //$productosRegistrados[] = $producto;
             }
         }
-               
-        //
-        $id_sucursal = session('id_sucursal');
-        $id_areap = session('id_areap');
-        
-        $data = [
-            'breadcrumb' => '',
-            'ordenes'=> $ordenes,
-            'id_sucursal' => $id_sucursal,
-            'id_areap' => $id_areap,
-            'vl_pedidos'=>$this->PedidosLista(new Request())
-        ];
 
-        return view('contents.application.areaprod.areaprod')->with($data);
+        return $ordenes;
+
     }
 
-
-    public function PedidosLista(Request $request){
-
-        $data = $request->all();
-        //dd($data);
-        //mozo
-        //estados
-        $estados;
-        //$estado = $data['estados'];
-
-        //Tipo de pedido
-        //H-inicio
-        //H-fin
-        //
-        if(isset($data['estados']))$estados = $data['estados'];else $estados = array('a','i','p','c');
+    public function GetPedidosLista($id_sucursal,$id_areap,$estados)
+    {
+        if(!isset($estados)) $estados = array('a','i','p','c');
         
         $pedidos =  DB::table('tm_pedido')
                     ->select(DB::raw('tm_detalle_pedido.id_det_ped, tm_detalle_pedido.cantidad,tm_producto.nombre as nombre_prod,tm_detalle_pedido.estado,tm_detalle_pedido.fecha_pedido as fecha,tm_pedido.id_tipo_pedido,tm_pedido.id_pedido'))
                     ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
                     ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
-                    ->where('tm_pedido.id_sucursal',session('id_sucursal'))
-                    ->where('tm_producto.id_areap',session('id_areap'))  
+                    ->where('tm_pedido.id_sucursal',$id_sucursal)
+                    ->where('tm_producto.id_areap',$id_areap)  
                     ->WhereIn('tm_detalle_pedido.estado',$estados)
                     ->get();
-    
+        
         foreach($pedidos as $k){
 
             $nombrePedidoDB = DB::select('call usp_nombrePedido (?)',[$k->id_pedido])[0];
@@ -121,7 +150,25 @@ class AreaProdController extends Controller
             $k->nombre_usuario = $nombrePedido;
             $k->tipo_usuario = $tipoPedido;
         }
+        return $pedidos;
+    }
 
+    public function PedidosLista(Request $request){
+
+        $data = $request->all();
+        //dd($data);
+        //mozo
+        //estados
+        $estados;
+        //$estado = $data['estados'];
+        $pedidos = $this->GetPedidosLista($data['id_sucursal'],$data['id_areap'],$data['estados']);
+        //Tipo de pedido
+        //H-inicio
+        //H-fin
+        //
+        
+
+       
         return $pedidos;
 
     }

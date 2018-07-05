@@ -11,8 +11,22 @@
     <div class="col-md-12">
         
         {{--<div class="card nopadding panel-cocina ">
-            <div class="card-body ">--}}  
+            <div class="card-body ">--}} 
+                
                 <ul class="nav nav-pills  text-center switch-cocina" style="display:block">
+                    @if(Auth::user()->id_rol == 1)
+                    <li class=" nav-item" style="display:inline-block;float:left;margin-left:15px;" >
+                        <div class="dropdown show">
+                            
+                          
+                            <select id="area_prod_cb"  class="selectpicker" aria-labelledby="dropdownMenuLink">
+                              @foreach($areas_prod as $a)
+                                <option class="dropdown-item" value="{{$a->id_areap}}" href="#">{{$a->nombre }}</option>
+                              @endforeach
+                            </select>
+                        </div> 
+                    </li>
+                    @endif
                     <li class=" nav-item" style="display:inline-block" > <a href="#navpills-1" class="nav-link active show" data-toggle="tab" aria-expanded="false">Pedidos</a> </li>
                     <li class="nav-item" style="display:inline-block"> <a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false">Lista</a> </li>
                 </ul>

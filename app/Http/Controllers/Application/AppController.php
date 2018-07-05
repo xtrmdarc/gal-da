@@ -22,6 +22,7 @@ class AppController extends Controller
         {
             //Administracion
             case 1 : {
+                
                 if($user->plan_id != 1){
                     self::$home = "/tablero";
                     //dd($home);
@@ -31,6 +32,7 @@ class AppController extends Controller
                         //dd($home);
                     }
                 }
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }
             //Cajero
