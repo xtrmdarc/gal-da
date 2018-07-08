@@ -26,6 +26,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::to('home/images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::to('home/images/ico/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ URL::to('home/images/ico/apple-touch-icon-57-precomposed.png') }}">
+    
+    <script type="text/javascript" src="{{ URL::to('home/js/jquery.js') }}"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:700,100,200,300">
 </head><!--/head-->
 
 <body>
@@ -34,7 +38,7 @@
         @yield('content')
         @include('layouts.home.footer')
 
-    <script type="text/javascript" src="{{ URL::to('home/js/jquery.js') }}"></script>
+    
     <script type="text/javascript" src="{{ URL::to('home/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('home/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('home/js/wow.min.js') }}"></script>

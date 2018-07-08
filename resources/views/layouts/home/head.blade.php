@@ -42,7 +42,7 @@
                         <li><a href="{{ route('tablero') }}"><b>TABLERO PAPU</b></a></li>
                     @else
                      <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
-                     <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn btn-danger" href="{{ route('register') }}">Empieza YA</a></li>
+                     <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn " href="{{ route('register') }}">Empieza YA</a></li>
                     @endif
                 </ul>
             </div>

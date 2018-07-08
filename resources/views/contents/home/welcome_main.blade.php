@@ -1,21 +1,26 @@
 @extends('layouts.home.master')
 
 @section('content')
-
+<style>
+    
+</style>
     <section id="home-slider">
         <div class="container">
             <div class="row">
-                <div class="main-slider">
-                    <div class="slide-text">
-                        <h1>We Are Creative Nerds</h1>
-                        <p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>
-                        <a href="#" class="btn btn-common">SIGN UP</a>
+                <div class="main-slider" >
+                    <div class="slide-text" style="margin-left:50px;">
+                        <h1 class="LandingMainHeader">CRECE</h1>
+                        <h2 class="LandingSecondHeader">CON NOSOTROS</h2>
+                        {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
+                        <a href="#" class="btn btn-common btn-cta-landing-main">Empieza gratis</a>
                     </div>
-                    <img src="{{ URL::to('home/images/home/slider/hill.png') }}" class="slider-hill" alt="slider image">
-                    <img src="{{ URL::to('home/images/home/slider/house.png') }}" class="slider-house" alt="slider image">
+                    <img id="nubes-slider" src="{{ URL::to('home/images/home/slider/nubes.png') }}" class="slider-nubes" alt="slider image">
+                    <img src="{{ URL::to('home/images/home/slider/restaurante.png') }}" class="slider-hill" alt="slider image">
+                    <img src="{{ URL::to('home/images/home/slider/menu.png') }}" class="slider-house" alt="slider image">
                     <img src="{{ URL::to('home/images/home/slider/sun.png') }}" class="slider-sun" alt="slider image">
                     <img src="{{ URL::to('home/images/home/slider/birds1.png') }}" class="slider-birds1" alt="slider image">
                     <img src="{{ URL::to('home/images/home/slider/birds2.png') }}" class="slider-birds2" alt="slider image">
+                    
                 </div>
             </div>
         </div>
@@ -148,5 +153,5 @@
         </div>
     </section>
     <!--/#clients-->
-
+    <script src="{{URL::to('home/js/Pages/Landing_page.js')}}"></script>
 @endsection('content')

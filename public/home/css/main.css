@@ -533,7 +533,7 @@ ul.sub-menu {
 *******Home Page******
 **************************/
 #home-slider {
-  background: url(../images/home/slider-bg.png) 0 100% repeat-x;
+  background: url(../images/home/slider-bg4.png) 0 100% repeat-x;
   position: relative;
 }
 
@@ -557,7 +557,7 @@ ul.sub-menu {
 #home-slider .slider-hill {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 98px;
 }
 
 .animate-in .slider-hill {
@@ -565,10 +565,21 @@ ul.sub-menu {
   animation: bounceInDown 1000ms ease-in-out 200ms both;
 }
 
+#home-slider .slider-nubes {
+  position: absolute;
+ 
+  top: 10px;
+}
+
+.animate-in .slider-nubes {
+  -webkit-animation: bounceInDown 1000ms ease-in-out 200ms both;
+  animation: bounceInDown 1000ms ease-in-out 200ms both;
+}
+
 #home-slider .slider-house {
   position: absolute;
-  right: 110px;
-  bottom: -30px;
+  right: 520px;
+  bottom: 104px;
 }
 
 .animate-in .slider-house {
@@ -578,8 +589,8 @@ ul.sub-menu {
 
 #home-slider .slider-sun {
   position: absolute;
-  right: 365px;
-  bottom: 100px;
+  left: 80px;
+  
 }
 
 .animate-in .slider-sun {
@@ -590,7 +601,7 @@ ul.sub-menu {
 #home-slider .slider-birds1 {
   position: absolute;
   right: 470px;
-  bottom: 75px;
+  
 }
 
 .animate-in .slider-birds1 {
@@ -600,8 +611,8 @@ ul.sub-menu {
 
 #home-slider .slider-birds2 {
   position: absolute;
-  right: 40px;
-  bottom: 150px;
+  right: 20px;
+  
 }
 
 .animate-in .slider-birds2 {
@@ -612,7 +623,7 @@ ul.sub-menu {
 
 #home-slider h1{
   margin-top: 100px;
-  margin-bottom: 25px;
+  margin-bottom: 0px;
 }
 
 #home-slider .btn-common {
@@ -2725,4 +2736,37 @@ span.stButton_gradient,
   -webkit-box-shadow: 0 0 0 5px rgba(0,0,0,.1) inset;
   border-radius: 100%;
   margin: 10px 0;
+}
+
+.LandingMainHeader{
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 48px;
+  color: black;
+  margin: 0px;
+}
+.LandingSecondHeader{
+  font-family: 'Nunito';
+  font-style:normal;
+  font-weight:300;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: black;
+  margin: 0px;
+}
+.btn-cta-landing-main{
+  color: white;
+  border: white;
+  background-color: black;
+  margin-left: 5px;
+  font-family: 'Nunito';
+  font-style:normal;
+  line-height: normal;
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
