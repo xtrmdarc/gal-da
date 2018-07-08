@@ -37,6 +37,12 @@
 
     <link href="{{ URL::to('rest/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 
+    <!-- Any Chart -->
+    <script src="https://cdn.anychart.com/releases/8.2.1/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.2.1/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.2.1/js/anychart-exports.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.2.1/css/anychart-ui.min.css" />
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/8.2.1/fonts/css/anychart-font.min.css" />
 
     <!-- Custom REST CSS -->
 
