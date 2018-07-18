@@ -1,13 +1,22 @@
 
 $(function(){
-    setNubeAnimation();
+    setAnimation();
     
-
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+    
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
 });
 
-function setNubeAnimation(){
+function setAnimation(){
     
-            
+      /*      
     $("#nubes-slider").bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){ 
         var dir = 0.4;
     setInterval(function(){
@@ -21,14 +30,30 @@ function setNubeAnimation(){
         $("#nubes-slider").offset({top: 130, left:x-dir});
 
         if(x+width < 0) $("#nubes-slider").offset({top: 0, left:windowWidth});
-        console.log(x,y,width,windowWidth);
+       
 
     },10);  
+  
+    });*/
 
+    $("#zepellin-slider").bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){ 
+        var dir = 0.4;
+    setInterval(function(){
+    
+        windowWidth = screen.width;
 
-        
-     });
-      
+        var x = $("#zepellin-slider").offset().left;
+        var y = $("#zepellin-slider").offset().top;
+        var width = $("#zepellin-slider").width();
+
+        $("#zepellin-slider").offset({top: 130, left:x-dir});
+
+        if(x+width < 0) $("#zepellin-slider").offset({top: 0, left:windowWidth});
+        console.log(x,y,width,windowWidth);
+
+    },8);  
+  
+    });
 
     
     

@@ -30,6 +30,10 @@
     <script type="text/javascript" src="{{ URL::to('home/js/jquery.js') }}"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Nunito:700,100,200,300">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=PT+Sans:700,100,200,300,400">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat:700,100,200,300,400">
 </head><!--/head-->
 
 <body>

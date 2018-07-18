@@ -1,6 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
+
 <div class="page-wrapper">
     <input type="hidden" id="m" value=""/>
     

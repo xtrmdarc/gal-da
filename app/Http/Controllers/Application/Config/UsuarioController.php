@@ -24,32 +24,34 @@ class UsuarioController extends Controller
         $user = \Auth::user()->parent_id;
         $id_usu = \Auth::user()->id_usu;
 
-        $viewdata = [];
+        $viewData = [];
 
         if(is_null($user)) {
             $owner = $user;
             $viewData['owner'] = $owner;
             $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                array(':idParent' => $id_usu));
-            $viewdata['users'] = $subUsers;
-            $viewdata['breadcrumb'] = '';
+                array(':idParent' => $user));
+            $viewData['users'] = $subUsers;
+            $viewData['breadcrumb'] = '';
             $data = [
                 'breadcrumb' => 'config.Usuarios'
             ];
 
-            return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+            return view('contents.application.config.sist.usuario',$viewData)->with($data);
         } else {
             $owner = TmUsuario::where('id_usu', $user)->first();
             $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                array($user));
+                array(':idParent' => $user));
+            
             $viewData['owner'] = $owner;
             $viewData['users'] = $subUsers;
+            
             $viewdata['breadcrumb'] = '';
             $data = [
                 'breadcrumb' => 'config.Usuarios'
             ];
 
-            return view('contents.application.config.sist.usuario',$viewdata)->with($data);
+            return view('contents.application.config.sist.usuario',$viewData)->with($data);
         }
     }
 
@@ -136,14 +138,10 @@ class UsuarioController extends Controller
         $plan_id = '1';
 
         $cod_area = $post['cod_area'];
-        if($id_rol == '3'){
-            $cod_area = 1;
-        }
         if($cod_area == null ){
             $cod_area = 0;
-        }else {
-            $cod_area = 1;
         }
+
         $usuario = $post['usuario'];
         $contrasena = $post['contrasena'];
         $contrasena_g = bcrypt($post['contrasena']);

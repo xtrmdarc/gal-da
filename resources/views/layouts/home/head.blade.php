@@ -1,5 +1,5 @@
 <header id="header">
-    <div class="container">
+    {{--<div class="container">
         <div class="row">
             <div class="col-sm-12 overflow">
                 <div class="social-icons pull-right">
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <div class="navbar navbar-inverse" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -32,11 +32,11 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
-                    <li><a href="#">Que es</a>
+                    <li><a href="#services">Que es</a>
                     </li>
                     <li {!! Route::currentRouteName() == 'prices' ? 'class="active"' : '' !!}><a href="{{ route('prices') }}">Precios</a>
                     </li>
-                    <li><a href="portfolio.html">Contacto</a>
+                    <li><a href="#footer">Contacto</a>
                     </li>
                     @if (Auth::check())
                         <li><a href="{{ route('tablero') }}"><b>TABLERO PAPU</b></a></li>

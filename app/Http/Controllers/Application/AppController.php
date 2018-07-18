@@ -48,6 +48,7 @@ class AppController extends Controller
                 //$sucursales =  AppController::GetSucursales();
                 session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 session(['id_areap'=>\Auth::user()->id_areap]);
+                
                 break;
             }
             //Mozo

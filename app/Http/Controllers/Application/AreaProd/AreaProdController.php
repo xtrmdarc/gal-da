@@ -22,24 +22,22 @@ class AreaProdController extends Controller
     public function index(){
         
         //falta area produccion
-
+        //dd(\Auth::user());
         
         $id_sucursal = session('id_sucursal');
         $id_areap = session('id_areap');
 
-        if(\Auth::user()->id_rol= 1)
+        if(\Auth::user()->id_rol == 1)
         {
             $areas_prod = TmAreaProd::where('id_sucursal',$id_sucursal)->get();
             
             $id_areap =  $areas_prod[0]->id_areap;
         }
-        
-        
-               
+                   
         //
         $ordenes = $this->GetOrdenes($id_sucursal,$id_areap);
         
-
+        
         $data = [
             'breadcrumb' => '',
             'ordenes'=> $ordenes,
@@ -47,12 +45,12 @@ class AreaProdController extends Controller
             'id_areap' => $id_areap,
             'vl_pedidos'=> $this->GetPedidosLista($id_sucursal,$id_areap,null)
         ];
-
-        if(\Auth::user()->id_rol= 1)
+      
+        if(\Auth::user()->id_rol == 1)
         {
             $data['areas_prod'] = $areas_prod;
         }
-        
+        //dd($data);
         return view('contents.application.areaprod.areaprod')->with($data);
     }
     
@@ -76,13 +74,14 @@ class AreaProdController extends Controller
         $ordenes = DB::table('tm_pedido')
                             ->select(DB::raw('distinct tm_pedido.id_pedido'))
                             ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
-                            ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
+                            ->join('tm_producto_pres','tm_producto_pres.id_pres','tm_detalle_pedido.id_prod')
+                            ->join('tm_producto','tm_producto.id_prod','tm_producto_pres.id_prod')
                             ->where('tm_pedido.id_sucursal',$id_sucursal)
                             ->where('tm_pedido.estado','a')
                             ->where('tm_producto.id_areap',$id_areap)  
                             ->get();
 
-        
+                           // dd($id_sucursal,$id_areap);
         $ordenes->transform(function($i) {
             return (array)$i;
         });

@@ -319,6 +319,7 @@ class InicioController extends Controller
                         'comentario'=>$data['items'][$d]['comentario'],
                         'fecha_pedido'=>$fecha
                     ]);
+                    //dd($data['items'][$d]['producto_id']);
 
                     $data['items'][$d]['id_det_ped'] = $id;
                     //DB::insert("INSERT INTO tm_detalle_pedido (id_pedido,id_prod,cantidad,cant,precio,comentario,fecha_pedido) VALUES (?,?,?,?,?,?,?);",[$data['cod_p'],$data['items'][$d]['producto_id'],$data['items'][$d]['cantidad'],$data['items'][$d]['cantidad'],$data['items'][$d]['precio'],$data['items'][$d]['comentario'],$fecha]);
