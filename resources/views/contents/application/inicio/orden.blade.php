@@ -54,7 +54,9 @@
                     <div class="col-sm-8">
                     <?php if(session('rol_usr') <> 4) { ?>
                         <div class="text-right opc1" style="display: none">
+                            @if(session('cod_tipe')!=3)
                             <button type="button" class="btn btn-success" onclick="facturar({{$cod}},2);"><i class="fa fa-files-o"></i>&nbsp;Dividir Cuenta</button>
+                            @endif
                             <button type="button" class="btn btn-lg btn-primary" onclick="facturar({{$cod}},1);"><i class="fa fa-file-o"></i>&nbsp;Cuenta</button>
                         </div>
                     <?php } ?>

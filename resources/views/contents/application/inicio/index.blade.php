@@ -12,10 +12,10 @@
 <div class="col-lg-12 m-b-md">
     <?php if(session('rol_usr') <> 4) { ?>
     <div class="tabs-container">
-        <ul class="nav nav-tabs right">
-            <li class="active"><a data-toggle="tab" href="#tabp-1"><i class="fa fa-cubes"></i>Mesas</a></li>
-            <li ><a data-toggle="tab" href="#tabp-2"><i class="fa fa-columns"></i>Mostrador</a></li>
-            <li><a data-toggle="tab" href="#tabp-3"><i class="fa fa-bicycle"></i>Delivery</a></li>
+        <ul class="nav nav-tabs right" role="tablist">
+            <li class="nav-item "><a class="nav-link active" data-toggle="tab" href="#tabp-1"><i class="fa fa-cubes"></i>Mesas</a></li>
+            <li class="nav-item" ><a class="nav-link" data-toggle="tab" href="#tabp-2"><i class="fa fa-columns"></i>Mostrador</a></li>
+            <li class="nav-item" ><a class="nav-link" data-toggle="tab" href="#tabp-3"><i class="fa fa-bicycle"></i>Delivery</a></li>
         </ul>
         <div class="tab-content">
             <div id="tabp-1" class="tab-pane active"  onclick="sessionTipoPedidoMesa()">
@@ -307,6 +307,10 @@
                                         </span>
                                     </div>  
                                 </div>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <div id='cliente_existe_loader' class="loader" style="display:none"></div>
+                                <p id='cliente_existe_label' class="control-label" style="margin-top:17%">  Ingrese un número </p>
                             </div>
                         </div>      
                     </div>

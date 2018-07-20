@@ -379,7 +379,9 @@ $("#telefCli").keydown(function(e){
 });
 
 var buscarCliente = function(){ 
-        $.ajax({
+    $('#cliente_existe_label').css({'display':'none'});
+    $('#cliente_existe_loader').css({'display':'block'});
+    $.ajax({
         type: "POST",
         url: "/inicio/BuscarClienteTelefono",
         headers: {
@@ -389,12 +391,24 @@ var buscarCliente = function(){
             telefono: $("input[name=telefCli]").val()
         },
         success: function(response){
+            console.log(response);
+            if(response.nombres != null)
+            {
+                $("input[name=nombCli]").val(response.nombres);
+                $("input[name=appCli]").val(response.ape_paterno);
+                $("input[name=apmCli]").val(response.ape_materno);
+                $("input[name=direcCli]").val(response.direccion);
+                $('#cliente_existe_label').text('Cliente encontrado');
+                $('#cliente_existe_label').css({'display':'block'});
+                $('#cliente_existe_loader').css({'display':'none'});
+            }
             
-            $("input[name=nombCli]").val(response.nombres);
-            $("input[name=appCli]").val(response.ape_paterno);
-            $("input[name=apmCli]").val(response.ape_materno);
-            $("input[name=direcCli]").val(response.direccion);
-
+            else {
+                $('#cliente_existe_label').text('Nuevo cliente');
+                $('#cliente_existe_label').css({'display':'block'});
+                $('#cliente_existe_loader').css({'display':'none'});
+            }
+            
         },
         error: function(){
             $('#co_mesa').html('There was an error!');
