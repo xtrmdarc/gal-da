@@ -18,6 +18,7 @@ class AppController extends Controller
     public static function LoginAuthenticated(Request $request, $user){
 
         session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
+        session(['id_usu'=>\Auth::user()->id_usu]);
         switch($user->id_rol)
         {
             //Administracion

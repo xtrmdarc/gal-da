@@ -111,8 +111,8 @@ class InicioController extends Controller
         date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fecha = date("Y-m-d H:i:s");
-        $id_usu = session('id_usu');
-        $id_usu = 1;
+        $id_usu = \Auth::user()->id_usu;
+        
         if(session('rol_usr') == 4){ $id_moso = $id_usu; } else { $id_moso = $data['cod_mozo']; };
         $row = DB::select('call  usp_restRegMesa_g( ?, ?, ?, ?, ?, ?,?, ?,?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario'],session('id_sucursal') ])[0];
         //$row = "call usp_restRegMesa( :flag, :idMesa, :idTp, :idUsu, :idMoso, :fechaP, :nombC, :comen);";
@@ -156,17 +156,21 @@ class InicioController extends Controller
             
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
-            $id_usu = session('id_usu');
+            //dd($fecha);
+            //  dd(session('id_sucursal'));
+            $id_usu = \Auth::user()->id_usu;
             $arrayParam =  array(
                 1,//id_flag
                 2,//id_tp
-                1,//id_usu
+                $id_usu,//id_usu
                 $fecha,
                 $data['nomb_cliente'],
                 $data['comentario']?:'',
                 session('id_sucursal')
 
             );
+
+
 
             $row = DB::select("call usp_restRegMostrador_g( ?,?,?,?,?,?,?)",$arrayParam)[0];
            
@@ -202,6 +206,7 @@ class InicioController extends Controller
             $alm->__SET('direcCli', $_REQUEST['direcCli']);
             $alm->__SET('comentario', $_REQUEST['comentario']);
             */
+            $id_usu = \Auth::user()->id_usu;
             $cliente = TmCliente::firstOrNew(
                 ['telefono'=>$data['telefCli']],
                 [   'nombres'=>$data['nombCli'],
@@ -209,7 +214,7 @@ class InicioController extends Controller
                     'ape_materno'=>$data['apmCli'],
                     'direccion'=>$data['direcCli'],
                     'id_empresa'=> session('id_empresa'),
-                    'id_usu' =>session('id_usu')
+                    'id_usu' =>$id_usu
                 ]
             );
             $cliente->save();
@@ -217,11 +222,11 @@ class InicioController extends Controller
             //date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
-            $id_usu = session('id_usu');
+            
             $arrayParam =  array(
                 1,
                 3,
-                1,//id_usu
+                $id_usu,//id_usu
                 $fecha,
                 trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
                 $data['direcCli'],
@@ -522,7 +527,7 @@ class InicioController extends Controller
             {
                 
                 $fecha = date("Y-m-d H:i:s");
-                $id_usu = session('id_usu');
+                $id_usu = \Auth::user()->id_usu;
                 $id_apc = session('id_apc');
                 $igv = session('igv');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
@@ -534,8 +539,8 @@ class InicioController extends Controller
                     $data['cliente_id'],
                     $data['tipo_pago'],
                     $data['tipo_doc'],
-                    1,
-                    1,
+                    $id_usu,
+                    1,//Apc
                     $data['pago_t'],
                     $data['m_desc'],
                     $igv,

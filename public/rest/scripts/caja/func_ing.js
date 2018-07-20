@@ -75,6 +75,7 @@ $(function() {
 /* Validar si se aperturo caja */
 var validarApertura = function(){
   if($('#cod_ape').val() == 0){
+    console.log('ingresa valida aperutra');
     $('#mdl-validar-apertura').modal('show');
   }
 }

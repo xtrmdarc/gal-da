@@ -27,6 +27,17 @@ $(function() {
 
 /* Combo area de produccion */
 var comboAreaProd = function(){
+    
+    if($("#id_rol").selectpicker('val') == 4){
+        
+        $('#pin_div').css('display','block');
+        
+    }
+    else{
+        $('#pin_div').css('display','none');
+        
+    }
+
     if($("#id_rol").selectpicker('val') == 3){
         $('#area-p').css('display','block');
     }else{
@@ -58,7 +69,23 @@ var comboAreaProd = function(){
 }
 
 /* Combinacion del combo rol - area produccion */
-$('#id_rol').change( function() {
+$('#id_rol').change( function(event) {
+    HandleRolSelection();
+    
+});
+
+
+function HandleRolSelection(){
+    if($("#id_rol").selectpicker('val') == 4){
+        
+        $('#pin_div').css('display','block');
+        $('#frm-usuario').formValidation('revalidateField', 'area-p');
+    }
+    else{
+        $('#pin_div').css('display','none');
+        
+    }
+
     if($("#id_rol").selectpicker('val') == 3){
         
         $('#area-p').css('display','block');
@@ -81,6 +108,8 @@ $('#id_rol').change( function() {
         $('#apm_div').css('display','none');
 
         $('#email_div').css('display','none');
+
+        $('#pin_div').css('display','none');
     }
     else{
         
@@ -100,5 +129,6 @@ $('#id_rol').change( function() {
         $('#email_div').css('display','block');
         $('#frm-usuario').formValidation('revalidateField', 'area-p');
       
+       
     }
-});
+}

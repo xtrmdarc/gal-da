@@ -30,7 +30,7 @@ class UsuarioController extends Controller
             $owner = $user;
             $viewData['owner'] = $owner;
             $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                array(':idParent' => $user));
+                array(':idParent' => $id_usu));
             $viewData['users'] = $subUsers;
             $viewData['breadcrumb'] = '';
             $data = [
@@ -135,13 +135,16 @@ class UsuarioController extends Controller
         $ape_materno = $post['ape_materno'];
         $email = $post['email'];
         $id_rol = $post['id_rol'];
+        $pin = $post['pin'];
         $plan_id = '1';
 
         $cod_area = $post['cod_area'];
         if($cod_area == null ){
             $cod_area = 0;
         }
-
+        if($pin == null ){
+            $pin = 0;
+        }
         $usuario = $post['usuario'];
         $contrasena = $post['contrasena'];
         $contrasena_g = bcrypt($post['contrasena']);
@@ -162,8 +165,9 @@ class UsuarioController extends Controller
                         email = ?,
                         usuario = ?,
                         contrasena = ?,
-                        imagen = ?
-				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu]);
+                        imagen = ?,
+                        pin = ?
+				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$pin]);
             return redirect()->route('config.Usuarios');
         } else {
 
@@ -183,6 +187,7 @@ class UsuarioController extends Controller
                 'verifyToken' => null,
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
+                'pin' => $pin
             ]);
 
             if($user) {

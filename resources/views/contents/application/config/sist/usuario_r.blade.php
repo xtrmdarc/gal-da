@@ -53,40 +53,40 @@
                                 </div>
                                 <div class="col-lg-12 ">
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-lg-6  sides_padding15">
-                                                <div class="form-group">
-                                                    <label class="control-label">Cargo</label>
-                                                    <div class="input-group">
-                                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                        <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                                            @if($id_usu != null)
-                                                                <option value="">
-    
-                                                                </option>
-                                                            @else
-                                                                echo '<option value="" selected>Seleccionar</option>';
-                                                                echo '<optgroup label="Seleccionar">';
-                                                                    @endif
-                                                                    <optgroup label="Seleccionar">
-                                                                        @foreach($user_rol as $r)
-                                                                            <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
-                                                                        @endforeach
-                                                                    </optgroup>
-                                                        </select>
-                                                    </div>
+                                       
+                                        <div class="col-lg-6  sides_padding15">
+                                            <div class="form-group">
+                                                <label class="control-label">Cargo</label>
+                                                <div class="input-group">
+                                                    {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                                    <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                                        @if($id_usu != null)
+                                                            <option value="">
+
+                                                            </option>
+                                                        @else
+                                                            echo '<option value="" selected>Seleccionar</option>';
+                                                            echo '<optgroup label="Seleccionar">';
+                                                                @endif
+                                                                <optgroup label="Seleccionar">
+                                                                    @foreach($user_rol as $r)
+                                                                        <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                    </select>
                                                 </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                       
+                                        <div class="col-lg-6  sides_padding15  " id="dni_div">
+                                            <div class="form-group">
+                                                <label class="control-label">DNI</label>
+                                                <input type="text" name="dni" value="" class="form-control" placeholder="Ingrese dni" autocomplete="off" required="required" />
                                             </div>
                                         </div>
                                         
-                                       <div class="row">
-                                            <div class="col-lg-6  sides_padding15  " id="dni_div">
-                                                <div class="form-group">
-                                                    <label class="control-label">DNI</label>
-                                                    <input type="text" name="dni" value="" class="form-control" placeholder="Ingrese dni" autocomplete="off" required="required" />
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-lg-12">
                                             <div class="row">
                                                 <div class="col-lg-6  sides_padding15 " id="nombres_div">
@@ -110,14 +110,14 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="row">
-                                            <div class="col-lg-6  sides_padding15" id="email_div">
-                                                <div class="form-group">
-                                                    <label class="control-label">Email</label>
-                                                    <input type="email" name="email" id="email" value="" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
-                                                </div>
+                                        
+                                        <div class="col-lg-6  sides_padding15" id="email_div">
+                                            <div class="form-group">
+                                                <label class="control-label">Email</label>
+                                                <input type="email" name="email" id="email" value="" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
                                             </div>
                                         </div>
+                                        
                                         <div class="col-lg-6  sides_padding15" id="usr_div">
                                             <div class="form-group">
                                                 <label class="control-label">Usuario</label>
@@ -133,6 +133,16 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
                                                     <input type="password" name="contrasena" value="" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-6  sides_padding15" id="pin_div" style="display: none">
+                                            <div class="form-group">
+                                                <label class="control-label">PIN</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+                                                    <input type="password" name="pin" value="" class="form-control" placeholder="Ingrese 4 digitos" autocomplete="off" required="required" />
                                                 </div>
                                             </div>
                                         </div>

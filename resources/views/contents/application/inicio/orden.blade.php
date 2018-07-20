@@ -192,8 +192,13 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                           
+                            
                             <div class="row">
+                                        
                                 <div class="col-sm-6" id="pe" style="display: none;">
+                                    <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
                                             <span class="input-group-addon">{{session('moneda')}}</span>
@@ -202,6 +207,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6" id="pt" style="display: none;">
+                                    <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
                                             <span class="input-group-addon">{{session('moneda')}}</span>
