@@ -50,6 +50,7 @@
                                     <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
                                     <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                     <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
+                                    <li><a href="{{route('config.Turnos')}}">Turnos </a></li>
                                 </ul>
                             </li>
                         @endif
@@ -130,6 +131,7 @@
                                 <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                 <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
                                 <li><a href="{{route('config.Sucursal')}}">Sucursales </a></li>
+                                <li><a href="{{route('config.Turnos')}}">Turnos </a></li>
                             </ul>
                         </li>
                         @endif

@@ -78,4 +78,11 @@
     Route::get('/ajustesSucursal', 'Application\Config\SucursalController@index')->name('config.Sucursal');
     Route::post('ajustesListaSucursales', 'Application\Config\SucursalController@ListaSucursales')->name('config.ListaSucursales');
     Route::post('ajustesCrudSucursal', 'Application\Config\SucursalController@CrudSucursal')->name('config.CrudSucursal');
+
+    //Turnos
+
+    Route::get('/ajustesTurnos', 'Application\Config\TurnosController@index')->name('config.Turnos');
+    Route::post('ajustesListaTurnos', 'Application\Config\TurnosController@ListarTurnos')->name('config.ListaTurnos');
+    Route::post('ajustesCrudTurnos', 'Application\Config\TurnosController@GuardarTurnos')->name('config.CrudTurnos');
+    Route::post('ajustesEliminarCaja', 'Application\Config\TurnosController@EliminarTurno')->name('config.EliminarTurno');
 ?>

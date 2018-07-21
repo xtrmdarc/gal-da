@@ -162,4 +162,8 @@
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Sucursales',route('config.Sucursal'));
     });
+    Breadcrumbs::register('config.Turnos', function ($breadcrumbs) {
+        $breadcrumbs->parent('ajustes');
+        $breadcrumbs->push('Turnos',route('config.Turnos'));
+    });
 ?>

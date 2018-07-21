@@ -8,6 +8,7 @@ use App\Models\TmAlmacen;
 use App\Models\TmAreaProd;
 use App\Models\TmTipoDoc;
 use App\Models\TmUsuario;
+use App\Models\TmTurno;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -108,7 +109,25 @@ class AuthController extends Controller
             'numero' => '0000001',
             'id_sucursal' => $sucursal_id,
         ]);
-
+        //Turnos
+        $primer_turno = TmTurno::create([
+            'descripcion' => 'PRIMER T.',
+            'id_sucursal' => $sucursal_id,
+            'h_inicio' => '06:00',
+            'h_fin' => '12:00'
+        ]);
+        $segundo_turno = TmTurno::create([
+            'descripcion' => 'SEGUNDO T.',
+            'id_sucursal' => $sucursal_id,
+            'h_inicio' => '13:00',
+            'h_fin' => '18:00'
+        ]);
+        $tercer_turno = TmTurno::create([
+            'descripcion' => 'TERCER T.',
+            'id_sucursal' => $sucursal_id,
+            'h_inicio' => '19:00',
+            'h_fin' => '24:00'
+        ]);
         $thisUser = TmUsuario::findOrFail($user->id_usu);
 
         $this->senEmail($thisUser);

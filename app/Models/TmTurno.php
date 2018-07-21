@@ -26,7 +26,10 @@ class TmTurno extends Eloquent
 	public $timestamps = false;
 
 	protected $fillable = [
-		'descripcion'
+		'descripcion',
+		'id_sucursal',
+		'h_inicio',
+		'h_fin'
 	];
 
 	public function tm_aper_cierres()
