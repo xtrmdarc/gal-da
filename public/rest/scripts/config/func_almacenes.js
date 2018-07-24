@@ -67,8 +67,7 @@ $(function() {
     }
     })
   .on('success.form.fv', function(e) {
-
-    if ($('#cod_alma').val().trim() === '') {
+    if ($('#id_almacen_g').val().trim() === '') {
       toastr.warning('Seleccione un almac&eacute;n!');
       $('.btn-guardar').removeAttr('disabled');
       $('.btn-guardar').removeClass('disabled');
@@ -82,7 +81,7 @@ $(function() {
     fv = $form.data('formValidation');
             
     cod_area = $('#cod_area').val();
-    cod_alma = $('#cod_alma').val();
+    cod_alma = $('#id_almacen_g').val();
     nomb_area = $('#nomb_area').val();
     estado_area = $('#estado_area').val();
 

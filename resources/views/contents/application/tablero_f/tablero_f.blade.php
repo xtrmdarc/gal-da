@@ -160,7 +160,22 @@
                         chart.tooltip().positionMode('point');
 
                         // set chart title text settings
-                        chart.title('Ventas hechas en el dia 02/07/2018');
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth()+1; //January is 0!
+                        var yyyy = today.getFullYear();
+
+                        if(dd<10) {
+                                dd = '0'+dd
+                        }
+
+                        if(mm<10) {
+                                mm = '0'+mm
+                        }
+
+                        today = dd + '/' + mm + '/' + yyyy;
+
+                        chart.title('Ventas hechas en el dia ' + today);
 
                         // set yAxis title
                         chart.yAxis().title('Numero de Ventas');

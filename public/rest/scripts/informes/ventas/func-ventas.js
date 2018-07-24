@@ -70,6 +70,19 @@ var listar = function(){
                 });
             }
 
+            if(isNaN(v_des) || v_des == null) {
+                v_des = 0.00;
+            }
+            if(isNaN(vsbt) || vsbt == null) {
+                vsbt = 0.00;
+            }
+            if(isNaN(vigv) || vigv == null) {
+                vigv = 0.00;
+            }
+            if(isNaN(vtotal) || vtotal == null) {
+                vtotal = 0.00;
+            }
+
             $('#des_v').text(moneda+' '+(v_des).toFixed(2));
             $('#total_v').text(moneda+' '+(vtotal).toFixed(2));
             $('#subt_v').text(moneda+' '+(vsbt).toFixed(2));
