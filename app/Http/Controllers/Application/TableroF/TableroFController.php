@@ -19,7 +19,7 @@ class TableroFController extends Controller
         $viewdata = [];
         date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
-        $fechai = date("Y-m-d 01:00 ");
+        $fechai = date("Y-m-d 00:00 ");
         $fecha = date("Y-m-d h:i A");
 
         //Total en $$ del dia.
@@ -73,7 +73,7 @@ class TableroFController extends Controller
         date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         /*Horas del dia */
-        $fecha_s12a = date("Y-m-d 12:00 A");
+        $fecha_s12a = date("Y-m-d 00:00 A");
         $fecha_s1 = date("Y-m-d 01:00 A");
         $fecha_s2 = date("Y-m-d 02:00 A");
         $fecha_s3 = date("Y-m-d 03:00 A");
@@ -97,7 +97,7 @@ class TableroFController extends Controller
         $fecha_s21 = date("Y-m-d 21:00 A");
         $fecha_s22 = date("Y-m-d 22:00 A");
         $fecha_s23 = date("Y-m-d 23:00 A");
-        $fecha_s2359 = date("Y-m-d 23:59 A");
+        $fecha_s2359 = date("Y-m-d 24:00 A");
 
         $queryTotal = DB::Select("SELECT COUNT(distinct id_ven) as NVentas,SUM(total) as Total
                               FROM db_rest.v_ventas_con
