@@ -599,3 +599,33 @@ var setupSocketio = function(){
 var refresh = function(){
     location.reload();
 };
+
+$('#btn_escoger_apertura').on('click',function(){
+    
+    $('#mdl-validar-apertura').modal('hide');
+    
+    $.ajax({
+        dataType:"JSON",
+        type: "POST",
+        url: "/inicio/EscogerApc",
+        dataSrc:'',   
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:   {   id_apc : $('#cb_apc_escoger').val(),
+                    
+                },
+        success: function (response) {
+            //console.log(response.status + " " + response.nro_pedido);
+          
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            //var err = JSON.parse(xhr.responseText);
+            
+            console.log('Un iorch concha :' + error );
+        }
+    });
+    
+
+});

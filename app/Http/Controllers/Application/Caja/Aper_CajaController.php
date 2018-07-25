@@ -139,7 +139,8 @@ class Aper_CajaController extends Controller
                 //$row = DB::select("call usp_cajaAperturar( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA)",$arrayParam)[0];
 
                 if($user_rol == '1'){
-                    $row = DB::select("call usp_cajaAperturar_g( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA, 'null')",$arrayParam)[0];
+                    $arrayParam[':parentId'] =  $data['id_usu'];
+                    $row = DB::select("call usp_cajaAperturar_g( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA, :parentId)",$arrayParam)[0];
                 }else if($user_rol == '2'){
                     $row = DB::select("call usp_cajaAperturar_g( :flag, :idUsu, :idCaja, :idTurno, :fechaA, :montoA, :parentId)",$arrayParam)[0];
                 }
@@ -152,12 +153,13 @@ class Aper_CajaController extends Controller
                //$row = $this->model->Registrar($alm);
     
                if ($row->dup == 0){
-                    $du = session("datosusuario");
+                    /*$du = session("datosusuario");
                     foreach ($du as $reg) { 
                         if($reg['id_usu'] == $data['id_usu']) {
                             session(['apertura'=> 1]);
                         }
-                    }
+                    }*/
+                    if(\Auth::user()->id_usu == $data['id_usu']) session(['apertura'=> 1]);
                     //$_SESSION["id_apc"] = $row['cod'];
                     session(['id_apc'=>$row->cod]);
                     //header('Location: lista_caja_aper.php?m=n');
@@ -222,4 +224,5 @@ class Aper_CajaController extends Controller
         echo json_encode($arr);
     }
 
+  
 }
