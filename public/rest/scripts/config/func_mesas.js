@@ -44,7 +44,7 @@ var listarMesas = function(cod_sal,desc_sal){
     $('#lizq-s').css("display","none");
     /* Mostrar tabla mesas por salon */
     $('#lizq-i').css("display","block");
-    $('#btn-nuevo').html('<button type="button" class="btn btn-primary" onclick="editarMesa('+mesaNueva+');"><i class="fa fa-plus-circle"></i> Nueva Mesa</button>');
+    $('#btn-nuevo').html('<button type="button" class="btn btn-primary" onclick="agregarMesa();"><i class="fa fa-plus-circle"></i> Nueva Mesa</button>');
     $('#id_catg').val(cod_sal);
     $('#title-mesa').text(desc_sal);
     $('#id_sucursal_m').val(cod_sal);
@@ -97,6 +97,11 @@ var editarSalon = function(cod,est,id_sucursal,nomb){
   $("#mdl-salon").modal('show');
 }
 
+var agregarMesa = function(){
+
+    $("#mdl-mesa").modal('show');
+}
+
 /* Eliminar salon */
 var eliminarSalon = function(cod,id_sucursal,nomb){
   $('#cod_salae').val(cod);
@@ -107,8 +112,8 @@ var eliminarSalon = function(cod,id_sucursal,nomb){
 
 /* Editar datos de la mesa*/
 var editarMesa = function(cod,nomb,cod_s){
-  $('#cod_mesa').val(cod);
-  $('#nro_mesa').val(nomb);
+    $('#cod_mesa').val(cod);
+    $('#nro_mesa').val(nomb);
     $('#id_catg').val(cod_s);
     $("#mdl-mesa").modal('show');
 }
@@ -207,53 +212,54 @@ $(function() {
       })
       .on('success.form.fv', function(e) {
 
-          e.preventDefault();
-          var $form = $(e.target),
-          fv = $form.data('formValidation');
+        e.preventDefault();
+        var $form = $(e.target),
+        fv = $form.data('formValidation');
 
-          var form = $(this);
+        var form = $(this);
 
-          var mesas = {
-            cod_mesa: 0,
-            id_catg: 0,
-            nro_mesa: 0,
-              id_sucursal_m: 0
-          }
+        var mesas = {
+        cod_mesa: 0,
+        id_catg: 0,
+        nro_mesa: 0,
+            id_sucursal_m: 0
+        }
 
-          mesas.cod_mesa = $('#cod_mesa').val();
-          mesas.id_catg = $('#id_catg').val();
-          mesas.nro_mesa = $('#nro_mesa').val();
-            mesas.id_sucursal_m = $('#id_sucursal_m').val();
+        mesas.cod_mesa = $('#cod_mesa').val();
+        mesas.id_catg = $('#id_catg').val();
+        mesas.nro_mesa = $('#nro_mesa').val();
+        mesas.id_sucursal_m = $('#id_sucursal_m').val();
 
-          $.ajax({
-              dataType: 'JSON',
-              type: 'POST',
-              url: form.attr('action'),
-              data: mesas,
-              dataSrc : "",
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+            dataType: 'JSON',
+            type: 'POST',
+            url: form.attr('action'),
+            data: mesas,
+            dataSrc : "",
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+            success: function (cod) {
+            console.log(mesas.id_catg);
+                if(cod == 0){
+                    toastr.warning('Advertencia, Datos duplicados.');
+                    return false;
+                } else if(cod == 1){
+                    $('#mdl-mesa').modal('hide');
+                    listarSalones();
+                    listarMesas(mesas.id_catg);
+                    toastr.success('Datos registrados, correctamente.');
+                } else if(cod == 2) {
+                    $('#mdl-mesa').modal('hide');
+                    listarSalones();
+                    listarMesas(mesas.id_catg);
+                    toastr.success('Datos modificados, correctamente.');
+                }
             },
-              success: function (cod) {
-                  if(cod == 0){
-                      toastr.warning('Advertencia, Datos duplicados.');
-                      return false;
-                  } else if(cod == 1){
-                      $('#mdl-mesa').modal('hide');
-                      listarSalones();
-                      listarMesas(mesas.id_catg);
-                      toastr.success('Datos registrados, correctamente.');
-                  } else if(cod == 2) {
-                      $('#mdl-mesa').modal('hide');
-                      listarSalones();
-                      listarMesas(mesas.id_catg);
-                      toastr.success('Datos modificados, correctamente.');
-                  }
-              },
-              error: function(jqXHR, textStatus, errorThrown){
-                  console.log(errorThrown + ' ' + textStatus);
-              }
-          });
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown + ' ' + textStatus);
+            }
+        });
 
         return false;
 
