@@ -38,11 +38,19 @@ class InicioController extends Controller
                                 ->where('id_rol', 4)
                                 ->where('id_sucursal',session('id_sucursal'))
                                 ->get();
+
+        $aperturas = DB::table('v_caja_aper')
+                                ->select('id_apc','id_usu','id_caja','estado','desc_caja')
+                                ->where('id_sucursal',session('id_sucursal'))
+                                ->where('estado','a')
+                                ->get();
+
         $data = [
             'ListarCM' => $ListarCM,
             'ListarMesa' => $ListarMesa,
             'ListarMozos'=> $ListarMozos,
-            'breadcrumb' => 'produccion'
+            'breadcrumb' => 'produccion',
+            'aperturas'=> $aperturas
         ];
         
 
@@ -540,7 +548,7 @@ class InicioController extends Controller
                     $data['tipo_pago'],
                     $data['tipo_doc'],
                     $id_usu,
-                    1,//Apc
+                    $id_apc,//Apc
                     $data['pago_t'],
                     $data['m_desc'],
                     $igv,
@@ -1097,6 +1105,10 @@ class InicioController extends Controller
         }
     }    
 
+    public function EscogerApc(Request $request)
+    {
+        session(['id_apc'=>$request->id_apc]);
+    }
     
 
 }

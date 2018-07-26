@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="page-wrapper">
-<input type="hidden" id="cod_ape" value="2"/>   
+@if(Auth::user()->id_rol == 4 || Auth::user()->id_rol == 5)
+    <input type="hidden" id="cod_ape" value="-1"/>   
+@else 
+    <input type="hidden" id="cod_ape" value="{{session('id_apc')}}"/>   
+@endif 
 <input type="hidden" id="cod_m" value="{{session('Cod')}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="id_sucursal" value="{{session('id_sucursal')}}"/>
@@ -500,7 +504,7 @@
     </div>
 </div>
 
-<div class="modal inmodal fade" id="mdl-validar-apertura" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="mdl-validar-apertura" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -508,7 +512,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="panel panel-transparent text-center p-md"> <i class="fa fa-warning fa-3x text-warning"></i> <h2 class="m-t-none m-b-sm">Advertencia</h2> <p>Para poder realizar esta operaci&oacute;n es necesario Aperturar Caja.</p></div>
+                        <div class="panel panel-transparent text-center">
+                            <i class="fa fa-warning fa-3x text-warning"></i> <h2 class="m-t-none m-b-sm">Advertencia</h2>
+                            <p>Escoge la caja con la que quieres trabajar.</p>
+                            <select id="cb_apc_escoger" class="form-control" style="margin-bottom:10px">
+                                @foreach($aperturas as $apc)
+                                    <option value="{{$apc->id_apc}}"> {{$apc->desc_caja }}</option>
+                                @endforeach 
+                            </select>
+                            <a id="btn_escoger_apertura" class="btn btn-primary" style="width:100%;margin-bottom:20px" >Escoger</a>
+                            <p>¿ No la encontraste ? Puedes aperturar una. </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -516,7 +530,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="text-left">
-                            <a href="lista_tm_tablero.php" class="btn btn-default">Volver</a>
+                            <a href="/tablero" class="btn btn-default">Volver</a>
                         </div>
                     </div>
                     <div class="col-xs-9">

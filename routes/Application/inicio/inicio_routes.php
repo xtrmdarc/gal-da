@@ -29,7 +29,7 @@ Route::prefix('/inicio')->group(function(){
     Route::post('FinalizarPedido','Application\Inicio\InicioController@FinalizarPedido');
     Route::post('Desocupar','Application\Inicio\InicioController@Desocupar');
     Route::post('BuscarClienteTelefono','Application\Inicio\InicioController@BuscarClienteTelefono');
-
+    Route::post('EscogerApc','Application\Inicio\InicioController@EscogerApc');
     Route::post('DetalleMostrador','Application\Inicio\InicioController@DetalleMostrador');
     Route::post('DetalleDelivery','Application\Inicio\InicioController@DetalleDelivery');
 
