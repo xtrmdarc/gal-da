@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-wrapper">
 
-<input type="hidden" id="moneda" value="{{session('moneda')}}"/>
+<input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
 <input type="hidden" id="cod_m" value="<?php //echo $_GET['m']; ?>"/>
 <input type="hidden" id="cod_p" value="{{$cod}}"/>
 <input type="hidden" id="cod_tipe" value="{{session('cod_tipe')}} "/>
@@ -130,7 +130,7 @@
                                         </div>
                                         <div class="col-xs-3 col-sm-3 col-md-3">
                                             <div class="text-right">
-                                                <strong> {{session('moneda')}} <span id="t_sbt">0.00</span></strong>
+                                                <strong> {{session('moneda_session')}} <span id="t_sbt">0.00</span></strong>
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@
                                             <div class="text-right">
                                                 <div class="has-warning">
                                                     <div class="input-group dec">
-                                                        <span class="input-group-addon">{{session('moneda')}}</span>
+                                                        <span class="input-group-addon">{{session('moneda_session')}}</span>
                                                         <input type="text" name="m_desc" id="m_desc" class="form-control" placeholder="" autocomplete="off" />
                                                     </div>
                                                 </div>
@@ -203,7 +203,7 @@
                                     <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
-                                            <span class="input-group-addon">{{session('moneda')}}</span>
+                                            <span class="input-group-addon">{{session('moneda_session')}}</span>
                                             <input type="text" name="pago_e" id="pago_e" class="form-control" placeholder="Efectivo" autocomplete="off" />
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                     <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
-                                            <span class="input-group-addon">{{session('moneda')}}</span>
+                                            <span class="input-group-addon">{{session('moneda_session')}}</span>
                                             <input type="text" name="pago_t" id="pago_t" class="form-control" placeholder="Tarjeta" autocomplete="off" />
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@
                                         </div>
                                         <div class="col-xs-3 col-sm-3 col-md-3">
                                             <div class="text-right">
-                                                <strong>{{session('moneda')}}<span class="totalP" id="total"></span></strong>
+                                                <strong>{{session('moneda_session')}}<span class="totalP" id="total"></span></strong>
                                             </div>
                                         </div>
                                     </div>
@@ -272,7 +272,7 @@
                                         </div>
                                         <div class="col-xs-3 col-sm-3 col-md-3">
                                             <div class="text-right">
-                                                <strong>{{session('moneda')}}<span id="vuelto">0.00</span></strong>
+                                                <strong>{{session('moneda_session')}}<span id="vuelto">0.00</span></strong>
                                             </div>
                                         </div>
                                     </div>

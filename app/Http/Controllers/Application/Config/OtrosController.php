@@ -122,6 +122,8 @@ class OtrosController extends Controller
                 Storage::disk('s3')->put($filenametostore, fopen($request->file('logo'), 'r+'), 'public');
 
                 //Store $filenametostore in the database
+            } else {
+                $filenametostore = $viewdata['logo'];
             }
 
             $sql = DB::update("UPDATE empresa SET
