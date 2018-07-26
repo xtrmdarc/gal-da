@@ -269,7 +269,7 @@
                             <div class="form-group">
                                 <label class="control-label">Precio venta</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon"></span>
+                                    <span class="input-group-addon">{{session('moneda_session')}}</span>
                                     <input type="text" name="precio_prod" id="precio_prod" class="form-control" autocomplete="off" required="required" />
                                 </div>
                             </div>

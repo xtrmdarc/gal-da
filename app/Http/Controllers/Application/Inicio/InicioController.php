@@ -537,7 +537,7 @@ class InicioController extends Controller
                 $fecha = date("Y-m-d H:i:s");
                 $id_usu = \Auth::user()->id_usu;
                 $id_apc = session('id_apc');
-                $igv = session('igv');
+                $igv = session('igv_session');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
                 $arrayParam = array(
                     1,

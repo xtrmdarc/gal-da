@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application;
 
+use App\Models\TmDatosEmpresa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,6 +20,22 @@ class AppController extends Controller
 
         session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
         session(['id_usu'=>\Auth::user()->id_usu]);
+
+        $moneda = DB::select('SELECT moneda FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($moneda as $r) {
+            $mon = $r->moneda;
+        }
+
+        $igv = DB::select('SELECT igv FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($igv as $r) {
+            $igv_empresa = $r->igv;
+        }
+
+        session(['moneda_session'=>$mon]);
+        session(['igv_session'=>$igv_empresa]);
+
         switch($user->id_rol)
         {
             //Administracion
