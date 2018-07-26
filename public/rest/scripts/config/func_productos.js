@@ -1,7 +1,7 @@
 $(function() {
     var cat = '%';
     areaP_x_sucursales();
-    listarCategorias();
+    //listarCategorias();
     listarSucursales();
     listarProductos(cat);
     comboCategoria();
@@ -77,7 +77,7 @@ var listarCategorias = function(){
     },
         success: function(item){
             $.each(item.data, function(i, campo) {
-                $('#ul-cont')
+                $('#ul-cont-sucursalesProd')
                 .append(
                     $('<li/>')
                     .append(
@@ -409,12 +409,12 @@ $(function() {
                     } else if(cod == 1){
                         var cat = '%';
                         $('#mdl-producto').modal('hide');
-                        listarProductos(cat);
+                        listarProductos(producto.cod_catg);
                         toastr.success('Datos registrados, correctamente.');
                     } else if(cod == 2) {
                         var cat = '%';
                         $('#mdl-producto').modal('hide');
-                        listarProductos(cat);
+                        listarProductos(producto.cod_catg);
                         toastr.success('Datos modificados, correctamente.');
                     }
                 },
@@ -496,8 +496,8 @@ $(function() {
       });
 });
 
-$("#frm-categoria").submit(function(){
-
+$("#frm-categoria").submit(function(e){
+    e.preventDefault();
     var form = $(this);
 
         var categoria = {
@@ -525,26 +525,27 @@ $("#frm-categoria").submit(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (cod) {
+                
                 if(cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');
                     return false;
                 } else if(cod == 1){
-                    listarCategorias();
+                    listarSucursales();
                     $('#nombre_catg').val('');
                     $("#id_catg").val('');
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos registrados, correctamente.');
-                    location.href = "/ajustesProductos";
+                    
                     return false;
                 } else if(cod == 2) {
-                    listarCategorias();
+                    listarSucursales();
                     $('#nombre_catg').val('');
                     $("#id_catg").val('');
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos modificados, correctamente.');
-                    location.href = "/ajustesProductos";
+                    
                     return false;
                 }
             },
@@ -552,9 +553,9 @@ $("#frm-categoria").submit(function(){
                 console.log(errorThrown + ' ' + textStatus);
             }   
         });
-
+       
       }
-
+      
     return false;
 });
 

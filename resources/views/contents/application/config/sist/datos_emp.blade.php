@@ -45,9 +45,9 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">IGV:</label>
+                                            <label class="control-label">IMPUESTO A LA VENTA</label>
                                             <div class="input-group">
-                                                <input type="text" name="igv" value="{{$igv}}" class="form-control" placeholder="Ingrese IGV" autocomplete="off" required/>
+                                                <input type="text" name="igv" value="{{$igv}}" class="form-control" placeholder="Impuesto" autocomplete="off" required/>
                                                 <span class="input-group-addon">%</span>
                                             </div>
                                         </div>

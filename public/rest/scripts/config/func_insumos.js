@@ -1,6 +1,6 @@
 $(function() {
     var cat = '%';
-    listarCategorias();
+    //listarCategorias();
     listarInsumos(cat);
     listarSucursales();
     comboCategoria();
@@ -164,7 +164,7 @@ var comboCategoria = function(){
 }
 
 $("#frm-categoria").submit(function(){
-
+    e.preventDefault();
     var form = $(this);
 
         var categoria = {
@@ -195,7 +195,7 @@ $("#frm-categoria").submit(function(){
                     toastr.warning('Advertencia, Datos duplicados.');
                     return false;
                 } else if(cod == 1){
-                    listarCategorias();
+                    listarSucursales();
                     $('#nombre_catg').val('');
                     $("#id_catg").val('');
                     $('#boton-catg').css("display","block");
@@ -203,7 +203,7 @@ $("#frm-categoria").submit(function(){
                     toastr.success('Datos registrados, correctamente.');
                     return false;
                 } else if(cod == 2) {
-                    listarCategorias();
+                    listarSucursales();
                     $('#nombre_catg').val('');
                     $("#id_catg").val('');
                     $('#boton-catg').css("display","block");

@@ -84,28 +84,30 @@ class InsumoController extends Controller
         $post = $request->all();
 
         $descC = $post['nombre_catg'];
-        $idCatg = $post['cod_catg'];
-
-       if($post['cod_catg'] != ''){
+        
+        $idSucursal = $post['id_sucursal'];
+        if($post['cod_catg'] != ""){
             //Actualizar
-           $flag = 2;
+            $idCatg = $post['cod_catg'];
+            $flag = 2;
 
-           $consulta = DB::Select("call usp_configInsumoCatgs( :flag, :descC, :idCatg);"
-           ,array($flag,$descC,$idCatg));
-           return $consulta;
+            $consulta = DB::Select("call usp_configInsumoCatgs( :flag, :descC, :idCatg,:idSucursal,:idUsu);"
+            ,array(':flag' => $flag,':descC'=> $descC,':idCatg'=>$idCatg,':idSucursal' => $idSucursal,':idUsu' => $id_usu));
+            
+            return json_encode($consulta[0]->cod);
 
-        } else{
-           //Crear
-           $flag = 1;
+            } else{
+                //Crear
+                $flag = 1;
 
-           $consulta = DB::Select("call usp_configInsumoCatgs_g( :flag, :descC, @a,:idSucursal);"
-           ,array(':flag' => $flag,':descC' => $descC, ':idSucursal' => $id_sucursal));
-           $array = [];
-           foreach($consulta as $k)
-           {
-               return $array['cod'] = $k->cod;
-           }
-        }
+                $consulta = DB::Select("call usp_configInsumoCatgs_g( :flag, :descC, @a,:idSucursal);"
+                ,array(':flag' => $flag,':descC' => $descC, ':idSucursal' => $id_sucursal));
+                $array = [];
+                foreach($consulta as $k)
+                {
+                    return $array['cod'] = $k->cod;
+                }
+            }
     }
 
     public function CrudIns(Request $request)

@@ -106,23 +106,24 @@ class ProductoController extends Controller
         $id_usu = \Auth::user()->id_usu;
 
         $post = $request->all();
-        $cod_catg = $post['cod_catg'];
-        if($cod_catg != ''){
+        $idSucursal = $post['id_sucursal'];
+        if($post['cod_catg'] != ""){
+            $cod_catg = $post['cod_catg'];
             //Actualizar
             $flag = 2;
             $descC = $post['nombre_catg'];
             $idCatg = $post['cod_catg'];
-
-            $consulta =  DB::Select("call usp_configProductoCatgs_g( :flag, :descC, :idCatg);",
-                array($flag,$descC,$idCatg));
-            dd($consulta);
-            return $consulta;
+           
+            $consulta =  DB::Select("call usp_configProductoCatgs_g( :flag, :descC, :idCatg,:idSucursal,:idUsu);",
+                array(':flag' => $flag,':descC'=> $descC,':idCatg'=>$idCatg,':idSucursal' => $idSucursal,':idUsu' => $id_usu));
+        
+            return json_encode($consulta[0]->cod);
 
         }else {
             //Crear
             $flag = 1;
             $descC = $post['nombre_catg'];
-            $idSucursal = $post['id_sucursal'];
+          
 
             $consulta = DB::Select("call usp_configProductoCatgs_g( :flag, :descC, @a,:idSucursal,:idUsu);",
                 array(':flag' => $flag,':descC' => $descC,':idSucursal' => $idSucursal,':idUsu' => $id_usu));
@@ -235,15 +236,15 @@ class ProductoController extends Controller
             $flag = 2;
             $consulta = DB::Select("call usp_configProductoPres( :flag, :idProd, :codP, :presP, :precio, :rec, :stock, :estado, :idPres);"
             ,array($flag,$idProd,$codP,$presP,$precio,$rec,$stock,$estado,$idPres));
-            dd($consulta);
-            return $consulta;
+            
+            return json_encode($consulta[0]->cod);
         } else{
             //Registrar
             $flag = 1;
             $consulta = DB::Select("call usp_configProductoPres( :flag, :idProd, :codP, :presP, :precio, :rec, :stock, :estado, @a);"
             ,array(':flag' => $flag,':idProd' => $idProd,':codP' => $codP,':presP' => $presP,':precio' => $precio,':rec' => $rec,':stock' => $stock,':estado' => $estado));
-            dd($consulta);
-            return $consulta;
+            
+            return json_encode($consulta[0]->cod);
         }
     }
 
