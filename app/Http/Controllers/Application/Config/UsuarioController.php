@@ -149,11 +149,11 @@ class UsuarioController extends Controller
         $contrasena = $post['contrasena'];
         $contrasena_g = bcrypt($post['contrasena']);
 
+        if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists()){return 0;}
+
         if($id_usu != ''){
             if($id_rol != '3'){
                 $cod_area = 0;
-            }else {
-                $cod_area = 1;
             }
             $sql = DB::update("UPDATE tm_usuario SET
 						id_rol  = ?,

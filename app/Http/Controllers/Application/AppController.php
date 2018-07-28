@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Application;
 
 use App\Models\TmDatosEmpresa;
+use App\Models\TmRol;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Application\AppController;
 use App\Models\Sucursal;
 use App\Models\Empresa;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FeedbackSent;
 
 class AppController extends Controller
 {
     //
 
     public static $home= "/home";
+    public static $galdaMail = "dreyesc@gal-da.com";
 
     public static function LoginAuthenticated(Request $request, $user){
 
@@ -133,6 +137,12 @@ class AppController extends Controller
 
     public static function DatosEmpresa($id_empresa){
         return DB::table('tm_datos_empresa')->where('id',$id_empresa)->get();
+    }
+
+    public function EnviarFeedback(Request $request){
+
+        Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
+        
     }
 
 }

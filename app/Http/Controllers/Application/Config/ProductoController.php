@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sucursal;
+use App\Models\TmProductoCatg;
+use App\Models\TmAreaProd;
 
 class ProductoController extends Controller
 {
@@ -169,6 +171,18 @@ class ProductoController extends Controller
     public function EIng()
     {
 
+    }
+
+    public function AreasProdXSucursal(Request $request){
+        
+        $areas_prod = TmAreaProd::where('id_sucursal',$request->id_sucursal)->get();
+        return $areas_prod;
+    }
+
+    public function CategoriasXSucursal(Request $request){
+        
+        $categorias = TmProductoCatg::where('id_sucursal',$request->id_sucursal)->get();
+        return $categorias;
     }
 
     public function CrudProd(Request $request)

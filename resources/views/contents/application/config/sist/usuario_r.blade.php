@@ -200,7 +200,7 @@
                         </div>
                         <div class="ibox-footer">
                             <div class="text-right">
-                                <a href="?c=Config" class="btn btn-default">Cancelar</a>
+                                <a href="/ajustesUsuarios" class="btn btn-default">Cancelar</a>
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i>&nbsp;Guardar</button>
                             </div>
                         </div>

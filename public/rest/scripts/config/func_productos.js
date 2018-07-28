@@ -65,6 +65,57 @@ var listarSucursales = function(){
     });
 }
 
+$('#id_sucursal_d').on('change',function(){
+
+    var id_sucursal = this.value;
+    $.ajax({
+        type: "POST",
+        url: "/AreasProdXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+            
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_area').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_area').append(
+                    `<option value="${response[i].id_areap}"> "${response[i].nombre} </option>`
+                );
+            }
+            $('#cod_area').selectpicker('refresh');
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/CategoriasXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_catg').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_catg').append(
+                    `<option value="${response[i].id_catg}"> "${response[i].descripcion} </option>`
+                );
+            }
+            $('#cod_catg').selectpicker('refresh');
+        }
+    });
+
+
+});
+
 /* Mostrar datos en la lista categorias */
 var listarCategorias = function(){
     $('#ul-cont').empty();

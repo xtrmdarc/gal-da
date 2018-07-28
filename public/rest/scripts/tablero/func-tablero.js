@@ -1,5 +1,5 @@
 $(function() {  
-
+    $("#mdl-feedback").modal('show');
     setupSocketio();
     datosGenerales();
     $('#tablero').addClass("active");

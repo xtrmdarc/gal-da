@@ -189,10 +189,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">&Aacute;rea de producci&oacute;n</label>
-                                <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
-                                @foreach($areasP as $r)
-                                    <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
-                                @endforeach
+                                <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control"  autocomplete="off" required="required" title="Seleccionar" data-size="5">
+                                
                                 </select>
                             </div>
                         </div>
@@ -209,10 +207,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Categor&iacute;a</label>
-                                    <select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">
-                                        @foreach($catgs as $r)
-                                            <option value="{{$r->id_catg}}">{{$r->descripcion}}</option>
-                                        @endforeach
+                                    <select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" autocomplete="off" title="Seleccionar" data-size="5">
+                                       
                                     </select>
                             </div>
                         </div>

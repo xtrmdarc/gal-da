@@ -40,6 +40,10 @@
     Route::post('ajustesComboCatg', 'Application\Config\ProductoController@ComboCatg');
     Route::post('ajustesListarProductos', 'Application\Config\ProductoController@ListaProd');
     Route::post('ajustesListarPres', 'Application\Config\ProductoController@ListaPres');
+    Route::post('AreasProdXSucursal', 'Application\Config\ProductoController@AreasProdXSucursal');
+    Route::post('CategoriasXSucursal', 'Application\Config\ProductoController@CategoriasXSucursal');
+
+
 
     //Insumos
 
