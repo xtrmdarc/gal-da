@@ -28,10 +28,10 @@
 
                                                         <header style="padding-top: 129px;padding-bottom: 20px;">
                                                             <div class="avatar">
-                                                                <img src="{{ $imagen_g }}" />
+                                                                <img src="{{ $imagen_g }}" id="picture-profile-preview" />
                                                                 <input type="hidden" name="imagen_p" value="{{$imagen_g}}" />
                                                             </div>
-                                                            <input type="file" name="imagen_p"/>
+                                                            <input type="file" name="imagen_p" id="picture-profile"/>
                                                         </header>
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Nombres</label>
@@ -275,5 +275,23 @@
     <script type="text/javascript">
         $('#navbar-c').addClass("white-bg");
         $('#informes').addClass("active");
+    </script>
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#picture-profile-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#picture-profile").change(function() {
+            readURL(this);
+        });
     </script>
 @endsection
