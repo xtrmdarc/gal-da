@@ -111,5 +111,22 @@
 <script type="text/javascript">
     $('#config').addClass("active");
 </script>
+<script>
+    function readURL(input) {
 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#wizardPicturePreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#wizard-picture").change(function() {
+        readURL(this);
+    });
+</script>
 @endsection('content')
