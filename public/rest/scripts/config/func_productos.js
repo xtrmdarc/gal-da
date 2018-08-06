@@ -67,53 +67,7 @@ var listarSucursales = function(){
 
 $('#id_sucursal_d').on('change',function(){
 
-    var id_sucursal = this.value;
-    $.ajax({
-        type: "POST",
-        url: "/AreasProdXSucursal",
-        data: {
-            id_sucursal: id_sucursal,
-            
-        },
-        dataType: "json",
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-        ,success:function(response){
-            console.log(response);
-            $('#cod_area').empty();
-            for(var i = 0 ; i< response.length; i++){
-                $('#cod_area').append(
-                    `<option value="${response[i].id_areap}"> "${response[i].nombre} </option>`
-                );
-            }
-            $('#cod_area').selectpicker('refresh');
-        }
-    });
-
-    $.ajax({
-        type: "POST",
-        url: "/CategoriasXSucursal",
-        data: {
-            id_sucursal: id_sucursal,
-        },
-        dataType: "json",
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-        ,success:function(response){
-            console.log(response);
-            $('#cod_catg').empty();
-            for(var i = 0 ; i< response.length; i++){
-                $('#cod_catg').append(
-                    `<option value="${response[i].id_catg}"> "${response[i].descripcion} </option>`
-                );
-            }
-            $('#cod_catg').selectpicker('refresh');
-        }
-    });
-
-
+    ActualizarCategoriaAreap(null,null);
 });
 
 /* Mostrar datos en la lista categorias */
@@ -226,6 +180,61 @@ var listarPresentaciones = function(cod_prod,nomb){
     });
 }
 
+
+var ActualizarCategoriaAreap = function(cod_area,cod_catg){
+    console.log(cod_area,cod_catg,'entro');
+    var id_sucursal = $('#id_sucursal_d').val();
+    $.ajax({
+        type: "POST",
+        url: "/AreasProdXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+            
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_area').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_area').append(
+                    `<option value="${response[i].id_areap}"> ${response[i].nombre} </option>`
+                );
+            }
+            $('#cod_area').selectpicker('refresh');
+            if(cod_area!=null) $('#cod_area').selectpicker('val',cod_area);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/CategoriasXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_catg').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_catg').append(
+                    `<option value="${response[i].id_catg}"> ${response[i].descripcion} </option>`
+                );
+            }
+            $('#cod_catg').selectpicker('refresh');
+            if(cod_catg!=null) $('#cod_catg').selectpicker('val',cod_catg);
+        }
+    });
+    
+    
+  
+}
+
 /* Editar datos de un producto */
 var editarProducto = function(cod){
     $('#cod_catg').selectpicker('destroy');
@@ -245,15 +254,19 @@ var editarProducto = function(cod){
         },
         dataType: "json",
         success: function(item){
-            $.each(item.data, function(i, campo) {
+            console.log(item);
+            $.each(item, function(i, campo) {
+                console.log(campo);
                 $('#nombre_prod').val(campo.nombre);
                 if(campo.id_tipo == 1){
                     $('#transf').iCheck('check');
                 } else if (campo.id_tipo == 2){
                     $('#ntransf').iCheck('check');
                 }
-                $('#cod_area').selectpicker('val', campo.id_areap);
-                $('#cod_catg').selectpicker('val', campo.id_catg);
+                $('#id_sucursal_d').selectpicker('val',campo.id_sucursal);
+                ActualizarCategoriaAreap(campo.id_areap,campo.id_catg);
+                //$('#cod_area').selectpicker('val', campo.id_areap);
+                //$('#cod_catg').selectpicker('val', campo.id_catg);
                 $('#estado_catg').selectpicker('val', campo.estado);
                 $('#descripcion').val(campo.descripcion);
             });

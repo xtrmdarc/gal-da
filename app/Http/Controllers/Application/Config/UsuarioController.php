@@ -164,10 +164,10 @@ class UsuarioController extends Controller
                         nombres = ?,
                         email = ?,
                         usuario = ?,
-                        contrasena = ?,
+                        password = ?,
                         imagen = ?,
                         pin = ?
-				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$pin]);
+				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
             return redirect()->route('config.Usuarios');
         } else {
 
@@ -184,6 +184,7 @@ class UsuarioController extends Controller
                 'email' => $post['email'],
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($post['contrasena']),
+                'usuario' => $post['usuario'],
                 'verifyToken' => null,
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
@@ -216,6 +217,7 @@ class UsuarioController extends Controller
             }
             $stm = DB::select("SELECT * FROM v_usuarios WHERE id_usu = ?",[($user)]);
             foreach($stm as $r) {
+                dd($r);
                 $viewdata['id_usu'] = $r->id_usu;
                 $viewdata['id_rol'] = $r->id_rol;
                 $viewdata['id_areap']= $r->id_areap;

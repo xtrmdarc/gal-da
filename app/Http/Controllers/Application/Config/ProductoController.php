@@ -145,7 +145,20 @@ class ProductoController extends Controller
 
     public function ComboCatg()
     {
-       //POR LAS :v
+        try
+        {      
+            $var = TmProductoCatg::where('id_sucursal',session('id_sucursal'))->get();
+            
+            echo '<select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">';
+            foreach($var as $v){
+                echo '<option value="'.$v['id_catg'].'">'.$v['descripcion'].'</option>';
+            }
+            echo " </select>";
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 
     public function ComboUniMed()
