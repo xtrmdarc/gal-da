@@ -155,6 +155,7 @@ class UsuarioController extends Controller
             if($id_rol != '3'){
                 $cod_area = 0;
             }
+            
             $sql = DB::update("UPDATE tm_usuario SET
 						id_rol  = ?,
 						id_areap   = ?,
@@ -167,7 +168,8 @@ class UsuarioController extends Controller
                         password = ?,
                         imagen = ?,
                         pin = ?
-				    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
+                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
+                    
             return redirect()->route('config.Usuarios');
         } else {
 
@@ -217,7 +219,7 @@ class UsuarioController extends Controller
             }
             $stm = DB::select("SELECT * FROM v_usuarios WHERE id_usu = ?",[($user)]);
             foreach($stm as $r) {
-                dd($r);
+               
                 $viewdata['id_usu'] = $r->id_usu;
                 $viewdata['id_rol'] = $r->id_rol;
                 $viewdata['id_areap']= $r->id_areap;
