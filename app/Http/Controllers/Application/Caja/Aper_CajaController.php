@@ -51,7 +51,8 @@ class Aper_CajaController extends Controller
         }
 
 
-        $turnos = TmTurno::all();
+        $turnos = TmTurno::where('id_sucursal',session('id_sucursal'))
+                            ->get();
         $data =
             [
                 'cajeros' => $cajeros,
@@ -68,7 +69,7 @@ class Aper_CajaController extends Controller
 
     public function datos(Request $request){
     
-        $arr = DB::table('V_caja_aper')
+        $arr = DB::table('v_caja_aper')
                 ->where('estado','<>','c')
                 ->Where('id_sucursal',session('id_sucursal'))
                 ->get();
