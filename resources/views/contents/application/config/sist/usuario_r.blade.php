@@ -27,6 +27,7 @@
                     <form id="frm-usuario" action="/ajustesRUsuario" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id_usu" value="" />
+                        <input type="hidden" name="nombre_empresa" value="{{$nombre_empresa}}" />  
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-lg-6" style="display:none;">
@@ -121,9 +122,16 @@
                                         <div class="col-lg-6  sides_padding15" id="usr_div">
                                             <div class="form-group">
                                                 <label class="control-label">Usuario</label>
-                                                <div class="input-group">
+                                                <div class="row">
+
+                                                
+                                                <div class="input-group col-sm-6">
                                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                     <input type="text" name="usuario" value="" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
+                                                </div>
+                                                <div class="input-group col-sm-6">
+                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{'@'.$nombre_empresa}}</span>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

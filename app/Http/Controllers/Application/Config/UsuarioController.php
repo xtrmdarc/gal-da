@@ -64,6 +64,7 @@ class UsuarioController extends Controller
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
 
         $area_produccion = TmAreaProd::where('id_usu',$id_usu)->get();
+        $empresa = Empresa::find($user_AdminSucursal);
 
         $user_rol = TmRol::all();
         $viewdata['user_rol']= $user_rol;
@@ -71,11 +72,13 @@ class UsuarioController extends Controller
         $viewdata['user_areaProd']= $area_produccion;
         $viewdata['id_usu']= $id_usu;
         $viewdata['breadcrumb'] = '';
+        $viewdata['nombre_empresa']=$empresa->nombre_empresa;
         
         return view('contents.application.config.sist.usuario_r',$viewdata);
     }
 
     public function RUUsuario(Request $request){
+        
         /*
         $post = $request->all();
 
@@ -137,7 +140,7 @@ class UsuarioController extends Controller
         $id_rol = $post['id_rol'];
         $pin = $post['pin'];
         $plan_id = '1';
-
+        $nombre_empresa = $post['nombre_empresa'];
         $cod_area = $post['cod_area'];
         if($cod_area == null ){
             $cod_area = 0;
@@ -148,9 +151,9 @@ class UsuarioController extends Controller
         $usuario = $post['usuario'];
         $contrasena = $post['contrasena'];
         $contrasena_g = bcrypt($post['contrasena']);
-
+        
         if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists()){return 0;}
-
+        
         if($id_usu != ''){
             if($id_rol != '3'){
                 $cod_area = 0;
@@ -163,12 +166,12 @@ class UsuarioController extends Controller
 						ape_paterno  = ?,
                         ape_materno = ?,
                         nombres = ?,
-                        email = ?,
+                        email = ?,  
                         usuario = ?,
                         password = ?,
                         imagen = ?,
                         pin = ?
-                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
+                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario.'@'.$nombre_empresa,bcrypt($contrasena),$imagen,$pin,$id_usu]);
                     
             return redirect()->route('config.Usuarios');
         } else {
@@ -186,7 +189,7 @@ class UsuarioController extends Controller
                 'email' => $post['email'],
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($post['contrasena']),
-                'usuario' => $post['usuario'],
+                'usuario' => $usuario.'@'.$nombre_empresa,
                 'verifyToken' => null,
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
@@ -206,7 +209,7 @@ class UsuarioController extends Controller
         $user = $id_usu;
 
         $id_user = \Auth::user()->id_usu;
-
+        
         if(isset($user)){
             $user_rol = TmRol::all();
             $area_produccion = TmAreaProd::where('id_usu',$id_user)->get();
@@ -230,13 +233,16 @@ class UsuarioController extends Controller
                 $viewdata['email']= $r->email;
                 $viewdata['usuario']= $r->usuario;
                 $viewdata['contrasena']= $r->contrasena;
-                $viewdata['estado']= $r->estado;
+                $viewdata['estado']= $r->estado;    
                 $viewdata['imagen']= $r->imagen;
                 $viewdata['desc_r']= $r->desc_r;
                 $viewdata['desc_ap']= $r->desc_ap;
+                $viewdata['pin']= $r->pin;
+                $viewdata['nombre_empresa']= $r->nombre_empresa;
+              
             }
         }
-
+   
         return view('contents.application.config.sist.usuario_e',$viewdata);
     }
 

@@ -119,7 +119,7 @@
             </div>
             <div class="ibox-footer">
                 <div class="text-right">
-                    <a href="lista_tm_clientes.php" class="btn btn-white"> Cancelar</a>
+                    <a href="/cliente" class="btn btn-white"> Cancelar</a>
                     <button class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
                 </div>
             </div>

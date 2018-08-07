@@ -136,7 +136,7 @@ class AppController extends Controller
     }
 
     public static function DatosEmpresa($id_empresa){
-        return DB::table('tm_datos_empresa')->where('id',$id_empresa)->get();
+        return (DB::table('empresa')->where('id',$id_empresa)->get())[0];
     }
 
     public function EnviarFeedback(Request $request){

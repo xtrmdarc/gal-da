@@ -70,12 +70,7 @@ var comboAreaProd = function(){
 
 /* Combinacion del combo rol - area produccion */
 $('#id_rol').change( function(event) {
-    HandleRolSelection();
-    
-});
-
-
-function HandleRolSelection(){
+    //HandleRolSelection();
     if($("#id_rol").selectpicker('val') == 4){
         
         $('#pin_div').css('display','block');
@@ -131,4 +126,9 @@ function HandleRolSelection(){
       
        
     }
+});
+
+
+function HandleRolSelection(){
+    
 }

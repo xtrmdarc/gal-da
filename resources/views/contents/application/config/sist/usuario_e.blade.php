@@ -54,18 +54,22 @@
                                             <label class="control-label">Cargo</label>
                                             <div class="input-group">
                                                 {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
+                                                <select name="id_rol" id="id_rol" class="show-tick form-control" data-live-search="false"  autocomplete="off" required>
                                                     @if($id_usu != null)
-                                                    <option value="{{is_null($id_usu) ? '' : $id_rol}}">
+                                                    {{--<option value="{{is_null($id_usu) ? '' : $id_rol}}">
                                                         {{is_null($id_usu) ? '' : $desc_r}}
-                                                    </option>
+                                                    </option>--}}
                                                     @else
                                                         echo '<option value="" selected>Seleccionar</option>';
                                                         echo '<optgroup label="Seleccionar">';
                                                     @endif
                                                     <optgroup label="Seleccionar">
                                                         @foreach($user_rol as $r)
+                                                            @if($r->id_rol == $id_rol)
+                                                            <option selected="selected" value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                            @else 
                                                             <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                            @endif
                                                         @endforeach
                                                     </optgroup>
                                                 </select>
@@ -110,7 +114,7 @@
                                     </div>
                                 
                                     
-                                    <div class="col-lg-6 sides_padding15" style="display:none;" >
+                                    {{--<div class="col-lg-6 sides_padding15" style="display:none;" >
                                         <div class="form-group">
                                             <label class="control-label">Cargo</label>
                                             <div class="input-group">
@@ -132,14 +136,19 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                         
                                         <div class="col-lg-6 sides_padding15" id="usr_div">
                                         <div class="form-group">
                                             <label class="control-label">Usuario</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                                <input type="text" name="usuario" value="{{is_null($id_usu) ? '' : $usuario}}" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
+                                            <div class="row ">
+                                                <div class="input-group  col-sm-6">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input type="text" name="usuario" value="{{is_null($id_usu) ? '' : $usuario}}" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
+                                                </div>
+                                                <div class="input-group col-sm-6">
+                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{'@'.$nombre_empresa}}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,12 +162,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6  sides_padding15" id="pin_div" style="display: none">
+                                    <div class="col-lg-6  sides_padding15" id="pin_div" >
                                         <div class="form-group">
                                             <label class="control-label">PIN</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-                                                <input type="password" name="pin" value="" class="form-control" placeholder="Ingrese 4 digitos" autocomplete="off" required="required" />
+                                                <input type="password" name="pin" value="{{$pin}}" class="form-control" placeholder="Ingrese 4 digitos" autocomplete="off" required="required" />
                                             </div>
                                         </div>
                                     </div>

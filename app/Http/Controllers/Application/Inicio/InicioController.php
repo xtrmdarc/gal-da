@@ -533,8 +533,11 @@ class InicioController extends Controller
            
             try
             {
-                
+                date_default_timezone_set('America/Lima');
+                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 $fecha = date("Y-m-d H:i:s");
+                
+                
                 $id_usu = \Auth::user()->id_usu;
                 $id_apc = session('id_apc');
                 $igv = session('igv_session');

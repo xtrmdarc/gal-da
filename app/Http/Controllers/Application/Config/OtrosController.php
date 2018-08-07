@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Application\Config;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Application\AppController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -136,6 +137,8 @@ class OtrosController extends Controller
                     igv = ?,
                     moneda = ?
                 WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id]);
+
+            session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
 
             return redirect('/ajustesDatosEmpresa');
         }
