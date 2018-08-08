@@ -41,7 +41,11 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
-        return AppController::LoginAuthenticated($request,$user);
+        if($user->estado == "p"){
+            return view('auth.register.register-step-account-info');
+        }else{
+            return AppController::LoginAuthenticated($request,$user);
+        }
     }   
 
     protected function credentials(Request $request)

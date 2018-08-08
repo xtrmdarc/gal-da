@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 class UsuarioController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('afterRegister');
+    }
     public function i_perfil(){
 
         $idUsu = \Auth::user()->id_usu;

@@ -14,6 +14,7 @@ class OtrosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('afterRegister');
     }
     public function index()
     {   

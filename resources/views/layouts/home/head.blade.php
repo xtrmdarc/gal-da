@@ -39,7 +39,18 @@
                     <li><a href="#footer">Contacto</a>
                     </li>
                     @if (Auth::check())
-                        <li><a href="{{ route('tablero') }}"><b>TABLERO PAPU</b></a></li>
+                        @php
+                            $idPlan = \Auth::user()->plan_id;
+                            if($idPlan == 1){
+                        @endphp
+                            <li><a href="{{ route('tableroF') }}"><b>TABLERO FREE PAPU</b></a></li>
+                        @php
+                            } else {
+                        @endphp
+                            <li><a href="{{ route('tablero') }}"><b>TABLERO PAPU</b></a></li>
+                        @php
+                            }
+                        @endphp
                     @else
                      <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
                      <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn " href="{{ route('register') }}">Empieza YA</a></li>
