@@ -70,7 +70,12 @@ var comboAreaProd = function(){
 
 /* Combinacion del combo rol - area produccion */
 $('#id_rol').change( function(event) {
-    //HandleRolSelection();
+    HandleRolSelection();
+    
+});
+
+
+function HandleRolSelection(){
     if($("#id_rol").selectpicker('val') == 4){
         
         $('#pin_div').css('display','block');
@@ -126,9 +131,16 @@ $('#id_rol').change( function(event) {
       
        
     }
-});
-
-
-function HandleRolSelection(){
-    
 }
+
+$(".toggle-password").click(function() {
+
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+    
+});

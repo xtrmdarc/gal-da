@@ -8437,3 +8437,10 @@ body.md-skin {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.has-success .field-icon {
+
+  color: #67757c !important;
+  background-color: transparent !important;
+  z-index: 100;
+}

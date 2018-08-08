@@ -56,3 +56,4 @@ var mensaje = function(){
         toastr.error('No puedes eliminar los datos del usuario');
     }
 }
+
