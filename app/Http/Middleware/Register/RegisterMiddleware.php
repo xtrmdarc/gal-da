@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Register;
 
+use App\Http\Controllers\Application\AppController;
 use Closure;
 
 class RegisterMiddleware
@@ -17,6 +18,11 @@ class RegisterMiddleware
     {
         $idEstado = \Auth::user()->estado;
         if($idEstado != "p")
+            if($request->getPathInfo() == '/register' ||
+                $request->getPathInfo() == '/registerI' ||
+                $request->getPathInfo() == '/registerB' ){
+                return redirect(AppController::$home);
+            }
             return $next($request);
         return redirect('/registerI');
     }

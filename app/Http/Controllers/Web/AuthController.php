@@ -21,6 +21,11 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('afterRegister');
+    }
+
     public function store_f(Request $request)
     {
         $post = $request->all();
@@ -134,12 +139,16 @@ class AuthController extends Controller
         return redirect(route('verifyEmailFirst'));
     }
 
+    public function show_account_v() {
+        return view('auth.register.register-step-account');
+    }
+
     public function store_account(Request $request)
     {
         $post = $request->all();
 
         $empresa = Empresa::create([
-            'nombre_empresa' => $post['name_business'],
+            'nombre_empresa' => $post['name_business']
         ]);
 
         $statement = DB::select("SHOW TABLE STATUS LIKE 'empresa'");
@@ -298,6 +307,8 @@ class AuthController extends Controller
 
         $idUsu = \Auth::user()->id_usu;
         $planId = \Auth::user()->plan_id;
+        $empresaId = \Auth::user()->id_empresa;
+        $sucursalId = \Auth::user()->id_sucursal;
 
         $nombre_negocio = $post['name_business'];
 
@@ -305,6 +316,15 @@ class AuthController extends Controller
 						name_business  = ?,
 						estado = ?
 				    WHERE id_usu = ?", [$nombre_negocio,'a',$idUsu]);
+
+        $sql = DB::update("UPDATE empresa SET
+						nombre_empresa  = ?
+				    WHERE id = ?", [$nombre_negocio,$empresaId]);
+
+        $sql = DB::update("UPDATE sucursal SET
+						nombre_sucursal  = ?
+				    WHERE id = ?", [$nombre_negocio,$sucursalId]);
+
         if($planId == '1'){
             return redirect()->route('tableroF');
         }else {
