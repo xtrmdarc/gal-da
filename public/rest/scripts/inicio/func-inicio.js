@@ -63,6 +63,7 @@ $(function() {
 
 /* Validar apertura de caja */
 var validarApertura = function(){
+    console.log('cod ape' + $('#cod_ape').val());
     if($('#cod_ape').val() == 0){
         $('#mdl-validar-apertura').modal('show');
     }
@@ -602,6 +603,8 @@ var refresh = function(){
 
 $('#btn_escoger_apertura').on('click',function(){
     
+    if($('#cb_apc_escoger').size()) return ;
+
     $('#mdl-validar-apertura').modal('hide');
     
     $.ajax({

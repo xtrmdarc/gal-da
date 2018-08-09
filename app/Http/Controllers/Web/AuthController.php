@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+    public function __construct()     {         
+        $this->middleware('afterRegister');     
+    }
     //
     public function store_f(Request $request)
     {

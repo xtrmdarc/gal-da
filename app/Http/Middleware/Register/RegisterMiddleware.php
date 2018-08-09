@@ -16,14 +16,28 @@ class RegisterMiddleware
      */
     public function handle($request, Closure $next)
     {
+        
+        if(empty(\Auth::user()) ==true )
+        {
+            return  $next($request);
+        }
         $idEstado = \Auth::user()->estado;
         if($idEstado != "p")
+        {
             if($request->getPathInfo() == '/register' ||
                 $request->getPathInfo() == '/registerI' ||
                 $request->getPathInfo() == '/registerB' ){
                 return redirect(AppController::$home);
             }
             return $next($request);
-        return redirect('/registerI');
+        }
+        else {
+            if($request->getPathInfo() == '/register' ||
+                $request->getPathInfo() == '/registerI' ||
+                $request->getPathInfo() == '/registerB' )
+            return $next($request);
+
+            return redirect('/registerI');
+        }
     }
 }
