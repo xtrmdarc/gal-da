@@ -97,6 +97,11 @@ class InicioController extends Controller
 
     /*Registrar mesa*/
     public function RMesa(Request $request){  
+        $response = new \stdClass();
+        $respuesta_validado = $this->ValidarLimiteVenta();
+        if($respuesta_validado != null){
+            return $respuesta_validado;
+        }
 
         $row = $this->RegistrarMesa($request);
         if ($row->dup == 1){
@@ -104,7 +109,10 @@ class InicioController extends Controller
             
             session(['cod_tipe'=>1]);
             //ValidarEstadoPedido($row['cod']);
-            header('Location: /inicio/PedidoMesa/'.$row->cod);
+            $response->tipo = 1;
+            $response->num_pedido = $row->cod;
+            return json_encode($response);
+            //header('Location: /inicio/PedidoMesa/'.$row->cod);
             
         } else {
             //header('Location: inicio.php?Cod=d');
@@ -148,10 +156,27 @@ class InicioController extends Controller
         }
     }
 
+    function ValidarLimiteVenta(){
+        if(\Auth::user()->plan_id == 1)
+        {
+            $response = new \stdClass();
+            $nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+            if($nventas >= 15) {
+                $response->tipo =0;
+                return json_encode($response);
+            }
+        }
+        return null;
+    }
+
     /*Registrar mostrador*/
     public function RegistrarMostrador(Request $request){
-
-       
+        $response = new \stdClass();
+        $respuesta_validado = $this->ValidarLimiteVenta();
+        if($respuesta_validado != null){
+            return $respuesta_validado;
+        }
+        
         try
         {
             $data = $request->all();
@@ -189,7 +214,10 @@ class InicioController extends Controller
             return $row;*/
 
             session(['cod_tipe'=>2]);
-            header('Location: /inicio/PedidoMostrador/'.$row->cod);
+            $response->tipo = 2;
+            $response->num_pedido = $row->cod;
+            return json_encode($response);
+            //header('Location: /inicio/PedidoMostrador/'.$row->cod);
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -203,7 +231,11 @@ class InicioController extends Controller
 
     /*Registrar delivery*/
     public function RegistrarDelivery(Request $request){
-
+        $response = new \stdClass();
+        $respuesta_validado = $this->ValidarLimiteVenta();
+        if($respuesta_validado != null){
+            return $respuesta_validado;
+        }
         
         try
         {
@@ -255,7 +287,10 @@ class InicioController extends Controller
             //self::ValidarEstadoPedido($row->cod);
 
             session(['cod_tipe'=>3]);
-            header('Location: /inicio/PedidoDelivery/'.$row->cod);
+            $response->tipo = 3;
+            $response->num_pedido = $row->cod;
+            return json_encode($response);
+            //header('Location: /inicio/PedidoDelivery/'.$row->cod);
             
         } catch (Exception $e) 
         {

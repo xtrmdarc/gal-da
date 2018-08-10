@@ -2,6 +2,7 @@
 var id_sucursal;
 $(function() {
     id_sucursal = $('#id_sucursal').val();
+    
     setupSocketio();
     validarApertura();
     listDelivery();
@@ -60,6 +61,12 @@ $(function() {
     });
 
 });
+
+var validarLimiteVentasPlan = function(){
+    $('#mdl-validar-limite-venta').modal('show');
+};
+
+
 
 /* Validar apertura de caja */
 var validarApertura = function(){
@@ -603,7 +610,7 @@ var refresh = function(){
 
 $('#btn_escoger_apertura').on('click',function(){
     
-    if($('#cb_apc_escoger').size()) return ;
+    if($('#cb_apc_escoger').legnth <= 0) return ;
 
     $('#mdl-validar-apertura').modal('hide');
     
@@ -631,4 +638,32 @@ $('#btn_escoger_apertura').on('click',function(){
     });
     
 
+});
+
+$('.pedido_form').submit(function(e){
+    e.preventDefault();
+    var form = $(e.target);
+
+    $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: form.attr('action'),
+        data: form.serialize(),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response){
+            switch(response.tipo)
+            {
+                case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
+                case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
+                case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
+                case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                
+            }
+                
+            
+        }
+    });
+    
 });

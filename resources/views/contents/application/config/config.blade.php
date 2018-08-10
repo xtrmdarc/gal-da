@@ -81,9 +81,17 @@
         </div>
         -->
     </div>
+
+    
+
 </div>
+
+
+
 </div>
+
 <script type="text/javascript">
+    
     $('#navbar-c').addClass("white-bg");
     $('#config').addClass("active");
 </script>
