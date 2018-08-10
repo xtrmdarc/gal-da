@@ -563,7 +563,12 @@ class InicioController extends Controller
 
     /*Realizar venta*/
     public function RegistrarVenta(Request $request){
-        
+
+        $response = new \stdClass();
+        $respuesta_validado = $this->ValidarLimiteVenta();
+        if($respuesta_validado != null){
+            return $respuesta_validado;
+        }
         $data = $request->all();
         if($data['cod_pedido'] != ''){
            

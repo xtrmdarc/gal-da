@@ -569,7 +569,7 @@
                 <div class="row m-t-20">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <button type="button" class="btn btn-danger ">Esperar</button>
+                            <button onclick="window.location.replace('/inicio')" type="button"  class="btn btn-danger ">Esperar</button>
                         </div>
                     </div>
                     <div class="col-sm-6 ">

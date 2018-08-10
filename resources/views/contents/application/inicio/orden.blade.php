@@ -500,7 +500,46 @@
             </div>
         </div>
     </div>
-
+    <div class="modal  fade" id="mdl-validar-limite-venta" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content animated bounceInRight">
+          
+                <div class="modal-header">
+                    <h2 class="modal-title">¡ Llegaste al límite !</h2>
+                </div>
+                <div class="modal-body">
+    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="progress m-t-10">
+                                <div class="progress-bar bg-danger" style="width: 100%; height:6px;" role="progressbar"> <span class="sr-only">100% Alcanzado</span> </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p >
+                                Haz alcanzado tu límite de ventas mensuales del plan <b>free</b>.  Espera
+                                hasta el xx/xx/xx o <b>incrementa tu plan !</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row m-t-20">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <button onclick="window.location.replace('/inicio')" type="button"  class="btn btn-danger ">Esperar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success ">Elegir plan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+         
+            </div>
+        </div>
+    </div>
     <script id="pedido-detalle-template" type="text/x-jsrender" src="">
 
     <li class="list-group-item" style="background: #666666;color: #ffffff; border-radius: 0px; border: 0px; border-top: 1px solid #e7eaec;">
