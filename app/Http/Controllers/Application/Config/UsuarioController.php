@@ -141,7 +141,7 @@ class UsuarioController extends Controller
         $id_rol = $post['id_rol'];
         $pin = $post['pin'];
         $plan_id = '1';
-        $nombre_empresa = $post['nombre_empresa'];
+        $nombre_empresa = $name_business;
         $cod_area = $post['cod_area'];
         if($cod_area == null ){
             $cod_area = 0;

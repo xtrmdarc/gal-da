@@ -26,6 +26,8 @@ class TableroFController extends Controller
         //Total en $$ del dia.
         $total_dinero_venta_g = TmVentum::where('fecha_venta','>=',$fechai)
                           ->where('fecha_venta','<=',$fecha)
+                          ->where('tm_pedido.id_sucursal','=',session('id_sucursal'))
+                          ->leftjoin('tm_pedido', 'tm_pedido.id_pedido', '=', 'tm_venta.id_pedido')
                           ->select(DB::raw('SUM(total) as totalVenta'))
                           ->first();
 
@@ -39,9 +41,10 @@ class TableroFController extends Controller
 
         $total_n_venta_g = TmVentum::where('fecha_venta','>=',$fechai)
             ->where('fecha_venta','<=',$fecha)
+            ->where('tm_pedido.id_sucursal','=',session('id_sucursal'))
+            ->leftjoin('tm_pedido', 'tm_pedido.id_pedido', '=', 'tm_venta.id_pedido')
             ->select(DB::raw('COUNT(id_venta) as nVentas'))
             ->first();
-
         $t_n_venta = $total_n_venta_g->nVentas;
 
         if($t_n_venta == null){
@@ -53,7 +56,9 @@ class TableroFController extends Controller
         $total_n_clientes = DB::table('tm_venta')
             ->where('fecha_venta','>=',$fechai)
             ->where('fecha_venta','<=',$fecha)
+            ->where('tm_pedido.id_sucursal','=',session('id_sucursal'))
             ->leftjoin('tm_cliente', 'tm_venta.id_cliente', '=', 'tm_cliente.id_cliente')
+            ->leftjoin('tm_pedido', 'tm_pedido.id_pedido', '=', 'tm_venta.id_pedido')
             ->select(DB::raw('COUNT(distinct tm_cliente.id_cliente) as NClientes'))
             ->first();
 
@@ -102,148 +107,172 @@ class TableroFController extends Controller
 
         $queryTotal = DB::Select("SELECT COUNT(distinct id_ven) as NVentas,SUM(total) as Total
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas2,SUM(total) as Total2
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas3,SUM(total) as Total3
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas4,SUM(total) as Total4
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas5,SUM(total) as Total5
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas6,SUM(total) as Total6
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas7,SUM(total) as Total7
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas8,SUM(total) as Total8
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas9,SUM(total) as Total9
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas10,SUM(total) as Total10
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas11,SUM(total) as Total11
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas12,SUM(total) as Total12
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas13,SUM(total) as Total13
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas14,SUM(total) as Total14
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas15,SUM(total) as Total15
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas16,SUM(total) as Total16
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas17,SUM(total) as Total17
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas18,SUM(total) as Total18
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas19,SUM(total) as Total19
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas20,SUM(total) as Total20
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas21,SUM(total) as Total21
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas22,SUM(total) as Total22
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas23,SUM(total) as Total23
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               union ALL
                               SELECT COUNT(distinct id_ven) as NVentas2359,SUM(total) as Total2359
                               FROM db_rest.v_ventas_con
-                              where fec_ven >= ? and fec_ven <= ?
+                              where fec_ven >= ? and fec_ven <= ? and id_sucursal = ?
                               ",array(
             $fecha_s12a,
             $fecha_s1,
+            session('id_sucursal'),
             $fecha_s1,
             $fecha_s2,
+            session('id_sucursal'),
             $fecha_s2,
             $fecha_s3,
+            session('id_sucursal'),
             $fecha_s3,
             $fecha_s4,
+            session('id_sucursal'),
             $fecha_s4,
             $fecha_s5,
+            session('id_sucursal'),
             $fecha_s5,
             $fecha_s6,
+            session('id_sucursal'),
             $fecha_s6,
             $fecha_s7,
+            session('id_sucursal'),
             $fecha_s7,
             $fecha_s8,
+            session('id_sucursal'),
             $fecha_s8,
             $fecha_s9,
+            session('id_sucursal'),
             $fecha_s9,
             $fecha_s10,
+            session('id_sucursal'),
             $fecha_s10,
             $fecha_s11,
+            session('id_sucursal'),
             $fecha_s11,
             $fecha_s12p,
+            session('id_sucursal'),
             $fecha_s12p,
             $fecha_s13,
+            session('id_sucursal'),
             $fecha_s13,
             $fecha_s14,
+            session('id_sucursal'),
             $fecha_s14,
             $fecha_s15,
+            session('id_sucursal'),
             $fecha_s15,
             $fecha_s16,
+            session('id_sucursal'),
             $fecha_s16,
             $fecha_s17,
+            session('id_sucursal'),
             $fecha_s17,
             $fecha_s18,
+            session('id_sucursal'),
             $fecha_s18,
             $fecha_s19,
+            session('id_sucursal'),
             $fecha_s19,
             $fecha_s20,
+            session('id_sucursal'),
             $fecha_s20,
             $fecha_s21,
+            session('id_sucursal'),
             $fecha_s21,
             $fecha_s22,
+            session('id_sucursal'),
             $fecha_s22,
             $fecha_s23,
+            session('id_sucursal'),
             $fecha_s23,
-            $fecha_s2359));
+            $fecha_s2359,
+            session('id_sucursal')));
 
         $data = array("data" => $queryTotal);
         //$data = array("data" => [$query1,$query2,$query3,$query4]);
