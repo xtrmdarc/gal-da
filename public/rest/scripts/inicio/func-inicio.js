@@ -609,8 +609,9 @@ var refresh = function(){
 };
 
 $('#btn_escoger_apertura').on('click',function(){
+  
     
-    if($('#cb_apc_escoger').legnth <= 0) return ;
+    if($('#cb_apc_escoger option').length <= 0) return ;
 
     $('#mdl-validar-apertura').modal('hide');
     

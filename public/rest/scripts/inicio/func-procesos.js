@@ -809,7 +809,7 @@ $("#frm-facturar").submit(function(){
             data: venta,
             success: function (r) {
                 console.log(r);
-                if(typeof(r.tipo) != undefined ){console.log('entro hasta aqui tipo');$('#mdl-validar-limite-venta').modal('show'); return;}
+                if(r.tipo != undefined ){console.log('entro hasta aqui tipo '+ r.tipo);$('#mdl-validar-limite-venta').modal('show'); return;}
                 else {
                     if(1 == $('#tipoEmision').val()){
                         console.log('entro hasta aqui');

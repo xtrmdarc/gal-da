@@ -153,7 +153,7 @@ class InicioController extends Controller
             return $valor;
         } catch (Exception $e) {
             return false;   
-        }
+        }   
     }
 
     function ValidarLimiteVenta(){
@@ -161,7 +161,7 @@ class InicioController extends Controller
         {
             $response = new \stdClass();
             $nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
-            if($nventas >= 15) {
+            if($nventas >= 21) {
                 $response->tipo =0;
                 return json_encode($response);
             }
