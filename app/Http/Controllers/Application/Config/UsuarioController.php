@@ -10,6 +10,9 @@ use App\Models\TmUsuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Mail\SubUsuarioCreado;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class UsuarioController extends Controller
 {
@@ -133,22 +136,20 @@ class UsuarioController extends Controller
         $flag = 1;
         $id_usu = $post['id_usu'];
         $imagen = $post['imagen'];
-        $dni = $post['dni'];
-        $nombres = $post['nombres'];
-        $ape_paterno = $post['ape_paterno'];
-        $ape_materno = $post['ape_materno'];
-        $email = $post['email'];
+        $dni = isset($post['dni'])?$post['dni']:0;
+        $nombres = isset($post['nombres'])?$post['nombres']:"";
+        $ape_paterno = isset($post['ape_paterno'])?$post['ape_paterno']:"";
+        $ape_materno = isset($post['ape_materno'])?$post['ape_materno']:"";
+        $email = isset($post['email'])?$post['email']:"";
         $id_rol = $post['id_rol'];
-        $pin = $post['pin'];
+        $pin = isset($post['pin'])?isset($post['pin']):0;
         $plan_id = '1';
         $nombre_empresa = $name_business;
-        $cod_area = $post['cod_area'];
+        $cod_area = isset($post['cod_area'])?$post['cod_area']:"";
         if($cod_area == null ){
             $cod_area = 0;
         }
-        if($pin == null ){
-            $pin = 0;
-        }
+      
         $usuario = $post['usuario'];
         $contrasena = $post['contrasena'];
         $contrasena_g = bcrypt($post['contrasena']);
@@ -179,26 +180,34 @@ class UsuarioController extends Controller
 
             $user = TmUsuario::create([
                 'id_areap' => $cod_area,
-                'id_rol' => $post['id_rol'],
-                'dni' => $post['dni'],
+                'id_rol' => $id_rol,
+                'dni' => $dni,
                 'parent_id' => $parentId,
                 'estado' => 'a',
                 'name_business' => $name_business,
-                'nombres' => $post['nombres'],
-                'ape_paterno' => $post['ape_paterno'],
-                'ape_materno' => $post['ape_materno'],
-                'email' => $post['email'],
+                'nombres' => $nombres,
+                'ape_paterno' => $ape_paterno,
+                'ape_materno' => $ape_materno,
+                'email' => $email,
                 'plan_id' => $planId_admin,
-                'password' => bcrypt($post['contrasena']),
+                'password' => bcrypt($contrasena),
                 'usuario' => $usuario.'@'.$nombre_empresa,
-                'verifyToken' => null,
+                'verifyToken' => ($id_rol==5)?null: Str::random(40),
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
                 'pin' => $pin
             ]);
 
             if($user) {
-                $update_user =  TmUsuario::where(['email' => $email])->update(['status' => '1']);
+                
+                
+                
+                if($user->id_rol==5) {
+                    TmUsuario::find($user->id_usu)->update(['status'=>1]);
+                }
+                else{
+                    Mail::to($user->email)->send(new SubUsuarioCreado($user));
+                }
                 return redirect()->route('config.Usuarios');
             }
         }

@@ -117,6 +117,7 @@ class Aper_CajaController extends Controller
     
                if ($row->dup == 1){
                     session(['apertura'=> 0]);
+                    session(['id_apc'=> 0]);
                     //header('Location: lista_caja_aper.php?m=c');
                     header('Location: /caja/aper');
                } else {
@@ -161,7 +162,7 @@ class Aper_CajaController extends Controller
                             session(['apertura'=> 1]);
                         }
                     }*/
-                    if(\Auth::user()->id_usu == $data['id_usu']) session(['apertura'=> 1]);
+                    if(\Auth::user()->id_usu == $data['id_usu'] || \Auth::user()->id_rol == 1 ) session(['apertura'=> 1]);
                     //$_SESSION["id_apc"] = $row['cod'];
                     session(['id_apc'=>$row->cod]);
                     //header('Location: lista_caja_aper.php?m=n');

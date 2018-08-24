@@ -159,9 +159,9 @@ class AreaProdController extends Controller
         //dd($data);
         //mozo
         //estados
-        $estados;
+        
         //$estado = $data['estados'];
-        $pedidos = $this->GetPedidosLista($data['id_sucursal'],$data['id_areap'],$data['estados']);
+        $pedidos = $this->GetPedidosLista($data['id_sucursal'],$data['id_areap'],isset($data['estados'])?$data['estados']:null );
         //Tipo de pedido
         //H-inicio
         //H-fin

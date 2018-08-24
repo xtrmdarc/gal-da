@@ -13,14 +13,14 @@ Route::prefix('caja')->group(function(){
     Route::prefix('egr')->group(function(){
 
         Route::get('/','Application\Caja\Egr_CajaController@index')->name('egrcaja');
-        Route::get('Guardar','Application\Caja\Egr_CajaController@Guardar');
+        Route::post('Guardar','Application\Caja\Egr_CajaController@Guardar');
         Route::post('Estado','Application\Caja\Egr_CajaController@Estado');
         
     });
     Route::prefix('ing')->group(function(){
 
         Route::get('/','Application\Caja\Ing_CajaController@index')->name('ingcaja');
-        Route::get('Guardar','Application\Caja\Ing_CajaController@Guardar');      
+        Route::post('Guardar','Application\Caja\Ing_CajaController@Guardar');      
         Route::post('Estado','Application\Caja\Ing_CajaController@Estado');
         
     });

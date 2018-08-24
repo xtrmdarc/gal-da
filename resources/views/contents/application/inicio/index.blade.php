@@ -221,7 +221,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Nombre Cliente</label>
-                            <input type="text" name="nomb_cliente" class="form-control" value="PUBLICO EN GENERAL" placeholder="Ingrese nombre cliente" autocomplete="off" required="required"/>
+                            <input type="text" name="nomb_cliente" class="form-control" value="PUBLICO EN GENERAL" placeholder="PUBLICO EN GENERAL" autocomplete="off" required="required"/>
                         </div>
                     </div>  
                     <?php if(session('rol_usr') <> 4) { ?>
@@ -530,7 +530,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="text-left">
-                            <a href="/tablero" class="btn btn-default">Volver</a>
+                            <a href={{session('home')}} class="btn btn-default">Volver</a>
                         </div>
                     </div>
                     <div class="col-xs-9">

@@ -1,5 +1,6 @@
 $(function() {
-    comboAreaProd();
+    //comboAreaProd();
+    HandleRolSelection();
     $('#frm-usuario').formValidation({
         framework: 'bootstrap',
         fields: {
@@ -31,17 +32,21 @@ var comboAreaProd = function(){
     if($("#id_rol").selectpicker('val') == 4){
         
         $('#pin_div').css('display','block');
+        $('input[name="pin"]').prop('disabled', false);
         
     }
     else{
         $('#pin_div').css('display','none');
+        $('input[name="pin"]').prop('disabled', true);
         
     }
 
     if($("#id_rol").selectpicker('val') == 3){
         $('#area-p').css('display','block');
+        $('input[name="cod_area"]').prop('disabled', false);
     }else{
         $('#area-p').css('display','none');
+        $('input[name="cod_area"]').prop('disabled', true);
     }
     
     if( $("#id_rol").selectpicker('val') == 5){
@@ -54,6 +59,16 @@ var comboAreaProd = function(){
         $('#apm_div').css('display','none');
 
         $('#email_div').css('display','none');
+
+        $('input[name="dni"]').prop('disabled', true);
+        
+        $('input[name="nombres"]').prop('disabled', true);
+        
+        $('input[name="ape_paterno"]').prop('disabled', true);
+
+        $('input[name="ape_materno"]').prop('disabled', true);
+
+        $('input[name="email"]').prop('disabled', true);
     }
     else{
         $('#dni_div').css('display','block');
@@ -65,7 +80,18 @@ var comboAreaProd = function(){
         $('#apm_div').css('display','block');
 
         $('#email_div').css('display','block');
+
+        $('input[name="dni"]').prop('disabled', false);
+        
+        $('input[name="nombres"]').prop('disabled', false);
+        
+        $('input[name="ape_paterno"]').prop('disabled', false);
+
+        $('input[name="ape_materno"]').prop('disabled', false);
+
+        $('input[name="email"]').prop('disabled', false);
     }
+
 }
 
 /* Combinacion del combo rol - area produccion */
@@ -80,9 +106,11 @@ function HandleRolSelection(){
         
         $('#pin_div').css('display','block');
         $('#frm-usuario').formValidation('revalidateField', 'area-p');
+        $('input[name="pin"]').prop('disabled', false);
     }
     else{
         $('#pin_div').css('display','none');
+        $('input[name="pin"]').prop('disabled', true);
         
     }
 
@@ -90,12 +118,14 @@ function HandleRolSelection(){
         
         $('#area-p').css('display','block');
         $('#frm-usuario').formValidation('revalidateField', 'area-p');
+        $('input[name="cod_area"]').prop('disabled', false);
 
     }
     else{
         
         $('#area-p').css('display','none');
         $("#cod_area").val('').selectpicker('refresh');
+        $('input[name="cod_area"]').prop('disabled', true);
     }
 
     if( $("#id_rol").selectpicker('val') == 5){
@@ -110,6 +140,16 @@ function HandleRolSelection(){
         $('#email_div').css('display','none');
 
         $('#pin_div').css('display','none');
+
+        $('input[name="dni"]').prop('disabled', true);
+        
+        $('input[name="nombres"]').prop('disabled', true);
+        
+        $('input[name="ape_paterno"]').prop('disabled', true);
+
+        $('input[name="ape_materno"]').prop('disabled', true);
+
+        $('input[name="email"]').prop('disabled', true);
     }
     else{
         
@@ -128,6 +168,16 @@ function HandleRolSelection(){
 
         $('#email_div').css('display','block');
         $('#frm-usuario').formValidation('revalidateField', 'area-p');
+        
+        $('input[name="dni"]').prop('disabled', false);
+        
+        $('input[name="nombres"]').prop('disabled', false);
+        
+        $('input[name="ape_paterno"]').prop('disabled', false);
+
+        $('input[name="ape_materno"]').prop('disabled', false);
+
+        $('input[name="email"]').prop('disabled', false);
       
        
     }

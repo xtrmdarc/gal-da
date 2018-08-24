@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
+use App\Models\TmUsuarioDelivery;
 
 class ClienteController extends Controller
 {
@@ -61,16 +62,19 @@ class ClienteController extends Controller
     public function RUCliente(Request $request){
 
         try{
+            
             $idUsu = \Auth::user()->id_usu;
             $idRol = \Auth::user()->id_rol;
-
+            
             $idEmpresa = \Auth::user()->id_empresa;
 
             $data = $request->all();
             $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
 
             if($data['id_cliente'] != ''){
+                
                 //$this->model->Actualizar($alm);
+                
                 $arrayParam =  array(
                     'dni' => $data['dni'],
                     'ruc' => $data['ruc'],
@@ -203,6 +207,11 @@ class ClienteController extends Controller
         try 
 		{
             $data = $request->all();
+            
+            if(DB::table('tm_pedido_delivery')
+                ->join('tm_pedido','tm_pedido.id_pedido','tm_pedido_delivery.id_pedido')
+                ->where('tm_pedido_delivery.id_cliente',$data['cod_cliente_e'])->exists()) return json_encode(0);
+            
             $cod_cliente_e = $data['cod_cliente_e'];
             $result = DB::select("SELECT count(*) AS total FROM tm_venta WHERE id_cliente = ?",[$cod_cliente_e])[0];
             //$result = $this->conexionn->prepare($consulta);
@@ -215,10 +224,10 @@ class ClienteController extends Controller
                 TmCliente::where('id_cliente',$cod_cliente_e)->delete();
 
                 //header('Location: lista_tm_clientes.php');
-                header('Location: /cliente');
+                return json_encode(1);
 
             }else{
-                    header('Location: lista_tm_clientes.php?m=e');
+                return json_encode(2);
             }
             /*$result->closeCursor();
             $this->conexionn=null;*/

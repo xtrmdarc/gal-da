@@ -43,9 +43,9 @@
                         <td>{{$r->direccion}}</td>
                         <td style="text-align: center">
                         @if($r->estado == 'a')
-                                <a onclick="{{'estadoCliente('.$r->id_cliente.');'}}"><span class="label label-primary">ACTIVO</span></a>
+                                <a onclick="{{'estadoCliente('.$r->id_cliente.',\'a\');'}}"><span class="label label-primary">ACTIVO</span></a>
                         @elseif($r->estado == 'i')
-                                <a onclick="{{'estadoCliente('.$r->id_cliente.');'}}"><span class="label label-danger">INACTIVO</span></a>
+                                <a onclick="{{'estadoCliente('.$r->id_cliente.',\'i\');'}}"><span class="label label-danger">INACTIVO</span></a>
                         @endif
                         </td>
                         <td style="text-align: right">
@@ -109,7 +109,35 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Aceptar</button>
+                <button type="submit" class="btn btn-primary" ><i class="fa fa-check-square-o"></i> Aceptar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="mdl-validar-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content animated bounceInRight">
+      
+            <div class="modal-header mh-p">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h2>!El cliente está en uso!</h2>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p >
+                            Puede que el cliente aún tenga<b> pedidos abiertos</b> o en <b>progreso</b>  
+                            Espera a que cierren sus pedidos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-check-square-o"></i> Aceptar</button>
             </div>
         </form>
         </div>

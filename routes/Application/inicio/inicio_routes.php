@@ -32,6 +32,7 @@ Route::prefix('/inicio')->group(function(){
     Route::post('EscogerApc','Application\Inicio\InicioController@EscogerApc');
     Route::post('DetalleMostrador','Application\Inicio\InicioController@DetalleMostrador');
     Route::post('DetalleDelivery','Application\Inicio\InicioController@DetalleDelivery');
+    Route::post('NuevoCliente','Application\Inicio\InicioController@NuevoCliente');
 
     
     Route::post('ListarDelivery','Application\Inicio\InicioController@ListarDelivery');

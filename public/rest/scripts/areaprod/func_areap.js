@@ -674,7 +674,9 @@ var BuscarPedidosLista = function (){
 	});
 	
 	datos['estados'] = estados;
-
+	datos['id_sucursal'] = id_sucursal;
+	datos['id_areap'] = id_areap;
+	console.log(datos);
 	$.ajax({
 		type: 'POST',
 		url: '/cocina/FiltroListaPedido',

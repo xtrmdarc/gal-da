@@ -330,4 +330,34 @@ class AuthController extends Controller
         }
 
     }
+
+    public function verificarTokenSubUsuario($email,$verifyToken)
+    {   
+        $user = TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
+
+        if($user) {
+            return ('diseño aqui pero backend está');
+            return view('auth.verificar_mail.verificar_sub_usuario')->with(['user' => $user]);
+
+        }else {
+            dd('Usuario no existe');
+        }
+    }
+
+    public function activarSubUsuario(Request $request)
+    {       
+        $data = $request->all();
+        
+        $usuario_update =  TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])
+                                    ->update(['status' => '1','verifyToken' => NULL,'password' => Hash::make($data['password'])]);
+
+        if($usuario_update == 1) 
+        {
+            return ('DISEÑO PAPU');
+        }   
+        else    {
+            return null;
+        }
+
+    }
 }

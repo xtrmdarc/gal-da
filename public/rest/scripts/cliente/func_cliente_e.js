@@ -28,7 +28,8 @@ $(function() {
     /* Consultar dni del nuevo cliente */
     $("#frm-consulta-dni").submit(function(event) {
         event.preventDefault();
-        $.getJSON("http://py-devs.com/api/dni/" + $("#dni_numero").val(), {
+        
+        $.getJSON("https://py-devs.com/api/dni/" + $("#dni_numero").val(), {
                 format: "json"
             })
             .done(function(data) {
@@ -42,7 +43,7 @@ $(function() {
     /* Consultar ruc del nuevo cliente */
     $("#frm-consulta-ruc").submit(function(event) {
         event.preventDefault();
-        $.getJSON("http://py-devs.com/api/ruc/" + $("#ruc_numero").val(), {
+        $.getJSON("https://py-devs.com/api/ruc/" + $("#ruc_numero").val(), {
                 format: "json"
             })
             .done(function(data) {
@@ -52,6 +53,9 @@ $(function() {
                 $("#direccion").val(data.domicilio_fiscal);
             });
     });
+    
+    
+   
 });
 
 $(".let input").keypress(function(event) {

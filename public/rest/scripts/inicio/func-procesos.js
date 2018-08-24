@@ -1,3 +1,5 @@
+
+
 $(function() {
     DatosGrles();
     listarPedidos();
@@ -177,8 +179,11 @@ var listarCategorias = function(){
 }
 
 var listarProductos = function(cod){
+    
     var moneda = $("#moneda").val();
     $('#list-prods').empty();
+    
+    
     $.ajax({
         dataType: 'JSON',
         type: 'POST',
@@ -189,6 +194,8 @@ var listarProductos = function(cod){
         url: '/inicio/ListarProductos',
         data: {cod: cod},
         success: function (data) {
+            $('#list-prods').empty();
+
             $.each(data, function(i, item) {
                 $('#list-prods')
                     .append(
@@ -209,8 +216,12 @@ var listarProductos = function(cod){
                     )
                 );
             });
+            
         }
     });
+    
+    
+
 };
 
 var add = function(id,nomb,pre){

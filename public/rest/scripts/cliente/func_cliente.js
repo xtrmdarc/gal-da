@@ -34,13 +34,43 @@ $(function() {
         var fv = $form.data('formValidation');
         fv.defaultSubmit();
     });
+        
+    $('#frm-eliminar-cliente').submit(function(e){
+        e.preventDefault();
+        var $form = $(e.target);
 
+        $.ajax({
+            data: $form.serialize(),
+            url:   $form.attr('action'),
+            type:  'POST',
+            dataType: 'json',
+            dataSrc:"",
+            headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            success: function(data) {
+                if (data == 0) {
+                    $('#mdl-validar-cliente').modal('show');
+                }
+                else if(data==2){
+                    alert('implementar con toast cliente ya ha realizado una venta');
+                }
+                else{
+                    window.location.replace('/cliente');
+                }
+            }
+        });
+    });
+       
 });
 
 /* Estado del cliente Activo - Inactivo */
-var estadoCliente = function(cod_cliente){
+var estadoCliente = function(cod_cliente,estado_cliente){
     $('#cod_cliente').val(cod_cliente);
+    $('#mdl-estado-cliente #estado_cliente').val(estado_cliente);
+    $('#estado_cliente').selectpicker('refresh');
     $("#mdl-estado-cliente").modal('show');
+    
 }
 
  /* Modal estado del cliente */

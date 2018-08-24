@@ -22,23 +22,7 @@ class AppController extends Controller
 
     public static function LoginAuthenticated(Request $request, $user){
 
-        session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
-        session(['id_usu'=>\Auth::user()->id_usu]);
-
-        $moneda = DB::select('SELECT moneda FROM db_rest.empresa where id = ?'
-            ,array(\Auth::user()->id_empresa));
-        foreach($moneda as $r) {
-            $mon = $r->moneda;
-        }
-
-        $igv = DB::select('SELECT igv FROM db_rest.empresa where id = ?'
-            ,array(\Auth::user()->id_empresa));
-        foreach($igv as $r) {
-            $igv_empresa = $r->igv;
-        }
-
-        session(['moneda_session'=>$mon]);
-        session(['igv_session'=>$igv_empresa]);
+        self::IniciarApp();
 
         switch($user->id_rol)
         {
@@ -47,10 +31,12 @@ class AppController extends Controller
                 
                 if($user->plan_id != 1){
                     self::$home = "/tablero";
+                    session(['home'=>'/tablero']);
                     //dd($home);
                 } else {
                     if($user->plan_id == 1) {
                         self::$home = "/tableroF";
+                        session(['home'=>'/tableroF']);
                         //dd($home);
                     }
                 }
@@ -91,6 +77,55 @@ class AppController extends Controller
         return redirect(self::$home);
         
     }
+
+    private static function IniciarApp(){
+        
+        session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
+        session(['id_usu'=>\Auth::user()->id_usu]);
+
+        $moneda = DB::select('SELECT moneda FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($moneda as $r) {
+            $mon = $r->moneda;
+        }
+
+        $igv = DB::select('SELECT igv FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($igv as $r) {
+            $igv_empresa = $r->igv;
+        }
+        
+        session(['moneda_session'=>$mon]);
+        session(['moneda'=>$mon]);
+        session(['igv_session'=>$igv_empresa]);
+
+        if(\Auth::user()->id_rol = 1)  {
+            
+            $queryCajasAdmin = DB::table('tm_aper_cierre')
+                ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
+                ->where('tm_caja.id_sucursal',session('id_sucursal'))
+                ->WhereNull('tm_aper_cierre.fecha_cierre');
+            
+            if($queryCajasAdmin->exists())
+            {
+                $apertura = 1;
+                session(['apertura'=>1]);
+            }
+        }
+        else{
+            $queryCajasCajero = DB::table('tm_aper_cierre')
+                ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
+                ->Join('tm_usuario','tm_usuario.id_usu','=','tm_aper_cierre.id_usu')
+                ->where('tm_usuario.id_usu',\Auth::user()->id_usu)
+                ->WhereNull('tm_aper_cierre.fecha_cierre');
+            if($queryCajasCajero->exists())
+            {
+                $apertura = 1;
+                session(['apertura'=>1]);
+            }
+        }
+    }
+
     public static function ValidarPermisos($roles){
         
         $rol = \Auth::user()->id_rol;
@@ -108,6 +143,7 @@ class AppController extends Controller
         return false;
 
     }
+
     public static function RedirectSegunRol($roles){
         
         if( self::ValidarPermisos($roles) == true){

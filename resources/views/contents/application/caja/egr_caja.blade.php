@@ -76,13 +76,24 @@
 <div class="modal inmodal fade" id="mdl-nuevo-gasto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-nuevo-gasto" method="post" enctype="multipart/form-data" action="?c=ECaja&a=Guardar">
+        <form id="frm-nuevo-gasto" method="post" enctype="multipart/form-data" action="egr/Guardar">
+            @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title">Egreso Administrativo</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label">Caja</label>
+                            <select name="cb_caja" id="cb_caja" class="form-control selectpicker">
+                                @foreach ($cajas as $caja)
+                                <option value="{{$caja->id_apc}}" >{{$caja->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div style="text-align: left;">
                             <div class="row">
@@ -221,7 +232,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="text-left">
-                            <a href="/tablero" class="btn btn-default">Volver</a>
+                            <a href="{{session('home')}}" class="btn btn-default">Volver</a>
                         </div>
                     </div>
                     <div class="col-xs-9">

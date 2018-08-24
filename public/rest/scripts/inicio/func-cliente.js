@@ -103,8 +103,12 @@ $('#RegistrarCliente').on('click', function(){
 						correo:correo,
 						razon_social:razon_social,
 						direccion:direccion
-				},
-				url: '?c=Inicio&a=NuevoCliente',
+                },
+                dataSrc:'',   
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+				url: '/inicio/NuevoCliente',
 				success: function(datos){
 					if(datos == 1){
 						toastr.warning('Advertencia, Datos duplicados.');
@@ -113,9 +117,11 @@ $('#RegistrarCliente').on('click', function(){
 						$('#mdl-facturar').modal('show');
 						var tipoCliente = $('input:radio[name=tipo_docc]:checked').val();
 						if( tipoCliente == 1){
-							$('#cliente').val(dni);
+                            $('#cliente_id').val(dni);
+                            $("#nombre_c").val(nombres);
 						} else{
-							$('#cliente').val(ruc);
+                            $('#cliente_id').val(ruc);
+                            $("#nombre_c").val(razon_social);
 						}
                         toastr.success('Datos registrados, correctamente.');
 					}

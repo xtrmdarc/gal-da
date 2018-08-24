@@ -20,9 +20,45 @@ $(function() {
                         message: 'Dato obligatorio'
                     }
                 }
+            },
+            cod_mozo:{
+                validators:{
+                    notEmpty:{
+                        message:'Dato obligatorio'
+                    }
+                }
             }
         }
-    })
+    }).on('success.form.fv', function(e) {
+        // Prevent form submission
+        console.log('entro a validarse');
+        e.preventDefault();
+        var $form = $(e.target);
+        
+        var fv = $form.data('formValidation');
+        $.ajax({
+            dataType: 'JSON',
+            type: 'POST',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response){
+                switch(response.tipo)
+                {
+                    case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    
+                }
+                    
+                
+            }
+        });
+        return false;
+    });
 
     $('#frm-mostrador').formValidation({
     framework: 'bootstrap',
@@ -36,7 +72,36 @@ $(function() {
                 }
             }
         }
-    })
+    }).on('success.form.fv', function(e) {
+        // Prevent form submission
+        console.log('entro a validarse');
+        e.preventDefault();
+        var $form = $(e.target);
+        
+        var fv = $form.data('formValidation');
+        $.ajax({
+            dataType: 'JSON',
+            type: 'POST',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response){
+                switch(response.tipo)
+                {
+                    case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    
+                }
+                    
+                
+            }
+        });
+        return false;
+    });
 
     $('#frm-delivery').formValidation({
     framework: 'bootstrap',
@@ -44,6 +109,37 @@ $(function() {
         fields: {
         }
     })
+    .on('success.form.fv', function(e) {
+        // Prevent form submission
+        console.log('entro a validarse');
+        e.preventDefault();
+        var $form = $(e.target);
+        
+        var fv = $form.data('formValidation');
+        $.ajax({
+            dataType: 'JSON',
+            type: 'POST',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response){
+                switch(response.tipo)
+                {
+                    case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    
+                }
+                    
+                
+            }
+        });
+        return false;
+    });
+
 
     $('#frm-cambiar-mesa').formValidation({
     framework: 'bootstrap',
@@ -54,9 +150,12 @@ $(function() {
 
     .on('success.form.fv', function(e) {
         // Prevent form submission
+        console.log('entro a validarse');
         e.preventDefault();
         var $form = $(e.target);
+        
         var fv = $form.data('formValidation');
+        
         fv.defaultSubmit();
     });
 
@@ -639,32 +738,4 @@ $('#btn_escoger_apertura').on('click',function(){
     });
     
 
-});
-
-$('.pedido_form').submit(function(e){
-    e.preventDefault();
-    var form = $(e.target);
-
-    $.ajax({
-        dataType: 'JSON',
-        type: 'POST',
-        url: form.attr('action'),
-        data: form.serialize(),
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response){
-            switch(response.tipo)
-            {
-                case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
-                case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
-                case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
-                case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
-                
-            }
-                
-            
-        }
-    });
-    
 });

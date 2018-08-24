@@ -53,7 +53,7 @@
                                     @elseif($r->estado == 'i')
                                         <span class="label label-danger">ANULADO</span>
                                     @endif
-                                ?>
+                                
                             </td>
                             <td style="text-align: center">
                                 <button type="button" class="btn btn-danger btn-xs" onclick="anularIngreso({{$r->id_ing}});"><i class="fa fa-ban"></i> Anular</button>
@@ -70,13 +70,24 @@
 <div class="modal inmodal fade" id="mdl-nuevo-ing" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-nuevo-ing" method="post" enctype="multipart/form-data" action="Guardar">
+        <form id="frm-nuevo-ing" method="post" enctype="multipart/form-data" action="ing/Guardar">
+            @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title">Ingreso Administrativo</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label">Caja</label>
+                            <select name="cb_caja" id="cb_caja" class="form-control selectpicker">
+                                @foreach ($cajas as $caja)
+                                <option value="{{$caja->id_apc}}" >{{$caja->descripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Importe</label>
@@ -86,12 +97,14 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">Motivo</label>
                             <textarea name="motivo" id="motivo" class="form-control" rows="5" placeholder="Ingrese motivo"></textarea>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="modal-footer">
@@ -106,14 +119,15 @@
 <div class="modal inmodal fade" id="mdl-anular-ing" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-anular-ing" method="post" enctype="multipart/form-data" action="?c=ICaja&a=Estado">
+        <form id="frm-anular-ing" method="post" enctype="multipart/form-data" action="ing/Estado">
+        @csrf
         <input type="hidden" name="cod_ing" id="cod_ing">
             <div class="modal-header mh-p">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <i class="fa fa-ban modal-icon"></i>
             </div>
             <div class="modal-body">
-                <center><h4>¿Desea anular este Egreso?</h4></center>
+                <center><h4>¿Desea anular este Ingreso?</h4></center>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
@@ -140,7 +154,7 @@
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="text-left">
-                            <a href="/tablero" class="btn btn-default">Volver</a>
+                            <a href="{{session('home')}}" class="btn btn-default">Volver</a>
                         </div>
                     </div>
                     <div class="col-xs-9">
