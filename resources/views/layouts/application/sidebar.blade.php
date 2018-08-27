@@ -55,6 +55,8 @@
                             </li>
                         @endif
                         <li class="nav-devider"></li>
+                    <li class="nav-devider"></li>
+                    <li><a href="/upgrade"> <i class="fa fa-upgrade"></i><span class="hide-menu">UPGRADE</span></a></li>
 
                     @else
                     {{--/*PLAN LITE*/--}}

@@ -92,8 +92,8 @@ var listarMesas = function(cod_sal,desc_sal){
 var editarSalon = function(cod,est,id_sucursal,nomb){
   $('#cod_sala').val(cod);
   $('#desc_sala').val(nomb);
-  $('#id_sucursal').val(id_sucursal);
-  $('#est_salon').selectpicker('val', est);    
+  $('#id_sucursal').selectpicker('val', id_sucursal);
+  $('#est_salon').selectpicker('val', est);
   $("#mdl-salon").modal('show');
 }
 
@@ -289,11 +289,15 @@ $(function() {
           emesa.est_mesa = $('#est_mesa').val();
 
           $.ajax({
-              dataType: 'JSON',
+              dataType: 'html',
               type: 'POST',
               url: form.attr('action'),
               data: emesa,
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
               success: function (datos) {
+                  console.log(datos);
                   toastr.success('Datos modificados, correctamente.');
                   $('#mdl-estado-mesa').modal('hide');
                   listarSalones();

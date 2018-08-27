@@ -198,8 +198,21 @@ class MesaController extends Controller
         }
     }
 
-    public function EstadoM()
+    public function EstadoM(Request $request)
     {
-        //NO LO UTILIZAN :v
+        $post = $request->all();
+        $estado = $post['est_mesa'];
+        $idMesa = $post['codi_mesa'];
+        $idSucursal = session('id_sucursal');
+
+        try
+        {
+            $sql =  DB::update("UPDATE tm_mesa SET estado = ? WHERE id_mesa = ? and id_sucursal = ?",
+                [$estado,$idMesa,$idSucursal]);
+
+        } catch (Exception $e)
+        {
+            dd("Error");
+        }
     }
 }

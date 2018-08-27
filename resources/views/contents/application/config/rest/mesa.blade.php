@@ -210,7 +210,8 @@
 <div class="modal inmodal fade" id="mdl-estado-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-estado-mesa" method="post" enctype="multipart/form-data" action="?c=Config&a=EstadoM">
+            <form id="frm-estado-mesa" method="post" enctype="multipart/form-data" action="/ajustesEstadoM">
+                @csrf
                 <input type="hidden" name="codi_mesa" id="codi_mesa">
                 <div class="modal-header mh-e">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

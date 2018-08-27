@@ -66,13 +66,13 @@ class AlmacenController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
         $cod = $post['cod_alm'];
+        $idSucursal = session('id_sucursal');
         if($cod != ''){
             //Update
             $flag = 2;
             $nombre = $post['nomb_alm'];
             $estado = $post['estado_alm'];
             $idAlmacen = $post['cod_alm'];
-            $idSucursal = $post['id_sucursal'];
 
             $consulta_update = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, :idAlm, :idUsu, :_idSucursal)',
                 array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idAlm' =>$idAlmacen,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
@@ -86,7 +86,6 @@ class AlmacenController extends Controller
             $flag = 1;
             $nombre = $post['nomb_alm'];
             $estado = $post['estado_alm'];
-            $idSucursal = $post['id_sucursal'];
 
             $consulta_create = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)',
                 array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));

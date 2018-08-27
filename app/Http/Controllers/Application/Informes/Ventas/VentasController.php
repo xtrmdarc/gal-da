@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 class VentasController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('afterRegister');
+    }
     public function index()
     {
         $viewdata = [];
@@ -47,6 +52,7 @@ class VentasController extends Controller
         {
             $stm[$k]->Cliente = DB::select("SELECT nombre FROM v_clientes WHERE id_cliente = ?",[$d->id_cli])[0];
         }
+        //dd($post,$stm);
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;

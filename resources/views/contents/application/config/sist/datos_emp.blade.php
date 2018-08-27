@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">RUC:</label>
+                                            <label class="control-label">{{$identificacionTributaria}}:</label>
                                             <input type="text" name="ruc" value="{{$ruc}}" class="form-control" placeholder="Ingrese RUC" maxlength="11" autocomplete="off" required>
                                         </div>
                                     </div>
@@ -78,6 +78,33 @@
                                 <div class="form-group">
                                     <label class="control-label">DIRECCI�N:</label>
                                     <input type="text" name="direccion" value="{{$direccion}}" class="form-control" placeholder="Ingrese direcci�n" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Pais</label>
+                                    <div class="input-group">
+                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                        <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                            <optgroup label="Seleccionar">
+                                                @foreach($paises as $r)
+                                                    @if($r->codigo == $userPais)
+                                                        <option selected="selected" value="{{$r->codigo}}">{{$r->nombre}}</option>
+                                                    @else
+                                                        <option value="{{$r->codigo}}">{{$r->nombre}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                    @if ($errors->has('country'))
+                                        <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('country') }}</strong>
+                                                </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
