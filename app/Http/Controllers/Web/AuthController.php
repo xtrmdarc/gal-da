@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Empresa;
+use App\Models\Pais;
 use App\Models\Sucursal;
 use App\Models\TmAlmacen;
 use App\Models\TmAreaProd;
 use App\Models\TmTipoDoc;
 use App\Models\TmUsuario;
+use App\Models\TmCaja;
 use App\Models\TmTurno;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,7 +23,8 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     public function __construct()     {         
-        $this->middleware('afterRegister');     
+        $this->middleware('afterRegister');
+        $this->middleware('auth', ['only' => ['show_account_info_v', 'store_account_info','show_account_business_v','store_account_business']]);
     }
     //
     public function store_f(Request $request)
@@ -200,6 +203,13 @@ class AuthController extends Controller
             'id_usu' => $user_id,
         ]);
 
+        $caja = TmCaja::create([
+            'descripcion' => 'CAJA 1',
+            'estado' => 'a',
+            'id_sucursal' => $sucursal_id,
+            'id_usu' => $user_id,
+        ]);
+
         //4 Tipos de Documentos
         $tipo_doc_boleta = TmTipoDoc::create([
             'descripcion' => 'BOLETA',
@@ -272,7 +282,29 @@ class AuthController extends Controller
     }
 
     public function show_account_info_v() {
-        return view('auth.register.register-step-account-info');
+
+        $idUsu = \Auth::user()->id_usu;
+        $viewdata = [];
+        $lista_paises = Pais::all();
+        $viewdata['cod_telefonos'] = $lista_paises;
+
+        $viewdata['paises'] = $lista_paises;
+
+        $usuario_perfil = DB::select("SELECT * FROM tm_usuario WHERE id_usu = ?",[($idUsu)]);
+        $viewData['usuario_perfil'] = $usuario_perfil;
+
+        foreach($usuario_perfil as $r) {
+            $viewdata['nombres'] = $r->nombres;
+            $viewdata['ape_paterno'] = $r->ape_paterno;
+            $viewdata['ape_materno']= $r->ape_materno;
+            $viewdata['email'] = $r->email;
+            $viewdata['phone']= $r->phone;
+            $viewdata['codigo_phone']= $r->codigo_phone;
+            $viewdata['dni']= $r->dni;
+            $viewdata['imagen']= $r->imagen;
+        }
+
+        return view('auth.register.register-step-account-info',$viewdata);
     }
 
     public function store_account_info(Request $request)
@@ -285,14 +317,18 @@ class AuthController extends Controller
         $ape_materno = $post['m_lastname'];
         $dni = $post['dni'];
         $phone = $post['phone'];
+        $codePhone = $post['cod_phone'];
+        $country = $post['country'];
 
         $sql = DB::update("UPDATE tm_usuario SET
 						nombres  = ?,
 					    ape_paterno  = ?,
                         ape_materno = ?,
 						dni   = ?,
-                        phone = ?
-				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $phone, $idUsu]);
+                        phone = ?,
+                        codigo_phone = ?,
+                        codigo_pais = ?
+				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $phone,$codePhone, $country, $idUsu]);
         return redirect()->route('registerBusiness');
     }
 

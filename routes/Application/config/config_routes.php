@@ -28,6 +28,7 @@
     Route::post('ajustesCrudMesas', 'Application\Config\MesaController@CrudMesas')->name('config.CrudMesas');
     Route::post('ajustesEliminarS', 'Application\Config\MesaController@EliminarS')->name('config.EliminarS');
     Route::post('ajustesEliminarM', 'Application\Config\MesaController@EliminarM');
+    Route::post('ajustesEstadoM', 'Application\Config\MesaController@EstadoM')->name('config.EstadoM');
 
     //Productos
 

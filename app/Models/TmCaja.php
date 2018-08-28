@@ -28,7 +28,9 @@ class TmCaja extends Eloquent
 
 	protected $fillable = [
 		'descripcion',
-		'estado'
+		'estado',
+		'id_sucursal',
+		'id_usu'
 	];
 
 	public function tm_aper_cierres()

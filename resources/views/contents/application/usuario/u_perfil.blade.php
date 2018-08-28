@@ -21,7 +21,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
-                                                    <form class="form-horizontal form-material" method="post" enctype="multipart/form-data" action="/perfilEditar">
+                                                    <form class="form-horizontal form-material" method="post" enctype="multipart/form-data" action="/perfil">
                                                         @csrf
                                                         <h4><i class="fa fa-user mid-icon"></i><b> Informacion Personal</b></h4>
                                                         <span>Administra tu cuenta e informacion personal</span>
@@ -63,6 +63,19 @@
                                                         <div class="form-group">
                                                             <label class="col-md-6">Telefono/Celular</label>
                                                             <div class="col-md-6">
+                                                                <select name="cod_phone" id="cod_phone" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                                                    <optgroup label="Seleccionar">
+                                                                        @foreach($cod_telefonos as $r)
+                                                                            @if($r->phone_codigo == $codigo_phone)
+                                                                                <option selected="selected" value="{{$codigo_phone}}">{{$r->nombre}}+({{$r->phone_codigo}})</option>
+                                                                            @else
+                                                                                <option value="{{$r->phone_codigo}}">{{$r->nombre}}+({{$r->phone_codigo}})</option>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
                                                                 <input type="text" id="telefono_p" name="telefono_p" placeholder="Ingrese su Telefono" class="form-control form-control-line" value="{{$phone}}">
                                                             </div>
                                                         </div>
@@ -74,18 +87,6 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6">Select Country</label>
-                                                            <div class="col-sm-6">
-                                                                <select class="form-control form-control-line">
-                                                                    <option>London</option>
-                                                                    <option>India</option>
-                                                                    <option>Usa</option>
-                                                                    <option>Canada</option>
-                                                                    <option>Thailand</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group">
                                                             <div class="col-sm-12">
                                                                 <button type="submit" class="btn btn-success"> Guardar </button>
@@ -99,7 +100,7 @@
                                                     <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
                                                     <span>Modifica tus contrasenias.</span>
 
-                                                    <form id="form-change-password" class="form-horizontal form-material">
+                                                    <div id="form-change-password" class="form-horizontal form-material">
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Password</label>
                                                             <div class="col-md-12">
@@ -108,24 +109,31 @@
                                                         </div>
 
                                                         <button id="cambiar_password_s" type="button" class="btn btn-default btn-outline m-b-10">Cambiar Password</button>
-                                                    </form>
-                                                    <form id="form-change-password-reset" class="form-horizontal form-material" style="display: none;">
+                                                    </div>
+                                                    <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" action="/password">
+                                                        @csrf
+                                                        <div class="form-group" style="padding-top: 20px;">
+                                                            <label class="col-md-12">Actual Password</label>
+                                                            <div class="col-md-12">
+                                                                <input id="current-password" type="password" name="data[user][current_password]" class="form-control form-control-line" required>
+                                                            </div>
+                                                        </div>
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Nuevo Password</label>
                                                             <div class="col-md-12">
-                                                                <input type="password" value="password" class="form-control form-control-line">
+                                                                <input id="new-password" type="password" name="data[user][password]" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-12">Confirmar nuevo Password</label>
                                                             <div class="col-md-12">
-                                                                <input type="password" value="password" class="form-control form-control-line">
+                                                                <input id="confirm-new-password" type="password" name="data[user][password_confirmation]" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="col-sm-12">
-                                                                <button class="btn btn-success"> Guardar </button>
+                                                                <button type="submit" class="btn btn-success"> Guardar </button>
                                                                 <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancel</button>
                                                             </div>
                                                         </div>
@@ -239,19 +247,21 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="card-body" style="padding-top: 20px;">
-                                                    <form class="form-horizontal form-material">
+                                                    <form class="form-horizontal form-material" method="post" action="/upgrade">
+                                                        @csrf
                                                         <h4><i class="fa fa-list mid-icon"></i><b> Plan Actual</b></h4>
                                                         <span>Administra tu actual suscripcion, actualiza tu plan.</span>
 
+                                                        <input type="hidden" name="plan_id" value="1">
                                                         <h5 class="m-t-30"><b>Plan Free</b> - $0.0 mensual</h5>
-                                                        <h5 class="m-t-30">N de Ventas al momento: <span><b>70</b> de 1000</span> <span class="pull-right">70</span></h5>
+                                                        <h5 class="m-t-30">N de Ventas al momento: <span><b>{{ $nventas  }}</b> de 1000</span> <span class="pull-right">{{ $nventas  }}</span></h5>
                                                         <div class="progress">
-                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="col-sm-6">
-                                                                <button class="btn btn-success"> Guardar </button>
+                                                                <button type="submit" class="btn btn-success"> Upgrade </button>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <button class="btn btn-success"> Cancelar </button>

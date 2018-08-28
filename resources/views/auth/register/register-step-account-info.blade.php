@@ -59,11 +59,49 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Phone">
+
+                                    <div class="form-group">
+                                        <label class="col-md-6">Telefono/Celular</label>
+                                        <div class="col-md-6">
+                                            <select name="cod_phone" id="cod_phone" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($cod_telefonos as $r)
+                                                        @if($r->phone_codigo == $codigo_phone)
+                                                            <option selected="selected" value="{{$codigo_phone}}">{{$r->nombre}}+({{$r->phone_codigo}})</option>
+                                                        @else
+                                                            <option value="{{$r->phone_codigo}}">{{$r->nombre}}+({{$r->phone_codigo}})</option>
+                                                        @endif
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Phone">
+                                        </div>
+                                    </div>
 
                                     @if ($errors->has('phone'))
                                         <span class="invalid-feedback">
                                                     <strong>{{ $errors->first('phone') }}</strong>
+                                                </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Pais</label>
+                                    <div class="input-group">
+                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                        <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($paises as $r)
+                                                        <option value="{{$r->codigo}}">{{$r->nombre}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                        </select>
+                                    </div>
+
+                                    @if ($errors->has('country'))
+                                        <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('country') }}</strong>
                                                 </span>
                                     @endif
                                 </div>

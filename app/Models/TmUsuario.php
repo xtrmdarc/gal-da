@@ -43,6 +43,8 @@ class TmUsuario extends Authenticatable
         'verifyToken',
         'id_sucursal',
         'id_empresa',
+        'codigo_pais',
+        'codigo_phone',
     ];
 
     protected $hidden = [

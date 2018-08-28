@@ -8,7 +8,13 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <div class="ibox-title-buttons pull-right">
-                            <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
+                            @if(Auth::user()->plan_id != '1')
+                                <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
+                            @else
+                                <p>
+                                    Solo contamos con una caja  en el plan free.
+                                </p>
+                            @endif
                         </div>
                         <h5><i class="fa fa-newspaper-o"></i> Cajas</h5>
                     </div>

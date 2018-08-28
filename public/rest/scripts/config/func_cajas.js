@@ -90,8 +90,8 @@ var listarCajas = function(){
                 }},
                 {"data":null,"render": function ( data, type, row) {
                     if(data.id_rol_v == '1'){
-                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>'
-                            +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.nombre_sucursal+'\');"> <i class="fa fa-trash"></i></button></div>';
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                           /*+'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.nombre_sucursal+'\');"> <i class="fa fa-trash"></i></button></div>';*/
                     }if(data.id_rol_v == '2') {
                         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
                     }

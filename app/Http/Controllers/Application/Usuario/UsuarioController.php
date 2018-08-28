@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application\Usuario;
 
+use App\Models\Pais;
 use App\Models\TmUsuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,8 +22,17 @@ class UsuarioController extends Controller
         $idUsu = \Auth::user()->id_usu;
         $viewdata = [];
 
+        $listar_telefonos_paises = Pais::all();
+
+        $viewdata['id_usu'] = $idUsu;
+        $viewdata['cod_telefonos'] = $listar_telefonos_paises;
+
+        $nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+        $testnVentas = $nventas;
+        $viewdata['nventas'] = $testnVentas;
+
         $usuario_perfil = DB::select("SELECT * FROM tm_usuario WHERE id_usu = ?",[($idUsu)]);
-        $viewData['usuario_perfil'] = $usuario_perfil;
+        $viewdata['usuario_perfil'] = $usuario_perfil;
 
         foreach($usuario_perfil as $r) {
             $viewdata['nombres'] = $r->nombres;
@@ -30,6 +40,7 @@ class UsuarioController extends Controller
             $viewdata['ape_materno']= $r->ape_materno;
             $viewdata['email'] = $r->email;
             $viewdata['phone']= $r->phone;
+            $viewdata['codigo_phone']= $r->codigo_phone;
             $viewdata['dni']= $r->dni;
             $viewdata['imagen']= $r->imagen;
         }
@@ -56,6 +67,7 @@ class UsuarioController extends Controller
         $dni = $post['dni_p'];
         $email = $post['email_p'];
         $imagen_p = $post['imagen_p'];
+        $code_phone = $post['cod_phone'];
         $phone = $post['telefono_p'];
 
         if($idUsu != '') {
@@ -86,6 +98,8 @@ class UsuarioController extends Controller
                 Storage::disk('s3')->put($filenametostore, fopen($request->file('imagen_p'), 'r+'), 'public');
 
                 //Store $filenametostore in the database
+            } else {
+                $filenametostore = $viewdata['imagen'];
             }
 
             $sql = DB::update("UPDATE tm_usuario SET
@@ -95,8 +109,9 @@ class UsuarioController extends Controller
 						dni   = ?,
                         email = ?,
                         imagen = ?,
-                        phone = ?
-				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $email, $filenametostore, $phone, $idUsu]);
+                        phone = ?,
+                        codigo_phone = ?
+				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $email, $filenametostore, $phone,$code_phone, $idUsu]);
             return redirect()->route('ajustes.i_perfil');
         }
     }
@@ -108,4 +123,39 @@ class UsuarioController extends Controller
     public function i_suscripcion(){
         return view('contents.application.usuario.u_suscripcion');
     }
+
+    public function changePassword(Request $request){
+        $post = $request->all();
+
+        $idPassword = \Auth::user()->password;
+        if (!password_verify($request->input('data.user.current_password'), $idPassword)) {
+            dd('Invalid password.');
+            /*$validator->after(function ($validator) {
+                $validator->errors()->add('data.site_user.current_password', 'The current password does not match.');
+            });*/
+        } else {
+            //dd('Password is valid!');
+            foreach ($request->toArray()['data']['user'] as $field => $value) {
+                //dd($value);
+                switch ($field) {
+                    case 'current_password':
+                        break;
+                    case 'password_confirmation':
+                        break;
+                    case 'password':
+                        if (!empty($value)) {
+                            \Auth::user()->password = bcrypt($value);
+                        }
+                        break;
+                    default:
+                        \Auth::user()->password = bcrypt($value);
+                        break;
+                }
+            }
+            //dd(\Auth::user()->password);
+            \Auth::user()->save();
+            return redirect()->route('ajustes.i_perfil');
+        }
+    }
+
 }

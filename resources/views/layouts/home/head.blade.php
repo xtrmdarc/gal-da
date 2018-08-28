@@ -34,8 +34,13 @@
                     <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
                     <li><a href="#services">Que es</a>
                     </li>
-                    <li {!! Route::currentRouteName() == 'prices' ? 'class="active"' : '' !!}><a href="{{ route('prices') }}">Precios</a>
-                    </li>
+                    @if (Auth::check())
+                        <li>
+                        </li>
+                    @else
+                        <li {!! Route::currentRouteName() == 'prices' ? 'class="active"' : '' !!}><a href="{{ route('prices') }}">Precios</a>
+                        </li>
+                    @endif
                     <li><a href="#footer">Contacto</a>
                     </li>
                     @if (Auth::check())

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Application\Config;
 
 use Illuminate\Http\Request;
+use App\Models\Pais;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Application\AppController;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,24 @@ class OtrosController extends Controller
         $viewdata = [];
 
         $id_empresa = \Auth::user()->id_empresa;
+        $idPais = \Auth::user()->codigo_pais;
+        $viewdata['userPais'] = $idPais;
+
+
+        $lista_paises = Pais::all();
+        $viewdata['paises'] = $lista_paises;
+
+        $identificacionTributaria = DB::table('identificacion_tributaria')
+            ->leftjoin('empresa', 'identificacion_tributaria.code_country', '=', 'empresa.id_pais')
+            ->select('identificacion_tributaria.code')
+            ->where('identificacion_tributaria.code_country',$idPais)
+            ->get();
+
+        foreach($identificacionTributaria as $r) {
+            $viewdata['identificacionTributaria'] = $r->code;
+        }
+
+        $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
         $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
