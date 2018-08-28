@@ -43,10 +43,19 @@ class UsuarioController extends Controller
 
             return view('contents.application.config.sist.usuario',$viewData)->with($data);
         } else {
-            $owner = TmUsuario::where('id_usu', $user)->first();
-            $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-                array(':idParent' => $user));
+
             
+            $owner = TmUsuario::where('id_usu', $user)->first();
+            //$subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
+            //array(':idParent' => $user));
+            $subUsers =     DB::table('tm_usuario as tm_usuario')
+                                    ->where('tm_usuario.id_sucursal',\Auth::user()->id_sucursal)
+                                    ->where('tm_usuario.id_usu','<>',\Auth::user()->id_usu)
+                                    ->whereNotNull('tm_usuario.parent_id')
+                                    ->leftJoin('tm_rol','tm_rol.id_rol','tm_usuario.id_rol')
+                                    ->select('tm_usuario.*','tm_rol.descripcion as desc_r')
+                                    ->get();
+
             $viewData['owner'] = $owner;
             $viewData['users'] = $subUsers;
             
@@ -129,9 +138,13 @@ class UsuarioController extends Controller
         //SuperAdmin User
         $parentId = \Auth::user()->id_usu;
         $userEmpresa = \Auth::user()->id_empresa;
-        $name_business = \Auth::user()->name_business;
+        
         $planId_admin = \Auth::user()->plan_id;
         $status_admin = \Auth::user()->status;
+        
+        //Empresa
+        $empresa = Empresa::find(\Auth::user()->id_empresa);
+        $nombre_empresa =  $empresa->nombre_empresa;
         //dd($post);
         $flag = 1;
         $id_usu = $post['id_usu'];
@@ -144,7 +157,7 @@ class UsuarioController extends Controller
         $id_rol = $post['id_rol'];
         $pin = isset($post['pin'])?isset($post['pin']):0;
         $plan_id = '1';
-        $nombre_empresa = $name_business;
+        $nombre_empresa = $nombre_empresa;
         $cod_area = isset($post['cod_area'])?$post['cod_area']:"";
         if($cod_area == null ){
             $cod_area = 0;
@@ -173,7 +186,7 @@ class UsuarioController extends Controller
                         password = ?,
                         imagen = ?,
                         pin = ?
-                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario.'@'.$nombre_empresa,bcrypt($contrasena),$imagen,$pin,$id_usu]);
+                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
                     
             return redirect()->route('config.Usuarios');
         } else {
@@ -184,14 +197,13 @@ class UsuarioController extends Controller
                 'dni' => $dni,
                 'parent_id' => $parentId,
                 'estado' => 'a',
-                'name_business' => $name_business,
                 'nombres' => $nombres,
                 'ape_paterno' => $ape_paterno,
                 'ape_materno' => $ape_materno,
                 'email' => $email,
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($contrasena),
-                'usuario' => $usuario.'@'.$nombre_empresa,
+                'usuario' => $usuario,
                 'verifyToken' => ($id_rol==5)?null: Str::random(40),
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
@@ -219,13 +231,16 @@ class UsuarioController extends Controller
         $user = $id_usu;
 
         $id_user = \Auth::user()->id_usu;
-        
+        $nombre_empresa = Empresa::find(\Auth::user()->id_empresa)->nombre_empresa;
         if(isset($user)){
             $user_rol = TmRol::all();
             $area_produccion = TmAreaProd::where('id_usu',$id_user)->get();
 
             $viewdata['user_areaProd'] = $area_produccion;
             $viewdata['user_rol']= $user_rol;
+
+            $user_sucursal = Sucursal::where('id_empresa', \Auth::user()->id_empresa)->get();
+            $viewdata['user_sucursal']= $user_sucursal;
 
             foreach($area_produccion as $a) {
                 $viewdata['nombre'] = $a->nombre;
@@ -239,7 +254,7 @@ class UsuarioController extends Controller
                 $viewdata['dni'] = $r->dni;
                 $viewdata['ape_paterno']= $r->ape_paterno;
                 $viewdata['ape_materno']= $r->ape_materno;
-                $viewdata['nombres']= $r->nombres;
+                $viewdata['nombres']= $r->nombres;  
                 $viewdata['email']= $r->email;
                 $viewdata['usuario']= $r->usuario;
                 $viewdata['contrasena']= $r->contrasena;
@@ -248,7 +263,10 @@ class UsuarioController extends Controller
                 $viewdata['desc_r']= $r->desc_r;
                 $viewdata['desc_ap']= $r->desc_ap;
                 $viewdata['pin']= $r->pin;
-                $viewdata['nombre_empresa']= $r->nombre_empresa;
+                $viewdata['nombre_empresa']= $nombre_empresa;
+                $viewdata['id_sucursal']= $r->id_sucursal;
+                //dd($viewdata);
+                //$viewdata['id_empresa']= $r->nombre_empresa;
               
             }
         }
@@ -273,4 +291,23 @@ class UsuarioController extends Controller
                 //return redirect()->route('config.Usuarios');
             }
     }
+
+    public function Estado(Request $request){
+
+        $post = $request->all();
+        $cod_usu = $post['cod_usu'];
+        $nuevo_estado = $post['estado'];
+        TmUsuario::find($cod_usu)
+                    ->update(['estado'=>$nuevo_estado]);
+
+        header('Location: /ajustesUsuarios');
+    }
+
+    public function GetAreasProdXSucursal(Request $request){
+        
+        $areas_prod = TmAreaProd::where('id_sucursal',$request->id_sucursal)->get();
+        return $areas_prod;
+
+    }
+
 }

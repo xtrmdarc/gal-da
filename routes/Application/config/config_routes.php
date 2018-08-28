@@ -76,6 +76,8 @@
     Route::get('/ajustesRegistrarUsuario', 'Application\Config\UsuarioController@RegistrarUsuario');
     Route::post('/ajustesRUsuario', 'Application\Config\UsuarioController@RUUsuario');
     Route::post('/ajustesEliminar', 'Application\Config\UsuarioController@Eliminar');
+    Route::post('/ajustesUsuarioEstado', 'Application\Config\UsuarioController@Estado');
+    Route::post('/areasProdXSucursal','Application\Config\UsuarioController@GetAreasProdXSucursal' );
 
     //Sucursal
 

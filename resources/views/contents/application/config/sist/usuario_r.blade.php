@@ -156,26 +156,16 @@
                                             </div>
                                         </div>
                                         
-                                        @if(Auth::user()->plan_id == '1')
+                                        @if(Auth::user()->plan_id == '1' && Auth::user()->parent_id == null)
                                             <div class="col-lg-6  sides_padding15" id="sc_div">
                                                 <div class="form-group">
                                                     <label class="control-label">Sucursal</label>
                                                     <div class="input-group">
                                                         {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
-                                                            @if($id_usu != null)
-                                                                <option value="">
-
-                                                                </option>
-                                                            @else
-                                                                echo '<option value="" selected>Seleccionar</option>';
-                                                                echo '<optgroup label="Seleccionar">';
-                                                                    @endif
-                                                                    <optgroup label="Seleccionar">
-                                                                        @foreach($user_sucursal as $r)
-                                                                            <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
-                                                                        @endforeach
-                                                                    </optgroup>
+                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" @if (Auth::user()->plan_id == 1 )readonly="readonly"@endif data-live-search="true" autocomplete="off" required="required" placeholder="Seleccionar" >
+                                                            @foreach($user_sucursal as $r)
+                                                                <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                            @endforeach 
                                                         </select>
                                                     </div>
                                                 </div>
@@ -186,18 +176,12 @@
                                                 <label class="control-label">&Aacute;rea de Producci&oacute;n</label>
                                                 <div class="input-group">
                                                     {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                    <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required">
-                                                        @if($id_usu != null)
-                                                            <option value=""></option>
-                                                        @else
-                                                            echo '<option value="" selected>Seleccionar</option>';
-                                                            echo '<optgroup label="Seleccionar">';
-                                                                @endif
-                                                                <optgroup label="Seleccionar">
-                                                                    @foreach($user_areaProd as $r)
-                                                                        <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
-                                                                    @endforeach
-                                                                </optgroup>
+                                                    <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" title="Seleccionar" data-live-search="true" autocomplete="off" required="required">
+                                                            <option value="" disabled selected>Seleccionar</option>
+                                                            @foreach($user_areaProd as $r)
+                                                                <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
+                                                            @endforeach
+                                                           
                                                     </select>
                                                 </div>
                                             </div>

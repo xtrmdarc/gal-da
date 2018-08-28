@@ -25,6 +25,7 @@
                                     <th>Ape.Materno</th>
                                     <th style="text-align: center">Cargo</th>
                                     <th style="text-align: center">Estado</th>
+                                    <th style="text-align: center">Verificado</th>
                                     <th style="text-align: center">Acciones</th>
                                 </tr>
                                 </thead>
@@ -49,13 +50,16 @@
                                     </td>
                                     <td style="text-align: center">
                                         @if($user->estado == 'a')
-                                            <a onclick="estadoUsuario('.$user->id_usu.');"><span class="label label-primary">ACTIVO</span></a>
-                                        @else if($user->estado == 'i')
-                                            <a onclick="estadoUsuario('.$user->id_usu.');"><span class="label label-danger">INACTIVO</span></a>
+                                            <a onclick="{{'estadoUsuario('.$user->id_usu.',\'a\');' }}"> <span class="label label-primary">ACTIVO</span></a>
+                                        @elseif($user->estado == 'i')
+                                            <a onclick="{{'estadoUsuario('.$user->id_usu.',\'i\');'}} "> <span class="label label-danger">INACTIVO</span></a>
                                         @endif
                                     </td>
+                                    <td style="text-align: center">
+                                        <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
+                                    </td>
                                     <td style="text-align: right">
-                                        <a href="/ajustesRUsuario/{{$user->id_usu}}"
+                                        <a href="/ajustesRUsuario/{{$user->id_usu}}">
                                         <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
                                         <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
                                     </td>
@@ -73,7 +77,8 @@
     <div class="modal inmodal fade" id="mdl-estado-usu" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-estado-usu" method="post" enctype="multipart/form-data" action="?c=Config&a=Estado">
+                <form id="frm-estado-usu" method="post" enctype="multipart/form-data" action="/ajustesUsuarioEstado">
+                    @csrf
                     <input type="hidden" name="cod_usu" id="cod_usu">
                     <div class="modal-header mh-e">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

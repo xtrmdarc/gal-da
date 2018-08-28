@@ -26,9 +26,11 @@ $(function() {
 });
 
 /* Estado usuario */
-var estadoUsuario = function(cod_usu){
+var estadoUsuario = function(cod_usu,cod_estado){
     $('#cod_usu').val(cod_usu);     
     $("#mdl-estado-usu").modal('show');
+    $("#estado_usu").val(cod_estado);
+    $("#estado_usu").selectpicker("refresh");
 }
 
 $('#mdl-estado-usu').on('hidden.bs.modal', function() {

@@ -113,32 +113,8 @@
                                         </div>
                                     </div>
                                 
-                                    
-                                    {{--<div class="col-lg-6 sides_padding15" style="display:none;" >
-                                        <div class="form-group">
-                                            <label class="control-label">Cargo</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-renren"></i></span>
-                                                <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                                    @if($id_usu != null)
-                                                    <option value="{{is_null($id_usu) ? '' : $id_rol}}">
-                                                        {{is_null($id_usu) ? '' : $desc_r}}
-                                                    </option>
-                                                    @else
-                                                        echo '<option value="" selected>Seleccionar</option>';
-                                                        echo '<optgroup label="Seleccionar">';
-                                                    @endif
-                                                    <optgroup label="Seleccionar">
-                                                        @foreach($user_rol as $r)
-                                                            <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>--}}
                                         
-                                        <div class="col-lg-6 sides_padding15" id="usr_div">
+                                    <div class="col-lg-6 sides_padding15" id="usr_div">
                                         <div class="form-group">
                                             <label class="control-label">Usuario</label>
                                             <div class="row ">
@@ -152,6 +128,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if($id_rol == 5)
                                     <div class="col-lg-6 sides_padding15" id="pass_div">
                                         <div class="form-group">
                                             <label class="control-label">Contrase&ntilde;a</label>
@@ -161,7 +138,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    @endif
                                     <div class="col-lg-6  sides_padding15" id="pin_div" >
                                         <div class="form-group">
                                             <label class="control-label">PIN</label>
@@ -171,7 +148,22 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    @if(Auth::user()->plan_id == '1' && Auth::user()->parent_id == null)
+                                        <div class="col-lg-6  sides_padding15" id="sc_div">
+                                            <div class="form-group">
+                                                <label class="control-label">Sucursal</label>
+                                                <div class="input-group">
+                                                    {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                                    <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" @if (Auth::user()->plan_id == 1 )readonly="readonly"@endif data-live-search="true" autocomplete="off" required="required" >
+                                                        @foreach($user_sucursal as $r)
+                                                            <option @if($r->id == $id_sucursal)selected @endif  value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                        
                                     <div class="col-lg-6 sides_padding15" id="area-p" style="display: none" >
                                         <div class="form-group">
                                             <label class="control-label">&Aacute;rea de Producci&oacute;n</label>
@@ -195,8 +187,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                
+
                             
                         </div>
                     </div>

@@ -100,6 +100,33 @@ $('#id_rol').change( function(event) {
     
 });
 
+$('#id_sucursal').on('change',function(){
+    
+    $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: '/areasProdXSucursal',
+        data: {
+            id_sucursal: $('#id_sucursal').val()
+        },
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        success: function (areas_prod) { 
+            $('#cod_area').empty();
+            var arrAreas;
+            $.each(areas_prod,function(i,v){
+                arrAreas =  arrAreas + `<option value="${v.id_areap}">${v.nombre}</option>`;
+            });
+            $('#cod_area').append(arrAreas);
+            $('#cod_area').selectpicker('refresh');
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown + ' ' + textStatus);
+        }   
+    });
+
+});
 
 function HandleRolSelection(){
     if($("#id_rol").selectpicker('val') == 4){

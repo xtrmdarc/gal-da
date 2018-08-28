@@ -178,7 +178,6 @@ class AppController extends Controller
     public function EnviarFeedback(Request $request){
 
         Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
-        
     }
 
 }
