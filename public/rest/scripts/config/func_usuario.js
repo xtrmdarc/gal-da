@@ -59,3 +59,30 @@ var mensaje = function(){
     }
 }
 
+$('#frm-eliminar-usu').on('submit',function(e){
+    console.log('entro aqui');
+    e.preventDefault();
+    var $form = $(e.target);
+
+    $.ajax({
+        data: $form.serialize(),
+        url:   $form.attr('action'),
+        type:  'POST',
+        dataType: 'json',
+        dataSrc:"",
+        headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        success: function(data) {
+            console.log(data);
+            if (data == 0) {
+                alert('Usuario activo')
+            }
+            else if(data==1){
+                window.location.replace('/ajustesUsuarios');
+            }
+        }
+    });
+
+
+});
