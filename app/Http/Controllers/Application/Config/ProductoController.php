@@ -51,11 +51,11 @@ class ProductoController extends Controller
         $cod = $post['cod'];
         $cat = $post['cat'];
 
-        $stm = Db::Select("SELECT * FROM tm_producto WHERE id_prod like ? AND id_catg like ? and id_sucursal = ? ORDER BY id_prod DESC",
+        $stm = DB::Select("SELECT * FROM tm_producto WHERE id_prod like ? AND id_catg like ? and id_sucursal = ? ORDER BY id_prod DESC",
             array($cod,$cat,$id_sucursal));
         $data = array("data" => $stm);
 
-        $json = json_encode($stm);
+        $json = json_encode($data);
         echo $json;
     }
 
@@ -96,8 +96,9 @@ class ProductoController extends Controller
 
     public function ListaCatgs()
     {
-        $stm = DB::Select("SELECT * FROM tm_producto_catg");
-
+        $id_sucursal = \Auth::user()->id_sucursal;
+        $stm = DB::Select("SELECT * FROM tm_producto_catg where id_sucursal = ?".$id_sucursal);
+        dd($stm);
         $data = array("data" => $stm);
 
         $json = json_encode($data);
@@ -204,15 +205,7 @@ class ProductoController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
         $id_sucursal_d = $post['id_sucursal_d'];
-        /*
-        $areasProduccion_d = DB::Select("SELECT * FROM tm_area_prod WHERE estado = 'a' and id_usu = ? and id_sucursal = ?;",
-            array($id_usu,$id_sucursal_d));
 
-        $data = array("data" => $areasProduccion_d);
-
-        $json = json_encode($data);
-        echo $json;*/
-        
         $codProd = $post['cod_prod'];
         if($codProd != ''){
             //Actualizar
@@ -225,8 +218,17 @@ class ProductoController extends Controller
             $estado = $post['estado_catg'];
             $idProd = $post['cod_prod'];
 
-            $consulta = DB::Select("call usp_configProducto( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, :estado, :idProd);",
-                array($flag,$idTipo,$idCatg,$idArea,$nombP,$descP,$estado,$idProd));
+            //$consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, :estado, :idProd,:idSucursal,:idUsu);",
+              //  array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':estado' => $estado,':idProd' => $idProd,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
+            $sql = DB::update("UPDATE tm_producto SET
+						id_tipo  = ?,
+						id_catg   = ?,
+						id_areap   = ?,
+						nombre  = ?,
+                        descripcion = ?,
+                        estado = ?
+                    WHERE id_prod = ?",[$idTipo,$idCatg,$idArea,$nombP,$descP,$estado,$idProd]);
+            return $array['cod'] = 2;
         } else{
             //Registrar
             $flag = 1;
@@ -238,11 +240,11 @@ class ProductoController extends Controller
 
             $consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, @a, @b,:idSucursal,:idUsu);",
             array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
-            }
-            $array = [];
-            foreach($consulta as $k)
-            {
-                return $array['cod'] = $k->cod;
+                $array = [];
+                foreach($consulta as $k)
+                {
+                    return $array['cod'] = $k->cod;
+                }
             }
     }
 
@@ -263,7 +265,7 @@ class ProductoController extends Controller
             //Actualizar El error esta aqui de qu eno deja al transformado concha son
             $flag = 2;
             $consulta = DB::Select("call usp_configProductoPres( :flag, :idProd, :codP, :presP, :precio, :rec, :stock, :estado, :idPres);"
-            ,array($flag,$idProd,$codP,$presP,$precio,$rec,$stock,$estado,$idPres));
+            ,array(':flag' => $flag,':idProd' => $idProd,':codP' => $codP,':presP' => $presP,':precio' => $precio,':rec' => $rec,':stock' => $stock, ':estado' =>   $estado,':idPres' => $idPres));
             
             return json_encode($consulta[0]->cod);
         } else{

@@ -44,7 +44,13 @@ class OtrosController extends Controller
             ->get();
 
         foreach($identificacionTributaria as $r) {
-            $viewdata['identificacionTributaria'] = $r->code;
+            $cod_tributario = $r->code;
+        }
+
+        if(isset($cod_tributario)){
+            $viewdata['identificacionTributaria'] = $cod_tributario;
+        }else {
+            $viewdata['identificacionTributaria'] = 'Pais Externo';
         }
 
         $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);

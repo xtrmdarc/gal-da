@@ -209,6 +209,9 @@ class MesaController extends Controller
         {
             $sql =  DB::update("UPDATE tm_mesa SET estado = ? WHERE id_mesa = ? and id_sucursal = ?",
                 [$estado,$idMesa,$idSucursal]);
+            $estado_mesa = DB::select("select estado WHERE id_catg = ? and id_sucursal = ?",
+                [$estado,$idMesa,$idSucursal]);
+            dd($sql);
 
         } catch (Exception $e)
         {

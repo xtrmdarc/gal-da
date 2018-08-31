@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application\Config;
 
+use App\Models\TmInsumoCatg;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +22,11 @@ class InsumoController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $id_sucursal = session('id_sucursal');
 
         $viewdata = [];
-        $stm = DB::Select("SELECT * FROM tm_insumo_catg");
+
+        $stm = TmInsumoCatg::where('id_sucursal',$id_sucursal)->get();
         $stm_unidadM = DB::Select("SELECT * FROM tm_tipo_medida");
 
         $viewdata['id_usu'] = $id_usu;
@@ -55,7 +58,8 @@ class InsumoController extends Controller
 
     public function ListaCatgs()
     {
-        $stm = DB::Select("SELECT * FROM tm_insumo_catg");
+        $id_sucursal = session('id_sucursal');
+        $stm = DB::Select("SELECT * FROM tm_insumo_catg where id_sucursal = ?".$id_sucursal);
 
         $data = array("data" => $stm);
         $json = json_encode($data);
@@ -87,7 +91,7 @@ class InsumoController extends Controller
         $descC = $post['nombre_catg'];
         
         $idSucursal = $post['id_sucursal'];
-        if($post['cod_catg'] != ""){
+        if($post['id_catg'] != ""){
             //Actualizar
             $idCatg = $post['cod_catg'];
             $flag = 2;
@@ -146,10 +150,11 @@ class InsumoController extends Controller
 
            $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b,:idSucursal);",
                array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' =>$stock,':idSucursal' => $id_sucursal ));
-           return $consulta;
+           $array = [];
+           foreach($consulta as $k)
+           {
+               return $array['cod'] = $k->cod;
+           }
         }
-    }
-    public function ActualizarIns() {
-        dd('Test');
     }
 }

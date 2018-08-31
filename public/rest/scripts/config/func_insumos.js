@@ -121,18 +121,19 @@ var editarInsumo = function(cod){
     $("#cod_ins").val(cod);
     $.ajax({
       type: "POST",
-      url: "/ajustesActualizarIns",
+      url: "/ajustesListarInsumos",
       data: {
           cod: cod,
           cat: cat
       },
-        dataSrc : "",
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
       dataType: "json",
       success: function(item){
+          console.log(item.data);
         $.each(item.data, function(i, campo) {
+
             $('#nombre_ins').val(campo.nomb_ins);
             $('#codigo_ins').val(campo.cod_ins);
             $('#cod_med').selectpicker('val', campo.id_med);

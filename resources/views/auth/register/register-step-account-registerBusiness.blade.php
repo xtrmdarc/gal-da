@@ -1,4 +1,4 @@
-@extends('layouts.home.master')
+@extends('layouts.home.master_h_f_empty')
 
 @section('content')
 

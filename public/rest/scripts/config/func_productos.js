@@ -342,10 +342,13 @@ var editarPresentacion = function(cod_pres,nomb_prod){
     $('#mdl-presentacion').modal('show');
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaPres",
+        url: "/ajustesListarPres",
         data: {
             cod_prod: cat,
             cod_pres: cod_pres
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
