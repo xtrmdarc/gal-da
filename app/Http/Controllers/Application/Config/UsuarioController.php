@@ -278,6 +278,11 @@ class UsuarioController extends Controller
 
             $post = $request->all();
             $cod_usu_e = $post['cod_usu_e'];
+            
+            $usuarioEnUso = DB::select('call usp_verificarUsuarioActivo(?)', [$cod_usu_e])[0];
+         
+
+            if($usuarioEnUso->COD == 1) {return json_encode(0);}
 
             $consulta = DB::select("SELECT count(*) AS total FROM tm_venta WHERE id_usu = ?",[($cod_usu_e)]);
             foreach($consulta as $a){
@@ -285,7 +290,7 @@ class UsuarioController extends Controller
             }
             if($con == '0') {
                 $consulta_eliminar = DB::delete("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
-                return redirect()->route('config.Usuarios');
+                return json_encode(1);
             }else {
                 dd("error");
                 //return redirect()->route('config.Usuarios');
