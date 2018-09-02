@@ -90,7 +90,7 @@
                                         <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
                                             <optgroup label="Seleccionar">
                                                 @foreach($paises as $r)
-                                                    @if($r->codigo == $userPais)
+                                                    @if($r->codigo == $paisEmpresa)
                                                         <option selected="selected" value="{{$r->codigo}}">{{$r->nombre}}</option>
                                                     @else
                                                         <option value="{{$r->codigo}}">{{$r->nombre}}</option>

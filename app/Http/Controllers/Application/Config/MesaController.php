@@ -188,7 +188,7 @@ class MesaController extends Controller
         foreach($id_sucursal_salon as $r){
             $id_catg_sucursal = $r->id_sucursal;
         }
-        dd($idMesa);
+        //dd($idMesa);
         $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal);",
             array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal));
 

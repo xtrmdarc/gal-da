@@ -311,6 +311,9 @@ class AuthController extends Controller
     {
         $post = $request->all();
 
+        $id_empresa = \Auth::user()->id_empresa;
+        $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
+
         $idUsu = \Auth::user()->id_usu;
         $nombres = $post['name'];
         $ape_paterno = $post['lastname'];
@@ -329,6 +332,15 @@ class AuthController extends Controller
                         codigo_phone = ?,
                         codigo_pais = ?
 				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $phone,$codePhone, $country, $idUsu]);
+
+        foreach($stm as $r) {
+            $id = $r->id;
+        }
+
+        $sql2 = DB::update("UPDATE empresa SET
+                    id_pais = ?
+                WHERE id = ?",[$country,$id]);
+
         return redirect()->route('registerBusiness');
     }
 

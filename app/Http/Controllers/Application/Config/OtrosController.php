@@ -30,30 +30,6 @@ class OtrosController extends Controller
         $viewdata = [];
 
         $id_empresa = \Auth::user()->id_empresa;
-        $idPais = \Auth::user()->codigo_pais;
-        $viewdata['userPais'] = $idPais;
-
-
-        $lista_paises = Pais::all();
-        $viewdata['paises'] = $lista_paises;
-
-        $identificacionTributaria = DB::table('identificacion_tributaria')
-            ->leftjoin('empresa', 'identificacion_tributaria.code_country', '=', 'empresa.id_pais')
-            ->select('identificacion_tributaria.code')
-            ->where('identificacion_tributaria.code_country',$idPais)
-            ->get();
-
-        foreach($identificacionTributaria as $r) {
-            $cod_tributario = $r->code;
-        }
-
-        if(isset($cod_tributario)){
-            $viewdata['identificacionTributaria'] = $cod_tributario;
-        }else {
-            $viewdata['identificacionTributaria'] = 'Pais Externo';
-        }
-
-        $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
         $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
 
@@ -67,7 +43,29 @@ class OtrosController extends Controller
             $viewdata['logo']= $r->logo;
             $viewdata['igv']= $r->igv;
             $viewdata['moneda']= $r->moneda;
+            $viewdata['paisEmpresa']= $r->id_pais;
         }
+
+        $lista_paises = Pais::all();
+        $viewdata['paises'] = $lista_paises;
+
+        $identificacionTributaria = DB::table('identificacion_tributaria')
+            ->leftjoin('empresa', 'identificacion_tributaria.code_country', '=', 'empresa.id_pais')
+            ->select('identificacion_tributaria.code')
+            ->where('identificacion_tributaria.code_country',$viewdata['paisEmpresa'])
+            ->get();
+
+        foreach($identificacionTributaria as $r) {
+            $cod_tributario = $r->code;
+        }
+
+        if(isset($cod_tributario)){
+            $viewdata['identificacionTributaria'] = $cod_tributario;
+        }else {
+            $viewdata['identificacionTributaria'] = 'Pais Externo';
+        }
+
+
         if(is_null($viewdata['logo']) or $viewdata['logo'] == '') {
             $viewdata['logo'] = '';
             $viewdata['logo_g']= $viewdata['logo'];
@@ -120,6 +118,7 @@ class OtrosController extends Controller
         $direccion = $post['direccion'];
         $logo = $post['logo'];
         $igv = $post['igv'];
+        $id_pais = $post['country'];
 
         if($id != ''){
             $stm = DB::Select("SELECT * FROM empresa where id = ".$id);
@@ -161,8 +160,9 @@ class OtrosController extends Controller
                     direccion = ?,
                     logo = ?,
                     igv = ?,
-                    moneda = ?
-                WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id]);
+                    moneda = ?,
+                    id_pais = ?
+                WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id_pais,$id]);
 
             session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
 
