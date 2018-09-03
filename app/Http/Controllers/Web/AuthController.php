@@ -269,7 +269,7 @@ class AuthController extends Controller
     {
         dd('REVISA TU CORREO PAPU');
     }
-
+    
     public function sendEmailDone($email,$verifyToken)
     {
         $user = TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->first();

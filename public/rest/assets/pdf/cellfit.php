@@ -130,6 +130,4 @@ class FPDF_CellFit extends FPDF {
 
 	
 }
-
-
 ?>

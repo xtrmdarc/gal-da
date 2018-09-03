@@ -49,13 +49,10 @@
                                         @else 
                                             <button style="width: 122px" class="btn btn-primary dim btn-large-dim" type="button" onclick="{{'registrarMesaCodigo('.$r->id_mesa.',\''.$r->nro_mesa.'\',\''.$r->desc_m.',\' ,\'\',\''.$r->estado.'\')'}}"><?php echo $r->nro_mesa ?></button>
                                         @endif
-                                    
-
-                                    <?php } elseif ($r->id_catg == $c->id_catg AND $r->estado == 'p') { ?>
+                                     <?php } elseif ($r->id_catg == $c->id_catg AND $r->estado == 'p') { ?>
                                         {{session(['cod_tipe'=>1])}}
                                         @if(Auth::user()->id_rol != 5)  
                                             <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
-                                           
                                                 <button style="width: 122px" class="btn btn-info dim btn-large-dim" type="button"> <div id="{{'ind_mesa_pedidos_listos_'.$r->id_pedido}}" class="notify_pedidos_listos" style="" >{{$r->pedidos_listos}}</div>   <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                                 </span></button>
                                             </a> 
@@ -64,13 +61,10 @@
                                             <button style="width: 122px" class="btn btn-info dim btn-large-dim" type="button" onclick="{{'registrarMesaCodigo('.$r->id_mesa.',\''.$r->nro_mesa.'\',\''.$r->desc_m.',\' ,\''.$r->id_pedido.'\',\''.$r->estado.'\')'}}"><?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                             </span></button>
                                         @endif
-                                        
-
                                     <?php } elseif ($r->id_catg == $c->id_catg AND $r->estado == 'i') { ?>
                                         {{session(['cod_tipe'=>1])}}
                                         @if(Auth::user()->id_rol != 5)
                                             <a href="{{'/inicio/PedidoMesa/'.$r->id_pedido}}">
-                                                 
                                                 <button style="width: 122px" class="btn btn-danger dim btn-large-dim" type="button"><div id="{{'ind_mesa_pedidos_listos_'.$r->id_pedido}}" class="notify_pedidos_listos" style="" >{{$r->pedidos_listos}}</div>  <?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                                 </span></button>
                                             </a>
@@ -78,9 +72,6 @@
                                             <button style="width: 122px" class="btn btn-danger dim btn-large-dim" type="button" onclick="{{'registrarMesaCodigo('.$r->id_mesa.',\''.$r->nro_mesa.'\',\''.$r->desc_m.',\' ,\''.$r->id_pedido.'\',\''.$r->estado.'\')'}}"><?php echo $r->nro_mesa ?><span class="span-b"><i class="fa fa-clock-o"></i>&nbsp;<input type="hidden" name="hora_pe[]" value="<?php echo $r->fecha_p ?>"/><span id="hora_p<?php echo $co++; ?>"><?php echo $r->fecha_p ?></span>
                                             </span></button>
                                         @endif
-                                        
-                                        
-                                        
                                     <?php } endforeach; ?>
                                 </div>
                                 </div>

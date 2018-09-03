@@ -68,13 +68,13 @@
                     <div class="opc3">
                         <button type="submit" class="btn btn-primary block full-width m-b" id="btn-submit">INGRESAR</button>
                     </div>
-                    <?php
+                    @php
                         if (isset($_GET['m']) == 'e'){
                             echo '<div class="alert alert-danger alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><i class="fa fa-warning"></i> Datos incorrectos.</div>';
                         } elseif (isset($_GET['me']) == 'a') {
                             echo '<div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button><i class="fa fa-bolt"></i> Debe Aperturar Caja</div>';
                         }
-                    ?>
+                    @endphp
                 </form>
             </div>
         </div>

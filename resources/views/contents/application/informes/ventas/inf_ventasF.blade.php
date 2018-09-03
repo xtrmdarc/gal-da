@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <?php
+    @php
     date_default_timezone_set('America/Lima');
     setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
     $fecha = date("d-m-Y h:i A");
     $fechaa = date("m-Y h:i: A");
-    ?>
+    @endphp
     <div class="page-wrapper">
         <input type="hidden" id="moneda" value=""/>
         <div class="row wrapper border-bottom white-bg page-heading">

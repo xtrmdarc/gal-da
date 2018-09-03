@@ -52,14 +52,14 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
-                    <?php if(session('rol_usr') <> 4) { ?>
+                    @if(session('rol_usr') <> 4) 
                         <div class="text-right opc1" style="display: none">
                             @if(session('cod_tipe')!=3)
                             <button type="button" class="btn btn-success" onclick="facturar({{$cod}},2);"><i class="fa fa-files-o"></i>&nbsp;Dividir Cuenta</button>
                             @endif
                             <button type="button" class="btn btn-lg btn-primary" onclick="facturar({{$cod}},1);"><i class="fa fa-file-o"></i>&nbsp;Cuenta</button>
                         </div>
-                    <?php } ?>
+                    @endif 
                         <div class="text-right opc2" style="display: none">
                             <button type="button" class="btn btn-danger" onclick="desocuparMesa({{$cod}});"><i class="fa fa-sign-out"></i>&nbsp;Desocupar</button>
                         </div>
