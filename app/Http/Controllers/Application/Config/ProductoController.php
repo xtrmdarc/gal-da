@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application\Config;
 
+use App\Models\TmProducto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ class ProductoController extends Controller
             array($cod,$cat,$id_sucursal));
         $data = array("data" => $stm);
 
-        $json = json_encode($data);
+        $json = json_encode($stm);
         echo $json;
     }
 
@@ -240,12 +241,29 @@ class ProductoController extends Controller
 
             $consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, @a, @b,:idSucursal,:idUsu);",
             array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
-                $array = [];
-                foreach($consulta as $k)
-                {
-                    return $array['cod'] = $k->cod;
-                }
+
+            $array = [];
+            foreach($consulta as $k) {
+                return $array['cod'] = $k->cod;
             }
+            /*$consulta_prod = DB::Select("SELECT COUNT(*) FROM tm_producto WHERE id_tipo = ? AND id_catg = ? AND id_areap = ?
+                                         AND nombre = ? AND id_sucursal = ? AND id_usu = ?",[$idTipo,$idCatg,$idArea,$nombP,$id_sucursal_d,$id_usu]);
+            if($consulta_prod == 0) {
+                $nuevo_producto = TmProducto::create([
+                    'id_tipo' => $idTipo,
+                    'id_catg' => $idCatg,
+                    'id_areap' => $idArea,
+                    'nombre' => $nombP,
+                    'descripcion' => $descP,
+                    'id_sucursal' => $id_sucursal_d,
+                    'id_usu' => $id_usu
+                ]);
+
+                return $array['cod'] = 1;
+            } else {
+                dd("Error :v");
+            }*/
+        }
     }
 
     public function CrudPres(Request $request)
