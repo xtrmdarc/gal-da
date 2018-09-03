@@ -98,7 +98,7 @@ class ClienteController extends Controller
                 $st->execute($arrayParam);*/
                 
                 //header('Location: lista_tm_clientes.php?m=u');
-                header('Location: /cliente');
+               return redirect('/cliente');
             } else {
 
                 //$row = $this->model->Registrar($alm);
@@ -137,7 +137,7 @@ class ClienteController extends Controller
                     ]);
                 }
 
-                header('Location: /cliente');
+               return redirect('/cliente');
 /*
                 $arrayParam =  array(
                     ':flag' => 1,
@@ -156,9 +156,9 @@ class ClienteController extends Controller
 
                 if ($row->dup == 1){
                     //header('Location: lista_tm_clientes.php?m=d');
-                    header('Location: /cliente');
+                   return redirect('/cliente');
                 } else {
-                    header('Location: /cliente?m=n');
+                   return redirect('/cliente?m=n');
                 }*/
 
             }
@@ -190,10 +190,10 @@ class ClienteController extends Controller
                 //$this->conexionn=null;
 
 
-                header('Location: /cliente');
+               return redirect('/cliente');
             }else{
                 echo('no hizo el cambio');
-                header('Location: /cliente');
+               return redirect('/cliente');
             }
 
 		} catch (Exception $e) 

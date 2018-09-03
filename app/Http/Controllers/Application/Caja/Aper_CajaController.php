@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Application\Caja;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\TmUsuario;
@@ -84,15 +86,7 @@ class Aper_CajaController extends Controller
         $user_parentId = \Auth::user()->parent_id;
         $user_rol = \Auth::user()->id_rol;
 
-       /* $alm = new Caja();
-        $alm->__SET('cod_apc', $_REQUEST['cod_apc']);
-        $alm->__SET('id_usu', $_REQUEST['id_usu']);
-        $alm->__SET('id_caja', $_REQUEST['id_caja']);
-        $alm->__SET('id_turno', $_REQUEST['id_turno']);
-        $alm->__SET('monto', $_REQUEST['monto']);
-        $alm->__SET('monto_sistema', $_REQUEST['monto_sistema']);
-        $alm->__SET('fecha_cierre', date('Y-m-d H:i:s',strtotime($_REQUEST['fecha_cierre'])));
-        */
+    
         try{
 
             $data = $request->all();
@@ -119,9 +113,10 @@ class Aper_CajaController extends Controller
                     session(['apertura'=> 0]);
                     session(['id_apc'=> 0]);
                     //header('Location: lista_caja_aper.php?m=c');
-                    header('Location: /caja/aper');
+                    return redirect('/caja/aper');
                } else {
                     //header('Location: lista_caja_aper.php?m=d');
+                    return redirect('/caja/aper');
                }
     
             }else{
@@ -166,9 +161,9 @@ class Aper_CajaController extends Controller
                     //$_SESSION["id_apc"] = $row['cod'];
                     session(['id_apc'=>$row->cod]);
                     //header('Location: lista_caja_aper.php?m=n');
-                    header('Location: /caja/aper');
+                    return redirect('/caja/aper');
                }else {
-                    header('Location: /caja/aper?m=d');
+                    return redirect('/caja/aper');
                }
             }
 

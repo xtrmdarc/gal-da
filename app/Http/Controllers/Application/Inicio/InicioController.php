@@ -117,7 +117,7 @@ class InicioController extends Controller
         } else {
             //header('Location: inicio.php?Cod=d');
             //self::Index();
-            header('Location: /inicio');
+           return redirect('/inicio');
         }
     }
 
@@ -469,7 +469,7 @@ class InicioController extends Controller
 
             }
             
-           header('Location: /inicio');
+          return redirect('/inicio');
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -511,12 +511,12 @@ class InicioController extends Controller
 
         if($data['cod_tipe'] == 1){
             //self::ValidarEstadoPedido($cod);
-            header('Location: /inicio/PedidoMesa/'.$cod.'');
+           return redirect('/inicio/PedidoMesa/'.$cod.'');
 
         } elseif($data['cod_tipe'] == 2){
-            header('Location: /inicio/PedidoMostrador/'.$cod.'');
+           return redirect('/inicio/PedidoMostrador/'.$cod.'');
         } elseif($data['cod_tipe'] == 3){
-            header('Location: /inicio/PedidoDelivery/'.$cod.'');
+           return redirect('/inicio/PedidoDelivery/'.$cod.'');
         }
     }
 
@@ -544,7 +544,7 @@ class InicioController extends Controller
            // return $row;
 
             if ($row->dup == 1){
-                header('Location: /inicio');
+               return redirect('/inicio');
                 //self::Index();
             } else {
                 //header('Location: inicio.php?Cod=d');
@@ -678,7 +678,7 @@ class InicioController extends Controller
         //$this->model->FinalizarPedido($alm);
 
 
-        header('Location: /inicio');
+       return redirect('/inicio');
     }
 
     public function DatosGrles(Request $request)

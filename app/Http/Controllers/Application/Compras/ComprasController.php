@@ -227,9 +227,9 @@ class ComprasController extends Controller
 
             if ($row->dup == 1){
                 //header('Location: lista_comp.php?m=c');
-                header('Location: /compras');
+               return redirect('/compras');
             } else {
-                header('Location: /compras?m=e');
+               return redirect('/compras?m=e');
             }
         } catch (Exception $e) 
         {

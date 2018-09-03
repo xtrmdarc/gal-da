@@ -305,7 +305,7 @@ class UsuarioController extends Controller
         TmUsuario::find($cod_usu)
                     ->update(['estado'=>$nuevo_estado]);
 
-        header('Location: /ajustesUsuarios');
+       return redirect('/ajustesUsuarios');
     }
 
     public function GetAreasProdXSucursal(Request $request){

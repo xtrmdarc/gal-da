@@ -87,7 +87,7 @@ class Ing_CajaController extends Controller
 
             //$this->model->Registrar($alm);
             //header('Location: lista_caja_egr.php?m=n');
-            header('Location: /caja/ing');
+           return redirect('/caja/ing');
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -110,7 +110,7 @@ class Ing_CajaController extends Controller
             //$this->conexionn->prepare($sql)->execute(array($data->__GET('cod_ga')));
             //header('Location: lista_caja_egr.php?m=a');
 
-            header('Location: /caja/ing');
+           return redirect('/caja/ing');
         } catch (Exception $e) 
         {
             die($e->getMessage());

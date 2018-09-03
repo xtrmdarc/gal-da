@@ -19,7 +19,7 @@ Route::get('registerI', 'Web\AuthController@show_account_info_v')->name('registe
 Route::get('registerB', 'Web\AuthController@show_account_business_v')->name('registerBusiness');
 Route::get('verifyEmailFirst', 'Web\AuthController@verifyEmailFirst')->name('verifyEmailFirst');
 Route::get('verify/{email}/{verifyToken}', 'Web\AuthController@sendEmailDone')->name('sendEmailDone');
-Route::get('verify/{email}/{verifyToken}', 'Web\AuthController@verificarTokenSubUsuario')->name('verificarTokenSubUsuario');
+Route::get('verifySubUser/{email}/{verifyToken}', 'Web\AuthController@verificarTokenSubUsuario')->name('verificarTokenSubUsuario');
 Route::post('activarSubUsuario','Web\AuthController@activarSubUsuario')->name('activarSubUsuario');
 
 // Password Reset Routes...

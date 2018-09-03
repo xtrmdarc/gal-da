@@ -85,7 +85,7 @@ class ProveedorController extends Controller
                     
                 //$this->model->Actualizar($data);
                 //header('Location: lista_comp_prov.php?m=u');
-                header('Location: /proveedores?m=u');
+               return redirect('/proveedores?m=u');
 
             } else {
             
@@ -111,11 +111,11 @@ class ProveedorController extends Controller
 
             if ($row->dup == 1){
                     //header('Location: lista_comp_prov.php?m=d');
-                    header('Location: /proveedores?m=d');
+                   return redirect('/proveedores?m=d');
                     
                 } else {
                     //header('Location: lista_comp_prov.php?m=n');
-                    header('Location: /proveedores?m=n');
+                   return redirect('/proveedores?m=n');
                     
                 }
             }
@@ -145,11 +145,11 @@ class ProveedorController extends Controller
                 $this->conexionn=null;*/
 
                 //header('Location: lista_comp_prov.php');
-                header('Location: /proveedores');
+               return redirect('/proveedores');
                 
             }else{
                 //header('Location: lista_comp_prov.php');
-                header('Location: /proveedores');
+               return redirect('/proveedores');
             }
 
         } catch (Exception $e) 
