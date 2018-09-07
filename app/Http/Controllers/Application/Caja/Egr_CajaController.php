@@ -97,7 +97,11 @@ class Egr_CajaController extends Controller
 
             //$this->model->Registrar($alm);
             //header('Location: lista_caja_egr.php?m=n');
-           return redirect('/caja/egr');
+            $notification = [ 
+                'message' =>'Datos registrados, correctamente.',
+                'alert-type' => 'success'
+            ];
+           return redirect('/caja/egr')->with($notification);
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -119,8 +123,11 @@ class Egr_CajaController extends Controller
                         ->update(['estado'=>'i']);
             //$this->conexionn->prepare($sql)->execute(array($data->__GET('cod_ga')));
             //header('Location: lista_caja_egr.php?m=a');
-
-           return redirect('/caja/egr');
+            $notification = [ 
+                'message' =>'Datos anulados, correctamente.',
+                'alert-type' => 'success'
+            ];
+           return redirect('/caja/egr')->with($notification);
         } catch (Exception $e) 
         {
             die($e->getMessage());

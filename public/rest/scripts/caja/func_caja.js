@@ -3,6 +3,7 @@ $(function() {
     listarDatos();
     mensaje();
 
+    console.log('llego aca');
     $('#frm-nueva-apertura').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -249,6 +250,7 @@ $(".dec input").keypress(function(event) {
 var mensaje = function(){
     if($("#m").val() == 'n'){
         toastr.success('Caja aperturada, correctamente.');
+        console.log('llego aca');
     }else if ($("#m").val() == 'd'){
         toastr.warning('Advertencia, Datos duplicados.');
     }else if ($("#m").val() == 'e'){

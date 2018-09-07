@@ -85,7 +85,11 @@ class ProveedorController extends Controller
                     
                 //$this->model->Actualizar($data);
                 //header('Location: lista_comp_prov.php?m=u');
-               return redirect('/proveedores?m=u');
+                $notification = [ 
+                    'message' =>'Datos modificados, correctamente.',
+                    'alert-type' => 'success'
+                ];
+               return redirect('/proveedores')->with($notification);
 
             } else {
             
@@ -111,11 +115,17 @@ class ProveedorController extends Controller
 
             if ($row->dup == 1){
                     //header('Location: lista_comp_prov.php?m=d');
-                   return redirect('/proveedores?m=d');
-                    
+                    $notification = [ 
+                        'message' =>'Estas intentando ingresar datos que ya existen!',
+                        'alert-type' => 'warning'
+                    ];
+                   return redirect('/proveedores')->with($notification);                    
                 } else {
-                    //header('Location: lista_comp_prov.php?m=n');
-                   return redirect('/proveedores?m=n');
+                    $notification = [ 
+                        'message' =>'Datos registrados, correctamente.',
+                        'alert-type' => 'success'
+                    ];
+                   return redirect('/proveedores')->with($notification);    
                     
                 }
             }
@@ -144,12 +154,18 @@ class ProveedorController extends Controller
                 $this->conexionn->prepare($sql)->execute(array($data->__GET('estado'),$data->__GET('cod_prov')));
                 $this->conexionn=null;*/
 
-                //header('Location: lista_comp_prov.php');
-               return redirect('/proveedores');
-                
+                $notification = [ 
+                    'message' =>'Datos modificados, correctamente.',
+                    'alert-type' => 'success'
+                ];
+               return redirect('/proveedores')->with($notification);    
+
             }else{
-                //header('Location: lista_comp_prov.php');
-               return redirect('/proveedores');
+                $notification = [ 
+                    'message' =>'Advertencia, El proveedor no puede ser eliminado.',
+                    'alert-type' => 'warning'
+                ];
+               return redirect('/proveedores')->with($notification);  
             }
 
         } catch (Exception $e) 

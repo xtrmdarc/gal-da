@@ -98,7 +98,11 @@ class ClienteController extends Controller
                 $st->execute($arrayParam);*/
                 
                 //header('Location: lista_tm_clientes.php?m=u');
-               return redirect('/cliente');
+                $notification = [ 
+                    'message' =>'Datos modificados, correctamente.',
+                    'alert-type' => 'success'
+                ];
+               return redirect('/cliente')->with($notification);
             } else {
 
                 //$row = $this->model->Registrar($alm);
@@ -120,6 +124,7 @@ class ClienteController extends Controller
                         'id_usu' => $idUsu,
                         'id_empresa' => $idEmpresa,
                     ]);
+                    
                 }else if($idRol == 2){
                     $nuevo_cliente = TmCliente::create([
                         'dni' => $post['dni'],
@@ -136,8 +141,11 @@ class ClienteController extends Controller
                         'id_empresa' => $idEmpresa,
                     ]);
                 }
-
-               return redirect('/cliente');
+                $notification = [ 
+                    'message' =>'Cliente registrado, correctamente.',
+                    'alert-type' => 'success'
+                ];
+                return redirect('/cliente')->with($notification);
 /*
                 $arrayParam =  array(
                     ':flag' => 1,
@@ -188,12 +196,18 @@ class ClienteController extends Controller
                 /*$this->conexionn->prepare($sql)
                      ->execute(array($data->__GET('estado'),$data->__GET('cod_cliente')));*/
                 //$this->conexionn=null;
+                $notification = [ 
+                    'message' =>'Datos modificados, correctamente.',
+                    'alert-type' => 'success'
+                ];
+                return redirect('/cliente')->with($notification);
 
-
-               return redirect('/cliente');
             }else{
-                echo('no hizo el cambio');
-               return redirect('/cliente');
+                $notification = [ 
+                    'message' =>'Se produjo un error.',
+                    'alert-type' => 'warning'
+                ];
+                return redirect('/cliente')->with($notification);
             }
 
 		} catch (Exception $e) 

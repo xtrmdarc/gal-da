@@ -188,7 +188,12 @@ class UsuarioController extends Controller
                         pin = ?
                     WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
                     
-            return redirect()->route('config.Usuarios');
+            $notification = [ 
+                'message' =>'Datos modificados, Correctamente',
+                'alert-type' => 'success'
+            ];
+
+            return redirect()->route('config.Usuarios')->with($notification);
         } else {
 
             $user = TmUsuario::create([
@@ -212,15 +217,19 @@ class UsuarioController extends Controller
 
             if($user) {
                 
-                
-                
                 if($user->id_rol==5) {
                     TmUsuario::find($user->id_usu)->update(['status'=>1]);
                 }
                 else{
                     Mail::to($user->email)->send(new SubUsuarioCreado($user));
                 }
-                return redirect()->route('config.Usuarios');
+                
+                $notification = [ 
+                    'message' =>'Usuario registrado correctamente',
+                    'alert-type' => 'success'
+                ];
+
+                return redirect()->route('config.Usuarios')->with($notification);
             }
         }
     }
@@ -305,7 +314,11 @@ class UsuarioController extends Controller
         TmUsuario::find($cod_usu)
                     ->update(['estado'=>$nuevo_estado]);
 
-       return redirect('/ajustesUsuarios');
+        $notification = [ 
+            'message' =>'Registros modificados, Correctamente',
+            'alert-type' => 'success'
+        ];
+       return redirect('/ajustesUsuarios')->with($notification);
     }
 
     public function GetAreasProdXSucursal(Request $request){

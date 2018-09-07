@@ -53,10 +53,12 @@ $(function() {
                     $('#mdl-validar-cliente').modal('show');
                 }
                 else if(data==2){
-                    alert('implementar con toast cliente ya ha realizado una venta');
+                    toastr.options.positionClass = "toast-top-right";
+                    toastr.warning("Advertencia, El cliente no puede ser eliminado.");
                 }
                 else{
                     window.location.replace('/cliente');
+                    toastr.success("Cliente eliminado correctamente");
                 }
             }
         });

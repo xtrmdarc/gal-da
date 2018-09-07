@@ -112,13 +112,20 @@ class Aper_CajaController extends Controller
                if ($row->dup == 1){
                     session(['apertura'=> 0]);
                     session(['id_apc'=> 0]);
-                    //header('Location: lista_caja_aper.php?m=c');
-                    return redirect('/caja/aper');
+                    
+                    $notification = [ 
+                        'message' =>'Caja cerrada, correctamente',
+                        'alert-type' => 'success'
+                    ];
+                   
                } else {
-                    //header('Location: lista_caja_aper.php?m=d');
-                    return redirect('/caja/aper');
+                    
+                    $notification = [ 
+                        'message' =>'Advertencia, Datos duplicados.',
+                        'alert-type' => 'warning'
+                    ];
                }
-    
+                    return redirect('/caja/aper')->with($notification);
             }else{
                 
                 date_default_timezone_set('America/Lima');
@@ -161,10 +168,19 @@ class Aper_CajaController extends Controller
                     //$_SESSION["id_apc"] = $row['cod'];
                     session(['id_apc'=>$row->cod]);
                     //header('Location: lista_caja_aper.php?m=n');
-                    return redirect('/caja/aper');
+                    $notification = [ 
+                        'message' =>'La caja se aperturó correctamente',
+                        'alert-type' => 'success'
+                    ];
+                    
                }else {
-                    return redirect('/caja/aper');
+                    
+                    $notification = [ 
+                        'message' =>'Advertencia, Apertura duplicada',
+                        'alert-type' => 'warning'
+                    ];
                }
+               return redirect('/caja/aper')->with($notification);
             }
 
         }

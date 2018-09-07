@@ -26,7 +26,7 @@
     {{--<link href="{{ URL::to('application/css/lib/calendar2/semantic.ui.min.css') }}" rel="stylesheet" />--}}
     <!-- Bootstrap Core CSS -->
     <link href="{{ URL::to('rest/css/plugins/dataTables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     {{--<link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">--}}
 
     <!-- Custom CSS -->
@@ -124,7 +124,8 @@
 
 
 
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
 <script src="{{ URL::to('rest/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
 <script src="{{ URL::to('rest/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -162,6 +163,32 @@
     console.log({!!Auth::user()!!});
 </script>
 {{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>--}}
+<!-- Notification toastr setup -->        
+<script type="text/javascript">
+    @if(Session::has('message'))
+      var type = "{!! Session::get('alert-type', 'info') !!}";
+      
+      switch(type){
+          case 'info':
+              toastr.info("{!! Session::get('message') !!}");
+              break;
+          
+          case 'warning':
+              toastr.warning("{!! Session::get('message') !!}");
+              break;
+  
+          case 'success':
+              toastr.success("{!! Session::get('message') !!}");
+              break;
+  
+          case 'error':
+              toastr.error("{!! Session::get('message') !!}");
+              break;
+      }
+    @endif
+</script>
+
+
 
 </body>
 

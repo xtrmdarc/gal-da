@@ -151,6 +151,7 @@ class ComprasController extends Controller
             //DB::insert("INSERT INTO tm_compra (id_prov,id_tipo_compra,id_tipo_doc,id_usu,fecha_c,hora_c,serie_doc,num_doc,igv,total,descuento,observaciones,fecha_reg) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);",$arrayParam);
             /*$this->conexionn->prepare($sql)
                 ->execute();*/
+            
             $compra_id= DB::table('tm_compra')->insertGetId(array(
                 'id_prov' =>$dato['cod_prov'],
                 'id_tipo_compra'=>$dato['tipo_compra'],
@@ -227,9 +228,17 @@ class ComprasController extends Controller
 
             if ($row->dup == 1){
                 //header('Location: lista_comp.php?m=c');
-               return redirect('/compras');
+                $notification = [ 
+                    'message' =>'Datos anulados, correctamente',
+                    'alert-type' => 'success'
+                ];
+               return redirect('/compras')->with($notification);
             } else {
-               return redirect('/compras?m=e');
+                $notification = [ 
+                    'message' =>'Advertencia, La compra ya ha sido anulada.',
+                    'alert-type' => 'warning'
+                ];
+                return redirect('/compras')->with($notification);
             }
         } catch (Exception $e) 
         {
