@@ -6,10 +6,10 @@
         <div class="col-lg-9">
             <h2><i class="fa fa-cogs"></i> <a class="a-c" href="{{ url('/ajustes') }}">Ajustes</a></h2>
             <ol class="breadcrumb">
-                <li class="active">
+                <li class="breadcrumb-item active">
                     <strong>Sistema</strong>
                 </li>
-                <li class="active">
+                <li class="breadcrumb-item active">
                     <strong><a href="{{ url('/ajustesUsuarios') }}">Usuarios</a></strong>
                 </li>
                 <li>Edici&oacute;n</li>
@@ -61,14 +61,6 @@
                                                 <div class="input-group">
                                                     {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                     <select name="id_rol" id="id_rol" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                                        @if($id_usu != null)
-                                                            <option value="">
-
-                                                            </option>
-                                                        @else
-                                                            echo '<option value="" selected>Seleccionar</option>';
-                                                            echo '<optgroup label="Seleccionar">';
-                                                                @endif
                                                                 <optgroup label="Seleccionar">
                                                                     @foreach($user_rol as $r)
                                                                         <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
@@ -90,7 +82,7 @@
                                         
                                         <div class="col-lg-12">
                                             <div class="row">
-                                                <div class="col-lg-6  sides_padding15 " id="nombres_div">
+                                                <div class="col-lg-12  sides_padding15 " id="nombres_div">
                                                     <div class="form-group">
                                                         <label class="control-label">Nombres</label>
                                                         <input type="text" name="nombres" value="" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
@@ -122,19 +114,21 @@
                                         <div class="col-lg-6  sides_padding15" id="usr_div">
                                             <div class="form-group">
                                                 <label class="control-label">Usuario</label>
-                                                <div class="row">
+                                                <div class="row sides_padding15">
 
                                                 
-                                                <div class="input-group col-sm-6">
+                                                <div class="input-group col-xs-6">
                                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                     <input type="text" name="usuario" value="" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
                                                 </div>
-                                                <div class="input-group col-sm-6">
-                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{'@'.$nombre_empresa}}</span>
+                                                <div class="input-group col-xs-6">
+                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto; margin-right:auto; margin-left:auto;">{{'@'.$nombre_empresa}}</span>
                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @php
+                                        /*
                                         <div class="col-lg-6  sides_padding15" id="pass_div">
                                             <div class="form-group">
                                                 <label class="control-label">Contrase&ntilde;a</label>
@@ -144,7 +138,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                        */
+                                        @endphp
                                         <div class="col-lg-6  sides_padding15" id="pin_div" style="display: none">
                                             <div class="form-group">
                                                 <label class="control-label">PIN</label>
@@ -162,7 +157,7 @@
                                                     <label class="control-label">Sucursal</label>
                                                     <div class="input-group">
                                                         {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" @if (Auth::user()->plan_id == 1 )readonly="readonly"@endif data-live-search="true" autocomplete="off" required="required" placeholder="Seleccionar" >
+                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show form-control" @if (Auth::user()->plan_id == 1 )readonly="readonly"@endif autocomplete="off" required="required" placeholder="Seleccionar" >
                                                             @foreach($user_sucursal as $r)
                                                                 <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                                             @endforeach 
@@ -176,7 +171,7 @@
                                                 <label class="control-label">&Aacute;rea de Producci&oacute;n</label>
                                                 <div class="input-group">
                                                     {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                    <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" title="Seleccionar" data-live-search="true" autocomplete="off" required="required">
+                                                    <select name="cod_area" id="cod_area" class="selectpicker show form-control" title="Seleccionar" autocomplete="off" required="required">
                                                             <option value="" disabled selected>Seleccionar</option>
                                                             @foreach($user_areaProd as $r)
                                                                 <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
@@ -203,23 +198,26 @@
         </div>
     </div>
 </div>
-    <script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
-    <script src="{{URL::to('rest/js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
-    <script src="{{URL::to('rest/js/plugins/wizard/wizard.js' )}}"></script>
-    <script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js' )}}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#email").emailautocomplete({
-                domains: [
-                    "gmail.com",
-                    "yahoo.com",
-                    "hotmail.com",
-                    "live.com",
-                    "facebook.com",
-                    "outlook.com"
-                ]
-            });
-        });
-    </script>
 
 @endsection('content')
+@section('name')
+<script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
+<script src="{{URL::to('rest/js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
+<script src="{{URL::to('rest/js/plugins/wizard/wizard.js' )}}"></script>
+<script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js' )}}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#email").emailautocomplete({
+            domains: [
+                "gmail.com",
+                "yahoo.com",
+                "hotmail.com",
+                "live.com",
+                "facebook.com",
+                "outlook.com"
+            ]
+        });
+    });
+</script>
+@endsection
+    

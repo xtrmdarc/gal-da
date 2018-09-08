@@ -19,7 +19,8 @@
     
     <link href="{{ URL::to('rest/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::to('rest/css/plugins/iCheck/skins/all.css') }}" rel="stylesheet" />
-    <link href="{{ URL::to('rest/css/plugins/select/bootstrap-select.css') }}" rel="stylesheet">
+    @php /* <link href="{{ URL::to('rest/css/plugins/select/bootstrap-select.css') }}" rel="stylesheet"> */ @endphp
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <link href="{{ URL::to('application/css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
     <link href="{{ URL::to('application/css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
@@ -137,7 +138,8 @@
 <!-- DatePicker -->
 <script src="{{ URL::to('rest/js/plugins/datepicker/bootstrap-datepicker.min.js') }}"></script>
 <!-- Select2 -->
-<script src="{{ URL::to('rest/js/plugins/select/bootstrap-select.min.js') }}"></script>
+@php /* <script src="{{ URL::to('rest/js/plugins/select/bootstrap-select.min.js') }}"></script> */ @endphp
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 <!-- Jquery Validate -->
 <script src="{{ URL::to('rest/js/plugins/formvalidation/formValidation.min.js') }}"></script>
 <script src="{{ URL::to('rest/js/plugins/formvalidation/framework/bootstrap.min.js') }}"></script>
@@ -188,6 +190,7 @@
     @endif
 </script>
 
+@yield('scripts')
 
 
 </body>

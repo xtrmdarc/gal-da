@@ -7585,3 +7585,12 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.bs-caret{
+  margin-left: -10px;  
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a:hover{
+  background: #1ab394;
+  color: white;
+}
