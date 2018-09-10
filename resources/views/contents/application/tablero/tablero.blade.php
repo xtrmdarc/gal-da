@@ -7,7 +7,7 @@
     $fecha = date("d-m-Y h:i A");
     $fechaa = date("d-m-Y 07:00");
 @endphp
-<div class="page-wrapper">
+
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="dia_a" value="<?php echo $fecha; ?>"/>
 
@@ -354,7 +354,7 @@
 </div>
 
 
-</div>
+
 
 <script src="{{URL::to('rest/scripts/tablero/func-tablero.js')}}"></script>
 <script>   

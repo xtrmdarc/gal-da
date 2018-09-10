@@ -20,7 +20,8 @@ class OtrosController extends Controller
     public function index()
     {   
         $data = [
-            'breadcrumb'=> 'ajustes'  
+            'breadcrumb'=> 'ajustes',
+            'titulo_vista' => 'Otras Configuraciones'
         ];
         return view('contents.application.config.config')->with($data);
     }

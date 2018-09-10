@@ -50,7 +50,9 @@ class InicioController extends Controller
             'ListarCM' => $ListarCM,
             'ListarMesa' => $ListarMesa,
             'ListarMozos'=> $ListarMozos,
-            'breadcrumb' => 'produccion',
+            'breadcrumb' => 'pedidos',
+            'titulo_vista' => 'Pedidos',
+            'vista_amplia'=> true,
             'aperturas'=> $aperturas
         ];
         
@@ -308,7 +310,8 @@ class InicioController extends Controller
         $val = self::ValidarEstadoP($cod);
         $data = [
             'cod'=> $cod,
-            'breadcrumb'=> ''  
+            'breadcrumb'=> '' ,
+            'vista_amplia' => true
         ];
         if ($val == 1){
            /* require_once 'view/header.php';

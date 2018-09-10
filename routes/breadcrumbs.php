@@ -5,6 +5,9 @@
     });
 
     Breadcrumbs::register('inicio', function ($breadcrumbs) {
+        if( \Auth::user()->plan_id == 1)
+        $breadcrumbs->push('Inicio', route('tableroF'));
+        else
         $breadcrumbs->push('Inicio', route('tablero'));
     });
 
@@ -58,9 +61,9 @@
         $breadcrumbs->push('Editar Cliente', route('cucliente'));
     });
 
-    Breadcrumbs::register('produccion', function ($breadcrumbs) {
+    Breadcrumbs::register('pedidos', function ($breadcrumbs) {
         $breadcrumbs->parent('inicio');
-        $breadcrumbs->push('Producción', route('produccion'));
+        $breadcrumbs->push('Pedidos', route('produccion'));
     });
 
     Breadcrumbs::register('creditosCompra', function ($breadcrumbs) {
@@ -154,10 +157,22 @@
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Tipos de Documento',route('config.TiposdeDocumentos'));
     });
+    //Usuario
     Breadcrumbs::register('config.Usuarios', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Usuarios',route('config.Usuarios'));
     });
+
+    Breadcrumbs::register('config.nuevo_usuario', function ($breadcrumbs) {
+        $breadcrumbs->parent('config.Usuarios');
+        $breadcrumbs->push('Nuevo usuario',route('config.Usuarios'));
+    });
+
+    Breadcrumbs::register('config.editar_usuario', function ($breadcrumbs) {
+        $breadcrumbs->parent('config.Usuarios');
+        $breadcrumbs->push('Editar usuario',route('config.Usuarios'));
+    });
+    //-----
     Breadcrumbs::register('config.Sucursal', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Sucursales',route('config.Sucursal'));

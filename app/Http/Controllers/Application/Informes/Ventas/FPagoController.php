@@ -17,7 +17,8 @@ class FPagoController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_fpago'
+            'breadcrumb'=>'inf_fpago',
+            //'titulo_vista' => 'Informe '
         ];
         return view('contents.application.informes.ventas.inf_fpagos')->with($data);
     }

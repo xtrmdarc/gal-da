@@ -1,6 +1,6 @@
 @extends('layouts.application.master')
 @section('content')
-<div class="page-wrapper">
+
 <input type="hidden" id="m" value="<?php// echo $_GET['m']; ?>"/>
 <div class="wrapper wrapper-content animated bounce">
     <div class="ibox">
@@ -143,7 +143,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/cliente/func_cliente.js')}}"></script>
 
 @endsection

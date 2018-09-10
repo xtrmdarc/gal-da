@@ -17,7 +17,8 @@ class KardexController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb' => 'inf_kardex'
+            'breadcrumb' => 'inf_kardex',
+            'titulo_vista' => 'Informe kardex'
         ];
         return view('contents.application.informes.inventario.inf_kardex')->with($data);
     }

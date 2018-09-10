@@ -18,7 +18,8 @@ class SucursalController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb' => 'config.Sucursal'
+            'breadcrumb' => 'config.Sucursal',
+            'titulo_vista' => 'Sucursales'
         ];
         return view('contents.application.config.sist.sucursal')->with($data);
     }

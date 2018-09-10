@@ -47,6 +47,7 @@ class Ing_CajaController extends Controller
         $data = [
             'lista1' => $lista1,
             'breadcrumb'=> 'ingcaja',
+            'titulo_vista' => 'Ingresos de caja',
             'cajas' => $cajasAbiertas
         ];
 

@@ -22,7 +22,8 @@ class CajaController extends Controller
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
         $viewdata['user_sucursal'] = $user_sucursal;
         $data = [
-            'breadcrumb'=> 'config.Cajas'  
+            'breadcrumb'=> 'config.Cajas',
+            'titulo_vista' => 'Cajas'
         ];
         return view('contents.application.config.rest.caja',$viewdata)->with($data);
     }

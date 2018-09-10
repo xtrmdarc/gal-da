@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 
 <input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
 <input type="hidden" id="cod_m" value="<?php //echo $_GET['m']; ?>"/>
@@ -11,7 +11,7 @@
 
 
     <div class="row">
-        <div class="col-lg-5" style="display:inline-block;" >
+        <div class="col-lg-5" style="display:inline-block; padding-right:0px" >
             <div class="mail-box-header title-pink">
                 <div class="pull-right mail-search btn-imp"></div>
                 <h2><i id="ico-ped"></i> <span class="mes_dg"></span></h2>
@@ -80,13 +80,13 @@
                         </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
             <ul class="nav nav-tabs catg" id="list-catgrs"></ul>
             <div class="tab-content" style="padding: 8px !important">
                 <div id="tab-1" class="tab-pane active">
-                    <div class="row scroll_der" id="list-prods">
-                        <div class="panel panel-transparent text-center">
+                    <div class="row1 scroll_der" id="list-prods">
+                        <div class="panel panel-transparent text-center" style="margin:auto;">
                             <div class="row">
                                 <div class="col-sm-8 col-sm-push-2" style="text-align: center;">
                                     <br><br><br>
@@ -585,7 +585,7 @@
     </li>
     </script>
 
-</div>
+
 <script src="{{URL::to('rest/scripts/inicio/func-procesos.js')}}"></script>
 <script src="{{URL::to('rest/scripts/inicio/func-cliente.js')}}"></script>
 <script src="{{URL::to('rest/js/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>

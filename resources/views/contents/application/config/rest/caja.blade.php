@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
     <div class="col-lg-6">
         <div class="wrapper wrapper-content animated bounce">
             <div class="row">
@@ -137,7 +137,7 @@
             </div>
         </div>
     </div>
-</div>
+
     <script src="{{URL::to('rest/scripts/config/func_cajas.js' )}}"></script>
     <script type="text/javascript">
         $(function() {

@@ -7,7 +7,7 @@ $fecha = date("d-m-Y");
 $fechaa = date("m-Y");
 @endphp
 
-<div class="page-wrapper">
+
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="m" value="<?php // echo $_GET['m']; ?>"/>
 
@@ -158,6 +158,6 @@ $fechaa = date("m-Y");
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/compras/func-compras.js')}}"></script>
 @endsection

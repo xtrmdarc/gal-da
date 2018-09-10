@@ -41,6 +41,7 @@ class AreaProdController extends Controller
         
         $data = [
             'breadcrumb' => '',
+            'vista_amplia' => true,
             'ordenes'=> $ordenes,
             'id_sucursal' => $id_sucursal,
             'id_areap' => $id_areap,

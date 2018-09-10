@@ -24,7 +24,8 @@ class ComprasController extends Controller
         $viewData['providers'] = $providers;
         $data= [
             
-            'breadcrumb' => 'creditosCompra'   
+            'breadcrumb' => 'creditosCompra',
+            'titulo_vista' => 'Compras'
         ];
         return view('contents.application.creditos.compras.index',$viewData)->with($data);
     }

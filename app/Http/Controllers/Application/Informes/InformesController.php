@@ -16,7 +16,8 @@ class InformesController extends Controller
     public function index()
     {   
         $data = [
-            'breadcrumb'=> 'informes'  
+            'breadcrumb'=> 'informes'  ,
+            'titulo_vista' => 'Informes'
         ];
 
         return view('contents.application.informes.index')->with($data);

@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <div class="wrapper wrapper-content animated fadeIn ">
     <div class="ibox-content m-b-sm border-bottom " style="margin-left:15px;">
         <div class="p-xs">
@@ -59,7 +59,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/informes/func_inf.js' )}}"></script>
 <script type="text/javascript">
     $('#navbar-c').addClass("white-bg");

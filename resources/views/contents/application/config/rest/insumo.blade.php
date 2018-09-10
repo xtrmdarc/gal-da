@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <input type="hidden" id="m" value=""/>
 
 <div class="wrapper wrapper-content ng-scope">
@@ -213,7 +213,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/config/func_insumos.js' )}}"></script>
 <script type="text/javascript">
     $(function() {

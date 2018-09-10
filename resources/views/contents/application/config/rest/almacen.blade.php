@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-6">
@@ -212,7 +212,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{ URL::to('rest/scripts/config/func_almacenes.js' ) }}"></script>
 <script type="text/javascript">
     $(function() {

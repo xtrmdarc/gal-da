@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 @section('content')
 
-<div class="page-wrapper">
+
 <input type="hidden" id="igv" value="{{number_format(session('igv'),2)}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 
@@ -371,7 +371,7 @@
     </div>
 </div>
 
-</div>
+
 <script id="compra-detalle-template" type="text/x-jsrender" src="">
     <li class="list-group-item list-group-item-warning disabled">
         <div class="row">

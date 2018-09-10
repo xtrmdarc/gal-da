@@ -4,7 +4,7 @@
 
 <input type="hidden" id="m" value=""/>
 <input type="hidden" id="moneda" value=""/>
-<div class="page-wrapper">
+
 
 
 <div class="wrapper wrapper-content ng-scope">
@@ -371,7 +371,7 @@
     </div>
 </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/config/func_productos.js' )}}"></script>
 <script src="{{URL::to('rest/scripts/config/func_productos_ins.js' )}}"></script>
 <script src="{{URL::to('rest/js/jquery-ui-1.12.1/jquery-ui.min.js' )}}"></script>

@@ -9,7 +9,7 @@
         $fechaa = date("d-m-Y 12:00 ");
 
         @endphp
-        <div class="page-wrapper">
+
                 <input type="hidden" id="moneda" value=""/>
 
                 <div class="wrapper wrapper-content animated shake">
@@ -17,13 +17,11 @@
                                 <div class="ibox-title">
                                         <div class="row">
                                                 <div class="col-sm-12">
-                                                        <h3 style="margin-bottom: 10px;">Resumen de Ventas - Tablero</h3>
+                                                        <h3 style="margin-bottom: 10px;">Resumen de Ventas</h3>
                                                 </div>
                                         </div>
-                                        <div class="row">
-                                                <div class="col-sm-1">
-                                                        <i class="fa fa-info-circle"></i> Datos obtenidos:
-                                                </div>
+                                        <div class="row" style="margin-top:20px;">
+                                                
                                                 <div class="col-sm-4">
                                                         <div class="form-group">
                                                                 <div class="input-group">
@@ -120,7 +118,7 @@
                         </div>
                 </div>
         </div>
-        </div>
+        
 
         <script type="text/javascript">
 

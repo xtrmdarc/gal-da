@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <input type="hidden" id="m" value="<?php // echo $_GET['m']; ?>"/>
 
 
@@ -95,6 +95,6 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/compras/proveedores/func_prov.js')}}"></script>
 @endsection

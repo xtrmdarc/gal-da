@@ -22,7 +22,8 @@ class TableroController extends Controller
         
         $data = [
 
-            'breadcrumb'=> ''  
+            'breadcrumb'=> 'inicio',
+            'titulo_vista' => 'Tablero'  
             
         ];
   

@@ -71,6 +71,8 @@ class TableroFController extends Controller
         $viewdata['total_venta'] = $t_venta;
         $viewdata['total_n_venta'] = $t_n_venta;
         $viewdata['n_clientes'] = $t_n_clientes;
+        $viewdata['breadcrumb'] = 'inicio';
+        $viewdata['titulo_vista']  = 'Tablero';
 
         return view('contents.application.tablero_f.tablero_f',$viewdata) ;
     }

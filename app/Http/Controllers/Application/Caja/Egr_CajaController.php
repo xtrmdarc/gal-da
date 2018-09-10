@@ -53,6 +53,7 @@ class Egr_CajaController extends Controller
                 'tdocumentos' => $TDocumentos,
                 'personal' => $personal,
                 'breadcrumb'=> 'egrcaja',
+                'titulo_vista' => 'Egresos de caja',
                 'cajas' => $cajasAbiertas
                 ];
         return view('contents.application.caja.egr_caja')->with($data);

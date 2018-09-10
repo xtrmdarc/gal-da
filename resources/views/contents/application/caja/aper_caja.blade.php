@@ -5,7 +5,7 @@
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 $fecha = date("d-m-Y h:i A");
 @endphp
-<div class="page-wrapper">
+
 <input type="hidden" id="moneda" value="{{ session('moneda') }}"/>
 <input type="hidden" id="fechaC" value=" {{$fecha}}"/>
 <input type="hidden" id="m" value="<?php //$_GET['m']; ?>"/>
@@ -261,6 +261,6 @@ $fecha = date("d-m-Y h:i A");
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/caja/func_caja.js')}}"></script>
 @endsection

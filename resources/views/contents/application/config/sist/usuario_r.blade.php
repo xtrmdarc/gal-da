@@ -1,22 +1,8 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
-            <h2><i class="fa fa-cogs"></i> <a class="a-c" href="{{ url('/ajustes') }}">Ajustes</a></h2>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">
-                    <strong>Sistema</strong>
-                </li>
-                <li class="breadcrumb-item active">
-                    <strong><a href="{{ url('/ajustesUsuarios') }}">Usuarios</a></strong>
-                </li>
-                <li>Edici&oacute;n</li>
-            </ol>
-        </div>
-    </div>
 
+    
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
@@ -80,16 +66,14 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-lg-12">
-                                            <div class="row">
-                                                <div class="col-lg-12  sides_padding15 " id="nombres_div">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Nombres</label>
-                                                        <input type="text" name="nombres" value="" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
-                                                    </div>
-                                                </div>
+                                        
+                                        <div class="col-lg-12  sides_padding15" id="nombres_div">
+                                            <div class="form-group">
+                                                <label class="control-label">Nombres</label>
+                                                <input type="text" name="nombres" value="" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
                                             </div>
                                         </div>
+                                        
                                         <div class="col-lg-6  sides_padding15 " id="app_div">
                                             <div class="form-group">
                                                 <label class="control-label">Apellido Paterno</label>
@@ -127,9 +111,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @php
-                                        /*
-                                        <div class="col-lg-6  sides_padding15" id="pass_div">
+                                       
+                                        <div class="col-lg-6  sides_padding15" style="display:none;" id="pass_div">
                                             <div class="form-group">
                                                 <label class="control-label">Contrase&ntilde;a</label>
                                                 <div class="input-group">
@@ -138,8 +121,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        */
-                                        @endphp
+                                        
+
                                         <div class="col-lg-6  sides_padding15" id="pin_div" style="display: none">
                                             <div class="form-group">
                                                 <label class="control-label">PIN</label>
@@ -197,10 +180,10 @@
             </div>
         </div>
     </div>
-</div>
 
-@endsection('content')
-@section('name')
+
+@endsection
+@section('scripts')
 <script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
 <script src="{{URL::to('rest/js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
 <script src="{{URL::to('rest/js/plugins/wizard/wizard.js' )}}"></script>

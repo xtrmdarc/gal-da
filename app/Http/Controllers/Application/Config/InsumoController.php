@@ -34,8 +34,10 @@ class InsumoController extends Controller
         $viewdata['comboCatg'] = $stm;
         $viewdata['unidadM'] = $stm_unidadM;
         $viewdata['breadcrumb'] = 'config.Insumos';
+        
         $data=[
-            'breadcrumb' => 'config.Insumos'
+            'breadcrumb' => 'config.Insumos',
+            'titulo_vista' => 'Insumos'
         ];
 
         return view('contents.application.config.rest.insumo',$viewdata)->with($data);

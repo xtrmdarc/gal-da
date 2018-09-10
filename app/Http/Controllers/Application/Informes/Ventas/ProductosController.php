@@ -17,7 +17,8 @@ class ProductosController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_productos'
+            'breadcrumb'=>'inf_productos',
+            'titulo_vista' => 'Informe Productos'
         ];
         return view('contents.application.informes.ventas.inf_productos')->with($data);
     }

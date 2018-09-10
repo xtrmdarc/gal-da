@@ -18,7 +18,8 @@ class VentasController extends Controller
     {
         $viewdata = [];
         $data = [
-            'breadcrumb'=>'inf_ventas'
+            'breadcrumb'=>'inf_ventas',
+            'titulo_vista' => 'Informe ventas'
         ];
         //Tipo de Pedido
         $stm = DB::Select("SELECT * FROM tm_tipo_pedido");

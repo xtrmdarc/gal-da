@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 @if(Auth::user()->id_rol == 4 || Auth::user()->id_rol == 5)
     <input type="hidden" id="cod_ape" value="-1"/>   
 @else 
@@ -575,7 +575,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/inicio/func-inicio.js')}}"></script>
 <script type="text/javascript">
 $(function() {

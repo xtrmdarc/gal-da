@@ -1,6 +1,6 @@
 @extends('layouts.application.master')
 @section('content')
-    <div class="page-wrapper">
+    
         <div class="wrapper wrapper-content animated fadeIn ">
             <div class="col-lg-12">
                 <div class="card">
@@ -279,7 +279,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
     <script src="{{URL::to('rest/scripts/usuario/usuario_perfil.js' )}}"></script>
 
     <script type="text/javascript">

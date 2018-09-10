@@ -2,21 +2,7 @@
 
 @section('content')
 
-<div class="page-wrapper">
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-9">
-        <h2><i class="fa fa-cogs"></i> <a class="a-c" href="{{ url('/ajustes') }}">Ajustes</a></h2>
-        <ol class="breadcrumb">
-            <li class="active">
-                <strong>Sistema</strong>
-            </li>
-            <li class="active">
-                <strong><a href="?c=Config">Usuarios</a></strong>
-            </li>
-            <li>Edici&oacute;n</li>
-        </ol>
-    </div>
-</div>
+
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -55,14 +41,7 @@
                                             <div class="input-group">
                                                 {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                 <select name="id_rol" id="id_rol" class="show-tick form-control" data-live-search="false"  autocomplete="off" required>
-                                                    @if($id_usu != null)
-                                                    {{--<option value="{{is_null($id_usu) ? '' : $id_rol}}">
-                                                        {{is_null($id_usu) ? '' : $desc_r}}
-                                                    </option>--}}
-                                                    @else
-                                                        echo '<option value="" selected>Seleccionar</option>';
-                                                        echo '<optgroup label="Seleccionar">';
-                                                    @endif
+                                            
                                                     <optgroup label="Seleccionar">
                                                         @foreach($user_rol as $r)
                                                             @if($r->id_rol == $id_rol)
@@ -86,7 +65,7 @@
                                     </div>
                                 
                                 
-                                    <div class="col-lg-6 sides_padding15" id="nombres_div">
+                                    <div class="col-lg-12 sides_padding15" id="nombres_div">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
                                             <input type="text" name="nombres" value="{{is_null($id_usu) ? '' : $nombres}}" class="form-control" placeholder="Ingrese nombres" autocomplete="off" required="required" />
@@ -128,8 +107,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if($id_rol == 5)
-                                    <div class="col-lg-6 sides_padding15" id="pass_div">
+                                    
+                                    <div class="col-lg-6 sides_padding15" style="display:none;" id="pass_div">
                                         <div class="form-group">
                                             <label class="control-label">Contrase&ntilde;a</label>
                                             <div class="input-group">
@@ -138,7 +117,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
+
                                     <div class="col-lg-6  sides_padding15" id="pin_div" >
                                         <div class="form-group">
                                             <label class="control-label">PIN</label>
@@ -170,14 +149,6 @@
                                             <div class="input-group">
                                                 {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                 <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required">
-                                                    @if($id_usu != null)
-                                                        <option value="{{is_null($id_usu) ? '' : $id_rol}}">
-                                                            {{is_null($id_usu) ? '' : $nombre}}
-                                                        </option>
-                                                    @else
-                                                        echo '<option value="" selected>Seleccionar</option>';
-                                                        echo '<optgroup label="Seleccionar">';
-                                                    @endif
                                                     <optgroup label="Seleccionar">
                                                         @foreach($user_areaProd as $r)
                                                             <option value="{{$r->id_areap}}">{{$r->nombre}}</option>
@@ -202,24 +173,27 @@
         </div>
     </div>
 </div>
-</div>
-<script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
-<script src="{{URL::to('js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
-<script src="{{URL::to('js/plugins/wizard/wizard.js' )}}"></script>
-<script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js' )}}"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#email").emailautocomplete({
-            domains: [
-                "gmail.com",
-                "yahoo.com",
-                "hotmail.com",
-                "live.com",
-                "facebook.com",
-                "outlook.com"
-            ]
-        });
-    });
-</script>
 
-@endsection('content')
+@endsection
+@section('scripts')
+
+    <script src="{{URL::to('rest/scripts/config/func_usuario_e.js' )}}"></script>
+    <script src="{{URL::to('js/plugins/wizard/jquery.bootstrap.wizard.js' )}}" type="text/javascript"></script>
+    <script src="{{URL::to('js/plugins/wizard/wizard.js' )}}"></script>
+    <script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js' )}}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#email").emailautocomplete({
+                domains: [
+                    "gmail.com",
+                    "yahoo.com",
+                    "hotmail.com",
+                    "live.com",
+                    "facebook.com",
+                    "outlook.com"
+                ]
+            });
+        });
+    </script>
+
+@endsection

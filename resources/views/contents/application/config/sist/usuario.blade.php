@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="page-wrapper">
+
     <input type="hidden" id="m" value=""/>
     
     <div class="wrapper wrapper-content animated bounce">
@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5><i class="fa fa-users"></i> Lista de Usuarios</h5>
+                        
                         <div class="ibox-title-buttons pull-right">
                             <a href="/ajustesRegistrarUsuario"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
                         </div>
@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/config/func_usuario.js' )}}"></script>
 
 

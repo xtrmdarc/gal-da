@@ -24,7 +24,8 @@ class TurnosController extends Controller
         $viewdata['user_sucursal'] = $user_sucursal;
 
         $data = [
-            'breadcrumb'=> 'config.Turnos'
+            'breadcrumb'=> 'config.Turnos',
+            'titulo_vista' => 'Turnos'
         ];
         return view('contents.application.config.sist.turnos_del_dia',$viewdata)->with($data);
     }

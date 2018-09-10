@@ -24,7 +24,8 @@ class MesaController extends Controller
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
         $viewdata['user_sucursal'] = $user_sucursal;
         $data = [
-            'breadcrumb'=> 'config.MesasSalones'  
+            'breadcrumb'=> 'config.MesasSalones',
+            'titulo_vista' => 'Salones y Mesas'
         ];
         return view('contents.application.config.rest.mesa',$viewdata)->with($data);
     }

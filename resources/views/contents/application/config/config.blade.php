@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <div class="wrapper wrapper-content animated fadeIn ng-scope">
     
     <div class="row">
@@ -87,8 +87,6 @@
 </div>
 
 
-
-</div>
 
 <script type="text/javascript">
     

@@ -41,6 +41,7 @@ class AlmacenController extends Controller
         $viewdata['user_sucursal'] = $user_sucursal;
         $viewdata['user_sucursal_free'] = $user_sucursal_free;
         $viewdata['lista_almacenes'] = $lista_almacenes;
+        $viewdata['titulo_vista'] = 'Almacén y Area producción';
 
         $data = [
             'breadcrumb'=> 'config.Almacen'  

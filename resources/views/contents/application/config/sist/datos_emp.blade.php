@@ -3,7 +3,7 @@
 @section('content')
 
 <input type="hidden" id="m" value=""/>
-<div class="page-wrapper">
+
 
 <form id="frm-datos-empresa" action="/ajustesDatosEmpresa" method="post" enctype="multipart/form-data">
     @csrf
@@ -133,7 +133,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/config/func_de.js' )}}"></script>
 <script type="text/javascript">
     $('#config').addClass("active");

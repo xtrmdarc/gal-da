@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="page-wrapper">
+
 
 <div class="wrapper wrapper-content animated shake">
     <div class="row">
@@ -87,7 +87,7 @@
     </div>
 </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/compras/proveedores/func_prov_e.js')}}"></script>
 <script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js')}}"></script>
 

@@ -8,7 +8,7 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 $fecha = date("d-m-Y h:i A");
 $fechaa = date("m-Y h:i: A");
 ?>
-<div class="page-wrapper">
+
 <input type="hidden" id="moneda" value=""/>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
@@ -82,7 +82,7 @@ $fechaa = date("m-Y h:i: A");
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{ URL::to('rest/scripts/informes/ventas/func-fpago.js' ) }}"></script>
 
 @endsection('content')

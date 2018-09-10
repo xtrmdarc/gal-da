@@ -17,7 +17,8 @@ class RemuneracionesController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_remu'
+            'breadcrumb'=>'inf_remu',
+            'titulo_vista' => 'Informe remuneraciones'
         ];
         return view('contents.application.informes.finanzas.inf_remuneraciones')->with($data);
     }

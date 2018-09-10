@@ -23,7 +23,8 @@ class ProveedorController extends Controller
         $viewdata['Proveedores'] = $stm;
 
         $data = [
-            'breadcrumb' =>'inf_proveedores'
+            'breadcrumb' =>'inf_proveedores',
+            'titulo_vista' => 'Informe de proveedores'
         ];
         return view('contents.application.informes.compras.inf_proveedores',$viewdata)->with($data);
     }

@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
-<div class="page-wrapper">
+
 <input type="hidden" id="cod_ape" value="{{session('apertura')}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 <input type="hidden" id="m" value=""/>
@@ -167,6 +167,6 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/caja/func_ing.js')}}"></script>
 @endsection

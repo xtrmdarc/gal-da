@@ -3,7 +3,7 @@
 @section('content')
 
     <input type="hidden" id="m" value=""/>
-<div class="page-wrapper">
+
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -238,7 +238,7 @@
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{ URL::to('rest/scripts/config/func_mesas.js' ) }}"></script>
 <script type="text/javascript">
     $(function() {

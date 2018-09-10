@@ -38,7 +38,8 @@ class UsuarioController extends Controller
             $viewData['users'] = $subUsers;
             $viewData['breadcrumb'] = '';
             $data = [
-                'breadcrumb' => 'config.Usuarios'
+                'breadcrumb' => 'config.Usuarios',
+                'titulo_vista' => 'Usuarios'
             ];
 
             return view('contents.application.config.sist.usuario',$viewData)->with($data);
@@ -84,9 +85,10 @@ class UsuarioController extends Controller
         $viewdata['user_sucursal']= $user_sucursal;
         $viewdata['user_areaProd']= $area_produccion;
         $viewdata['id_usu']= $id_usu;
-        $viewdata['breadcrumb'] = '';
+        $viewdata['breadcrumb'] = 'config.nuevo_usuario';
         $viewdata['nombre_empresa']=$empresa->nombre_empresa;
-        
+        $viewdata['titulo_vista']= 'Nuevo usuario';
+
         return view('contents.application.config.sist.usuario_r',$viewdata);
     }
 
@@ -238,7 +240,9 @@ class UsuarioController extends Controller
 
         $viewdata = [];
         $user = $id_usu;
-
+        
+        $viewdata['titulo_vista']='Editar usuario';
+        $viewdata['breadcrumb']='config.editar_usuario';
         $id_user = \Auth::user()->id_usu;
         $nombre_empresa = Empresa::find(\Auth::user()->id_empresa)->nombre_empresa;
         if(isset($user)){

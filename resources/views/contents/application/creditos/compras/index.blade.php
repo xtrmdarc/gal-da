@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="page-wrapper">
+    
 
     <input type="hidden" id="moneda" value=""/>
     <div class="wrapper wrapper-content animated fadeIn">
@@ -154,7 +154,7 @@
             </div>
         </div>
     </div>
-</div>
+
     <script src="{{ URL::to('rest/scripts/creditos/compras/func-compras.js' ) }}"></script>
     <script type="text/javascript">
         $(function() {

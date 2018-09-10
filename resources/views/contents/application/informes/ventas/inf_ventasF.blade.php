@@ -8,7 +8,7 @@
     $fecha = date("d-m-Y h:i A");
     $fechaa = date("m-Y h:i: A");
     @endphp
-    <div class="page-wrapper">
+    
         <input type="hidden" id="moneda" value=""/>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-9">
@@ -183,7 +183,7 @@
             </div>
         </div>
     </div>
-    </div>
+    
     <script src="{{URL::to('rest/scripts/informes/ventas/func-ventasF.js' )}}"></script>
 
 @endsection('content')

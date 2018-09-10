@@ -35,7 +35,8 @@ class ProductoController extends Controller
         $viewdata['user_sucursal'] = $user_sucursal;
         $viewdata['breadcrumb'] = '';
         $data = [
-            'breadcrumb' => 'config.Productos'
+            'breadcrumb' => 'config.Productos',
+            'titulo_vista' => 'Productos'
         ];
 
         return view('contents.application.config.rest.producto',$viewdata)->with($data);

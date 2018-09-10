@@ -17,7 +17,8 @@ class EgresosCajaController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_egrcaja'
+            'breadcrumb'=>'inf_egrcaja',
+            'titulo_vista' => 'Informe egresos'
         ];
         return view('contents.application.informes.finanzas.inf_egresos')->with($data);
     }

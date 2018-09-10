@@ -9,7 +9,7 @@ $fecha = date("d-m-Y");
 $fechaa = date("m-Y");
 ?>
 
-<div class="page-wrapper">
+
 <input type="hidden" id="moneda" value=""/>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9">
@@ -188,7 +188,7 @@ $fechaa = date("m-Y");
         </div>
     </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/informes/compras/func-compras.js' )}}"></script>
 
 @endsection('content')

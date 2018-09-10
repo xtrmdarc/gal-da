@@ -78,8 +78,25 @@
     @if(Auth::user()->id_rol == 1 ||  Auth::user()->id_rol == 2 ) 
         @include('layouts.application.sidebar')
     @endif
+
+
+    <div class="page-wrapper">
+        <div class="row page-titles" {{isset($vista_amplia)? "style=display:none" :'' }} >
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">{{isset($titulo_vista)?$titulo_vista:'Excelente Jornada!'}}</h3> 
+            </div>
+            <div class="col-md-7 align-self-center">
+                @if(isset($breadcrumb))
+                {{Breadcrumbs::render($breadcrumb)}}
+                @endif 
+            </div>
+        </div>
     
-    @yield('content')
+        
+        @yield('content')
+    
+    </div>
+    
     @include('layouts.application.footer')
     <!-- customiza patrones para los operativos!-->
 

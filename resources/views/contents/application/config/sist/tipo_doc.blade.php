@@ -3,7 +3,7 @@
 @section('content')
 
 <input type="hidden" id="m" value=""/>
-<div class="page-wrapper">
+
 
 <div class="col-lg-6">
     <div class="wrapper wrapper-content animated bounce">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-</div>
+
     <script src="{{URL::to('rest/scripts/config/func_td.js' )}}"></script>
     <script type="text/javascript">
         $('#config').addClass("active");

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="page-wrapper">
+
 <input type="hidden" id="id_sucursal" value="{{$id_sucursal}}"/>
 <input type="hidden" id="id_areap" value="{{$id_areap}}"/>
 
@@ -426,7 +426,7 @@
         </div>
         </div>
         --}}
-</div>
+
 <script src="{{URL::to('js/socket.io.js') }}"></script>
 <script src="{{URL::to('rest/js/plugins/buzz/buzz.min.js')}}"></script>
 <script src="{{URL::to('rest/scripts/areaprod/func_areap.js')}}"></script>

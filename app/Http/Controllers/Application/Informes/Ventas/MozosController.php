@@ -21,7 +21,8 @@ class MozosController extends Controller
         $stm = DB::Select("SELECT id_usu,CONCAT(nombres,' ',ape_paterno,' ',ape_materno) AS nombre FROM v_usuarios WHERE id_rol = 4");
         $viewdata['Mozos'] = $stm;
         $data = [
-            'breadcrumb'=>'inf_mozos'
+            'breadcrumb'=>'inf_mozos',
+            'titulo_vista' => 'Informe mozos'
         ];
         return view('contents.application.informes.ventas.inf_mozos',$viewdata)->with($data);
     }

@@ -17,7 +17,8 @@ class AperCajaController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_apercaja'
+            'breadcrumb'=>'inf_apercaja',
+            'titulo_vista' => 'Informe de cajas'
         ];
         return view('contents.application.informes.finanzas.inf_cajas')->with($data);
     }

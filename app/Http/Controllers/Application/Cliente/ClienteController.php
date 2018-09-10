@@ -29,7 +29,8 @@ class ClienteController extends Controller
         $viewdata['breadcrumb'] = '';
         $data = [
             'clientes' => $clientes,
-            'breadcrumb'=> 'clientes'
+            'breadcrumb'=> 'clientes',
+            'titulo_vista' => 'Clientes'
         ];
 
         return view('contents.application.cliente.cliente',$viewdata)->with($data);
@@ -40,7 +41,8 @@ class ClienteController extends Controller
         $data= null;    
         $breadcrumb = 'ncliente';
         $data = [
-            'breadcrumb' => $breadcrumb
+            'breadcrumb' => $breadcrumb,
+            'titulo_vista' => 'Nuevo cliente'
         ];
         if(isset($id)){
             $cliente = TmCliente::Where('id_cliente',$id)
@@ -48,6 +50,7 @@ class ClienteController extends Controller
             $breadcrumb = 'ecliente';
             $data['cliente'] = $cliente;
             $data['breadcrumb'] = $breadcrumb;
+            $data['breadcrumb'] = 'Editar cliente';
             /*$data= [
                 'cliente' => $cliente,
                 'breadcrumb'=> $breadcrumb

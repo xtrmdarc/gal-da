@@ -22,6 +22,7 @@ class ProveedorController extends Controller
 
         $data =[
             'proveedores' => $proveedores,
+            'titulo_vista' => 'Proveedores',
             'breadcrumb'=> 'proveedores'
         ];
 

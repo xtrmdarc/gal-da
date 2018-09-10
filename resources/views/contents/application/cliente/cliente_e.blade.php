@@ -1,6 +1,6 @@
 @extends('layouts.application.master')
 @section('content')
-<div class="page-wrapper">
+
 
 <div class="wrapper wrapper-content animated shake">
     <div class="row">
@@ -128,7 +128,7 @@
     </div>
 </div>
 </div>
-</div>
+
 <script src="{{URL::to('rest/scripts/cliente/func_cliente_e.js')}}"></script>
 <script src="{{URL::to('rest/js/plugins/wizard/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
 <script src="{{URL::to('rest/js/plugins/wizard/wizard.js')}}"></script>

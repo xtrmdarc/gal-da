@@ -17,7 +17,8 @@ class IngresosCajaController extends Controller
     public function index()
     {
         $data = [
-            'breadcrumb'=>'inf_ingcaja'
+            'breadcrumb'=>'inf_ingcaja',
+            'titulo_vista' => 'Informe ingresos'
         ];
         return view('contents.application.informes.finanzas.inf_ingresos')->with($data);
     }

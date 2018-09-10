@@ -7594,3 +7594,26 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   background: #1ab394;
   color: white;
 }
+
+
+.text-primary a{
+  color: #1fbdb7;
+}
+
+.page-titles {
+  margin: 0 0 5px;
+}
+
+.upgrade-btn{
+  margin: 16px;
+  background: url('../images/background-cromado.png');
+  background-size: contain;
+  font-weight: 700;
+  text-align: center !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.mini-sidebar .upgrade-btn{
+  display: none;
+}

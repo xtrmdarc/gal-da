@@ -17,7 +17,8 @@ class ComprasController extends Controller
     public function index()
     {
         $data=[
-            'breadcrumb'=> 'inf_compras'
+            'breadcrumb'=> 'inf_compras',
+            'titulo_vista' => 'Informe de compras'
         ];
 
         return view('contents.application.informes.compras.inf_compras')->with($data);
