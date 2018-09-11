@@ -1,7 +1,8 @@
 @extends('layouts.application.master')
 @section('content')
 
-<input type="hidden" id="m" value="<?php// echo $_GET['m']; ?>"/>
+<input type="hidden" id="m" value="" />>
+
 <div class="wrapper wrapper-content animated bounce">
     <div class="ibox">
         <div class="ibox-title">
@@ -116,6 +117,7 @@
     </div>
 </div>
 
+
 <div class="modal inmodal fade" id="mdl-validar-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
@@ -144,6 +146,8 @@
     </div>
 </div>
 
+
 <script src="{{URL::to('rest/scripts/cliente/func_cliente.js')}}"></script>
+
 
 @endsection

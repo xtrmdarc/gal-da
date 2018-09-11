@@ -21,7 +21,7 @@ class OtrosController extends Controller
     {   
         $data = [
             'breadcrumb'=> 'ajustes',
-            'titulo_vista' => 'Otras Configuraciones'
+            'titulo_vista' => 'Configuraciones'
         ];
         return view('contents.application.config.config')->with($data);
     }
@@ -75,7 +75,8 @@ class OtrosController extends Controller
             $viewdata['logo_g']= $url;
         }
         $data = [
-            'breadcrumb'=>'config.DatosEmpresa'
+            'breadcrumb'=>'config.DatosEmpresa',
+            'titulo_vista' => 'Datos de empresa'
         ];
         return view('contents.application.config.sist.datos_emp',$viewdata)->with($data);
     }
@@ -83,7 +84,8 @@ class OtrosController extends Controller
     public function tiposdeDocumentos(){
 
         $data = [
-            'breadcrumb'=> 'config.TiposdeDocumentos'  
+            'breadcrumb'=> 'config.TiposdeDocumentos',
+            'titulo_vista' => 'Tipos de documento'  
         ];
         return view('contents.application.config.sist.tipo_doc')->with($data);
     }

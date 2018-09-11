@@ -62,7 +62,7 @@ class Aper_CajaController extends Controller
                 'cajas'=> $cajas,
                 'turnos' => $turnos,
                 'breadcrumb'=> 'apercaja',
-                'titulo_vista' => 'Apertura de caja'
+                'titulo_vista' => 'Apertura y Cierre de Caja'
 
             ];        
 

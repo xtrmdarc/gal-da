@@ -3,14 +3,6 @@
 @section('content')
 
 <div class="wrapper wrapper-content animated fadeIn ">
-    <div class="ibox-content m-b-sm border-bottom " style="margin-left:15px;">
-        <div class="p-xs">
-            <div class="pull-left m-r-md">
-                <i class="fa fa-list mid-icon"></i>
-            </div>
-            <h2 class="m-t-none">Informes</h2> <span>Mira y analiza todos los n�meros que genera tu negocio.</span>
-        </div>
-    </div>
     <div class="row">
         <div class="col-sm-6 sides_padding15">
             <div class="ibox">
