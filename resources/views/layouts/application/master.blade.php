@@ -31,6 +31,7 @@
     {{--<link href="{{ URL::to('application/css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">--}}
 
     <!-- Custom CSS -->
+    <link href="{{ URL::to('application/css/unificado.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/helper.css') }}" rel="stylesheet">
     <link href="{{ URL::to('application/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::to('rest/js/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" />

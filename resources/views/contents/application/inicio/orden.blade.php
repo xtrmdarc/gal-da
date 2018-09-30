@@ -74,9 +74,7 @@
                         <div class="has-success">
                         <div class="input-group">
                             <input type="text" name="busq_prod" id="busq_prod" class="form-control ui-autocomplete-input" placeholder="Buscar producto..." autocomplete="off">
-                            <span class="input-group-btn">
-                                <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
-                            </span>
+                            <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                         </div>
                         </div>
                     </div>
@@ -105,7 +103,7 @@
     <div class="modal inmodal fade" id="mdl-facturar" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-            <form id="frm-facturar" method="post" enctype="multipart/form-data" class="frm-facturar" >
+            <form id="frm-facturar" method="post" enctype="multipart/form-data" class="frm-facturar unif_modal" >
             @csrf
             <input type="hidden" name="cod_pedido" id="cod_pedido">
             <input type="hidden" name="tipoEmision" id="tipoEmision">
@@ -223,16 +221,12 @@
                                     <div class="form-group">
                                         <label>Cliente</label>
                                         <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-primary" onclick="nuevoCliente();"><i class="fa fa-plus"></i></button>
-                                            </span>
+                                            <button type="button" class="btn btn-primary" onclick="nuevoCliente();"><i class="fa fa-plus"></i></button>
                                             <input type="hidden" name="cliente_id" id="cliente_id" value="1"/>
                                             <input type="text" name="busq_cli" id="busq_cli" class="form-control" placeholder="Ingrese DNI/RUC del cliente" autocomplete="off" />
-                                            <span class="input-group-btn">
-                                                <button id="btnClienteLimpiar" class="btn btn-danger" type="button">
-                                                    <span class="fa fa-remove"></span>
-                                                </button>
-                                            </span>
+                                            <button id="btnClienteLimpiar" class="btn btn-danger" type="button">
+                                                <span class="fa fa-remove"></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -288,12 +282,12 @@
                                 <span class="btn btn-warning-2" onclick="porcentajeTotal();">%</span>
                             </div>
                         </div>
-                        <div class="col-xs-6">
-                            <div class="text-right">
+
+
                                 <button type="button" class="btn btn-white" data-dismiss="modal">Volver</button>
                                 <button type="submit" class="btn btn-primary" id="btn-fact"><i class="fa fa-save"></i> Aceptar</button>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
             </form>

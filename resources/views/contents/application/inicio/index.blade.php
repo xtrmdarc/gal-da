@@ -193,19 +193,13 @@
 <div class="modal inmodal fade" id="mdl-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-mesa" method="post"  class="pedido_form" enctype="multipart/form-data" action="/inicio/RegistrarMesa">
+        <form id="frm-mesa" method="post"  class="pedido_form unif_modal" enctype="multipart/form-data" action="/inicio/RegistrarMesa">
         @csrf
         <input type="hidden" name="cod_mesa" id="cod_mesa">
             <div class="modal-header">
-                {{--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>--}}
-             
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title" id="mtm"></h4>
                 <small class="font-bold" id="mtp"></small>
-                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -247,7 +241,7 @@
 <div class="modal inmodal fade" id="mdl-mostrador" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-mostrador" method="post"  class="pedido_form" enctype="multipart/form-data" action="/inicio/RegistrarMostrador">
+        <form id="frm-mostrador" method="post"  class="pedido_form unif_modal" enctype="multipart/form-data" action="/inicio/RegistrarMostrador">
         @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -281,7 +275,7 @@
 <div class="modal inmodal fade" id="mdl-delivery" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-delivery" method="post"  class="pedido_form" enctype="multipart/form-data" action="/inicio/RegistrarDelivery">
+        <form id="frm-delivery" method="post"  class="pedido_form unif_modal" enctype="multipart/form-data" action="/inicio/RegistrarDelivery">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -297,9 +291,7 @@
                                     <label class="control-label">Tel&eacute;fono</label>
                                     <div class="input-group">
                                         <input type="text" name="telefCli" id="telefCli" class="form-control global_filter" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
-                                        <span class="input-group-btn">
-                                            <button id="btn_buscarCliente" class="btn btn btn-primary" type="button"> <i class="fa fa-search"></i></button>
-                                        </span>
+                                        <button id="btn_buscarCliente" class="btn btn btn-primary" type="button"> <i class="fa fa-search"></i></button>
                                     </div>  
                                 </div>
                             </div>
@@ -518,18 +510,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="text-left">
-                            <a href={{session('home')}} class="btn btn-default">Volver</a>
-                        </div>
-                    </div>
-                    <div class="col-xs-9">
-                        <div class="text-right">
-                            <a href="caja/aper" class="btn btn-primary">Aperturar Caja</a>
-                        </div>
-                    </div>
-                </div>
+                <a href="{{session('home')}}" class="btn btn-default"></i> Volver</a>
+                <a href="caja/aper" class="btn btn-primary" style="margin-right:8px">Aperturar Caja</a>
             </div>
         </div>
     </div>

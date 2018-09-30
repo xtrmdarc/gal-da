@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Home | Triangle</title>
+    <script src="https://js.stripe.com/v3/"></script>
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/animate.min.css') }}" rel="stylesheet">

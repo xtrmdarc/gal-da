@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <div class="ibox-title-buttons pull-right">
+                        <div class="pull-right">
                             @if(Auth::user()->plan_id != '1')
                                 <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
                             @else
@@ -53,7 +53,7 @@
     <div class="modal inmodal fade" id="mdl-caja" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog" style="max-width: 400px;">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-caja" method="post" enctype="multipart/form-data">
+                <form id="frm-caja" class="unif_modal" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
                     <input type="hidden" name="cod_caja" id="cod_caja">
@@ -75,7 +75,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Sucursal</label>
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
                                         <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
                                             @if(Auth::user()->id_usu != null)
                                                 <option value="">

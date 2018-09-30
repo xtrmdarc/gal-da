@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,6 +11,7 @@ class TmUsuario extends Authenticatable
 {
     //
     use Notifiable;
+    //use Billable;
 
     protected $table = 'tm_usuario';
     protected $primaryKey = 'id_usu';
@@ -45,6 +47,10 @@ class TmUsuario extends Authenticatable
         'id_empresa',
         'codigo_pais',
         'codigo_phone',
+        'stripe_id',
+        'card_brand',
+        'card_last_four',
+        'trial_ends_at',
     ];
 
     protected $hidden = [

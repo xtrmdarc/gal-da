@@ -1,0 +1,21 @@
+/*Modales Pedidos*/
+.unif_modal .modal-header {
+    display: inherit;
+}
+
+.unif_modal .modal-header .close {
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}
+/*Modales Caja Aper*/
+#detalle .modal-header {
+    display: block!important;
+}
+#detalle .modal-header .close {
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}

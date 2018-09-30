@@ -18,9 +18,7 @@
                 <div class="col-sm-4 col-sm-offset-8" style="text-align:right;" id="filter_global">
                     <div class="input-group">
                         <input class="form-control global_filter" id="global_filter" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
-                        </span>
+                        <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -76,7 +74,7 @@
 <div class="modal inmodal fade" id="mdl-nuevo-gasto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-nuevo-gasto" method="post" enctype="multipart/form-data" action="egr/Guardar">
+        <form id="frm-nuevo-gasto" class="unif_modal" method="post" enctype="multipart/form-data" action="egr/Guardar">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

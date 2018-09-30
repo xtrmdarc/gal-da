@@ -50,7 +50,7 @@
     <div class="modal inmodal fade" id="mdl-tipodoc" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-tipodoc" method="post" enctype="multipart/form-data" action="/ajustesGuardarTipoDocumento">
+                <form id="frm-tipodoc" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesGuardarTipoDocumento">
                     @csrf
                     <input type="hidden" name="cod_td" id="cod_td">
                     <div class="modal-header mh-e">

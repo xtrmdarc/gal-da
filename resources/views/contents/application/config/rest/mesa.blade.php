@@ -7,7 +7,7 @@
 
 <div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <div class="ibox animated bounce">
                 <div class="ibox-title">
                     <div class="ibox-title-buttons pull-right">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="ibox-content">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
-                    <table class="table table-condensed table-striped table-hover" id="table-s">
+                    <table class="table table-condensed table-striped table-hover" id="table-s" style="width:100%">
                         <thead>
                         <tr>
                             <th>Nombre</th>
@@ -124,7 +124,7 @@
 <div class="modal inmodal fade" id="mdl-salon" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-salon" method="post" enctype="multipart/form-data" action="/ajustesCrudSalones">
+            <form id="frm-salon" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesCrudSalones">
                 @csrf
                 <input type="hidden" name="cod_sala" id="cod_sala">
                 <div class="modal-header mh-e">

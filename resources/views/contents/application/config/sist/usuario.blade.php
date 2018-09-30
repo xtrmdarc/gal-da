@@ -16,6 +16,8 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                    <div class="ibox-content">
+                    <div class="ibox-content">
                         <div class="table-responsive">
                             <table class="table table-hover table-condensed table-striped" id="table" width="100%">
                                 <thead>
@@ -109,7 +111,7 @@
     <div class="modal inmodal fade" id="mdl-eliminar-usu" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-eliminar-usu" method="post" enctype="multipart/form-data" action="/ajustesEliminar">
+                <form id="frm-eliminar-usu" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesEliminar">
                     @csrf
                     <input type="hidden" name="cod_usu_e" id="cod_usu_e">
                     <div class="modal-header mh-p">
@@ -129,8 +131,5 @@
     </div>
 
 <script src="{{URL::to('rest/scripts/config/func_usuario.js' )}}"></script>
-
-
-
 
 @endsection('content')

@@ -7,7 +7,7 @@
         <div class="col-lg-6">
             <div class="ibox animated bounce">
                 <div class="ibox-title">
-                    <div class="ibox-title-buttons pull-right">
+                    <div class="pull-right">
                         @if(Auth::user()->plan_id != '1')
                             <button type="button" class="btn btn-primary btn-alm"><i class="fa fa-plus-circle"></i> Nuevo Almac&eacute;n</button>
                             @else
@@ -35,7 +35,8 @@
         <div class="col-lg-6">
             <div class="ibox animated bounce">
                 <div class="ibox-title">
-                    <div class="ibox-title-buttons pull-right">
+                    <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n</h5>
+                    <div class="pull-right">
                         @if(Auth::user()->plan_id != '1')
                             <button type="button" class="btn btn-primary btn-area"><i class="fa fa-plus-circle"></i> Nueva &Aacute;rea</button>
                         @else
@@ -44,7 +45,6 @@
                             </p>
                         @endif
                     </div>
-                    <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n</h5>
                 </div>
                 <div class="ibox-content">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -67,7 +67,7 @@
 <div class="modal inmodal fade" id="mdl-almacen" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" style="max-width: 400px;">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-almacen" method="post" enctype="multipart/form-data">
+            <form id="frm-almacen" class="unif_modal" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
                 <input type="hidden" name="cod_alm" id="cod_alm">
@@ -143,7 +143,7 @@
 <div class="modal inmodal fade" id="mdl-areaprod" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog" style="max-width: 400px;">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-areaprod" method="post" enctype="multipart/form-data">
+            <form id="frm-areaprod" class="unif_modal" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
                 <input type="hidden" name="cod_area" id="cod_area">

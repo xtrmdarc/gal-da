@@ -23,9 +23,7 @@ $fecha = date("d-m-Y h:i A");
                 <div class="col-sm-4 col-sm-offset-8" style="text-align:right;" id="filter_global">
                     <div class="input-group">
                         <input class="form-control global_filter" id="global_filter" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
-                        </span>
+                        <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -52,7 +50,7 @@ $fecha = date("d-m-Y h:i A");
 <div class="modal inmodal fade" id="mdl-nueva-apertura" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm"> 
         <div class="modal-content animated bounceInRight">
-        <form id="frm-nueva-apertura" method="post" enctype="multipart/form-data" action="{{route('apercaja.guardar')}}">
+        <form id="frm-nueva-apertura" class="unif_modal" method="post" enctype="multipart/form-data" action="{{route('apercaja.guardar')}}">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -110,7 +108,7 @@ $fecha = date("d-m-Y h:i A");
 <div class="modal inmodal fade" id="mdl-cierre-caja" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-cierre-caja" method="post" enctype="multipart/form-data" action="{{route('apercaja.guardar')}}">
+        <form id="frm-cierre-caja" class="unif_modal" method="post" enctype="multipart/form-data" action="{{route('apercaja.guardar')}}">
         @csrf
         <input type="hidden" name="cod_apc" id="cod_apc">
         <input type="hidden" name="monto_sistema" id="monto_sistema">
