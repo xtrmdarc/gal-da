@@ -1,3 +1,11 @@
+
+.price-tables{
+    padding-top: 20px;
+    background:url('../../images/home/themed_background.png');
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;   
+}
 .price-table {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -6,11 +14,67 @@
 .pricing-table {
     padding-top: 40px;
     padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-/*Card - Pricing*/
+/*Card - Pricing*/  
 
 .card-pricing {
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /*background-color: white;*/
+    
+}
+
+.single-price{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.single-price.price-one{
+    padding: 16px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.plan-name-ll{
+    text-align: center;
+    color: black;
+    font-weight: 700;
+    font-size: 1.3em;
+}
+.section-plan-price{
+    color: #1fbdb7;
+    margin-top: 25px;
+    
+}
+.section-plan-who {
+    color: #7d7a78;;
+}
+
+.section-price-desc{
+    color: #1fbdb7;
+    font-size: 14px;
+    font-stretch: 100%;
+}
+.price-text{
+    font-size: 40px;
+}
+.text-month-price{
+    font-size: 20px;
+    color: #7d7a78;
+}
+.btn-buynow{
+    font-weight: bold !important;
+    letter-spacing: 0px !important;
+    background-color: #FBA017 !important;
+    margin-top:20px;
+}
+
+.section-plan-offer{
+    text-align: center;
+    font-size: 1.4rem;
+    color: #7d7a78;;
+    line-height: 1.8 !important;
+    font-weight: 500;
 }

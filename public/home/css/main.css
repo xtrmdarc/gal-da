@@ -99,10 +99,10 @@
   .btn-common:hover, 
   .btn-common:focus{
     outline: none;
-    background: none;
+    /*background: none;*/
     box-shadow: none;
-    color: #01707f;
-    border-color:#01707f;
+    /*color: #01707f;*/
+    /*border-color:#01707f;*/
   }
 
   .align-right{
@@ -167,7 +167,7 @@
 
 #header{
   margin-bottom: 0;
-  padding: 30px 0 10px 0;
+  padding: 15px 0 0 0;
 }
 
 #header .navbar-inverse .container{
@@ -2775,7 +2775,7 @@ span.stButton_gradient,
 .btn-cta-landing-main{
   color: white;
   border: white;
-  background-color: #EE9612;
+  background-color: #FBA017 !important;
   margin-left: 5px;
   font-family: 'PT Sans';
   font-size: 16px;
@@ -2783,6 +2783,12 @@ span.stButton_gradient,
   line-height: normal;
   font-weight: 700;
 }
+
+.btn-cta-landing-main:hover{
+  color:white;
+}
+
+
 html, body {
   max-width: 100%;
   overflow-x: hidden;
@@ -2798,7 +2804,7 @@ html, body {
 }
 
 .btn-accent{
-  background-color: #F7C06C;
+  background-color: #FBA017;
   color: white;
   font-weight: 400;
   
@@ -2814,3 +2820,4 @@ html, body {
   margin-top : 30px;
   border : 1px solid rgba(255,255,255,.1);
 }
+

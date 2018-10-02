@@ -31,6 +31,22 @@
     </section>
     <!--/#home-slider-->
 
+    <section id="quees">
+        <div class="container">
+            <div class="row">
+                <div class="text-center ">
+                    <h1 class="LandingMainHeader" style="font-size:4em;">Nuestra Plataforma</h1>                                 
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>  
+                    <div class="item active">                             
+                        <img  src="{{URL::to('home/images/tablero.png')}}" style="width:100%" alt="">         
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </section>
+
     <section id="services">
         <div class="container">
             <div class="row">
@@ -39,8 +55,8 @@
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                             <img src="{{ URL::to('home/images/home/icon1.png') }}" alt="">
                         </div>
-                        <h2>Incredibly Responsive</h2>
-                        <p>Ground round tenderloin flank shank ribeye. Hamkevin meatball swine. Cow shankle beef sirloin chicken ground round.</p>
+                        <h2>Fácil de usar</h2>
+                        <p>Es intuitivo y cómodo de utilizar. Desarrollado a medida de la exigencia del mercado gastronómico.</p>
                     </div>
                 </div>
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
@@ -48,8 +64,8 @@
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
                             <img src="{{ URL::to('home/images/home/icon2.png') }}" alt="">
                         </div>
-                        <h2>Superior Typography</h2>
-                        <p>Hamburger ribeye drumstick turkey, strip steak sausage ground round shank pastrami beef brisket pancetta venison.</p>
+                        <h2>Online</h2>
+                        <p>Completamente en línea. No requiere instalación y se puede utilizar desde cualquier lugar.</p>
                     </div>
                 </div>
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
@@ -57,8 +73,37 @@
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
                             <img src="{{ URL::to('home/images/home/icon3.png') }}" alt="">
                         </div>
-                        <h2>Swift Page Builder</h2>
-                        <p>Venison tongue, salami corned beef ball tip meatloaf bacon. Fatback pork belly bresaola tenderloin bone pork kevin shankle.</p>
+                        <h2>Informes y reportes</h2>
+                        <p>Información y estadística útil acerca del desempeño de tu restaurante para tomar decisiones.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div class="single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
+                            <img src="{{ URL::to('home/images/home/icon1.png') }}" alt="">
+                        </div>
+                        <h2>Gratis</h2>
+                        <p>Prueba nuestro plan completamente gratis con calidad empresarial.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div class="single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
+                            <img src="{{ URL::to('home/images/home/icon2.png') }}" alt="">
+                        </div>
+                        <h2>Móvil</h2>
+                        <p>Controla y monitorea las operaciones de tu restaurante desde cualquier parte con tu dispositivo móvil.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
+                    <div class="single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
+                            <img src="{{ URL::to('home/images/home/icon3.png') }}" alt="">
+                        </div>
+                        <h2>Ahorra tiempo</h2>
+                        <p>Aumenta tu productividad ahorrando tiempo en las operaciones de tu negocio.</p>
                     </div>
                 </div>
             </div>
@@ -72,12 +117,12 @@
                 <div class="row">
                     <div class="action take-tour">
                         <div class="col-sm-7 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <h1 class="title">Triangle Corporate Template</h1>
-                            <p>A responsive, retina-ready &amp; wide multipurpose template.</p>
+                            <h1 class="title">Módulo de delivery</h1>
+                            <p>Incrementa tus ventas implementando hoy mismo el delivery en tu restaurante.</p>
                         </div>
                         <div class="col-sm-5 text-center wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
                             <div class="tour-button">
-                                <a href="#" class="btn btn-common">TAKE THE TOUR</a>
+                                <a href="/register" class="btn btn-common">LO QUIERO</a>
                             </div>
                         </div>
                     </div>
@@ -87,7 +132,7 @@
     </section>
     <!--/#action-->
 
-    <section id="features">
+    <section id="features" style="margin-top:20px;">
         <div class="container">
             <div class="row">
                 <div class="single-features">
@@ -95,10 +140,12 @@
                         <img src="{{ URL::to('home/images/home/image1.png') }}" class="img-responsive" alt="">
                     </div>
                     <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <h2>Experienced and Enthusiastic</h2>
-                        <P>Pork belly leberkas cow short ribs capicola pork loin. Doner fatback frankfurter jerky meatball pastrami bacon tail sausage. Turkey fatback ball tip, tri-tip tenderloin drumstick salami strip steak.</P>
+                        <h2>Galda App. Más rápido imposible.</h2>
+                        <P>Ahorra tiempo empoderando a tus trabajadores dándoles acceso a herramientas que potencian su productividad.</P>
                     </div>
                 </div>
+                @php
+                /*
                 <div class="single-features">
                     <div class="col-sm-6 col-sm-offset-1 align-right wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h2>Built for the Responsive Web</h2>
@@ -117,6 +164,8 @@
                         <P>Ut officia cupidatat anim excepteur fugiat cillum ea occaecat rump pork chop tempor. Ut tenderloin veniam commodo. Shankle aliquip short ribs, chicken eiusmod exercitation shank landjaeger spare ribs corned beef.</P>
                     </div>
                 </div>
+                */
+                @endphp
             </div>
         </div>
     </section>
@@ -128,29 +177,34 @@
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                         <p><img src="{{ URL::to('home/images/home/clients.png') }}" class="img-responsive" alt=""></p>
-                        <h1 class="title">Happy Clients</h1>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> Ut enim ad minim veniam, quis nostrud </p>
+                        <h1 class="title">Clientes Felices</h1>
+                        <p>Únete a nuestro grupo de cliente embajadores. <br> Y aprovecha grandes beneficios </p>
                     </div>
-                    <div class="clients-logo wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client1.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client2.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client3.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client4.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client5.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="{{ URL::to('home/images/home/client6.png') }}" class="img-responsive" alt=""></a>
-                        </div>
-                    </div>
+                    @php
+                        /*
+                        <div class="clients-logo wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client1.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client2.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client3.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client4.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client5.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <a href="#"><img src="{{ URL::to('home/images/home/client6.png') }}" class="img-responsive" alt=""></a>
+                            </div>
+                        </div>    
+                        */
+                    @endphp
+                    
                 </div>
             </div>
         </div>
