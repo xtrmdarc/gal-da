@@ -138,12 +138,16 @@
                 <!-- User profile and search -->
                 <ul class="navbar-nav my-lg-0">
 
-                    <!-- Search -->
+                    {{--/*
+                     <!-- Search -->
                     <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
                         <form class="app-search">
                             <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
                     </li>
+                    */--}}
+
                     <!-- Comment -->
+                    {{--/*
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
                             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
@@ -191,8 +195,11 @@
                             </ul>
                         </div>
                     </li>
+                    */--}}
+
                     <!-- End Comment -->
                     <!-- Messages -->
+                    {{--/*
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>
                             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
@@ -240,15 +247,17 @@
                             </ul>
                         </div>
                     </li>
+                    */--}}
+
                     <!-- End Messages -->
                     <!-- Profile -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ !empty($imagen_g) ? $imagen_g : URL::to('application/images/user-1.png') }}" alt="user" class="profile-pic" /></a>
-                        <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                        <div class="dropdown-menu dropdown-menu-right animated zoomIn" style="right: 0;left: auto;">
                             <ul class="dropdown-user">
                                 <li><a href="{{ route('ajustes.i_perfil') }}"><i class="ti-user"></i> Mi Perfil</a></li>
                                 <li><a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>
+                                                         document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Cerrar Sesion</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form></li>

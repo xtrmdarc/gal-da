@@ -23,9 +23,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <input type="text" name="dni_numero" id="dni_numero" class="form-control" placeholder="Ingrese DNI" autocomplete="off" />
-                            <span class="input-group-btn">
-                                <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                            </span>
+                            <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                         </div>
                     </div>
                 </form>
@@ -35,9 +33,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Ingrese RUC" autocomplete="off" />
-                            <span class="input-group-btn">
-                                <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                            </span>
+                            <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                         </div>
                     </div>
                 </form>

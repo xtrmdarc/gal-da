@@ -42,7 +42,7 @@
                                                                 </div>
                                                                 <div class="media-body media-text-right">
                                                                         <h2 id="totalVentasI">{{$total_venta}}</h2>
-                                                                        <p class="m-b-0">Total Revenue</p>
+                                                                        <p class="m-b-0">Total Ingresos</p>
                                                                 </div>
                                                         </div>
                                                 </div>
@@ -55,7 +55,7 @@
                                                                 </div>
                                                                 <div class="media-body media-text-right">
                                                                         <h2 id="nVentasI">{{$total_n_venta}}</h2>
-                                                                        <p class="m-b-0">Sales</p>
+                                                                        <p class="m-b-0">Ventas</p>
                                                                 </div>
                                                         </div>
                                                 </div>
@@ -68,7 +68,7 @@
                                                                 </div>
                                                                 <div class="media-body media-text-right">
                                                                         <h2 id="nClientesI">{{$n_clientes}}</h2>
-                                                                        <p class="m-b-0">Customer</p>
+                                                                        <p class="m-b-0">Clientes</p>
                                                                 </div>
                                                         </div>
                                                 </div>

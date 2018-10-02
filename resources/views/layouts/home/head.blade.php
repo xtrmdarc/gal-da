@@ -48,11 +48,11 @@
                             $idPlan = \Auth::user()->plan_id;
                             if($idPlan == 1){
                         @endphp
-                            <li><a href="{{ route('tableroF') }}"><b>TABLERO FREE PAPU</b></a></li>
+                            <li><a href="{{ route('tableroF') }}"><b>IR AL TABLERO</b></a></li>
                         @php
                             } else {
                         @endphp
-                            <li><a href="{{ route('tablero') }}"><b>TABLERO PAPU</b></a></li>
+                            <li><a href="{{ route('tablero') }}"><b>IR AL TABLERO</b></a></li>
                         @php
                             }
                         @endphp

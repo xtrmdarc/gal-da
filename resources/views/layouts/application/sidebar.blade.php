@@ -56,8 +56,9 @@
                         @endif
                         <li class=""></li>
 
-
+                    {{--/*
                     <li class="text-center " style="20px"><a class="btn  upgrade-btn" href="/upgrade"> <span class="hide-menu">Crecer</span></a></li>
+                    */--}}
 
                     @else
                     {{--/*PLAN LITE*/--}}

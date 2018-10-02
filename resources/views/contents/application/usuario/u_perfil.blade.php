@@ -12,7 +12,9 @@
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
+                                    {{--/*
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Pago</span></a> </li>
+                                    */--}}
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Suscripcion</span></a> </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -259,6 +261,7 @@
                                                             <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                         </div>
 
+                                                        {{--/*
                                                         <div class="form-group">
                                                             <div class="col-sm-6">
                                                                 <button type="submit" class="btn btn-success"> Upgrade </button>
@@ -267,6 +270,7 @@
                                                                 <button class="btn btn-success"> Cancelar </button>
                                                             </div>
                                                         </div>
+                                                        */--}}
                                                     </form>
                                                 </div>
                                             </div>
