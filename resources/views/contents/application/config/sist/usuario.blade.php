@@ -79,7 +79,7 @@
     <div class="modal inmodal fade" id="mdl-estado-usu" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-estado-usu" method="post" enctype="multipart/form-data" action="/ajustesUsuarioEstado">
+                <form id="frm-estado-usu" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesUsuarioEstado">
                     @csrf
                     <input type="hidden" name="cod_usu" id="cod_usu">
                     <div class="modal-header mh-e">
