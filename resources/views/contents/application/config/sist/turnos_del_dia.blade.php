@@ -48,7 +48,7 @@
         <div class="modal inmodal fade" id="mdl-turno" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
             <div class="modal-dialog" style="max-width: 400px;">
                 <div class="modal-content animated bounceInRight">
-                    <form id="frm-turno" method="post" enctype="multipart/form-data">
+                    <form id="frm-turno" class="unif_modal" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('POST') }}
                         <input type="hidden" name="cod_turno" id="cod_turno">

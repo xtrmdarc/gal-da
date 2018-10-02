@@ -227,18 +227,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="text-left">
-                            <a href="{{session('home')}}" class="btn btn-default">Volver</a>
-                        </div>
-                    </div>
-                    <div class="col-xs-9">
-                        <div class="text-right">
-                            <a href="{{route('apercaja')}}" class="btn btn-primary">Aperturar Caja</a>
-                        </div>
-                    </div>
-                </div>
+                <a href="{{session('home')}}" class="btn btn-default">Volver</a>
+                <a href="{{route('apercaja')}}" class="btn btn-primary" style="margin-right:8px">Aperturar Caja</a>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <div id="lizq-s" style="display: block;">
                 <div class="panel panel-transparent panel-dashed tip-sales text-center">
                     <div class="row">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="ibox-content">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
-                        <table class="table table-hover table-condensed table-striped" id="table-m">
+                        <table class="table table-hover table-condensed table-striped" id="table-m" style="width:100%">
                             <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -71,7 +71,7 @@
 <div class="modal inmodal fade" id="mdl-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-mesa" method="post" enctype="multipart/form-data" action="/ajustesCrudMesas">
+            <form id="frm-mesa" method="post" class="unif_modal" enctype="multipart/form-data" action="/ajustesCrudMesas">
                 @csrf
                 <input type="hidden" name="cod_mesa" id="cod_mesa">
                 <input type="hidden" name="id_catg" id="id_catg">
