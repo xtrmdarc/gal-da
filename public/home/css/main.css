@@ -2820,4 +2820,21 @@ html, body {
   margin-top : 30px;
   border : 1px solid rgba(255,255,255,.1);
 }
+.section_landing{
+  margin-top: 37px;
+}
+
+.brand-color{
+  color: #1fbdb7;
+}
+
+.accent-color{
+  color: #D1345B;
+}
+
+.light-shade-color{
+  
+  color:black;
+  opacity: 25%;
+}
 

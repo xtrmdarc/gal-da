@@ -19,7 +19,7 @@
                             <form method="POST" action="{{ route('web.auth.register.store_account_business') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Name of Business</label>
+                                    <label>Nombre del Negocio</label>
                                     <input id="name" type="text" class="form-control{{ $errors->has('name_business') ? ' is-invalid' : '' }}" name="name_business" value="{{ old('name_business') }}" required autofocus placeholder="Nombre del Negocio">
 
                                     @if ($errors->has('name_business'))
@@ -29,7 +29,7 @@
                                     @endif
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Inicia tu negocio!</button>
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">¡ Potencia tu negocio !</button>
                             </form>
                         </div>
                     </div>

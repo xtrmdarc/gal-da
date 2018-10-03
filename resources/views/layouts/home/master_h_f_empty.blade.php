@@ -39,12 +39,14 @@
 <body>
 
     @yield('content')
-
-    <script type="text/javascript" src="{{ URL::to('home/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::to('home/js/lightbox.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::to('home/js/wow.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::to('home/js/main.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::to('home/js/register/register-step.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::to('home/js/register/stripe.js') }}"></script>
 </body>
+
+
+<script type="text/javascript" src="{{ URL::to('home/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('home/js/lightbox.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('home/js/wow.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('home/js/main.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('home/js/register/register-step.js') }}"></script>
+<script type="text/javascript" src="{{ URL::to('home/js/register/stripe.js') }}"></script>
+
 </html>

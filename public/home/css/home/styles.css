@@ -30,3 +30,15 @@
         margin-left: -50px;
     }
 }*/
+
+.full-screen-themed-image{
+    background:url('../../images/home/themed_background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .background-light-brand{
+    background-color: #EFEFEF;
+  }

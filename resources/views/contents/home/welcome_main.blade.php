@@ -31,13 +31,13 @@
     </section>
     <!--/#home-slider-->
 
-    <section id="quees">
+    <section id="quees" class="section_landing">
         <div class="container">
             <div class="row">
-                <div class="text-center ">
+                <div class="text-center " >
                     <h1 class="LandingMainHeader" style="font-size:4em;">Nuestra Plataforma</h1>                                 
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>  
-                    <div class="item active">                             
+                    <div class="item active" style="margin-top:2em;">                             
                         <img  src="{{URL::to('home/images/tablero.png')}}" style="width:100%" alt="">         
                     </div>
                 </div>

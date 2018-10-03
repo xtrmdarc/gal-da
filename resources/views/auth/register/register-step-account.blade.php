@@ -13,15 +13,15 @@
                         <div class="login-form-auth">
                             <h4 style="margin-bottom: 10px;">Empieza con nuestro plan gratis para siempre</h4>
                             <div class="register-link-auth m-t-15 text-center">
-                                <p>Empieza a crecer a tu negocio</p>
-                                <p>Ya mencionamos que es gratis por siempre?</p>
+                                    <p>Empieza a hacer crecer tu negocio <br>
+                                ¿Ya mencionamos que es gratis por siempre?</p>
                             </div>
-                            <form method="POST" action="{{ route('web.auth.register.store_account') }}">
+                            <form method="POST" action="{{ route('web.auth.register.store_account') }}" style="margin-top:20px;">
                                 @csrf
                                 <input type="hidden" name="name_business">
                                 <div class="form-group">
-                                    <label>Email address</label>
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+                                    <label>CORREO ELECTRÓNICO</label>
+                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Correo">
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -29,8 +29,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+                                    <label>CONTRASEÑA</label>
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Contraseña">
 
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback">
@@ -41,7 +41,7 @@
 
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Crea tu cuenta</button>
                                 <div class="register-link-auth m-t-15 text-center">
-                                    <p>Ya tienes una cuentat ? <a href="{{ route('login') }}"> Sign In</a></p>
+                                    <p>¿Ya tienes una cuenta? <a href="{{ route('login') }}"> Inicia Sesión</a></p>
                                 </div>
                             </form>
                         </div>
@@ -66,7 +66,7 @@
                                 <img ng-src="" width="160" height="160" class="" src="/">
 
                                 <div class="">
-                                    I have used Leadpages and Unbounce, and can confidently say that Landing Lion is the easiest to use and has the best customer experience out there. Landing Lion nails both of those and I wouldn�t change a thing.
+                                    I have used Leadpages and Unbounce, and can confidently say that Landing Lion is the easiest to use and has the best customer experience out there. Landing Lion nails both of those and I wouldn�t change a thing.
                                 </div>
 
                                 <div class="">Dan D'Aquisto</div>
