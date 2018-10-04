@@ -21,7 +21,7 @@
                                 <input type="hidden" name="name_business">
                                 <div class="form-group">
                                     <label>CORREO ELECTRÓNICO</label>
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Correo">
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ isset($email)?$email:old('email') }}"  required autofocus placeholder="Correo">
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>

@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
-                    <li><a href="/testmail">Que es</a>
+                    <li><a href="#quees">Que es</a>
                     </li>
                     @if (Auth::check())
                         <li>

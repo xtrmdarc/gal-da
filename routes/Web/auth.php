@@ -14,7 +14,7 @@ Route::post('register', 'Web\AuthController@store_account')->name('web.auth.regi
 Route::post('registerI', 'Web\AuthController@store_account_info')->name('web.auth.register.store_account_info');
 Route::post('registerB', 'Web\AuthController@store_account_business')->name('web.auth.register.store_account_business');
 
-Route::get('register', 'Web\AuthController@show_account_v')->name('register');
+Route::get('register/{email?}', 'Web\AuthController@show_account_v')->name('register');
 Route::get('registerI', 'Web\AuthController@show_account_info_v')->name('registerInfo');
 Route::get('registerB', 'Web\AuthController@show_account_business_v')->name('registerBusiness');
 Route::get('verifyEmailFirst', 'Web\AuthController@verifyEmailFirst')->name('verifyEmailFirst');

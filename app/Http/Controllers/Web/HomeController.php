@@ -35,5 +35,8 @@ class HomeController extends Controller
         return view('contents.home.prices');
     }
 
+    public function testmail(){
 
+        return view('contents.home.cuenta_verificada');
+    }
 }

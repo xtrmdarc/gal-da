@@ -29,8 +29,11 @@ class AuthController extends Controller
     //
   
 
-    public function show_account_v() {
-        return view('auth.register.register-step-account');
+    public function show_account_v($email=null) {
+        $data = [];
+        if(isset($email))
+        $data = ['email'=> $email ];
+        return view('auth.register.register-step-account')->with($data);
     }
 
     public function store_account(Request $request)
@@ -147,7 +150,7 @@ class AuthController extends Controller
 
         $this->senEmail($thisUser);
     
-        return $this->verifyEmailFirst();
+        return $this->verifyEmailFirst($thisUser);
     }
 
     public function senEmail($thisUser)
@@ -155,9 +158,10 @@ class AuthController extends Controller
         Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));
     }
 
-    public function verifyEmailFirst()
-    {
-        return view('contents.home.thanks_register');
+    public function verifyEmailFirst($thisUser)
+    {   
+
+        return view('contents.home.thanks_register')->with(['user' => $thisUser]);
     }
     
     public function sendEmailDone($email,$verifyToken)

@@ -14,13 +14,13 @@
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="contact-form bottom" style="margin-top:2.5rem;">
-                            <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
+                            
                                 <div class="form-group">
                                     <div class="input-group" style="display:table;">
                                         
-                                        <input type="text" name="name" class="form-control" required="required" placeholder="Ingresa tu correo">
+                                        <input id="empieza-mail" type="text" name="name" class="form-control" required="required" placeholder="Ingresa tu correo">
                                         <span class="input-group-btn">
-                                                <a class="btn-accent  form-control" style="" type="button">Empieza gratis</a>
+                                            <a class="btn-accent  form-control" style="" type="button" onclick="window.location.replace('register/'+$('#empieza-mail').val() )" >Empieza gratis</a>
                                         </span>
                                     </div>  
                                 </div>
@@ -33,7 +33,7 @@
                                 <div class="form-group">
                                     <input type="submit" name="submit" class="btn btn-submit" value="Submit">
                                 </div>--}}
-                            </form>
+                           
                         </div>
                         
                     </div>
