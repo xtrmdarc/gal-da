@@ -11,7 +11,7 @@
                 <div class="col-lg-4 card-center">
                     <div class="auth-content card-auth">
                         <div class="login-form-auth">
-                            <h4>Inica Sesión</h4>
+                            <h4>Iniciar Sesión</h4>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
