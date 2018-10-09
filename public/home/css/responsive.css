@@ -106,6 +106,11 @@
     width: 250px;
     right: 90px;
     bottom: -20px;
+    display: none;
+  }
+
+  #home-slider .slider-nubes {
+    display: none;
   }
 
   #home-slider .slider-sun {
@@ -216,7 +221,7 @@
   #header .navbar-inverse .navbar-toggle,
   #header .navbar-inverse .navbar-toggle:focus {
     border-color: #00aeef;
-    margin-top: 15px;
+    margin-top: 5px;
     margin-right: 5px;
     outline: none;
   }

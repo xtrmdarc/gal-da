@@ -8,11 +8,11 @@
         <div class="container">
             <div class="row">
                 <div class="main-slider" >
-                    <div class="slide-text col-md-4 col-sm-4" style="margin-left:50px;">
+                    <div class="slide-text col-md-4 col-sm-4" >
                         <h1 class="LandingMainHeader">Rápido, seguro y confiable </h1>
                         <h2 class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</h2>
                         {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
-                        <a href="#" class="btn btn-common btn-cta-landing-main">Empieza gratis</a>
+                        <a href="/register" class="btn btn-common btn-cta-landing-main">Empieza gratis</a>
                     </div>
                     <img src="{{ URL::to('home/images/home/slider/sun.png') }}" class="slider-sun" alt="slider image">
                     <img id="nubes-slider" src="{{ URL::to('home/images/home/slider/nubes.png') }}" class="slider-nubes" alt="slider image">
@@ -36,7 +36,8 @@
             <div class="row">
                 <div class="text-center " >
                     <h1 class="LandingMainHeader" style="font-size:4em;">Nuestra Plataforma</h1>                                 
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>  
+                    <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
+                        </p>  
                     <div class="item active" style="margin-top:2em;">                             
                         <img  src="{{URL::to('home/images/tablero.png')}}" style="width:100%" alt="">         
                     </div>
@@ -53,7 +54,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="{{ URL::to('home/images/home/icon1.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/monkey-use-landing-icon.jpg') }}" alt="">
                         </div>
                         <h2>Fácil de usar</h2>
                         <p>Es intuitivo y cómodo de utilizar. Desarrollado a medida de la exigencia del mercado gastronómico.</p>
@@ -62,16 +63,16 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="{{ URL::to('home/images/home/icon2.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/multiple-devices.jpg') }}" alt="">
                         </div>
                         <h2>Online</h2>
-                        <p>Completamente en línea. No requiere instalación y se puede utilizar desde cualquier lugar.</p>
+                        <p>Completamente en línea. No requiere instalación ni mantenimiento y se puede utilizar desde cualquier lugar.</p>
                     </div>
                 </div>
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="{{ URL::to('home/images/home/icon3.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/metrics-landing-icon.png') }}" alt="">
                         </div>
                         <h2>Informes y reportes</h2>
                         <p>Información y estadística útil acerca del desempeño de tu restaurante para tomar decisiones.</p>
@@ -82,7 +83,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="{{ URL::to('home/images/home/icon1.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/zepelling-gratis.png') }}" alt="">
                         </div>
                         <h2>Gratis</h2>
                         <p>Prueba nuestro plan completamente gratis con calidad empresarial.</p>
@@ -91,7 +92,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="{{ URL::to('home/images/home/icon2.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/relax-movil-landing-icon.png') }}" alt="">
                         </div>
                         <h2>Móvil</h2>
                         <p>Controla y monitorea las operaciones de tu restaurante desde cualquier parte con tu dispositivo móvil.</p>
@@ -100,7 +101,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="{{ URL::to('home/images/home/icon3.png') }}" alt="">
+                            <img src="{{ URL::to('home/images/home/save-time-landing-icon.png') }}" alt="">
                         </div>
                         <h2>Ahorra tiempo</h2>
                         <p>Aumenta tu productividad ahorrando tiempo en las operaciones de tu negocio.</p>
@@ -137,10 +138,10 @@
             <div class="row">
                 <div class="single-features">
                     <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <img src="{{ URL::to('home/images/home/image1.png') }}" class="img-responsive" alt="">
+                        <img src="{{ URL::to('home/images/home/galda-app.png') }}" class="img-responsive" alt="">
                     </div>
                     <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <h2>Galda App. Más rápido imposible.</h2>
+                        <h2>Más rápido imposible.</h2>
                         <P>Ahorra tiempo empoderando a tus trabajadores dándoles acceso a herramientas que potencian su productividad.</P>
                     </div>
                 </div>

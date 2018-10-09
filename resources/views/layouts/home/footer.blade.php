@@ -20,7 +20,7 @@
                                         
                                         <input id="empieza-mail" type="text" name="name" class="form-control" required="required" placeholder="Ingresa tu correo">
                                         <span class="input-group-btn">
-                                            <a class="btn-accent  form-control" style="" type="button" onclick="window.location.replace('register/'+$('#empieza-mail').val() )" >Empieza gratis</a>
+                                            <a class="btn btn-common btn-cta-landing-main form-control" style="" type="button" onclick="window.location.replace('register/'+$('#empieza-mail').val() )" >Empieza gratis</a>
                                         </span>
                                     </div>  
                                 </div>

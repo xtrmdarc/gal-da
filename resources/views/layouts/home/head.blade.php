@@ -25,13 +25,13 @@
                 </button>
 
                 <a class="navbar-brand" href="/">
-                    <h1><img id="logo-home" src="{{ URL::to('application/images/galdaLogo.png') }}" alt="logo"></h1>
+                    <h1><img id="logo-home" class="image-responsive" src="{{ URL::to('home/images/logo-1.png') }}" alt="logo"></h1>
                 </a>
 
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Home</a></li>
+                    <li {!! Route::currentRouteName() == '' ? 'class="active"' : '' !!}><a href="/">Inicio</a></li>
                     <li><a href="#quees">Que es</a>
                     </li>
                     @if (Auth::check())
@@ -58,18 +58,23 @@
                         @endphp
                     @else
                      <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
-                     <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn " href="{{ route('register') }}">Empieza YA</a></li>
+                     <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn btn-cta-landing-main" style="margin: 0px;color:white;font-weight:700;" href="{{ route('register') }}">Empieza YA</a></li>
                     @endif
                 </ul>
             </div>
-            <div class="search">
-                <form role="form">
-                    <i class="fa fa-search"></i>
-                    <div class="field-toggle">
-                        <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                    </div>
-                </form>
-            </div>
+            @php
+                /*
+                <div class="search">
+                    <form role="form">
+                        <i class="fa fa-search"></i>
+                        <div class="field-toggle">
+                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
+                */
+            @endphp
+            
         </div>
     </div>
 </header>
