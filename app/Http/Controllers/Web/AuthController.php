@@ -169,7 +169,10 @@ class AuthController extends Controller
         $user = TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
 
         if($user) {
-            return TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
+            $validacion =  TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
+            if($validacion == 1){
+                return view('contents.home.cuenta_verificada');
+            }
         }else {
             dd('Usuario no existe');
         }

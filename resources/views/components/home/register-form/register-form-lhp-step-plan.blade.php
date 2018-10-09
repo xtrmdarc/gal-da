@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="section-plan-offer">
-                            <b> Incluye Plan Lite </b><br>
+                            <b> Incluye Plan Basic </b><br>
                             Facturación electrónica <br>
                             Nulla pellentesque <br>
                             Integer quis risus <br>
