@@ -52,12 +52,12 @@
     });
     
     Breadcrumbs::register('ncliente', function ($breadcrumbs) {
-        $breadcrumbs->parent('inicio');
+        $breadcrumbs->parent('clientes');
         $breadcrumbs->push('Nuevo Cliente', route('cucliente'));
     });
 
     Breadcrumbs::register('ecliente', function ($breadcrumbs) {
-        $breadcrumbs->parent('inicio');
+        $breadcrumbs->parent('clientes');
         $breadcrumbs->push('Editar Cliente', route('cucliente'));
     });
 

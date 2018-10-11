@@ -10,11 +10,7 @@
     @endphp
     
         <input type="hidden" id="moneda" value=""/>
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-9">
-                <h2></h2>
-            </div>
-        </div>
+        
 
         <div class="wrapper wrapper-content animated shake">
             <div class="ibox">

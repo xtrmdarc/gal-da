@@ -45,7 +45,7 @@
             <div class="col-xs-12">
                 <div class="row">
                     <div class="col-md-6 ">
-                        <h2>Contacts</h2>
+                        <h2>Contacto</h2>
                         <address>
                             E-mail: <a href="mailto:ventas@gal-da.com">ventas@gal-da.com</a> <br>
                             Celular: +51 976 009 012 <br>

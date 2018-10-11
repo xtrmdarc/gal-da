@@ -41,7 +41,7 @@
                
                 <a class="navbar-brand" href="index.html">
                     <!-- Logo icon -->
-                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 30px;" alt="homepage" class="dark-logo" /></b>
+                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 80px;" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     {{--<span><img src="{{ URL::to('application/images/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>--}}

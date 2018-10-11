@@ -15,8 +15,8 @@
                             <a href="/ajustesRegistrarUsuario"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
                         </div>
                     </div>
-                    <div class="ibox-content">
-                    <div class="ibox-content">
+                    
+                    
                     <div class="ibox-content">
                         <div class="table-responsive">
                             <table class="table table-hover table-condensed table-striped" id="table" width="100%">

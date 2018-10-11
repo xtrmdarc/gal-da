@@ -50,7 +50,7 @@ class ClienteController extends Controller
             $breadcrumb = 'ecliente';
             $data['cliente'] = $cliente;
             $data['breadcrumb'] = $breadcrumb;
-            $data['breadcrumb'] = 'Editar cliente';
+            $data['titulo_vista'] = 'Editar Cliente';
             /*$data= [
                 'cliente' => $cliente,
                 'breadcrumb'=> $breadcrumb
