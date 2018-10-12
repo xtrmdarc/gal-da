@@ -16,9 +16,7 @@
                 <div class="col-sm-4 col-sm-offset-8" style="text-align:right;" id="filter_global">
                     <div class="input-group">
                         <input class="form-control global_filter" id="global_filter" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
-                        </span>
+                        <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -66,7 +64,7 @@
 <div class="modal inmodal fade" id="mdl-estado-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-estado-cliente" method="post" enctype="multipart/form-data" action="/cliente/Estado">
+        <form id="frm-estado-cliente" class="unif_modal" method="post" enctype="multipart/form-data" action="/cliente/Estado">
         @csrf
         <input type="hidden" name="cod_cliente" id="cod_cliente">
             <div class="modal-header mh-e">
@@ -98,7 +96,7 @@
 <div class="modal inmodal fade" id="mdl-eliminar-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-        <form id="frm-eliminar-cliente" method="post" enctype="multipart/form-data" action="cliente/Eliminar">
+        <form id="frm-eliminar-cliente" class="unif_modal" method="post" enctype="multipart/form-data" action="cliente/Eliminar">
             @csrf
         <input type="hidden" name="cod_cliente_e" id="cod_cliente_e">
             <div class="modal-header mh-p">

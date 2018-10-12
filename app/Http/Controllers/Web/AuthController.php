@@ -174,7 +174,7 @@ class AuthController extends Controller
                 return view('contents.home.cuenta_verificada');
             }
         }else {
-            dd('Usuario no existe');
+            dd('Usuario no existe o ya verificaste.');
         }
     }
 

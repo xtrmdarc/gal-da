@@ -63,7 +63,16 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-md-6">Telefono/Celular</label>
+                                                            <label class="col-md-6">Dni</label>
+                                                            <div class="col-md-6">
+                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line" value="{{$dni}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">Telefono/Celular</label>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <div class="col-md-6">
                                                                 <select name="cod_phone" id="cod_phone" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
                                                                     <optgroup label="Seleccionar">
@@ -83,14 +92,7 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-md-6">Dni</label>
-                                                            <div class="col-md-6">
-                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line" value="{{$dni}}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-3" style="float: right;">
                                                                 <button type="submit" class="btn btn-success"> Guardar </button>
                                                             </div>
                                                         </div>
@@ -133,10 +135,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <div class="col-sm-12">
-                                                                <button type="submit" class="btn btn-success"> Guardar </button>
+                                                        <div class="form-group" style="display: inline-flex;float: right;">
+                                                            <div class="col-sm-6">
                                                                 <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancel</button>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <button type="submit" class="btn btn-success"> Guardar </button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -258,7 +262,7 @@
                                                         <h5 class="m-t-30"><b>Plan Free</b> - $0.0 mensual</h5>
                                                         <h5 class="m-t-30">N de Ventas al momento: <span><b>{{ $nventas  }}</b> de 1000</span> <span class="pull-right">{{ $nventas  }}</span></h5>
                                                         <div class="progress">
-                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                         </div>
 
                                                         {{--/*
