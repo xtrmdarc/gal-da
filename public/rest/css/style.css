@@ -8443,3 +8443,7 @@ body.md-skin {
   background-color: transparent !important;
   z-index: 100;
 }
+
+.clockpicker-popover {
+z-index: 999999 !important;
+}

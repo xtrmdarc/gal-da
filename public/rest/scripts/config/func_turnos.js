@@ -3,6 +3,11 @@
  */
 $(function(){
     listarTurnos();
+    $('.clockpicker').clockpicker({
+        donetext: 'Hecho',
+        autoclose:true
+    });
+
 });
 
 $(function() {
@@ -79,8 +84,8 @@ var listarTurnos = function(){
                 }
                 /*
                  "beforeSend": function (request) {
-                         $('#loader').css('display','none');
-                       }
+                 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½$('#loader').css('display','none');
+                 ï¿½ï¿½ï¿½ï¿½  }
                  */
             },
             "columns":[
@@ -99,7 +104,7 @@ var listarTurnos = function(){
 /* Eliminar Turno */
 var eliminarTurno = function(cod,nomb,sucur){
     $('#cod_turno_e').val(cod);
-    $("#mensaje-turno").html("<center><h4>"+ nomb + ' - ' + sucur + "<br><br>¿Desea eliminar?</h4></center>");
+    $("#mensaje-turno").html("<center><h4>"+ nomb + ' - ' + sucur + "<br><br>ï¿½Desea eliminar?</h4></center>");
     $("#mdl-eliminar-turno").modal('show');
 }
 

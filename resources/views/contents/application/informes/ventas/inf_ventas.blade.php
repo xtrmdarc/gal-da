@@ -8,12 +8,17 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 $fecha = date("d-m-Y h:i A");
 $fechaa = date("m-Y h:i: A");
 ?>
-
+<style>
+.bootstrap-datetimepicker-widget{
+   
+    z-index: 99999 !import;
+}
+</style>
 <input type="hidden" id="moneda" value=""/>
 
 <div class="wrapper wrapper-content animated shake">
     <div class="ibox">
-        <form method="post" enctype="multipart/form-data" target="_blank" action="/informesDatosVentasExcel">
+        <form id="frm-excel-informe" method="post" enctype="multipart/form-data" target="_blank" action="/informesDatosVentasExcel">
             @csrf
             <div class="ibox-title">
                 <div class="ibox-title-buttons pull-right">
@@ -28,6 +33,7 @@ $fechaa = date("m-Y h:i: A");
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label >Escoge un periodo</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
                                         <span class="input-group-addon">al</span>
@@ -39,8 +45,9 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                            <label for="tipo_ped">Tipos de Pedido</label>
                             <select name="tipo_ped" id="tipo_ped" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%" active>Todos los TipoPedidos</option>
+                                <option value="%" active>Todos</option>
                                 @foreach($TipoPedido as $r)
                                     <option value="{{$r->id_tipo_pedido}}">{{$r->descripcion}}</option>
                                 @endforeach
@@ -49,8 +56,10 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                                <label for="tipo_ped">Clientes</label>
                             <select name="cliente" id="cliente" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%" active>Todos los clientes</option>
+
+                                <option value="%" active>Todos</option>
                                 @foreach($Clientes as $r)
                                     <option value="{{$r->id_cliente}}">{{$r->nombre}}</option>
                                 @endforeach
@@ -59,8 +68,9 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                            <label for="cod_cajas">Cajas</label>
                             <select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%">Todas las cajas</option>
+                                <option value="%">Todas</option>
                                 @foreach($Cajas as $r)
                                     <option value="{{$r->id_caja}}">{{$r->descripcion}}</option>
                                 @endforeach
@@ -69,8 +79,9 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
+                            <label for="tipo_doc">Comprobantes</label>
                             <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" autocomplete="off">
-                                <option value="%" active>Todos los comprobantes</option>
+                                <option value="%" active>Todos</option>
                                 @foreach($Comprobantes as $r)
                                     <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
                                 @endforeach

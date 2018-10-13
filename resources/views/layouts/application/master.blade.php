@@ -48,7 +48,7 @@
 
     <!-- Custom REST CSS -->
 
-
+    <link  rel="stylesheet" href="{{ URL::to('rest/css/bootstrap-clockpicker.min.css') }}"/>
     <!-- Custom PATCH CSS -->
     {{--<script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>--}}
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -177,6 +177,7 @@
 <script src="{{ URL::to('rest/js/plugins/dataTables/dataTables.bootstrap.min.js') }}"></script>
 <!-- DataTimePicker -->
 <script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ URL::to('rest/js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
 <script>
     console.log(''+{!! json_encode(Auth::user()->id_rol)  !!}, ' areap : '+{!! json_encode(Auth::user()->id_rol)!!} );

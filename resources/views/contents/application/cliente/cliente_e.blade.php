@@ -78,7 +78,7 @@
                             <div class="col-lg-6" id="d_fecha" style="display: block;">
                                 <div class="form-group">
                                     <label>Fecha de Nacimiento</label>
-                                    <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" value="{{isset($cliente)?$cliente->fecha_nac:''}}" class="form-control" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
+                                    <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" value="{{isset($cliente)?$cliente->fecha_nac:''}}" class="form-control DatePicker" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_telefono" style="display: block;">

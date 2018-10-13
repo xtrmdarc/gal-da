@@ -69,15 +69,23 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label">Horario Inicial</label>
-                                        <input type="text" name="h_inicio_t" id="h_inicio_t" class="form-control" placeholder="Ingrese H. Inicio" autocomplete="off" required="required"/>
+                                        <div class="input-group clockpicker">
+                                            <input type="text" name="h_inicio_t" id="h_inicio_t" class="form-control"placeholder="Ingrese H. Inicio" autocomplete="off" required="required" value=""/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Horario Final</label>
-                                        <input type="text" name="h_fin_t" id="h_fin_t" class="form-control" placeholder="Ingrese H. Fin" autocomplete="off" required="required"/>
+                                    <div class="input-group clockpicker">
+                                        <input type="text" name="h_fin_t" id="h_fin_t" class="form-control" placeholder="Ingrese H. Fin" autocomplete="off" required="required" value=""/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -138,11 +146,14 @@
             </div>
         </div>
     
+    
+
+@endsection('content')
+@section('scripts')
     <script src="{{URL::to('rest/scripts/config/func_turnos.js' )}}"></script>
     <script type="text/javascript">
         $(function() {
             $('#config').addClass("active");
         });
     </script>
-
-@endsection('content')
+@endsection

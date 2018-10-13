@@ -12,7 +12,7 @@ class ExportFromArray implements FromCollection, WithHeadings
 
     public function __construct($array)
     {
-        $this->collection = collect($collection);
+        $this->collection = collect($array);
     }
 
     public function collection()

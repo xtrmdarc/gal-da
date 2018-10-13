@@ -200,3 +200,30 @@ var detalle = function(cod,doc,num){
         }
     });
 };
+
+/*s
+
+$('#frm-excel-informe').on('submit',function(e){
+    
+    e.preventDefault();
+    
+    var form = $(e.target);
+    console.log(form.serialize());
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        data: form.serialize(),
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: form.attr('action'),
+        success: function (data){
+            if(data==-1){
+                swal('No se pudo');
+            }
+        }
+    });
+
+})
+*/

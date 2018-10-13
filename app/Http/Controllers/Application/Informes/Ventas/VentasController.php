@@ -70,14 +70,16 @@ class VentasController extends Controller
 
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
-
-            $stm = DB::Select("SELECT v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.fec_ven,v.desc_td,v.ser_doc,v.nro_doc,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_usu = c.id_usu WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? GROUP BY v.id_ven",
-                array('0',$end,$tipo_doc,$cod_cajas));
-
+            dd(array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
+            $stm = DB::Select("SELECT v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.fec_ven,v.desc_td,v.ser_doc,v.nro_doc,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_usu = c.id_usu WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
+                array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
+            
+            //dd($stm);
+            
             ob_end_clean();
             ob_start();
             
-            return Excel::download(new ExportFromArray($stm),'example.xlsx');
+            return Excel::download(new ExportFromArray($stm),'inf-ventas-'.$start.'.xlsx');
         }
         catch(Exception $e)
         {

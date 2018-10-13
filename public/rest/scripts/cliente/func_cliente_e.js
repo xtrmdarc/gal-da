@@ -54,8 +54,10 @@ $(function() {
             });
     });
     
-    
-   
+    $('.DatePicker')
+        .datepicker({
+        format: 'dd-mm-yyyy'
+    });
 });
 
 $(".let input").keypress(function(event) {

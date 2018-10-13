@@ -39,7 +39,7 @@
             <!-- Logo -->
             <div class="navbar-header">
                
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{session('home')}}">
                     <!-- Logo icon -->
                     <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 80px;" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
