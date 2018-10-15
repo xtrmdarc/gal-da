@@ -73,7 +73,7 @@ var listar_cards = function() {
                 });
             }
 
-            $('#totalVentasI').text(totalVenta);
+            $('#totalVentasI').text($('#moneda').val()+' '+totalVenta);
             $('#nVentasI').text(nVentas);
             $('#nClientesI').text(nClientes);
         }

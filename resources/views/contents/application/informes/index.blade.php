@@ -42,13 +42,21 @@
         </div>
         <div class="col-sm-6 " style="padding-left:15px">
             <div id="list_a">
-                <div class="panel panel-transparent panel-dashed text-center p-md">
-                    <h2 class="m-t-none ich">Selecciona una categor&iacute;a</h2>
-                    <i class="fa fa-long-arrow-left fa-3x"></i>
-                    <p>Selecciona un elemento para ver los reportes disponibles.</p>
+                <div class="wrapper wrapper-content">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-sm-10 block-center">
+                                <br>
+                                <h1 class="ich m-t-none brand-color">Módulo de Informes</h1>
+                                <br>
+                                <p class="ng-binding ">Navega a través de los informes para saber qué está pasando con tu negocio. <strong class="accent-color">Seleciona una categoría </strong> para ver los reportes disponibles</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+      
     </div>
 </div>
 

@@ -7626,3 +7626,19 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   padding-left: 14px;
   padding-right: 14px;
 }
+
+.popover-header{
+  margin-top : 0px !important;
+}
+
+.block-center{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.brand-color{
+  color: #1fbdb7 !important;
+}
+.accent-color{
+  color: #FBA017 !important;
+}

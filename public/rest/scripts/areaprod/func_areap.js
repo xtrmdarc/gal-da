@@ -382,7 +382,7 @@ var atendido = function(cod_ped,cod_det_ped){
 		placement:'top',
 		html: true,
 		title : `<span class="text-success"><strong>Pedido atendido</strong></span>`,
-		content : `<a onclick="privateLib.atendidoMethodCall(${cod_ped},${cod_det_ped})" class="btn btn-primary"> Aceptar</a><a onclick="$('#pedido_`+ cod_det_ped+`').popover('hide')" class="btn btn-danger"> Cancelar</a>`,
+		content : `<a onclick="privateLib.atendidoMethodCall(${cod_ped},${cod_det_ped})" class="btn btn-primary" style="margin-left:5px;margin-right:5px"> Aceptar</a><a onclick="$('#pedido_`+ cod_det_ped+`').popover('hide')" class="btn btn-danger" style="margin-left:5px;margin-right:5px"> Cancelar</a>`,
 		trigger: 'manual'
 
 	});	
@@ -543,7 +543,7 @@ var NewOrder = function (orden){
 							</div>
 						</div>
 							
-						<ul id="${id_pedidoListaPedidos}"  class="list-group list-group-flush">
+						<ul id="${id_pedidoListaPedidos}"  class="list-group list-group-flush collapse show">
 
 							`+pedidosHtml + `
 							
@@ -599,7 +599,7 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 					<div id="${id_pedidoAlertaDemora}"  class="col-1 col-sm-1 hidden no-padding" style="" ><img width="30px" height="30px" style="margin-top:-6px" src="application/images/pedido-demora.png" ></img> </div>
 					<div id="${id_pedidoNotify}" class="col-1 col-sm-1 notify nopadding center-notify">  <div class="heartbit heartbit-pedido-activo"></div> <span class="point point-pedido-activo"></span> </div>
 					<div id = "${id_pedidoDemora}" class="col-2 col-sm-2 nopadding text-center"><span class="ca	rd-text"> 00:00 </span></div>
-					<div class="col-2 col-sm-2 text-right"><a class="btn btn-primary " onclick="privateLib.atendido(${id_ped},${id_det_ped})" style="padding:10px;color:white"   href="#">&#10004;</a></div>
+					<div class="col-2 col-sm-2 text-right"><a class="btn btn-primary " onclick="privateLib.atendido(${id_ped},${id_det_ped})" style="padding:5px;color:white"   href="#">&#10004;</a></div>
 				</div>
 				
 			</li>

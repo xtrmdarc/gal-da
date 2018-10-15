@@ -10,7 +10,7 @@
 
         @endphp
 
-                <input type="hidden" id="moneda" value=""/>
+        <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 
                 <div class="wrapper wrapper-content animated shake">
                         <div class="ibox">
@@ -38,7 +38,7 @@
                                                 <div class="card p-30">
                                                         <div class="media">
                                                                 <div class="media-left meida media-middle">
-                                                                        <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
+                                                                        <span><i class="fa fa-money f-s-40 color-primary"></i></span>
                                                                 </div>
                                                                 <div class="media-body media-text-right">
                                                                         <h2 id="totalVentasI">{{$total_venta}}</h2>

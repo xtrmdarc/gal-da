@@ -32,17 +32,19 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div id="lizq-s" style="display: block;">
-                <div class="panel panel-transparent panel-dashed tip-sales text-center">
+            <div id="lizq-s" style="display: block;" class="wrapper wrapper-content">
+                <div class="text-center">
                     <div class="row">
-                        <div class="col-sm-8 col-sm-push-2">
-                            <h2 class="ich m-t-none">Selecciona un sal&oacute;n</h2>
-                            <i class="fa fa-long-arrow-left fa-3x"></i>
-                            <p class="ng-binding">Navega por la lista de Salones y selecciona uno.</p> <p><strong>Aqu� podr�s ver las mesas que contiene.</strong></p>
+                        <div class="col-sm-10 block-center">
+                            <br>
+                            <h1 class="ich m-t-none brand-color">Módulo de Salones y Mesas</h1>
+                            <br>
+                            <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los salones y sus respectivas mesas. Los salones te ayudan a <strong class="brand-color"> agrupar y organizar las mesas </strong> en secciones que puedes controlar. La mesas te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tus operaciones </strong> de venta dentro del local.<strong class="accent-color"> Selecciona un salón para adminsitrar sus mesas</strong> </p>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div id="lizq-i" style="display: none;">
                 <div class="ibox">
                     <div class="ibox-title">

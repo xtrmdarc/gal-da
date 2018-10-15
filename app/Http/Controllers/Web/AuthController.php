@@ -153,6 +153,13 @@ class AuthController extends Controller
         return $this->verifyEmailFirst($thisUser);
     }
 
+    public function reSendVerifyEmail(Request $request){
+        $data = $request->all();
+        $usuario = TmUsuario::findOrFail($data['id_user']);
+        $this->senEmail($usuario);
+        return json_encode(1);
+    }
+
     public function senEmail($thisUser)
     {
         Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));

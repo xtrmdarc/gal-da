@@ -84,13 +84,13 @@
             <div class="tab-content" style="padding: 8px !important">
                 <div id="tab-1" class="tab-pane active">
                     <div class="row1 scroll_der" id="list-prods">
-                        <div class="panel panel-transparent text-center" style="margin:auto;">
-                            <div class="row">
-                                <div class="col-sm-8 col-sm-push-2" style="text-align: center;">
-                                    <br><br><br>
-                                    <i class="fa fa-long-arrow-up fa-3x"></i>
-                                    <h2 class="ich m-t-none">Selecciona una Categor&iacute;a</h2>
-                                    <p class="ng-binding">Para poder agregar productos a la lista</p>
+                        <div class="wrapper wrapper-content">
+                            <div class="text-center">
+                                <div class="block-center">
+                                    <br>
+                                    <h2 class="ich m-t-none accent-color">Selecciona una categoría</h2>
+                                    <br>
+                                    <p class="ng-binding col-sm-8 block-center" >Escoge una de tus categorías para listar los productos!</p>
                                 </div>
                             </div>
                         </div>

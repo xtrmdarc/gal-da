@@ -68,7 +68,7 @@ class TableroFController extends Controller
             $t_n_clientes = '0';
         }
 
-        $viewdata['total_venta'] = $t_venta;
+        $viewdata['total_venta'] = session('moneda').' '.$t_venta;
         $viewdata['total_n_venta'] = $t_n_venta;
         $viewdata['n_clientes'] = $t_n_clientes;
         $viewdata['breadcrumb'] = 'inicio';

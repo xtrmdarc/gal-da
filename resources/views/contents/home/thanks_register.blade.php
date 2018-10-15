@@ -9,6 +9,7 @@
         font-family: 'Montserrat', sans-serif !important;
     }
 </style>
+<link href="{{ URL::to('application/css/lib/sweetalert/sweetalert.css') }}" rel="stylesheet">
 <div class="background-light-brand" style="height:100%">
     <div class="background-light-brand">
 
@@ -32,7 +33,7 @@
             </div>
 
             <div class=" col-sm-12  "   >
-                <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;">Si no ves el correo en tu bandeja, por favor verifica el spam. Si no puedes verlo aun asi, haz clic <b class="brand-color"> aqui</b>  para enviarte nuevamente el correo.</h3>
+                <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;">Si no ves el correo en tu bandeja, por favor verifica el spam. Si no puedes verlo aun asi, haz clic <a id="btn_resend_verimail" href="#" class="brand-color" > aqui</a>  para enviarte nuevamente el correo.</h3>
             </div>
             <div class=" col-sm-12  "   >
                 <h3 class="light-shade-color text-center center-block " style="width:40%;font-weight:300;">¿No eres tú? <span class="brand-color" style="font-weight:400"> <a  style="color:inherit" href="{{ route('logout') }}"   onclick="event.preventDefault();
@@ -46,4 +47,36 @@
     </div>
 </div>
 
+
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ URL::to('application/js/lib/sweetalert/sweetalert.min.js') }}"></script>
+    <script>
+        $('#btn_resend_verimail').on('click',function(){
+            //window.location.reload();
+            
+            $.ajax({
+                dataType: 'JSON',
+                type: 'POST',
+                url: '/reSendVerificationMail',
+                data: {
+                    id_user: {!!$user['id_usu']!!}
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    if(data == 1)
+                    swal( "Listo","Hemos re enviado el correo de verifiación","success","Perfecto");
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(errorThrown + ' ' + textStatus);
+                }  
+            });
+            
+        });
+    </script>
+   
 @endsection
