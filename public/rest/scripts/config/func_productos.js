@@ -121,7 +121,7 @@ var listarProductos = function(cat){
         },
         "columns":[
             {"data":null,"render": function ( data, type, row) {
-                return '<a onclick="listarPresentaciones('+data.id_prod+',\''+data.nombre+'\')">'+data.nombre+'</a>';
+                return '<a style="text-decoration-line: underline!important;color: #4680ff;" onclick="listarPresentaciones('+data.id_prod+',\''+data.nombre+'\')">'+data.nombre+'</a>';
             }},
             {"data":null,"render": function ( data, type, row) {
                 if(data.id_tipo == 1){

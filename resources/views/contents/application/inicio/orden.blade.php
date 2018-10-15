@@ -201,7 +201,7 @@
                                     <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
-                                            <span class="input-group-addon">{{session('moneda_session')}}</span>
+                                            <span class="input-group-addon" style="line-height: normal;">{{session('moneda_session')}}</span>
                                             <input type="text" name="pago_e" id="pago_e" class="form-control" placeholder="Efectivo" autocomplete="off" />
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@
                                     <label >Monto</label>
                                     <div class="form-group">
                                         <div class="input-group dec">
-                                            <span class="input-group-addon">{{session('moneda_session')}}</span>
+                                            <span class="input-group-addon" style="line-height: normal;">{{session('moneda_session')}}</span>
                                             <input type="text" name="pago_t" id="pago_t" class="form-control" placeholder="Tarjeta" autocomplete="off" />
                                         </div>
                                     </div>

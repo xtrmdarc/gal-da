@@ -102,7 +102,7 @@
 <div class="modal inmodal fade" id="mdl-eliminar-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-eliminar-mesa" method="post" enctype="multipart/form-data" action="ajustesEliminarM">
+            <form id="frm-eliminar-mesa" class="unif_modal" method="post" enctype="multipart/form-data" action="ajustesEliminarM">
                 @csrf
                 <input type="hidden" name="cod_mesae" id="cod_mesae">
                 <div class="modal-header mh-p">
@@ -187,7 +187,7 @@
 <div class="modal inmodal fade" id="mdl-eliminar-salon" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-eliminar-salon" method="post" enctype="multipart/form-data" action="/ajustesEliminarS">
+            <form id="frm-eliminar-salon" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesEliminarS">
                 @csrf
                 <input type="hidden" name="cod_salae" id="cod_salae">
                 <input type="hidden" name="id_sucursal_s" id="id_sucursal_s">
@@ -210,7 +210,7 @@
 <div class="modal inmodal fade" id="mdl-estado-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
-            <form id="frm-estado-mesa" method="post" enctype="multipart/form-data" action="/ajustesEstadoM">
+            <form id="frm-estado-mesa" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesEstadoM">
                 @csrf
                 <input type="hidden" name="codi_mesa" id="codi_mesa">
                 <div class="modal-header mh-e">
