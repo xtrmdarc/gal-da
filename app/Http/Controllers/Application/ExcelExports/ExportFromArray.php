@@ -15,19 +15,22 @@ class ExportFromArray implements FromCollection, WithHeadings
         $this->collection = collect($array);
     }
 
-    public function collection()
+    public function collection()    
     {
         return $this->collection;
     }
 
     public function headings(): array
     {
+        if( count($this->collection)>0 ){
+            $headings_arr = [];
 
-        $headings_arr = [];
-        foreach($this->collection[0] as $name=>$value){
-            $headings_arr[] = $name;
+            foreach($this->collection[0] as $name=>$value){
+                $headings_arr[] = $name;
+            }
+           
+            return $headings_arr;    
         }
-        //dd($headings_arr);
-        return $headings_arr;
+        return array();   
     }
 }

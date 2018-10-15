@@ -689,6 +689,7 @@ var BuscarPedidosLista = function (){
 		//alert("Email has been sent!");
 			actualizarVLPedidos(data);
 			console.log('funciona');
+			console.log(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log(errorThrown + ' ' + textStatus);

@@ -89,7 +89,7 @@ var DatosGrles = function(){
             $('.cli_dg').text(data.nomb_c);
             $('.fec_dg').text(moment(data.fecha_p).format('DD-MM-Y'));
             $('.hor_dg').text(moment(data.fecha_p).format('h:mm A'));
-            $('.btn-imp').html('<a onclick="impPreCuenta('+data.id_pedido+','+data.id_mesa+',\''+data.est_m+'\')" class="btn btn-botija btn-lg"><i class="fa fa-print"></i></a>');
+            $('.btn-imp').html('<a onclick="impPreCuenta('+data.id_pedido+','+data.id_mesa+',\''+data.est_m+'\')" class="btn btn-accent btn-lg"><i class="fa fa-print"></i></a>');
             console.log('funciona');
         }
     });

@@ -239,7 +239,7 @@ class ProductoController extends Controller
             $idArea = $post['cod_area'];
             $nombP = $post['nombre_prod'];
             $descP = $post['descripcion'];
-
+            //dd($id_sucursal_d);
             $consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, @a, @b,:idSucursal,:idUsu);",
             array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
 

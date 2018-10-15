@@ -26,7 +26,7 @@ class AreaProdController extends Controller
         //dd(\Auth::user());
         
         $id_sucursal = session('id_sucursal');
-        $id_areap = session('id_areap');
+        $id_areap = \Auth::user()->id_areap;
 
         if(\Auth::user()->id_rol == 1)
         {
@@ -34,7 +34,7 @@ class AreaProdController extends Controller
             
             $id_areap =  $areas_prod[0]->id_areap;
         }
-                   
+        
         //
         $ordenes = $this->GetOrdenes($id_sucursal,$id_areap);
         
@@ -128,15 +128,15 @@ class AreaProdController extends Controller
     }
 
     public function GetPedidosLista($id_sucursal,$id_areap,$estados)
-    {
+    {   //dd($id_sucursal,$id_areap,$estados);
         if(!isset($estados)) $estados = array('a','i','p','c');
         
         $pedidos =  DB::table('tm_pedido')
-                    ->select(DB::raw('tm_detalle_pedido.id_det_ped, tm_detalle_pedido.cantidad,tm_producto.nombre as nombre_prod,tm_detalle_pedido.estado,tm_detalle_pedido.fecha_pedido as fecha,tm_pedido.id_tipo_pedido,tm_pedido.id_pedido'))
+                    ->select(DB::raw('tm_detalle_pedido.id_det_ped, tm_detalle_pedido.cantidad,v_productos.nombre_prod as nombre_prod,tm_detalle_pedido.estado,tm_detalle_pedido.fecha_pedido as fecha,tm_pedido.id_tipo_pedido,tm_pedido.id_pedido'))
                     ->join('tm_detalle_pedido','tm_detalle_pedido.id_pedido','tm_pedido.id_pedido')
-                    ->join('tm_producto','tm_producto.id_prod','tm_detalle_pedido.id_prod')
+                    ->join('v_productos','v_productos.id_pres','tm_detalle_pedido.id_prod')
                     ->where('tm_pedido.id_sucursal',$id_sucursal)
-                    ->where('tm_producto.id_areap',$id_areap)  
+                    ->where('v_productos.id_areap',$id_areap)  
                     ->WhereIn('tm_detalle_pedido.estado',$estados)
                     ->get();
         

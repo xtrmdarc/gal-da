@@ -135,12 +135,12 @@
                                 </li>
                                 <li class="warning-element lides" id="desc" style="display: none;">
                                     <div class="row">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-3 col-sm-3">
                                             <div class="text-left">
-                                                <span class="form-control txtlbl">Descuento</span>
+                                                <span class="form-control txtlbl" style="background: none; border:none;">Descuento</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-4 col-sm-4">
                                             <div class="text-left">
                                                 <div class="has-warning">
                                                     <div class="input-group ent">
@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-5">
+                                        <div class="col-xs-5 col-sm-5">
                                             <div class="text-right">
                                                 <div class="has-warning">
                                                     <div class="input-group dec">
@@ -276,16 +276,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-xs-6">
+                    <div class="row" style="width:100%">
+                        <div class="col-xs-6 col-sm-6">
                             <div class="text-left">
-                                <span class="btn btn-warning-2" onclick="porcentajeTotal();">%</span>
+                                <a href="#" class="btn btn-info" onclick="porcentajeTotal();">Descuento %</a>
                             </div>
                         </div>
 
-
-                                <button type="button" class="btn btn-white" data-dismiss="modal">Volver</button>
-                                <button type="submit" class="btn btn-primary" id="btn-fact"><i class="fa fa-save"></i> Aceptar</button>
+                        <div class="col-xs-6 col-sm-6" style="float:right;" >
+                            <button type="submit" class="btn btn-primary" id="btn-fact" style="float:right;"><i class="fa fa-save"></i> Aceptar</button>
+                            <button type="button" class="btn btn-white" data-dismiss="modal" style="float:right;">Volver</button>
+                        </div>
+                                
 
 
                     </div>
@@ -538,7 +540,7 @@
 
     <li class="list-group-item" style="background: #666666;color: #ffffff; border-radius: 0px; border: 0px; border-top: 1px solid #e7eaec;">
         <div class="row">
-            <div class="col-xs-12 text-left">
+            <div class="col-xs-12 col-sm-12 text-left">
                 Nuevos pedidos:
             </div>
         </div>
@@ -572,7 +574,7 @@
     </li>
     <li class="list-group-item" style="background: #666666;color: #ffffff; border-radius: 0px; border: 0px; border-top: 1px solid #e7eaec;">
         <div class="row">
-            <div class="col-xs-12 text-right">
+            <div class="col-xs-12 col-sm-12 text-right">
                 Total a confirmar <b>{{session('moneda')}} [%:total%]</b>
             </div>
         </div>

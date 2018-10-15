@@ -7617,3 +7617,12 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .mini-sidebar .upgrade-btn{
   display: none;
 }
+
+.btn-accent{
+  background-color: #FBA017;
+  color: white;
+  font-weight: 400;
+  
+  padding-left: 14px;
+  padding-right: 14px;
+}

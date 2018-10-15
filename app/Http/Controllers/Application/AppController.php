@@ -28,15 +28,15 @@ class AppController extends Controller
         {
             //Administracion
             case 1 : {
-                
+                    
                 if($user->plan_id != 1){
                     self::$home = "/tablero";
                     session(['home'=>'/tablero']);
                     //dd($home);
                 } else {
                     if($user->plan_id == 1) {
-                        self::$home = "/tableroF";
-                        session(['home'=>'/tableroF']);
+                            self::$home = "/tableroF";
+                            session(['home'=>'/tableroF']);
                         //dd($home);
                     }
                 }
@@ -68,12 +68,13 @@ class AppController extends Controller
             //Multimozo
             case 5 :{
                 
-                self::$home = "/inicio";
+                self::$home = "/cocina";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }
 
         }
-        
+       
         return redirect(self::$home);
         
     }
@@ -99,7 +100,7 @@ class AppController extends Controller
         session(['moneda'=>$mon]);
         session(['igv_session'=>$igv_empresa]);
 
-        if(\Auth::user()->id_rol = 1)  {
+        if(\Auth::user()->id_rol == 1)  {
             
             $queryCajasAdmin = DB::table('tm_aper_cierre')
                 ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')

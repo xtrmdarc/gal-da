@@ -164,10 +164,13 @@ class UsuarioController extends Controller
         if($cod_area == null ){
             $cod_area = 0;
         }
-      
+        $contrasena = '';
         $usuario = $post['usuario'];
-        $contrasena = $post['contrasena'];
-        $contrasena_g = bcrypt($post['contrasena']);
+        if($id_rol==5){
+            $contrasena = $post['contrasena'];
+            $contrasena_g = bcrypt($post['contrasena']);        
+        }
+        
         
         if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists()){return 0;}
         
@@ -214,6 +217,7 @@ class UsuarioController extends Controller
                 'verifyToken' => ($id_rol==5)?null: Str::random(40),
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
+                'status'=> ($id_rol==5)?1:0,
                 'pin' => $pin
             ]);
 

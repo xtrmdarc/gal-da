@@ -251,7 +251,7 @@ class InicioController extends Controller
             */
             $id_usu = \Auth::user()->id_usu;
             $cliente = TmCliente::firstOrNew(
-                ['telefono'=>$data['telefCli']],
+                ['telefono'=>$data['telefCli'],'id_sucursal'=>\Auth::user()->id_empresa],
                 [   'nombres'=>$data['nombCli'],
                     'ape_paterno'=>$data['appCli'],
                     'ape_materno'=>$data['apmCli'],
@@ -261,7 +261,7 @@ class InicioController extends Controller
                 ]
             );
             $cliente->save();
-            
+            dd($cliente);
             //date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
@@ -361,6 +361,7 @@ class InicioController extends Controller
                 
                 foreach($data['items'] as $d => $v)
                 {
+                    //dd($data['items'][$d]);
                     //echo('entro aqui antes de db');
                     $id = DB::table('tm_detalle_pedido')->insertGetId([
                         'id_pedido' => $data['cod_p'],
@@ -804,7 +805,7 @@ class InicioController extends Controller
                 ':idEmpresa' =>session('id_empresa')
             );
             $consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
-            
+            dd('entro aqui');
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
             while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
