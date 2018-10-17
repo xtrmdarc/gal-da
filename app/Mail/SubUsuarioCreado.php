@@ -30,6 +30,7 @@ class SubUsuarioCreado extends Mailable
      */
     public function build()
     {
-        return $this->view('email.application.verifyEmailSubUsuario');
+        return $this->subject('Welcome to Gal-Da!')
+                    ->view('email.application.verifyEmailSubUsuario');
     }
 }
