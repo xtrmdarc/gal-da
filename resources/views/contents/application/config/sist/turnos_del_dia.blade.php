@@ -1,19 +1,17 @@
 @extends('layouts.application.master')
 
 @section('content')
-    
-<div class="row m-0">
-    <div class="col-lg-6">
-        <div class="wrapper wrapper-content animated bounce">
-            <div class="row">
-                <div class="ibox">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox animated bounce">
                     <div class="ibox-title">
                         <div class="ibox-title-buttons pull-right">
                             <button type="button" class="btn btn-primary btn-turno"><i class="fa fa-plus-circle"></i> Nuevo Turno</button>
                         </div>
                         <h5><i class="fa fa-newspaper-o"></i> Turnos</h5>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content my-scroll">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <table class="table table-hover table-condensed table-striped" id="table-turnos">
                             <thead>
@@ -29,25 +27,24 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-lg-6">
-        <div class="wrapper wrapper-content">
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-sm-10 block-center">
-                        <br>
-                        <h1 class="ich m-t-none brand-color">Módulo de Turnos</h1>
-                        <br>
-                        <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="brand-color">controlar el la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
+            <div class="col-lg-6">
+                <div class="wrapper wrapper-content">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-sm-10 block-center">
+                                <br>
+                                <h1 class="ich m-t-none brand-color">Módulo de Turnos</h1>
+                                <br>
+                                <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="brand-color">controlar el la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</div>
-        
 
         <div class="modal inmodal fade" id="mdl-turno" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
             <div class="modal-dialog" style="max-width: 400px;">

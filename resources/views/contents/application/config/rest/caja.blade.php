@@ -1,58 +1,54 @@
 @extends('layouts.application.master')
 
 @section('content')
-    <div class="row m-0">
-        <div class="col-lg-6">
-            <div class="wrapper wrapper-content animated bounce">
-                <div class="row">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <div class="pull-right">
-                                @if(Auth::user()->plan_id != '1')
-                                    <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
-                                @else
-                                    <p>
-                                        Solo contamos con una caja  en el plan free.
-                                    </p>
-                                @endif
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox animated bounce">
+                    <div class="ibox-title">
+                        <div class="pull-right">
+                            @if(Auth::user()->plan_id != '1')
+                                <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
+                            @else
+                                <p>
+                                    Solo contamos con una caja  en el plan free.
+                                </p>
+                            @endif
+                        </div>
+                        <h5><i class="fa fa-newspaper-o"></i> Cajas</h5>
+                    </div>
+                    <div class="ibox-content my-scroll">
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                        <table class="table table-hover table-condensed table-striped" id="table-caja">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Sucursal</th>
+                                <th>Estado</th>
+                                <th class="text-right">Acciones</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="wrapper wrapper-content">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-sm-10 block-center">
+                                <br>
+                                <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
+                                <br>
+                                <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="brand-color">control y automatización de tu negocio <strong></p>
                             </div>
-                            <h5><i class="fa fa-newspaper-o"></i> Cajas</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <table class="table table-hover table-condensed table-striped" id="table-caja">
-                                <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Sucursal</th>
-                                    <th>Estado</th>
-                                    <th class="text-right">Acciones</th>
-                                </tr>
-                                </thead>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6">
-            <div class="wrapper wrapper-content">
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-sm-10 block-center">
-                            <br>
-                            <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
-                            <br>
-                            <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="brand-color">control y automatización de tu negocio <strong></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-    
+
     <div class="modal inmodal fade" id="mdl-caja" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog" style="max-width: 400px;">
             <div class="modal-content animated bounceInRight">

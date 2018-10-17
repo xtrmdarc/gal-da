@@ -15,7 +15,7 @@
                     </div>
                     <h5><i class="fa fa-cubes"></i> Salones</h5>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content my-scroll">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <table class="table table-condensed table-striped table-hover" id="table-s" style="width:100%">
                         <thead>
@@ -51,7 +51,7 @@
                         <h5>Mesa(s) de <span id="title-mesa"></span></h5>
                         <div class="ibox-title-buttons pull-right" id="btn-nuevo"></div>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content my-scroll">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <table class="table table-hover table-condensed table-striped" id="table-m" style="width:100%">
                             <thead>
