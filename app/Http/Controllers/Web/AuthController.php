@@ -289,7 +289,7 @@ class AuthController extends Controller
         $user = TmUsuario::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
 
         if($user) {
-            return ('diseño aqui pero backend está');
+            //return ('diseño aqui pero backend está');
             return view('auth.verificar_mail.verificar_sub_usuario')->with(['user' => $user]);
 
         }else {
