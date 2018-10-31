@@ -31,6 +31,7 @@
             </div>
             <div class=" col-sm-12  " >
                 <form action="{{route('activarSubUsuario')}}"  method="POST">
+                    @csrf
                     <div class="col-sm-6 offset-sm-3"> 
                         <input type="hidden" name="email" value="{{$user->email}}">
                         <input type="hidden" name="verifyToken" value="{{$user->verifyToken}}">
