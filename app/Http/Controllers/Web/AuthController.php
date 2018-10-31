@@ -189,10 +189,6 @@ class AuthController extends Controller
 
         $idUsu = \Auth::user()->id_usu;
         $viewdata = [];
-        $lista_paises = Pais::all();
-        $viewdata['cod_telefonos'] = $lista_paises;
-
-        $viewdata['paises'] = $lista_paises;
 
         $usuario_perfil = DB::select("SELECT * FROM tm_usuario WHERE id_usu = ?",[($idUsu)]);
         $viewData['usuario_perfil'] = $usuario_perfil;
@@ -207,6 +203,11 @@ class AuthController extends Controller
             $viewdata['dni']= $r->dni;
             $viewdata['imagen']= $r->imagen;
         }
+
+        $lista_paises = Pais::all();
+        $viewdata['cod_telefonos'] = $lista_paises;
+
+        $viewdata['paises'] = $lista_paises;
 
         return view('auth.register.register-step-account-info',$viewdata);
     }

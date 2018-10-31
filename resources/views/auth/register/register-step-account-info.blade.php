@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Dni</label>
-                                    <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ old('dni') }}" required autofocus placeholder="Dni">
+                                    <input id="dni" type="number" pattern="[0-9]{10}" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ old('dni') }}" required autofocus placeholder="Dni">
 
                                     @if ($errors->has('dni'))
                                         <span class="invalid-feedback">
@@ -58,10 +58,25 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label>Teléfono</label>
+                                    <label>País</label>
+                                    {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                    <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                        <optgroup label="Seleccionar">
+                                            @foreach($paises as $r)
+                                                <option value="{{$r->codigo}}">{{$r->nombre}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
 
-                                    <div class="form-group">
-                                        <label class="col-md-6">Telefono/Celular</label>
+                                    @if ($errors->has('country'))
+                                        <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('country') }}</strong>
+                                                </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefono/Celular</label>
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <select name="cod_phone" id="cod_phone" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
                                                 <optgroup label="Seleccionar">
@@ -76,7 +91,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Teléfono">
+                                            <input id="phone" type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Teléfono">
                                         </div>
                                     </div>
 
@@ -86,25 +101,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group">
-                                    <label>País</label>
-                                    <div class="input-group">
-                                        {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                        <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
-                                                <optgroup label="Seleccionar">
-                                                    @foreach($paises as $r)
-                                                        <option value="{{$r->codigo}}">{{$r->nombre}}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                        </select>
-                                    </div>
 
-                                    @if ($errors->has('country'))
-                                        <span class="invalid-feedback">
-                                                    <strong>{{ $errors->first('country') }}</strong>
-                                                </span>
-                                    @endif
-                                </div>
 
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Un paso más</button>
                             </form>

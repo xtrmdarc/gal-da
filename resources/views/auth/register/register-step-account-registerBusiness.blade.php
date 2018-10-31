@@ -8,7 +8,7 @@
     <div class="unix-login">
         <div class="container-fluid-auth">
             <div class="row justify-content-center-auth">
-                <div class="col-lg-4 card-center">
+                <div class="col-lg-4 card-center" style="margin-bottom: 50%;margin-top: 10%;">
                     <div class="auth-content card-auth">
                         <div class="login-form-auth">
                             <h4 style="margin-bottom: 10px;">Ultimo paso, dinos el nombre de tu negocio</h4>
