@@ -302,7 +302,7 @@ class AuthController extends Controller
         $data = $request->all();
         
         $usuario_update =  TmUsuario::where(['email' => $data['email'], 'verifyToken' => $data['verifyToken']])
-                                    ->update(['status' => '1','verifyToken' => NULL,'password' => Hash::make($data['password2'])]);
+                                    ->update(['status' => '1','verifyToken' => NULL,'password' => Hash::make($data['password'])]);
 
         if($usuario_update == 1) 
         {
