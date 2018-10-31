@@ -32,6 +32,7 @@ class MesaController extends Controller
     public function ListaSalones()
     {
         $id_usu = \Auth::user()->id_usu;
+        $id_sucursal = session('id_sucursal');
 
         /*$stm = DB::select("SELECT * FROM tm_salon WHERE id_usu =".$id_usu);
 
@@ -39,9 +40,15 @@ class MesaController extends Controller
             $stm[$k]->Mesas = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg)[0];
         }*/
 
-        $stm = DB::table('tm_salon')
+        /*$stm = DB::table('tm_salon')
             ->join('sucursal', 'tm_salon.id_sucursal', '=', 'sucursal.id')
             ->where('sucursal.id_usu',$id_usu)
+            ->select('tm_salon.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
+            ->get();*/
+
+        $stm = DB::table('tm_salon')
+            ->join('sucursal', 'tm_salon.id_sucursal', '=', 'sucursal.id')
+            ->where('sucursal.id',$id_sucursal)
             ->select('tm_salon.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
             ->get();
 
