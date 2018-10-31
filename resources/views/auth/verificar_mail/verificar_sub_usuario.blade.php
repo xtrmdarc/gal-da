@@ -29,17 +29,16 @@
             <div class=" col-sm-12  "   >
                 <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;">Para terminar con el proceso de registro, configura tu contraseña.</h3>
             </div>
-            <div class=" col-sm-12  "   >
-                <form action="{{route('activarSubUsuario')}}" method="POST">
-                    <input type="hidden" name="email" value="{{$user->email}}">
-                    <input type="hidden" name="verifyToken" value="{{$user->verifyToken}}">
-                    <div class="form-group">
-                        <label>Contraseña</label>
-                        <input id="name" type="text" class="form-control" name="password1" value="" required autofocus placeholder="Contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label>Repite contraseña</label>
-                        <input id="name" type="text" class="form-control" name="password2" value="" required autofocus placeholder="Contraseña">
+            <div class=" col-sm-12  " >
+                <form action="{{route('activarSubUsuario')}}"  method="POST">
+                    <div class="col-sm-6 offset-sm-3"> 
+                        <input type="hidden" name="email" value="{{$user->email}}">
+                        <input type="hidden" name="verifyToken" value="{{$user->verifyToken}}">
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input id="name" type="text" class="form-control" name="password1" value="" required autofocus placeholder="Contraseña">
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Enviar">
                     </div>
                 </form>
             </div>
