@@ -32,12 +32,12 @@
             <div class=" col-sm-12  " >
                 <form action="{{route('activarSubUsuario')}}"  method="POST">
                     @csrf
-                    <div class="col-sm-6 offset-sm-3"> 
+                    <div class="col-sm-6 col-sm-offset-3"> 
                         <input type="hidden" name="email" value="{{$user->email}}">
                         <input type="hidden" name="verifyToken" value="{{$user->verifyToken}}">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input id="name" type="text" class="form-control" name="password" value="" required autofocus placeholder="Contraseña">
+                            <input id="name" type="password" class="form-control" name="password" value="" required autofocus placeholder="Contraseña">
                         </div>
                         <input type="submit" class="btn btn-primary" value="Enviar">
                     </div>

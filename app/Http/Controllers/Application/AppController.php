@@ -68,7 +68,7 @@ class AppController extends Controller
             //Multimozo
             case 5 :{
                 
-                self::$home = "/cocina";
+                self::$home = "/inicio";
                 session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }
