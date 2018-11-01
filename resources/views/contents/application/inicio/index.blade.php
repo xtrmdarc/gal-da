@@ -18,7 +18,7 @@
     <div class="tabs-container">
         <ul class="nav nav-tabs right" role="tablist">
             <li class="nav-item "><a class="nav-link active" data-toggle="tab" href="#tabp-1"><i class="fa fa-cubes"></i>Mesas</a></li>
-            @if(\Auth::user()->id_rol != 4 && \Auth::user->id_rol !=5 )
+            @if(\Auth::user()->id_rol != 4 && \Auth::user()->id_rol !=5 )
                 <li class="nav-item" ><a class="nav-link" data-toggle="tab" href="#tabp-2"><i class="fa fa-columns"></i>Mostrador</a></li>
                 <li class="nav-item" ><a class="nav-link" data-toggle="tab" href="#tabp-3"><i class="fa fa-bicycle"></i>Delivery</a></li>
             @endif
