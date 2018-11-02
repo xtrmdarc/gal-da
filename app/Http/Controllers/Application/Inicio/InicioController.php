@@ -261,7 +261,7 @@ class InicioController extends Controller
                 ]
             );
             $cliente->save();
-            dd($cliente);
+            //dd($cliente);
             //date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
@@ -805,7 +805,7 @@ class InicioController extends Controller
                 ':idEmpresa' =>session('id_empresa')
             );
             $consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
-            dd('entro aqui');
+            
             /*$st = $this->conexionn->prepare($consulta);
             $st->execute($arrayParam);
             while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
