@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 @section('content')
 
-<input type="hidden" id="m" value="" />>
+<input type="hidden" id="m" value="" />
 
 <div class="wrapper wrapper-content animated bounce">
     <div class="ibox">

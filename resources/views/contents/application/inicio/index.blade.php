@@ -445,7 +445,7 @@
 <!-- Modal Codigo Multimozo-->
 <div class="modal inmodal fade" id="mdl-codigo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content unif_header">
         <form method="POST" class="pedido_form" enctype="multipart/form-data" action="/inicio/RegistrarMesa">
         @csrf   
         </form>
@@ -454,7 +454,7 @@
             <input type="hidden" id="cod_mesa_c" style="display:none">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                <h5 class="modal-title title-d" id="mtmc"  style="font-size: 14px"></h4>
+                <h5 class="modal-title title-d" id="mtmc"  style="font-size: 26px"></h4>
             </div>
             <div class="modal-body">
                 
@@ -482,7 +482,7 @@
 
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </form>
       </div>

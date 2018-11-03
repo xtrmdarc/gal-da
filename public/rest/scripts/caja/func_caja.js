@@ -189,6 +189,9 @@ var detalle = function(cod_apc,fecha_aper){
         success: function(data) {
             var fechaApertura = moment(data.Datos.fecha_a).format('Do MMMM YYYY, hh:mm A');
             var fechaCierre = moment(data.Datos.fecha_c).format('Do MMMM YYYY, hh:mm A');
+            if(isNaN(fechaCierre)){
+                fechaCierre = "Aun no se ha cerrado la caja";
+            }
             var totalIng = (parseFloat(data.total_i) + parseFloat(data.Ingresos.total_i)).toFixed(2);
             $("#apc").html(moneda+' '+data.Datos.monto_a);
             $("#t_ing").html(moneda+' '+totalIng);

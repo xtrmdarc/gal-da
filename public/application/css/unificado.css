@@ -36,3 +36,14 @@
 #table-area {
     width: 100%!important;
 }
+/*Modales de Multimozo*/
+
+.unif_header .modal-header{
+    display: initial!important;
+}
+.unif_header .modal-header .close{
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}

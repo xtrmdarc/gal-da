@@ -422,7 +422,7 @@
     <div class="modal inmodal fade" id="mdl-sub-pedido" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content animated bounceInRight">
-            <form method="post" enctype="multipart/form-data" action="#">
+            <form method="post" enctype="multipart/form-data" action="#" class="unif_modal">
                 <div class="modal-header mh-e">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <h4 class="modal-title mt"><strong id="title-caja">Detalle por orden de pedido</strong></h4>
@@ -451,7 +451,7 @@
     <div class="modal inmodal fade" id="mdl-cancelar-pedido" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-            <form method="post" enctype="multipart/form-data" action="/inicio/CancelarPedido">
+            <form method="post" class="unif_modal" enctype="multipart/form-data" action="/inicio/CancelarPedido">
                 @csrf
                 <input type="hidden" name="cod_det_ped" id="cod_det_ped">
                 <input type="hidden" name="cod_ped" id="cod_ped">

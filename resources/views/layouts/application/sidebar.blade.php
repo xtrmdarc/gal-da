@@ -10,6 +10,21 @@
 
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Plan Free </li>
+                        @if(Auth::user()->id_rol == '1')
+                            <li class="nav-label"> Rol : ADMINISTRADOR </li>
+                        @endif
+                        @if(Auth::user()->id_rol == '2')
+                            <li class="nav-label"> Rol : CAJERO </li>
+                        @endif
+                        @if(Auth::user()->id_rol == '3')
+                            <li class="nav-label"> Rol : PRODUCCIÓN </li>
+                        @endif
+                        @if(Auth::user()->id_rol == '4')
+                            <li class="nav-label"> Rol : MOZO </li>
+                        @endif
+                        @if(Auth::user()->id_rol == '5')
+                            <li class="nav-label"> Rol : MULTIMOZO </li>
+                        @endif
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Produccion</li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')
@@ -20,7 +35,7 @@
                         @endif
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Administracion</li>
-                        <li><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>
+                        <li><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control </span></a></li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif
@@ -73,7 +88,7 @@
                             <li><a href="/cocina"> <i class="fa fa-dashboard"></i><span class="hide-menu">Cocina</span></a></li>
                         @endif
                         <li class="nav-label"> Administración</li>
-                        <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero </span></a></li>
+                        <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control</span></a></li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
                                 <ul aria-expanded="false" class="collapse">

@@ -43,7 +43,7 @@
                                         </a>
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Iniciar Sesión</button>
                                 <div class="register-link-auth m-t-15 text-center">
                                     <p>¿No tienes una cuenta?<a href="{{ route('register') }}"> Regístrate Aquí</a></p>
                                 </div>

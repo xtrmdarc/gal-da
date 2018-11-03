@@ -14,7 +14,7 @@ $fechaa = date("m-Y h:i: A");
     z-index: 99999 !import;
 }
 </style>
-<input type="hidden" id="moneda" value=""/>
+<input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
 
 <div class="wrapper wrapper-content animated shake">
     <div class="ibox">

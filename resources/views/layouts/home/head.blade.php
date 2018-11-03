@@ -57,7 +57,7 @@
                             }
                         @endphp
                     @else
-                     <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">{{trans('auth.login')}}</a></li>
+                     <li {!! Route::currentRouteName() == 'login' ? 'class="active"' : '' !!}><a href="{{ route('login') }}">Iniciar Sesion</a></li>
                      <li {!! Route::currentRouteName() == 'register' ? 'class="active"' : '' !!}><a class="btn btn-cta-landing-main" style="margin: 0px;color:white;font-weight:700;" href="{{ route('register') }}">Empieza YA</a></li>
                     @endif
                 </ul>

@@ -127,7 +127,7 @@ var listarPedidos = function(){
                 "className": 'mail-contact',
                 "render": function ( data, type, row) {
                     if($('#rol_usr').val() != 4){
-                        return '<a onclick="subPedido('+$('#cod_p').val()+','+data.id_prod+');">'+data.Producto.nombre_prod+' ['+data.Producto.pres_prod+']</a>';
+                        return '<a style="text-decoration-line: underline!important;color: #4680ff;" onclick="subPedido('+$('#cod_p').val()+','+data.id_prod+');">'+data.Producto.nombre_prod+' ['+data.Producto.pres_prod+']</a>';
                     } else {
                         return data.Producto.nombre_prod+' ['+data.Producto.pres_prod+']';
                     }
