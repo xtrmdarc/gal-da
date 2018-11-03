@@ -220,11 +220,12 @@ class UsuarioController extends Controller
                 'status'=> ($id_rol==5)?1:0,
                 'pin' => $pin
             ]);
-
+            //dd($user,$user->id_rol);
             if($user) {
-                
+                //dd($user,$user->id_rol);
                 if($user->id_rol==5) {
                     TmUsuario::find($user->id_usu)->update(['status'=>1]);
+                    //dd($user);
                 }
                 else{
                     Mail::to($user->email)->send(new SubUsuarioCreado($user));

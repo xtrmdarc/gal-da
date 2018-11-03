@@ -584,6 +584,10 @@ class InicioController extends Controller
                 
                 
                 $id_usu = \Auth::user()->id_usu;
+                if(\Auth::user()->id_rol == 5)
+                {
+                    
+                }
                 $id_apc = session('id_apc');
                 $igv = session('igv_session');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 

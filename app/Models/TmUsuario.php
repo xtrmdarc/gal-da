@@ -22,7 +22,8 @@ class TmUsuario extends Authenticatable
         'id_areap' => 'int',
         'plan_id' => 'int',
         'parent_id' => 'int',
-        'dni' => 'int'
+        'dni' => 'int',
+        'status' => 'int'
     ];
 
     protected $fillable = [
@@ -45,6 +46,7 @@ class TmUsuario extends Authenticatable
         'verifyToken',
         'id_sucursal',
         'id_empresa',
+        'status',
         'codigo_pais',
         'codigo_phone',
         'stripe_id',
