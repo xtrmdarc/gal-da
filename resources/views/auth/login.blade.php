@@ -15,8 +15,8 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>CORREO ELECTRÓNICO</label>
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Correo">
+                                    <label>CORREO ELECTRÓNICO O USUARIO</label>
+                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Correo o Usuario">
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>

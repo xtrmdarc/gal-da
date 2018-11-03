@@ -54,11 +54,11 @@
                 <div class="col-lg-4 card-center">
                     <div class="auth-content card-auth">
                         <div class="login-form-auth">
-                            <h4>Reset Password</h4>
+                            <h4>Cambiar Contraseña</h4>
                             <form method="POST" action="{{ route('password.email') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="email">CORREO ELECTRONICO</label>
+                                    <label for="email">CORREO ELECTRÓNICO</label>
                                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"  placeholder="Correo" required>
 
                                     @if ($errors->has('email'))
@@ -68,7 +68,7 @@
                                     @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">
-                                    Send Password Reset Link
+                                    Enviar Contraseña
                                 </button>
                             </form>
                         </div>
