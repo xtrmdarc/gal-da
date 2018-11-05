@@ -22,10 +22,15 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>1000 ventas mensuales <br>
-                        1 sucursal <br>
-                        Productos ilimitados <br>
-                        Indicadores de control <br>
+                        <br>1000 Ventas Mensuales <br>
+                        Hasta 15 mesas <br>
+                        Productos Ilimitados <br>
+                        1 Área de Producción <br>
+                        1 Sucursal <br>
+                        5 Usuarios <br>
+                        1 caja <br>
+                        Tablero de Control <br>
+                        *Clientes <br>
                     </div>
                     <input type="hidden" name="plan_id" value="1" />
                     <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
@@ -49,9 +54,11 @@
                         <div class="section-plan-offer">
                             <b> Incluye Plan Free </b><br>
                             Ventas ilimitadas <br>
-                            Múltiples áreas de producción <br>
-                            Gestión de compras <br>
-                            Informes de gestión <br>
+                            Usuarios ilimitadas <br>
+                            Hasta 40 Mesas <br>
+                            MultiCajas<br>
+                            Múltiples Áreas de producción <br>
+                            1 Informe de Venta <br>
                         </div>
                         <input type="hidden" name="plan_id" value="2" />
                         
@@ -75,10 +82,14 @@
                         </div>
                         <div class="section-plan-offer">
                             <b> Incluye Plan Basic </b><br>
-                            Facturación electrónica <br>
-                            Nulla pellentesque <br>
-                            Integer quis risus <br>
-                            Phasellus et metus <br>
+                            Usuarios Avanzandos <br>
+                            Mas de 40 Mesas <br>
+                            MultiSucursal <br>
+                            Tablero de Control Lite <br>
+                            Gestión de Crédito <br>
+                            Gestión de Compras <br>
+                            Insumos ilimitados <br>
+                            Informes de Gestión <br>
                            
                         </div>
                         <input type="hidden" name="plan_id" value="3" />
