@@ -12,6 +12,7 @@ use App\Models\TmMesa;
 use App\Models\TmCliente;
 use App\Models\TmUsuario;
 use App\Models\TmTipoPedido;
+use App\Models\Empresa;
 use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
 use App\Events\VentaEfectuada;
@@ -24,9 +25,10 @@ class InicioController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+
     }
     public function Index(){
-       
+        
 
         $ListarCM = TmSalon::where('estado','<>','i')
                             ->where('id_sucursal',session('id_sucursal'))->get();   
@@ -53,11 +55,37 @@ class InicioController extends Controller
             'breadcrumb' => 'pedidos',
             'titulo_vista' => 'Pedidos',
             'vista_amplia'=> true,
-            'aperturas'=> $aperturas
+            'aperturas'=> $aperturas,
+            'valida_empresa'=> $this->verificarEmpresaConfiguracion()
         ];
         
 
         return view('contents.application.inicio.index')->with($data);
+    }
+
+    public function verificarEmpresaConfiguracion(){
+
+        $empresa = Empresa::where('id',\Auth::user()->id_empresa)->first();
+        //dd($empresa);
+        $razon_social = $empresa->razon_social;
+        $abreviatura = $empresa->abrev_rs;
+        $igv = $empresa->igv;
+        $ruc = $empresa->ruc;
+        $moneda = $empresa->moneda;
+        $telefono = $empresa->telefono;
+        $direccion = $empresa->direccion;
+        $pais = $empresa->id_pais;
+        $campos_empresa = array($razon_social,$abreviatura,$igv,$ruc,$moneda,$telefono,$direccion,$pais);
+        //dd($campos_empresa);
+        foreach($campos_empresa as $ce)
+        {
+            if(!isset($ce) || $ce == '')
+            {
+                return 0;
+            }
+        }
+
+        return 1;
     }
 
     public function VerificarMozoPIN(Request $request){
@@ -1161,6 +1189,7 @@ class InicioController extends Controller
     {
         session(['id_apc'=>$request->id_apc]);
     }
+    
     
 
 }

@@ -15,7 +15,7 @@ class Empresa extends Model
         'direccion',
         'telefono',
         'moneda',
-        'id_pais',
+        'id_pais'
     ];
 
     public function users()

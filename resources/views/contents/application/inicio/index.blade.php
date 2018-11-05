@@ -560,6 +560,39 @@
     </div>
 </div>
 
+<div class="modal  fade" id="mdl-validar-datos-empresa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content animated bounceInRight">
+      
+            <div class="modal-header">
+                <h2 class="modal-title">¡No estás preparado!</h2>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p >
+                            Para poder utilizar el módulo de pedidos debes <strong>terminar
+                            la configuración de tu empresa. </strong><br> 
+                            Es necesario para personalizar la experiencia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <button onclick="window.location.replace('{{''.session('home')}}')" type="button"  class="btn btn-danger">Cancelar</button>
+                    <button type="button" onclick="window.location.replace('/ajustesDatosEmpresa')" class="btn btn-success branding" style="margin-right:8px">Configurar</button>
+                       
+                </div>
+            </div>
+               
+            
+            
+     
+        </div>
+    </div>
+</div>
 <script src="{{URL::to('rest/scripts/inicio/func-inicio.js')}}"></script>
 <script type="text/javascript">
 $(function() {
@@ -570,6 +603,12 @@ $(function() {
     $('.scroll_content').slimscroll({
         height: '410px'
     });
+        
+    if({!!$valida_empresa!!} == 0 )
+    {
+        $('#mdl-validar-datos-empresa').modal('show');
+    }
+
 });
 function sessionTipoPedidoMesa(){
     {{session(['cod_tipe'=>1])}}
