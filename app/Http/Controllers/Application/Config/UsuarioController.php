@@ -165,7 +165,7 @@ class UsuarioController extends Controller
             $cod_area = 0;
         }
         $contrasena = '';
-        $usuario = $post['usuario'];
+        $usuario = $post['usuario'].'@'.$nombre_empresa;
         if($id_rol==5){
             $contrasena = $post['contrasena'];
             $contrasena_g = bcrypt($post['contrasena']);        

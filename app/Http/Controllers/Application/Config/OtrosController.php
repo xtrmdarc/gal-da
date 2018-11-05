@@ -120,7 +120,7 @@ class OtrosController extends Controller
         $telefono = $post['telefono'];
         $direccion = $post['direccion'];
         $logo = $post['logo'];
-        $igv = $post['igv'];
+        $igv = $post['igv']/100;
         $id_pais = $post['country'];
 
         if($id != ''){

@@ -62,11 +62,23 @@ var listar = function(){
         success: function(item){
 
             if (item.data.length != 0) {
-                $.each(item.data, function(i, campo) {  
+                $.each(item.data, function(i, campo) {
+
+                    var my_igv = campo.igv;
+                    if(isNaN(my_igv) || my_igv == null) {
+                        my_igv = 0.00;
+                    }
+
                     vtotal += parseFloat(campo.total);
-                    vsbt += parseFloat(campo.total /  (1+parseFloat(campo.igv)));
-                    vigv += parseFloat((campo.total / (1+parseFloat(campo.igv))) * campo.igv);
+                    vsbt += parseFloat(campo.total /  (1+parseFloat(my_igv)));
+                    vigv += parseFloat((campo.total / (1+parseFloat(my_igv))) * my_igv);
                     v_des += parseFloat(campo.descu);
+                    console.log("MYIGV:" + my_igv);
+                    console.log("IGV NETO:" +  (1+parseFloat(my_igv)));
+                    console.log("IGV:" + vigv);
+                    console.log("SBT:" + vsbt);
+                    console.log("DESC:" + v_des);
+                    console.log("TOTAL:" + vtotal);
                 });
             }
 
