@@ -400,7 +400,7 @@
 
 <div class="modal inmodal fade" id="mdl-detped" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
+        <div class="modal-content animated bounceInRight unif_header">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h5 class="modal-title title-d" style="font-size: 18px"></h5>
@@ -424,7 +424,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="row">
+                    <div class="row" style="margin-right: 5px;">
                         <div class="col-xs-3">
                             <div class="text-left">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
