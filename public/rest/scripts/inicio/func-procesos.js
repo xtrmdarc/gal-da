@@ -242,6 +242,7 @@ $("#btn-confirmar").on("click", function(){
         toastr.warning('Advertencia, Agregar producto(s) a la lista.');
         return false;
     }else{
+        $('#btn-confirmar').attr('disabled','disabled');
         pedido.detalle.cod_p = $("#cod_p").val();
         $.ajax({
             type: 'POST',
@@ -252,6 +253,7 @@ $("#btn-confirmar").on("click", function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
+                $('#btn-confirmar').removeAttr('disabled');
                 if(data == 1){
                     DatosGrles();
                     listarPedidos();
