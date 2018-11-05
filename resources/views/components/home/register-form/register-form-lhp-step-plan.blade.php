@@ -56,6 +56,7 @@
                             Ventas ilimitadas <br>
                             Usuarios ilimitadas <br>
                             Hasta 40 Mesas <br>
+                            2 Sucursal <br>
                             MultiCajas<br>
                             Múltiples Áreas de producción <br>
                             1 Informe de Venta <br>
@@ -93,7 +94,7 @@
                            
                         </div>
                         <input type="hidden" name="plan_id" value="3" />
-                        <button id="lite-plan-btn" onclick="window.location.replace('register')" type="button"  class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                        <button id="lite-plan-btn" onclick="" type="button"  class="btn btn-buynow" style="width: 100%;">MUY PRONTO</button>
                     </div>
                 </div>
 
