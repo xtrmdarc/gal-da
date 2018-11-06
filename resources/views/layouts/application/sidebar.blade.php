@@ -9,7 +9,7 @@
                     {{--/*PLAN FREE*/--}}
 
                         <li class="nav-devider"></li>
-                        <li class="nav-label"> Plan Free </li>
+                        <li class="nav-label"> <b>Plan Free</b> </li>
                         @if(Auth::user()->id_rol == '1')
                             <li class="nav-label"> Rol : ADMINISTRADOR </li>
                         @endif
@@ -75,9 +75,24 @@
 
                     @else
                         @if(Auth::user()->plan_id == '2')
-                            {{--/*PLAN LITE*/--}}
+                            {{--/*PLAN BASIC*/--}}
                             <li class="nav-devider"></li>
-                            <li class="nav-label"> Plan BASIC </li>
+                            <li class="nav-label"> <b>Plan Basic</b> </li>
+                            @if(Auth::user()->id_rol == '1')
+                                <li class="nav-label"> Rol : ADMINISTRADOR </li>
+                            @endif
+                            @if(Auth::user()->id_rol == '2')
+                                <li class="nav-label"> Rol : CAJERO </li>
+                            @endif
+                            @if(Auth::user()->id_rol == '3')
+                                <li class="nav-label"> Rol : PRODUCCIÓN </li>
+                            @endif
+                            @if(Auth::user()->id_rol == '4')
+                                <li class="nav-label"> Rol : MOZO </li>
+                            @endif
+                            @if(Auth::user()->id_rol == '5')
+                                <li class="nav-label"> Rol : MULTIMOZO </li>
+                            @endif
                             <li class="nav-devider"></li>
                             <li class="nav-label"> Produccion </li>
                             @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')
@@ -98,41 +113,8 @@
                                 </li>
                             @endif
                             <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
-                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="/compras"> Compras</a></li>
-                                    <li><a href="/proveedores"> Proveedores </a></li>
-                                </ul>
-                            </li>
-                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="/creditos"> Compras</a></li>
-                                </ul>
-                            </li>
                             @if(Auth::user()->id_rol == '1')
-                            <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
-                               {{--/*
-                                <li><a class="has-arrow " href="#" aria-expanded="false"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="{{route('config.Informes')}}">Todos los Informes</a></li>
-                                        <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Ventas</b></span></li>
-                                        <li><a href="{{route('config.Cajas')}}">Todas las Ventas </a></li>
-                                        <li><a href="{{route('config.Almacen')}}">Ventas por Producto</a></li>
-                                        <li><a href="{{route('config.Almacen')}}">Ventas por mesero</a></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Ventas por forma de pago </a></li>
-                                        <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Compras</b></span></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Todos las Comprass </a></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Comopras por proveedor </a></li>
-                                        <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Finanzas</b></span></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Aper y Cierre de Caja </a></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Todos los Ingresos </a></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Todos los Egresos </a></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Egresos por Remuneracion </a></li>
-                                        <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Inventario</b></span></li>
-                                        <li><a href="{{route('config.SalonesMesas')}}">Kardex </a></li>
-                                    </ul>
-                                </li>
-                               */--}}
+                                <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                             @endif
                             @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a>

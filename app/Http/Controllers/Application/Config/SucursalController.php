@@ -26,9 +26,13 @@ class SucursalController extends Controller
     public function ListaSucursales()
     {
         $id_usu = \Auth::user()->id_usu;
-        $data = Sucursal::where('id_usu',$id_usu)->get();
-
-        echo json_encode($data);
+        /*Sucursales*/
+        $sucursales = DB::table('empresa')
+            ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
+            ->select('sucursal.id','sucursal.id_empresa','sucursal.nombre_sucursal','sucursal.id_usu','sucursal.direccion','sucursal.estado','sucursal.moneda','sucursal.telefono')
+            ->where('empresa.id',session('id_empresa'))
+            ->get();
+        echo json_encode($sucursales);
     }
     public function CrudSucursal(Request $request)
     {

@@ -95,7 +95,8 @@ class AppController extends Controller
         foreach($igv as $r) {
             $igv_empresa = $r->igv;
         }
-        
+
+        session(['id_empresa'=>\Auth::user()->id_empresa]);
         session(['moneda_session'=>$mon]);
         session(['moneda'=>$mon]);
         session(['igv_session'=>$igv_empresa]);
