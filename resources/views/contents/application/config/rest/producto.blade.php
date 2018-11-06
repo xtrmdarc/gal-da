@@ -16,7 +16,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="file-manager">
-                                <h2 class="ich"><i class="fa fa-tasks"></i> Categor�as</h2>
+                                <h2 class="ich"><i class="fa fa-tasks"></i> Categor&iacute;as</h2>
                                 <a onclick="listarProductos('%')" class="file-control active">Todos</a>
                                 <div class="hr-line-dashed"></div>
                                 <div id="boton-catg" style="display: block">
@@ -91,7 +91,7 @@
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-primary">
                                             <img class="filtered" src="{{ URL::to('rest/img/otros/icon-01.png' ) }}" width="80" height="40">
-                                            <span>Platos/bebidas</span>
+                                            <span>Platos/Bebidas</span>
                                         </a>
                                         <!--<a class="btn dim btn-default m-n btn-prodnuevo"><i class="fa fa-lg fa-plus"></i></a>-->
                                     </div>

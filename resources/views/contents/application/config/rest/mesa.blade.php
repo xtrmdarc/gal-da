@@ -37,9 +37,17 @@
                     <div class="row">
                         <div class="col-sm-10 block-center">
                             <br>
-                            <h1 class="ich m-t-none brand-color">Módulo de Salones y Mesas</h1>
+                            @if(Auth::user()->plan_id == '1')
+                                <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones para <b>15 </b>Mesas</h1>
+                            @endif
+                            @if(Auth::user()->plan_id == '2')
+                                <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones para <b>40 </b>Mesas</h1>
+                            @endif
+                            @if(Auth::user()->plan_id == '3')
+                                <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones y Mesas</h1>
+                            @endif
                             <br>
-                            <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los salones y sus respectivas mesas. Los salones te ayudan a <strong class="brand-color"> agrupar y organizar las mesas </strong> en secciones que puedes controlar. La mesas te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tus operaciones </strong> de venta dentro del local.<strong class="accent-color"> Selecciona un salón para adminsitrar sus mesas</strong> </p>
+                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar los salones y sus respectivas mesas. Los salones te ayudan a <strong class="brand-color"> agrupar y organizar las mesas </strong> en secciones que puedes controlar. La mesas te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tus operaciones </strong> de venta dentro del local.<strong class="accent-color"> Selecciona un salón para adminsitrar sus mesas</strong> </p>
                         </div>
                     </div>
                 </div>

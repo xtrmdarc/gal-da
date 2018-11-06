@@ -6,8 +6,14 @@
             <div class="col-lg-6">
                 <div class="ibox animated bounce">
                     <div class="ibox-title">
-                        <div class="ibox-title-buttons pull-right">
-                            <button type="button" class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
+                        <div class="pull-right">
+                            @if(Auth::user()->plan_id != '1')
+                                <button type="button" class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
+                            @else
+                                <p>
+                                    Solo contamos con una <b>Sucursal</b> en el <b>Plan Gratis</b>.
+                                </p>
+                            @endif
                         </div>
                         <h5><i class="fa fa-newspaper-o"></i> Sucursales</h5>
                     </div>
@@ -31,12 +37,21 @@
 
             <div class="col-lg-6">
                 <div class="wrapper wrapper-content">
-                    <div class="panel panel-transparent panel-dashed tip-sales text-center">
+                    <div class="text-center">
                         <div class="row">
-                            <div class="col-sm-8 col-sm-push-2">
-                                <h2 class="ich m-t-none">Selecciona una Sucursal</h2>
-                                <i class="fa fa-long-arrow-left fa-3x"></i>
-                                <p class="ng-binding">Navega por la lista de sucursales  y realize cambios..</p>
+                            <div class="col-sm-10 block-center">
+                                <br>
+                                @if(Auth::user()->plan_id == '1')
+                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo  para <b>1 </b> Sucursal</h1>
+                                @endif
+                                @if(Auth::user()->plan_id == '2')
+                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo  para <b>2 </b> Sucursales</h1>
+                                @endif
+                                @if(Auth::user()->plan_id == '3')
+                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo de Sucursales</h1>
+                                @endif
+                                <br>
+                                <p class="ng-binding ">Aqu&iacute; puedes crear y modificar las Sucursales de tu negocio. Las Sucursales te ayudan a <strong class="brand-color">controlar todo los procesos</strong> de tu negocio. Las Sucursales son importante cuando el negocio crece con el tiempo para <strong class="accent-color">control y automatizaci&oacute;n de tu cadena de negocio <strong></p>
                             </div>
                         </div>
                     </div>

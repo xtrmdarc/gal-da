@@ -11,7 +11,7 @@
                                 <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
                             @else
                                 <p>
-                                    Solo contamos con una caja  en el plan free.
+                                    Solo contamos con una <b>Caja</b> en el <b>Plan Gratis</b>.
                                 </p>
                             @endif
                         </div>
@@ -38,9 +38,17 @@
                         <div class="row">
                             <div class="col-sm-10 block-center">
                                 <br>
-                                <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
+                                @if(Auth::user()->plan_id == '1')
+                                    <h1 class="ich m-t-none brand-color">Módulo  para <b>1 </b> Caja</h1>
+                                @endif
+                                @if(Auth::user()->plan_id == '2')
+                                    <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
+                                @endif
+                                @if(Auth::user()->plan_id == '3')
+                                    <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
+                                @endif
                                 <br>
-                                <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="brand-color">control y automatización de tu negocio <strong></p>
+                                <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="accent-color">control y automatización de tu negocio <strong></p>
                             </div>
                         </div>
                     </div>
