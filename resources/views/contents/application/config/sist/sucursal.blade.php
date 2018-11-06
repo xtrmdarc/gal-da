@@ -1,3 +1,8 @@
+@php
+    $numero_sucursales = DB::table('empresa')
+    ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
+    ->where('empresa.id',session('id_empresa'))->count();
+@endphp
 @extends('layouts.application.master')
 
 @section('content')
@@ -8,11 +13,24 @@
                     <div class="ibox-title">
                         <div class="pull-right">
                             @if(Auth::user()->plan_id != '1')
-                                <button type="button" class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
+                                @if(Auth::user()->plan_id == '2' && $numero_sucursales < 2)
+                                    <button type="button" class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
+                                @else
+                                    @if(Auth::user()->plan_id == '2')
+                                        <p>
+                                            Solo contamos con <b>2</b> <b>Sucursales</b> en el <b>Plan Basic</b>.
+                                        </p>
+                                    @endif
+                                @endif
+                                @if(Auth::user()->plan_id == '3')
+                                    <button type="button" class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
+                                @endif
                             @else
-                                <p>
-                                    Solo contamos con una <b>Sucursal</b> en el <b>Plan Gratis</b>.
-                                </p>
+                                @if(Auth::user()->plan_id == '1')
+                                    <p>
+                                        Solo contamos con <b>1</b> <b>Sucursal</b> en el <b>Plan Free</b>.
+                                    </p>
+                                @endif
                             @endif
                         </div>
                         <h5><i class="fa fa-newspaper-o"></i> Sucursales</h5>
