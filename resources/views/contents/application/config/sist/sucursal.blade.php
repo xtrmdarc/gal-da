@@ -28,7 +28,7 @@
                             @else
                                 @if(Auth::user()->plan_id == '1')
                                     <p>
-                                        Solo contamos con <b>1</b> <b>Sucursal</b> en el <b>Plan Free</b>.
+                                        <b>1</b>/ <b>1</b> <b>Sucursal</b> en <b>Plan Free</b>. <a href="" class="brand-color">Actualiza tu Plan</a>
                                     </p>
                                 @endif
                             @endif
@@ -59,15 +59,7 @@
                         <div class="row">
                             <div class="col-sm-10 block-center">
                                 <br>
-                                @if(Auth::user()->plan_id == '1')
-                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo  para <b>1 </b> Sucursal</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '2')
-                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo  para <b>2 </b> Sucursales</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '3')
-                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo de Sucursales</h1>
-                                @endif
+                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo  para Sucursales</h1>
                                 <br>
                                 <p class="ng-binding ">Aqu&iacute; puedes crear y modificar las Sucursales de tu negocio. Las Sucursales te ayudan a <strong class="brand-color">controlar todo los procesos</strong> de tu negocio. Las Sucursales son importante cuando el negocio crece con el tiempo para <strong class="accent-color">control y automatizaci&oacute;n de tu cadena de negocio <strong></p>
                             </div>

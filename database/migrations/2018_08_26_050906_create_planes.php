@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlans extends Migration
+class CreatePlanes extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,15 @@ class CreatePlans extends Migration
     public function up()
     {
         //
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('planes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45)->nullable();
-            $table->boolean('active')->default(0);
-            $table->string('currency', 5)->nullable();
-            $table->string('price', 10)->nullable();
+            $table->string('nombre', 45)->nullable();
+            $table->integer('venta_max');
+            $table->integer('mesa_max');
+            $table->integer('a_prod_max');
+            $table->integer('caja_max');
+            $table->integer('sucursal_max');
+            $table->integer('usuario_max');
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ class CreatePlans extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('planes');
     }
 }
