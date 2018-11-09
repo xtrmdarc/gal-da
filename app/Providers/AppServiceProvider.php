@@ -30,7 +30,15 @@ class AppServiceProvider extends ServiceProvider
                 'sucursales' => $sucursales,
                 'lista_sucursales' => $lista_sucursales
             ];
-            session(['id_sucursal'=>$sucursales[0]->id]);
+            if( session('id_sucursal') != null ||  session('id_sucursal')!='' )
+            {
+                $id_sucursal_actual = session('id_sucursal');
+            }
+            else
+            {
+                $id_sucursal_actual = $sucursales[0]->id;
+            }
+            session(['id_sucursal'=>$id_sucursal_actual]);
             session(['id_empresa'=>\Auth::user()->id_empresa]);
             
             //pass the data to the view

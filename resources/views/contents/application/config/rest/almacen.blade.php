@@ -7,16 +7,18 @@
         <div class="col-lg-6">
             <div class="ibox animated bounce">
                 <div class="ibox-title">
+                    
+                    <h5><i class="fa fa-cubes"></i> Almacenes {{\Auth::user()->plan_id == 1?'1/1 en Plan Gratis'  :''}}</h5>
                     <div class="pull-right">
                         @if(Auth::user()->plan_id != '1')
+
                             <button type="button" class="btn btn-primary btn-alm"><i class="fa fa-plus-circle"></i> Nuevo Almac&eacute;n</button>
                             @else
-                            <p>
-                            Solo contamos con un Almacen en el <b>Plan Gratis</b>.
-                            </p>
+                            <h5>
+                                Límite alcanzado.
+                            </h5>
                         @endif
                     </div>
-                    <h5><i class="fa fa-cubes"></i> Almacenes</h5>
                 </div>
                 <div class="ibox-content my-scroll">
                     <table class="table table-condensed table-striped table-hover" id="table-alm">
@@ -35,14 +37,14 @@
         <div class="col-lg-6">
             <div class="ibox animated bounce">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n</h5>
+                    <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n {{\Auth::user()->plan_id == 1?'1/1 en Plan Gratis'  :''}}</h5>
                     <div class="pull-right">
                         @if(Auth::user()->plan_id != '1')
                             <button type="button" class="btn btn-primary btn-area"><i class="fa fa-plus-circle"></i> Nueva &Aacute;rea</button>
                         @else
-                            <p>
-                                Solo contamos con una &Aacute;rea de producci&oacute;n  en el <b>Plan Gratis</b>.
-                            </p>
+                            <h5>
+                               Límite alcanzado.
+                            </h5>
                         @endif
                     </div>
                 </div>
@@ -69,15 +71,7 @@
                     <div class="row">
                         <div class="col-sm-10 block-center">
                             <br>
-                            @if(Auth::user()->plan_id == '1')
-                                <h1 class="ich m-t-none brand-color">M&oacute;dulo para <b>1 </b> Almacen y <b>1 </b> &Aacute;rea de producci&oacute;n  </h1>
-                            @endif
-                            @if(Auth::user()->plan_id == '2')
                                 <h1 class="ich m-t-none brand-color">M&oacute;dulo para Almacenes y &Aacute;reas de producci&oacute;n  </h1>
-                            @endif
-                            @if(Auth::user()->plan_id == '3')
-                                <h1 class="ich m-t-none brand-color">M&oacute;dulo para Almacenes y &Aacute;reas de producci&oacute;n  </h1>
-                            @endif
                             <br>
                             <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar usuarios. Los usuarios son importantes para poder <strong class="brand-color"> administrar y organizar los procesos </strong> de tu negocio. Te ayudaran en difrentes puntos de acuerdo a sus roles de <strong class="brand-color"> Mozo, Cajero, Administrador, MultiMozo y Cocinero </strong> para tener una venta exitosa.<strong class="accent-color"> Selecciona un usuario para administrarlo</strong> </p>
                         </div>

@@ -1,3 +1,4 @@
+var usuario_max;
 $(function() {
     $('#table').DataTable();
     mensaje();
@@ -75,11 +76,18 @@ $('#frm-eliminar-usu').on('submit',function(e){
             },
         success: function(data) {
             console.log(data);
-            if (data == 0) {
+            if(data.usuarios_cant >= usuarios_max)
+            {   
+                $('#btn-usuario-nuevo').css('display','none');
+                $('#text-limite-usuario').css('display','block');
+            }
+            if (data.cod == 0) {
                 alert('Usuario activo')
             }
-            else if(data==1){
+            else if(data.cod ==1){
+                $('#mdl-mesa').modal('hide');
                 window.location.replace('/ajustesUsuarios');
+                $('#usuarios_count').text(data.usuario_max);
             }
         }
     });

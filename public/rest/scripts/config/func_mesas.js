@@ -1,3 +1,4 @@
+var limite_mesas;
 $(function() {
     listarSalones();
 });
@@ -100,6 +101,7 @@ var editarSalon = function(cod,est,id_sucursal,nomb){
 var agregarMesa = function(){
 
     $("#mdl-mesa").modal('show');
+    $('#cod_mesa').val('');
 }
 
 /* Eliminar salon */
@@ -239,17 +241,27 @@ $(function() {
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-            success: function (cod) {
-            console.log(mesas.id_catg);
-                if(cod == 0){
+            success: function (data) {
+            console.log(data);
+                if(data.cant_mesas >= limite_mesas)
+                {
+                    $('#btn-nuevo').css('display','none');
+                    $('#limite_mesas_txt').css('display','block');
+                }
+                else{
+                    $('#btn-nuevo').css('display','block');
+                    $('#limite_mesas_txt').css('display','none');
+                }
+                if(data.cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');
                     return false;
-                } else if(cod == 1){
+                } else if(data.cod == 1){
                     $('#mdl-mesa').modal('hide');
                     listarSalones();
                     listarMesas(mesas.id_catg);
                     toastr.success('Datos registrados, correctamente.');
-                } else if(cod == 2) {
+                    $('#mesas_count').text(data.cant_mesas);   
+                } else if(data.cod == 2) {
                     $('#mdl-mesa').modal('hide');
                     listarSalones();
                     listarMesas(mesas.id_catg);
@@ -377,14 +389,20 @@ $("#frm-eliminar-mesa").submit(function(){
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-        success: function (cod) {
-            if(cod == 1){
+        success: function (data) {
+            if(data.cant_mesas < limite_mesas)
+            {
+                $('#btn-nuevo').css('display','block');
+                $('#limite_mesas_txt').css('display','none');
+            }
+            if(data.cod == 1){
                 var codigoSalon = $('#id_catg').val();
                 listarSalones();
                 listarMesas(codigoSalon);
                 $('#mdl-eliminar-mesa').modal('hide');
-                toastr.warning('Advertencia, Datos duplicados.');
-            } else if(cod == 0){
+                toastr.success('Datos elimianados correctamente');
+                $('#mesas_count').text(data.cant_mesas);   
+            } else if(data.cod == 0){
                 $('#mdl-eliminar-mesa').modal('hide');
                 toastr.warning('Advertencia, La mesa no puede ser eliminado.');
                 return false;

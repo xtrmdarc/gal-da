@@ -6,16 +6,19 @@
             <div class="col-lg-6">
                 <div class="ibox animated bounce">
                     <div class="ibox-title">
+                        
+                        <h5><i class="fa fa-newspaper-o"></i> Cajas - {{\Auth::user()->plan_id == 1? '1/1 en Plan Gratis':''}}</h5>
+
                         <div class="pull-right">
                             @if(Auth::user()->plan_id != '1')
                                 <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
                             @else
-                                <p>
-                                    Solo contamos con una <b>Caja</b> en el <b>Plan Gratis</b>.
-                                </p>
+                                <h5>
+                                    Limite alcanzado.
+                                </h5>
                             @endif
                         </div>
-                        <h5><i class="fa fa-newspaper-o"></i> Cajas</h5>
+                        
                     </div>
                     <div class="ibox-content my-scroll">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -38,15 +41,7 @@
                         <div class="row">
                             <div class="col-sm-10 block-center">
                                 <br>
-                                @if(Auth::user()->plan_id == '1')
-                                    <h1 class="ich m-t-none brand-color">Módulo  para <b>1 </b> Caja</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '2')
                                     <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '3')
-                                    <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
-                                @endif
                                 <br>
                                 <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="accent-color">control y automatización de tu negocio <strong></p>
                             </div>

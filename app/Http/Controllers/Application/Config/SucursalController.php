@@ -17,9 +17,14 @@ class SucursalController extends Controller
     }
     public function index()
     {
+        $numero_sucursales = DB::table('empresa')
+        ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
+        ->where('empresa.id',session('id_empresa'))->count();
+
         $data = [
             'breadcrumb' => 'config.Sucursal',
-            'titulo_vista' => 'Sucursales'
+            'titulo_vista' => 'Sucursales',
+            'numero_sucursales' => $numero_sucursales
         ];
         return view('contents.application.config.sist.sucursal')->with($data);
     }
@@ -39,7 +44,7 @@ class SucursalController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $id_empresa = \Auth::user()->id_empresa;
         $post = $request->all();
-
+        $response = new \stdClass();
         $cod = $post['cod_sucursal'];
         if($cod != ''){
             //Update
@@ -58,9 +63,10 @@ class SucursalController extends Controller
                 WHERE id = ? and id_empresa = ?",
                 [$nombre_sucursal,$direccion,$telefono,$moneda,$estado,$cod,$id_empresa]);
             if(empty($new_sucursal)) {
-                return $array['cod'] = 2;
+                $response->cod = 2;
+                
             }else {
-                return $array['cod'] = 0;
+                $response->cod = 0;
             }
         }else {
            //Create
@@ -76,10 +82,17 @@ class SucursalController extends Controller
             ]);
 
             if(!empty($new_sucursal)) {
-                return $array['cod'] = 1;
+                $response->cod = 1;
+                
             }else {
-                return $array['cod'] = 0;
+                $response->cod = 0;
             }
         }
+
+        $response->cant_sucursal = DB::table('empresa')
+        ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
+        ->where('empresa.id',session('id_empresa'))->count();
+
+        return json_encode($response);
     }
 }

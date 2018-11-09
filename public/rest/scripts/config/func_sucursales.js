@@ -1,6 +1,7 @@
 /**
  * Created by louis on 14/05/2018.
  */
+var limite_sucursal;
 $(function(){
     listarSucursales();
 });
@@ -40,15 +41,20 @@ $(function() {
                     estado_sucursal: estado_sucursal,
                     _token : token
                 },
-                success: function (cod) {
-                    if(cod == 0){
+                success: function (data) {
+                    if(data.cant_sucursal >= limite_sucursal){
+                        $('#limite_sucursales_txt').css('display','block');
+                        $('#btn-nueva-sucursal').css('display','none');
+                    }
+                    if(data.cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
                         return false;
-                    } else if(cod == 1){
+                    } else if(data.cod == 1){
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
                         toastr.success('Datos registrados, correctamente.');
-                    } else if(cod == 2) {
+                        $('#limite_sucursales_txt').text(data.cant_sucursal);   
+                    } else if(data.cod == 2) {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
                         toastr.success('Datos modificados, correctamente.');
@@ -81,8 +87,8 @@ var listarSucursales = function(){
                 }
                 /*
                  "beforeSend": function (request) {
-                         $('#loader').css('display','none');
-                       }
+                 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½$('#loader').css('display','none');
+                 ï¿½ï¿½ï¿½ï¿½  }
                  */
             },
             "columns":[

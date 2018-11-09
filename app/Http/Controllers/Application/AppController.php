@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Application\AppController;
 use App\Models\Sucursal;
 use App\Models\Empresa;
+use App\Models\Planes;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackSent;
 
@@ -126,6 +127,11 @@ class AppController extends Controller
                 session(['apertura'=>1]);
             }
         }
+
+
+        //Almacenar el plan en la session
+        $plan_actual = Planes::find(\Auth::user()->plan_id)->first();
+        session(['plan_actual'=>$plan_actual]);
     }
 
     public static function ValidarPermisos($roles){
@@ -182,4 +188,5 @@ class AppController extends Controller
         Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
     }
 
+    
 }

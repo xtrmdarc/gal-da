@@ -260,7 +260,7 @@
 
                                                         <input type="hidden" name="plan_id" value="1">
                                                         <h5 class="m-t-30"><b>Plan Free</b> - $0.0 mensual</h5>
-                                                        <h5 class="m-t-30">N de Ventas al momento: <span><b>{{ $nventas  }}</b> de 1000</span> <span class="pull-right">{{ $nventas  }}</span></h5>
+                                                        <h5 class="m-t-30">N de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                         </div>

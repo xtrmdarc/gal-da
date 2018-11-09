@@ -41,7 +41,7 @@
                
                 <a class="navbar-brand" href="{{session('home')}}">
                     <!-- Logo icon -->
-                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 80px;" alt="homepage" class="dark-logo" /></b>
+                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     {{--<span><img src="{{ URL::to('application/images/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>--}}
@@ -65,7 +65,7 @@
                             <div class="col nav-link nav-item-suc  align-self-center">
                                 <select id="slc_sucursal" class="form-control">
                                     @foreach($lista_sucursales as $sucursal)
-                                        <option value="{{$sucursal->id}}"> {{$sucursal->nombre_sucursal }}</option>
+                                        <option value="{{$sucursal->id}}" {{$sucursal->id == session('id_sucursal')?'selected':''}}> {{$sucursal->nombre_sucursal }}</option>
                                     @endforeach 
                                 </select>
                             </div>

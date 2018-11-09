@@ -37,15 +37,7 @@
                     <div class="row">
                         <div class="col-sm-10 block-center">
                             <br>
-                            @if(Auth::user()->plan_id == '1')
-                                <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones para <b>15 </b>Mesas</h1>
-                            @endif
-                            @if(Auth::user()->plan_id == '2')
-                                <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones para <b>40 </b>Mesas</h1>
-                            @endif
-                            @if(Auth::user()->plan_id == '3')
                                 <h1 class="ich m-t-none brand-color">M&oacute;dulo de Salones y Mesas</h1>
-                            @endif
                             <br>
                             <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar los salones y sus respectivas mesas. Los salones te ayudan a <strong class="brand-color"> agrupar y organizar las mesas </strong> en secciones que puedes controlar. La mesas te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tus operaciones </strong> de venta dentro del local.<strong class="accent-color"> Selecciona un salón para adminsitrar sus mesas</strong> </p>
                         </div>
@@ -56,8 +48,9 @@
             <div id="lizq-i" style="display: none;">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Mesa(s) de <span id="title-mesa"></span></h5>
-                        <div class="ibox-title-buttons pull-right" id="btn-nuevo"></div>
+                        <h5>Mesa(s) de <span id="title-mesa"></span> - <span id="mesas_count">{{$mesas_actual}}</span>/{{(session('plan_actual')->mesa_max)}} en Plan Free </h5>
+                        <div class="ibox-title-buttons pull-right" {{$mesas_actual>= session('plan_actual')->mesa_max?'style=display:none':""}} id="btn-nuevo"></div>
+                        <h5 id="limite_mesas_txt" class="pull-right" {{$mesas_actual< session('plan_actual')->mesa_max?"style=display:none":""}}  >Límite alcanzado.</h5>
                     </div>
                     <div class="ibox-content my-scroll">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -253,6 +246,7 @@
 <script type="text/javascript">
     $(function() {
         $('#config').addClass("active");
+        limite_mesas = {!!session('plan_actual')->mesa_max !!}
     });
 </script>
 

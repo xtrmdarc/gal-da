@@ -27,7 +27,7 @@ class UsuarioController extends Controller
         $user_plan = \Auth::user()->plan_id;
         $user = \Auth::user()->parent_id;
         $id_usu = \Auth::user()->id_usu;
-
+        $usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
         $viewData = [];
 
         if(is_null($user)) {
@@ -39,7 +39,8 @@ class UsuarioController extends Controller
             $viewData['breadcrumb'] = '';
             $data = [
                 'breadcrumb' => 'config.Usuarios',
-                'titulo_vista' => 'Usuarios'
+                'titulo_vista' => 'Usuarios',
+                'usuarios_cant' => $usuarios_cant
             ];
 
             return view('contents.application.config.sist.usuario',$viewData)->with($data);
@@ -296,9 +297,9 @@ class UsuarioController extends Controller
 
             $post = $request->all();
             $cod_usu_e = $post['cod_usu_e'];
-            
+            $response = new \stdClass();
             $usuarioEnUso = DB::select('call usp_verificarUsuarioActivo(?)', [$cod_usu_e])[0];
-         
+            
 
             if($usuarioEnUso->COD == 1) {return json_encode(0);}
 
@@ -308,11 +309,14 @@ class UsuarioController extends Controller
             }
             if($con == '0') {
                 $consulta_eliminar = DB::delete("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
-                return json_encode(1);
+                $response->cod = 1;
+                
             }else {
                 dd("error");
                 //return redirect()->route('config.Usuarios');
             }
+            $response->usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
+            return json_encode($response);
     }
 
     public function Estado(Request $request){

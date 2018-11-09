@@ -39,4 +39,9 @@ class HomeController extends Controller
 
         return view('contents.home.cuenta_verificada');
     }
+    
+    public function test_pagar()
+    {
+        return view('contents.home.pagar_test');
+    }
 }

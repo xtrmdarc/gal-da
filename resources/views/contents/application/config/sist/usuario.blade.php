@@ -10,9 +10,21 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
+                        @if(Auth::user()->plan_id == '1')
+                            <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max.' en Plan '.session('plan_actual')->nombre   }}</h5>
+                        @else
+                            <h5><i class="fa fa-newspaper-o"></i> Usuarios </h5>
+                        @endif
                         
-                        <div class="ibox-title-buttons pull-right">
-                            <a href="/ajustesRegistrarUsuario"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
+                        <div class="pull-right">
+                            @if(Auth::user()->plan_id != '1' &&  $usuarios_cant >= session('plan_actual')->usuario_max)
+                                <a href="/ajustesRegistrarUsuario" id="btn-usuario-nuevo"><button type="button"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
+                                <h5 id="text-limite-usuario" style="display:none" >Limite alcanzado. </h5>
+                            @else
+                                <h5>
+                                    Limite alcanzado. 
+                                </h5>
+                            @endif  
                         </div>
                     </div>
                     
@@ -81,15 +93,7 @@
                         <div class="row">
                             <div class="col-sm-10 block-center">
                                 <br>
-                                @if(Auth::user()->plan_id == '1')
-                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo para <b>5 </b> Usuarios</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '2')
                                     <h1 class="ich m-t-none brand-color">M&oacute;dulo de Usuarios</h1>
-                                @endif
-                                @if(Auth::user()->plan_id == '3')
-                                    <h1 class="ich m-t-none brand-color">M&oacute;dulo de Usuarios</h1>
-                                @endif
                                 <br>
                                 <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar usuarios. Los usuarios son importantes para poder <strong class="brand-color"> administrar y organizar los procesos </strong> de tu negocio. Te ayudaran en difrentes puntos de acuerdo a sus roles de <strong class="brand-color"> Mozo, Cajero, Administrador, MultiMozo y Cocinero </strong> para tener una venta exitosa.<strong class="accent-color"> Selecciona un usuario para administrarlo</strong> </p>
                             </div>
@@ -155,5 +159,11 @@
     </div>
 
 <script src="{{URL::to('rest/scripts/config/func_usuario.js' )}}"></script>
+<script>
 
+    $(function(){
+        usuario_max = {!! session('plan_actual')->usuario_max !!};
+    });
+
+</script>
 @endsection('content')
