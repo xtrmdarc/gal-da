@@ -158,7 +158,7 @@ class UsuarioController extends Controller
         $ape_materno = isset($post['ape_materno'])?$post['ape_materno']:"";
         $email = isset($post['email'])?$post['email']:"";
         $id_rol = $post['id_rol'];
-        $pin = isset($post['pin'])?isset($post['pin']):0;
+        $pin = isset($post['pin'])?$post['pin']:0;
         $plan_id = '1';
         $nombre_empresa = $nombre_empresa;
         $cod_area = isset($post['cod_area'])?$post['cod_area']:"";
@@ -201,7 +201,7 @@ class UsuarioController extends Controller
 
             return redirect()->route('config.Usuarios')->with($notification);
         } else {
-
+            //dd($pin);
             $user = TmUsuario::create([
                 'id_areap' => $cod_area,
                 'id_rol' => $id_rol,
@@ -215,10 +215,10 @@ class UsuarioController extends Controller
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($contrasena),
                 'usuario' => $usuario,
-                'verifyToken' => ($id_rol==5)?null: Str::random(40),
+                'verifyToken' => (($id_rol==5)?null: Str::random(40)),
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
-                'status'=> ($id_rol==5)?1:0,
+                'status'=> (($id_rol==5)?1:0),
                 'pin' => $pin
             ]);
             //dd($user,$user->id_rol);
@@ -281,6 +281,7 @@ class UsuarioController extends Controller
                 $viewdata['imagen']= $r->imagen;
                 $viewdata['desc_r']= $r->desc_r;
                 $viewdata['desc_ap']= $r->desc_ap;
+            
                 $viewdata['pin']= $r->pin;
                 $viewdata['nombre_empresa']= $nombre_empresa;
                 $viewdata['id_sucursal']= $r->id_sucursal;
@@ -301,7 +302,7 @@ class UsuarioController extends Controller
             $usuarioEnUso = DB::select('call usp_verificarUsuarioActivo(?)', [$cod_usu_e])[0];
             
 
-            if($usuarioEnUso->COD == 1) {return json_encode(0);}
+            if($usuarioEnUso->COD == 1) {$response->cod = 0; return json_encode($response);}
 
             $consulta = DB::select("SELECT count(*) AS total FROM tm_venta WHERE id_usu = ?",[($cod_usu_e)]);
             foreach($consulta as $a){

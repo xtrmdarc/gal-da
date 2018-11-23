@@ -48,7 +48,7 @@
                                 </ul>
                             </li>
                         @endif
-                        @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
+                        @if(Auth::user()->id_rol == '1' )
                             <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu"> Configuración</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>

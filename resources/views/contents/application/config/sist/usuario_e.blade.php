@@ -122,7 +122,7 @@
                                         <div class="form-group">
                                             <label class="control-label">PIN</label>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+                                                <span class="input-group-addon"><i class="fa fa-certificate"></i></span>    
                                                 <input type="password" name="pin" value="{{$pin}}" class="form-control" placeholder="Ingrese 4 digitos" autocomplete="off" required="required" />
                                             </div>
                                         </div>

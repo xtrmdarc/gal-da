@@ -17,7 +17,8 @@
                         @endif
                         
                         <div class="pull-right">
-                            @if(Auth::user()->plan_id != '1' &&  $usuarios_cant >= session('plan_actual')->usuario_max)
+                         
+                            @if(  $usuarios_cant < session('plan_actual')->usuario_max)
                                 <a href="/ajustesRegistrarUsuario" id="btn-usuario-nuevo"><button type="button"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
                                 <h5 id="text-limite-usuario" style="display:none" >Limite alcanzado. </h5>
                             @else

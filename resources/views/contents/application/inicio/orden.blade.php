@@ -13,7 +13,14 @@
     <div class="row">
         <div class="col-lg-5" style="display:inline-block; padding-right:0px" >
             <div class="mail-box-header title-pink">
+                <div class="row">
+                    <div class="col-sm-2" style="margin-bottom:7px;margin-top:-10px">
+                        <button class="btn btn-accent" onclick="window.location.replace('/inicio')">  <i class="fa fa-arrow-left"  style="width:20px;color:white;"></i></button>
+                    </div>
+                    
+                </div>
                 <div class="pull-right mail-search btn-imp"></div>
+                
                 <h2><i id="ico-ped"></i> <span class="mes_dg"></span></h2>
             </div>
             <div class="mail-box-header border-top" style="border-top: 1px solid #c4c4c4;">

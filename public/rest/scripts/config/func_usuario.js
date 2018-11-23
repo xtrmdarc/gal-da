@@ -70,19 +70,19 @@ $('#frm-eliminar-usu').on('submit',function(e){
         url:   $form.attr('action'),
         type:  'POST',
         dataType: 'json',
-        dataSrc:"",
+
         headers:{
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
         success: function(data) {
             console.log(data);
-            if(data.usuarios_cant >= usuarios_max)
+            if(data.usuarios_cant >= usuario_max)
             {   
                 $('#btn-usuario-nuevo').css('display','none');
                 $('#text-limite-usuario').css('display','block');
             }
             if (data.cod == 0) {
-                alert('Usuario activo')
+                toastr.warning('El usuario está en uso!');  
             }
             else if(data.cod ==1){
                 $('#mdl-mesa').modal('hide');
