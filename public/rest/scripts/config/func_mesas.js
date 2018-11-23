@@ -310,10 +310,17 @@ $(function() {
               },
               success: function (datos) {
                   console.log(datos);
-                  toastr.success('Datos modificados, correctamente.');
-                  $('#mdl-estado-mesa').modal('hide');
-                  listarSalones();
-                  listarMesas($('#id_catg').val());
+                  if(datos == 1)
+                  {
+                    toastr.success('Datos modificados, correctamente.');
+                    $('#mdl-estado-mesa').modal('hide');
+                    listarSalones();
+                    listarMesas($('#id_catg').val());
+                  }
+                  else if(datos==-1){
+                    toastr.warning('No se puede desactivar una mesa en uso.');     
+                  }
+                  
               },
               error: function(jqXHR, textStatus, errorThrown){
                   console.log(errorThrown + ' ' + textStatus);

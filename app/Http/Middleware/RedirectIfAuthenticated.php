@@ -16,7 +16,7 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
+    {   /*
         if (Auth::guard($guard)->check()) {
             $idPlan = \Auth::user()->plan_id;
             if($idPlan == 1){
@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
             } else {
                 return redirect('/tablero');
             }
-        }
+        }*/
 
         return $next($request);
     }

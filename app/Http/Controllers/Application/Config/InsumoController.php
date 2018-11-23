@@ -93,7 +93,7 @@ class InsumoController extends Controller
         $descC = $post['nombre_catg'];
         
         $idSucursal = $post['id_sucursal'];
-        if($post['id_catg'] != ""){
+        if($post['cod_catg'] != ""){
             //Actualizar
             $idCatg = $post['cod_catg'];
             $flag = 2;

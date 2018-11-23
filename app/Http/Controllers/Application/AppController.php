@@ -48,6 +48,7 @@ class AppController extends Controller
             case 2 : {
                 
                 self::$home = "/inicio";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }
             //Produccion
@@ -64,6 +65,7 @@ class AppController extends Controller
             case 4 :{
                 
                 self::$home = "/inicio";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }
             //Multimozo

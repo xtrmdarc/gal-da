@@ -17,7 +17,7 @@
                         <div class="ibox-content">
                             <div class="file-manager">
                                 <h2 class="ich"><i class="fa fa-tasks"></i> Categor&iacute;as</h2>
-                                <a onclick="listarProductos('%')" class="file-control active">Todos</a>
+                                <a onclick="listarProductos('%')" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Todos</a>
                                 <div class="hr-line-dashed"></div>
                                 <div id="boton-catg" style="display: block">
                                     <button class="btn btn-primary btn-block btn-catg"><i class="fa fa-plus-circle"></i> A&ntilde;adir nueva categor&iacute;a</button>

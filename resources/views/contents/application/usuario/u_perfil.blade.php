@@ -15,7 +15,9 @@
                                     {{--/*
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Pago</span></a> </li>
                                     */--}}
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Suscripcion</span></a> </li>
+                                    @if(\Auth::user()->id_rol == 1 )
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Subscripcion</span></a> </li>
+                                    @endif
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">

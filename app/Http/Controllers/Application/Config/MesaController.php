@@ -227,11 +227,17 @@ class MesaController extends Controller
 
         try
         {
+            $mesa_ocupada = DB::table('tm_mesa')->where('estado','a')->where('id_mesa',$idMesa)->exists();
+            if($mesa_ocupada== true){
+                return -1;
+            }
             $sql =  DB::update("UPDATE tm_mesa SET estado = ? WHERE id_mesa = ? and id_sucursal = ?",
                 [$estado,$idMesa,$idSucursal]);
-            $estado_mesa = DB::select("select estado WHERE id_catg = ? and id_sucursal = ?",
+            return 1;
+            /*$estado_mesa = DB::select("select estado WHERE id_catg = ? and id_sucursal = ?",
                 [$estado,$idMesa,$idSucursal]);
-            dd($sql);
+            dd($sql);*/
+
 
         } catch (Exception $e)
         {

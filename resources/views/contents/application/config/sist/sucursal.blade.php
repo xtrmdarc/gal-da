@@ -39,7 +39,7 @@
                                 <br>
                                     <h1 class="ich m-t-none brand-color">M&oacute;dulo  para Sucursales</h1>
                                 <br>
-                                <p class="ng-binding ">Aqu&iacute; puedes crear y modificar las Sucursales de tu negocio. Las Sucursales te ayudan a <strong class="brand-color">controlar todo los procesos</strong> de tu negocio. Las Sucursales son importante cuando el negocio crece con el tiempo para <strong class="accent-color">control y automatizaci&oacute;n de tu cadena de negocio <strong></p>
+                                <p class="ng-binding ">Aqu&iacute; puedes crear y modificar las Sucursales de tu negocio. Las Sucursales te ayudan a <strong class="brand-color">controlar todo los procesos</strong> de tu negocio. Las Sucursales son importante cuando el negocio crece con el tiempo para <strong class="accent-color">control y automatizaci&oacute;n de tu cadena de negocio </strong></p>
                             </div>
                         </div>
                     </div>

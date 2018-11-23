@@ -34,6 +34,7 @@ $(function() {
                     _token : token
                 },
                 success: function (cod) {
+                    console.log(cod);
                     if(cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
                         return false;
@@ -45,6 +46,9 @@ $(function() {
                         listarCajas();
                         $('#mdl-caja').modal('hide');
                         toastr.success('Datos modificados, correctamente.');
+                    }
+                    else if (cod==4){
+                        toastr.warning('No puede descativar una caja en uso.');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown){

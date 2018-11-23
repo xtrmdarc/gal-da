@@ -43,7 +43,7 @@
                                 <br>
                                     <h1 class="ich m-t-none brand-color">Módulo de Cajas</h1>
                                 <br>
-                                <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="accent-color">control y automatización de tu negocio <strong></p>
+                                <p class="ng-binding ">Aquí puedes crear y modificar las cajas de tu negocio. Las cajas te ayudan a <strong class="brand-color">controlar el flujo de ingresos y egresos</strong> de tu negocio. Las cajas son la pieza más importante para el <strong class="accent-color">control y automatización de tu negocio </strong></p>
                             </div>
                         </div>
                     </div>

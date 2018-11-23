@@ -73,7 +73,12 @@ class CajaController extends Controller
             $estado = $post['estado_caja'];
             $idCaja = $post['cod_caja'];
             $idSucursal = $post['id_sucursal'];
-
+            if($estado =='i'){
+                $caja_ocupada = DB::table('tm_aper_cierre')->where('id_caja',$idCaja)->whereNull('fecha_cierre')->exists();
+                if($caja_ocupada == true){
+                    return $array['cod'] = 4;
+                }
+            }
             //$consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
             $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu, :_idSucursal)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idCaja' => $idCaja,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));

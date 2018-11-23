@@ -131,8 +131,8 @@ var editarInsumo = function(cod){
     },
       dataType: "json",
       success: function(item){
-          console.log(item.data);
-        $.each(item.data, function(i, campo) {
+          console.log(item);
+        $.each(item, function(i, campo) {
 
             $('#nombre_ins').val(campo.nomb_ins);
             $('#codigo_ins').val(campo.cod_ins);
@@ -164,13 +164,14 @@ var comboCategoria = function(){
     });*/
 }
 
-$("#frm-categoria").submit(function(){
+$("#frm-categoria").submit(function(e){
     e.preventDefault();
     var form = $(this);
 
         var categoria = {
             cod_catg: 0,
-            nombre_catg: 0
+            nombre_catg: 0,
+            id_sucursal:0 
         }
 
         if($('#nombre_catg').val() == '')
@@ -181,7 +182,7 @@ $("#frm-categoria").submit(function(){
 
         categoria.cod_catg = $('#id_catg').val();
         categoria.nombre_catg = $('#nombre_catg').val();
-
+        categoria.id_sucursal = $('#id_sucursal').val();
         $.ajax({
             dataType: 'JSON',
             type: 'POST',

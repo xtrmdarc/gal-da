@@ -53,12 +53,14 @@
                             <h4 class="list-group-item-heading">Usuarios</h4>
                             <p class="list-group-item-text">Alta de usuarios.</p>
                         </a>
-                        @if(Auth::user()->plan_id != '1')
-                            <a class="list-group-item" href="{{ url('/ajustesSucursal') }}">
-                                <h4 class="list-group-item-heading">Sucursales</h4>
-                                <p class="list-group-item-text">Crear y/o modificar tus sucursales.</p>
-                            </a>
-                        @endif
+                        <a class="list-group-item" href="{{ url('/ajustesSucursal') }}">
+                            <h4 class="list-group-item-heading">Sucursales</h4>
+                            <p class="list-group-item-text">Crear y/o modificar tus sucursales.</p>
+                        </a>
+                        <a class="list-group-item" href="{{route('config.Turnos')}}">
+                            <h4 class="list-group-item-heading">Turnos</h4>
+                            <p class="list-group-item-text">Crear y/o modificar tus Turnos.</p>
+                        </a>
                     </div>
                 </div>
             </div>
