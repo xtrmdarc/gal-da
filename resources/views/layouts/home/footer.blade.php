@@ -47,8 +47,12 @@
                     <div class="col-md-6 ">
                         <h2>Contacto</h2>
                         <address>
-                            E-mail: <a href="mailto:ventas@gal-da.com">ventas@gal-da.com</a> <br>
+                            E-mail: <a href="mailto:ventas@gal-da.com" style="color: black;">ventas@gal-da.com</a> <br>
                             Celular: +51 976 009 012 <br>
+                        </address>
+                        <h2>Centro de Ayuda</h2>
+                        <address>
+                            <a href="{{route('helpCenter')}}" style="color: black;">Ir al Centro de Ayuda <br></a>
                         </address>
                     </div>
                     <div class="col-md-6">

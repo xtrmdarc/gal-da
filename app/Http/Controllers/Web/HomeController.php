@@ -44,4 +44,9 @@ class HomeController extends Controller
     {
         return view('contents.home.pagar_test');
     }
+
+    public function helpCenter()
+    {
+        return view('contents.home.helpCenter');
+    }
 }

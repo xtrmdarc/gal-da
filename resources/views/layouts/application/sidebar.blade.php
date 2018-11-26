@@ -169,7 +169,7 @@
                                 </li>
                                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="/creditos"> Compras</a></li>
+                                        <li><a href="/creditos"> Créditos</a></li>
                                     </ul>
                                 </li>
                                 @if(Auth::user()->id_rol == '1')
