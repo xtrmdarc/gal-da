@@ -78,3 +78,22 @@
     line-height: 1.8 !important;
     font-weight: 500;
 }
+
+.btn-plan-actual{
+    background-color: #7d7a78 !important; 
+    color: white;  
+    opacity: 0.8;
+}
+
+.payment-card{
+    background-color: white;
+    color:black;
+    padding: 2em;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.payment-card label{
+    font-size: 0.9em;
+    font-weight: normal;
+    text-transform: uppercase;
+}
