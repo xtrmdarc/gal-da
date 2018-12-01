@@ -96,7 +96,7 @@
                                 <br>
                                     <h1 class="ich m-t-none brand-color">M&oacute;dulo de Usuarios</h1>
                                 <br>
-                                <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar usuarios. Los usuarios son importantes para poder <strong class="brand-color"> administrar y organizar los procesos </strong> de tu negocio. Te ayudaran en difrentes puntos de acuerdo a sus roles de <strong class="brand-color"> Mozo, Cajero, Administrador, MultiMozo y Cocinero </strong> para tener una venta exitosa.<strong class="accent-color"> Selecciona un usuario para administrarlo</strong> </p>
+                                <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar usuarios. Los usuarios son importantes para poder <strong class="brand-color"> administrar, organizar y operar los procesos </strong> de tu negocio. Te ayudaran en difrentes puntos de acuerdo a sus roles de <strong class="brand-color"> Mozo, Cajero, Administrador, MultiMozo y Cocinero </strong> para tener una venta exitosa.<strong class="accent-color"> Selecciona un usuario para administrarlo</strong> </p>
                             </div>
                         </div>
                     </div>

@@ -227,7 +227,7 @@ class MesaController extends Controller
 
         try
         {
-            $mesa_ocupada = DB::table('tm_mesa')->where('estado','a')->where('id_mesa',$idMesa)->exists();
+            $mesa_ocupada = DB::table('tm_mesa')->where('estado','!=','a')->where('id_mesa',$idMesa)->exists();
             if($mesa_ocupada== true){
                 return -1;
             }

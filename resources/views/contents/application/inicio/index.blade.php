@@ -31,7 +31,7 @@
                     <div class="tabs-container">
                     <ul class="nav nav-tabs right">
                         <?php $cont=1; foreach($ListarCM as $p): ?>
-                        <li id="tab<?php echo $cont++; ?>"><a data-toggle="tab" href="#tab-<?php echo $p->id_catg; ?>"><i class="fa fa-cube"></i><?php echo $p->descripcion; ?></a></li>
+                        <li  id="tab<?php echo $cont++; ?>"  class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab-<?php echo $p->id_catg; ?>"><i class="fa fa-cube"></i><?php echo $p->descripcion; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                     <div class="tab-content">

@@ -87,7 +87,7 @@ class ProductoController extends Controller
 
         $stm = DB::table('sucursal')
             ->leftJoin('tm_producto_catg', 'sucursal.id', '=', 'tm_producto_catg.id_sucursal')
-            ->where('tm_producto_catg.id_usu',$id_usu)
+            ->where('tm_producto_catg.id_sucursal',session('id_sucursal'))
             ->get();
 
         $data = array("data" => $stm);

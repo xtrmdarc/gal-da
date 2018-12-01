@@ -148,7 +148,6 @@
                             <div class="form-group">
                                 <label class="control-label">Sucursal</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-renren"></i></span>
                                     <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
                                         @if(Auth::user()->id_usu != null)
                                             <option value="">Seleccionar</option>

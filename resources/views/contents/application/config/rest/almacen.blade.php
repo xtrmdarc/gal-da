@@ -73,7 +73,7 @@
                             <br>
                                 <h1 class="ich m-t-none brand-color">M&oacute;dulo para Almacenes y &Aacute;reas de producci&oacute;n  </h1>
                             <br>
-                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar usuarios. Los usuarios son importantes para poder <strong class="brand-color"> administrar y organizar los procesos </strong> de tu negocio. Te ayudaran en difrentes puntos de acuerdo a sus roles de <strong class="brand-color"> Mozo, Cajero, Administrador, MultiMozo y Cocinero </strong> para tener una venta exitosa.<strong class="accent-color"> Selecciona un usuario para administrarlo</strong> </p>
+                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar Almacenes y Areas de Producción. Los almacenes te ayudarán a <strong class="brand-color"> administrar la rotación de productos </strong> de tu negocio. Las Áreas de Producción separan por categoría las operaciones productivas. La cocina, el bar, la dulcería son ejemplos de áreas de producción.</p>
                         </div>
                     </div>
                 </div>
