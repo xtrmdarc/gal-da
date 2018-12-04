@@ -59,7 +59,7 @@
                     {{--<li class="nav-item" >
                         {{Breadcrumbs::render($breadcrumb)}}
                     </li>--}}
-                    <li class="nav-item"><h1  id="clock" class="nav-link" > </h1>  </li>
+                    <li class="nav-item" style="width:80px;" ><h1  id="clock" class="nav-link" > </h1>  </li>
                     <li class="nav-item" style="width:100%;">
                         <div class="container">
                             <div id="div_cont_slc_sucursal_hdr" class="col nav-link nav-item-suc  align-self-center">
