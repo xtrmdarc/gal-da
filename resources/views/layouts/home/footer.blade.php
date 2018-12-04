@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-12 text-center bottom-separator">
+            <div id="ft_bottom_separator" class="col-sm-12 text-center bottom-separator">
                 <img src="images/home/under.png" class="img-responsive inline" alt="">
             </div>
             <div class="col-xs-12">
@@ -40,19 +40,19 @@
                 </div>
             </div>
             
-            <div class="col-sm-12 text-center line-separator">
+            <div id="ft_line_separator" class="col-sm-12 text-center line-separator">
             </div>
             <div class="col-xs-12">
                 <div class="row">
                     <div class="col-md-6 ">
                         <h2>Contacto</h2>
                         <address>
-                            E-mail: <a href="mailto:ventas@gal-da.com" style="color: black;">ventas@gal-da.com</a> <br>
+                            E-mail: <a href="mailto:ventas@gal-da.com" style="color: #595959; font-weight: 900">ventas@gal-da.com</a> <br>
                             Celular: +51 976 009 012 <br>
                         </address>
                         <h2>Centro de Ayuda</h2>
                         <address>
-                            <a href="{{route('helpCenter')}}" style="color: black;">Ir al Centro de Ayuda <br></a>
+                            <a href="{{route('helpCenter')}}" style="color: #595959; font-weight: 900">Ir al Centro de Ayuda <br></a>
                         </address>
                     </div>
                     <div class="col-md-6">

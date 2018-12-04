@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\AuthController;
 
 class LoginController extends Controller
 {
@@ -42,7 +43,9 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if($user->estado == "p"){
-            return view('auth.register.register-step-account-info');
+            $AuthController = new AuthController();
+            //return view('auth.register.register-step-account-info');
+            return $AuthController->show_account_info_v();
         }else{
             return AppController::LoginAuthenticated($request,$user);
         }

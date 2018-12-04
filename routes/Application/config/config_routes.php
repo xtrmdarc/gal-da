@@ -55,7 +55,8 @@
     Route::post('ajustesCrudIns', 'Application\Config\InsumoController@CrudIns');
     Route::post('ajustesActualizarIns', 'Application\Config\InsumoController@ActualizarIns');
     Route::post('ajustesListarInsumos', 'Application\Config\InsumoController@ListaIns');
-
+    Route::post('CategoriasIXSucursal', 'Application\Config\InsumoController@CategoriasXSucursal');
+    
     //Application\Configuracion - Sistema
 
     //Datos en la Empresa

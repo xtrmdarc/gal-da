@@ -1107,7 +1107,7 @@ class InicioController extends Controller
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
                     //->fetch(PDO::FETCH_OBJ);
             }
-            require_once 'rest/imprimir/comp.php';
+            require_once __DIR__.'/public/rest/imprimir/comp.php';
             return json_encode(1);
         }
         catch(Exception $e)
@@ -1137,7 +1137,7 @@ class InicioController extends Controller
                     //->fetch(PDO::FETCH_OBJ);
             }
             
-            require_once 'rest/imprimir/comp_pc.php';
+            require_once __DIR__.'/public/rest/imprimir/comp_pc.php';
             return json_encode(1);
         }
         catch(Exception $e)

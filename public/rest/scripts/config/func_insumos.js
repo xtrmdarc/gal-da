@@ -25,7 +25,7 @@ var listarCategorias = function(){
                     .append(
                     $('<div/>')
                   .html('<a style="display: inline-block;" onclick="listarInsumos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
-                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                   )
                 )
           });
@@ -50,13 +50,13 @@ var listarSucursales = function(){
                         .append(
                         $('<li/>')
                             .html('<a style="display: inline-block;" onclick="listarInsumos('+campo.id+')"><i class="fa fa-caret-right"></i> '+campo.nombre_sucursal+'</a>'
-                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                             .append(
                             $('<ul/>')
                                 .append(
                                 $('<li style="margin-left: 10px;"/>')
                                     .html('<a style="display: inline-block;" onclick="listarInsumos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
-                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                             )
                         )
                     )
@@ -105,9 +105,11 @@ var listarInsumos = function(cat){
 }
 
 /* Editar categoria */
-var editarCategoria = function(cod,desc){
+var editarCategoria = function(cod,desc,id_suc){
     $("#id_catg").val(cod);
     $("#nombre_catg").val(desc);
+    $('#id_sucursal').val(id_suc);
+    $('#id_sucursal').selectpicker('refresh');
     $('#boton-catg').css("display","none");
     $('#nueva-catg').css("display","block");
 }
@@ -223,7 +225,64 @@ $("#frm-categoria").submit(function(e){
 
     return false;
 });
+$('#id_sucursal_d').on('change',function(){
 
+    ActualizarCategoriaAreap(null,null);
+});
+var ActualizarCategoriaAreap = function(cod_area,cod_catg){
+    console.log(cod_area,cod_catg,'entro');
+    var id_sucursal = $('#id_sucursal_d').val();
+    /* 
+    $.ajax({
+        type: "POST",
+        url: "/AreasProdXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+            
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_area').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_area').append(
+                    `<option value="${response[i].id_areap}"> ${response[i].nombre} </option>`
+                );
+            }
+            $('#cod_area').selectpicker('refresh');
+            if(cod_area!=null) $('#cod_area').selectpicker('val',cod_area);
+        }
+    });
+    */
+    $.ajax({
+        type: "POST",
+        url: "/CategoriasIXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+        },
+        dataType: "json",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        ,success:function(response){
+            console.log(response);
+            $('#cod_catg').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_catg').append(
+                    `<option value="${response[i].id_catg}"> ${response[i].descripcion} </option>`
+                );
+            }
+            $('#cod_catg').selectpicker('refresh');
+            if(cod_catg!=null) $('#cod_catg').selectpicker('val',cod_catg);
+        }
+    });
+    
+    
+  
+}
 $(function() {
     $('#frm-insumo')
       .formValidation({
@@ -265,6 +324,7 @@ $(function() {
             insumo.nombre_ins = $('#nombre_ins').val();
             insumo.stock_min = $('#stock_min').val();
             insumo.estado = $('#estado').val();
+            insumo.id_sucursal = $('#id_sucursal_d').val();
 
             $.ajax({
                 dataType: 'JSON',

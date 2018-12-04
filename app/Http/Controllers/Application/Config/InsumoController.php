@@ -67,7 +67,12 @@ class InsumoController extends Controller
         $json = json_encode($data);
         echo $json;
     }
-
+    public function CategoriasXSucursal(Request $request){
+        
+        $categorias = TmInsumoCatg::where('id_sucursal',$request->id_sucursal)->get();
+        return $categorias;
+    }
+    
     public function ListaIns(Request $request)
     {
         $id_sucursal = session('id_sucursal');
@@ -119,7 +124,7 @@ class InsumoController extends Controller
 
     public function CrudIns(Request $request)
     {
-        $id_sucursal = session('id_sucursal');
+        //$id_sucursal = session('id_sucursal');
         $post = $request->all();
 
        if($post['cod_ins'] != ''){
@@ -133,6 +138,7 @@ class InsumoController extends Controller
            $stock = $post['stock_min'];
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
+           
 
            $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns);"
            ,array($flag,$idCatg,$idMed,$cod,$nombre,$stock,$estado,$idIns));
@@ -149,6 +155,7 @@ class InsumoController extends Controller
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
            $flag = 1;
+           $id_sucursal = $post['id_sucursal'];
 
            $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b,:idSucursal);",
                array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' =>$stock,':idSucursal' => $id_sucursal ));

@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="main-slider" >
                     <div class="slide-text col-md-4 col-sm-4" >
-                        <h1 class="LandingMainHeader">Rápido, seguro y confiable </h1>
+                        <h1 class="LandingMainHeader" style="margin-top:10px;">Rápido, seguro y confiable </h1>
                         <h2 class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</h2>
                         {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
                         <a href="/register" class="btn btn-common btn-cta-landing-main">Empieza gratis</a>
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="text-center " >
-                    <h1 class="LandingMainHeader" style="font-size:4em;">Nuestra Plataforma</h1>                                 
+                    <h1 class="LandingMainHeader" style="font-size:4em">Nuestra Plataforma</h1>                                 
                     <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
@@ -104,7 +104,7 @@
                             <img src="{{ URL::to('home/images/home/save-time-landing-icon.png') }}" alt="">
                         </div>
                         <h2>Ahorra tiempo</h2>
-                        <p>Aumenta tu productividad ahorrando tiempo en las operaciones de tu negocio.</p>
+                        <p>Aumenta tu productividad optimizando los tiempos de las operaciones de tu negocio.</p>
                     </div>
                 </div>
             </div>
@@ -133,14 +133,14 @@
     </section>
     <!--/#action-->
 
-    <section id="features" style="margin-top:20px;">
-        <div class="container">
+    <section id="features" style="margin-top:40px;">
+        <div class="container" >
             <div class="row">
                 <div class="single-features">
-                    <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <img src="{{ URL::to('home/images/home/galda-app.png') }}" class="img-responsive" alt="">
+                    <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" style="padding:0px;">
+                        <img src="{{ URL::to('home/images/home/galda-app.png') }}" class="img-responsive"  alt="">
                     </div>
-                    <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
+                    <div class="col-sm-6 wow fadeInRight" style="margin-top:0px;" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h2>Más rápido imposible.</h2>
                         <P>Ahorra tiempo empoderando a tus trabajadores dándoles acceso a herramientas que potencian su productividad.</P>
                     </div>

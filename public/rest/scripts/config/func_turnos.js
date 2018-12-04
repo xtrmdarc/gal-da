@@ -104,7 +104,7 @@ var listarTurnos = function(){
 /* Eliminar Turno */
 var eliminarTurno = function(cod,nomb,sucur){
     $('#cod_turno_e').val(cod);
-    $("#mensaje-turno").html("<center><h4>"+ nomb + ' - ' + sucur + "<br><br>�Desea eliminar?</h4></center>");
+    $("#mensaje-turno").html("<center><h4>"+ nomb + ' - ' + sucur + "<br><br>¿Desea eliminar?</h4></center>");
     $("#mdl-eliminar-turno").modal('show');
 }
 

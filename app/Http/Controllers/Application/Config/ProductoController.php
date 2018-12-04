@@ -100,7 +100,7 @@ class ProductoController extends Controller
     {
         $id_sucursal = \Auth::user()->id_sucursal;
         $stm = DB::Select("SELECT * FROM tm_producto_catg where id_sucursal = ?".$id_sucursal);
-        dd($stm);
+        //dd($stm);
         $data = array("data" => $stm);
 
         $json = json_encode($data);
@@ -198,7 +198,7 @@ class ProductoController extends Controller
 
     public function CategoriasXSucursal(Request $request){
         
-        $categorias = TmProductoCatg::where('id_sucursal',$request->id_sucursal)->get();
+        $categorias = TmInsumoCatg::where('id_sucursal',$request->id_sucursal)->get();
         return $categorias;
     }
 

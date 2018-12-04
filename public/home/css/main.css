@@ -2841,3 +2841,16 @@ html, body {
   color:#A5A5A5;
 }
 
+@media only screen and (max-width: 800px) {
+    #zepellin-slider {
+       display: none;
+    }
+
+    #ft_line_separator{
+      display: none;
+    }
+    #ft_bottom_separator{
+      margin-bottom: 10px !important;
+    }
+  
+}

@@ -1,6 +1,6 @@
 <?php
-require_once 'rest/imprimir/num_letras.php';
-require_once('rest/assets/pdf/cellfit.php');
+require_once __DIR__.'/public/rest/imprimir/num_letras.php';
+require_once __DIR__.'/public/rest/assets/pdf/cellfit.php';
 
 class FPDF_CellFiti extends FPDF_CellFit
 {

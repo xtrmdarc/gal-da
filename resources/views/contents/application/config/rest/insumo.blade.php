@@ -13,7 +13,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="file-manager">
-                                <h2 class="ich"><i class="fa fa-tasks"></i> Categor�as</h2>
+                                <h2 class="ich"><i class="fa fa-tasks"></i> Categorías</h2>
                                 <a onclick="lista_tablei('%')" class="file-control active">Todos</a>
                                 <div class="hr-line-dashed"></div>
                                 <div id="boton-catg" style="display: block">
@@ -121,9 +121,9 @@
                                         <thead>
                                         <th>C&oacute;digo</th>
                                         <th>Nombre</th>
-                                        <th>Categor&iacute;a</th>
+                                        <th>Categoría</th>
                                         <th>Unidad</th>
-                                        <th>�Activo?</th>
+                                        <th>¿Activo?</th>
                                         <th style="text-align: right">Acciones</th>
                                         </thead>
                                     </table>
@@ -156,6 +156,31 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Sucursal</label>
+                                <div class="input-group">
+                                    {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
+                                    <select name="id_sucursal_d" id="id_sucursal_d" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
+                                        @if($id_usu != null)
+                                            <option value="">
+
+                                            </option>
+                                        @else
+                                            echo '<option value="" selected>Seleccionar</option>';
+                                            echo '<optgroup label="Seleccionar">';
+                                                @endif
+                                                <optgroup label="Seleccionar">
+                                                    @foreach($user_sucursal as $r)
+                                                        <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label class="control-label">C&oacute;digo</label>
@@ -176,12 +201,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Categor&iacute;a</label>
+                                <label class="control-label">Categoría</label>
                                 <div id="combo_catg">
                                     <select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" title="Seleccionar" data-size="5">
-                                        @foreach($comboCatg as $r)
-                                            <option value="{{$r->id_catg}}">{{$r->descripcion}}</option>
-                                        @endforeach
+                                        
                                     </select>
                                 </div>
                             </div>

@@ -37,11 +37,11 @@
 
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
             <!-- Logo -->
-            <div class="navbar-header">
+            <div id="header_logo" class="navbar-header">
                
-                <a class="navbar-brand" href="{{session('home')}}">
+                <a  class="navbar-brand" href="{{session('home')}}">
                     <!-- Logo icon -->
-                    <b><img src="{{ !empty($logo_g) ? $logo_g : URL::to('application/images/logo.png') }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" /></b>
+                    <b><img  src="{{ !empty($logo_g) ? $logo_g : '/application/images/tu_logo.png' }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     {{--<span><img src="{{ URL::to('application/images/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>--}}
@@ -62,7 +62,7 @@
                     <li class="nav-item"><h1  id="clock" class="nav-link" > </h1>  </li>
                     <li class="nav-item" style="width:100%;">
                         <div class="container">
-                            <div class="col nav-link nav-item-suc  align-self-center">
+                            <div id="div_cont_slc_sucursal_hdr" class="col nav-link nav-item-suc  align-self-center">
                                 <select id="slc_sucursal" class="form-control">
                                     @foreach($lista_sucursales as $sucursal)
                                         <option value="{{$sucursal->id}}" {{$sucursal->id == session('id_sucursal')?'selected':''}}> {{$sucursal->nombre_sucursal }}</option>

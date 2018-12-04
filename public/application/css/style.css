@@ -2353,7 +2353,7 @@ textarea {
 }
 .card {
   background: #ffffff none repeat scroll 0 0;
-  margin: 15px 10px;
+  /* margin: 15px 10px;*/
   padding: 20px;
   border: 0 solid #e7e7e7;
   border-radius: 5px;
@@ -7641,4 +7641,24 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 }
 .accent-color{
   color: #FBA017 !important;
+}
+
+@media only screen and (max-width: 800px) {
+
+    #header_logo{
+      display: none;
+      width:10px !important;
+    }
+    #clock{
+      display: none;
+    }
+    #div_cont_slc_sucursal_hdr{
+      width:50%;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    #sidebar_header_mobile{
+      display: none;
+  } 
 }

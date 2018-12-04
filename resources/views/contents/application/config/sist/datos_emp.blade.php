@@ -33,7 +33,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label">RAZÓN SOCIAL</label>
-                                            <input type="text" name="razon_social" value="{{$razon_social}}" class="form-control" placeholder="Raz�n Social" autocomplete="off" required>
+                                            <input type="text" name="razon_social" value="{{$razon_social}}" class="form-control" placeholder="Razón Social" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -60,13 +60,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">MONEDA:</label>
-                                            <input type="text" name="moneda" value="{{$moneda}}" class="form-control" placeholder="Ingrese Moneda" autocomplete="off" required>
+                                            <input type="text" name="moneda" value="{{$moneda}}" class="form-control" placeholder="$ ó S/." autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label">TELÉFONO:</label>
-                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Tel�fono" autocomplete="off" required>
+                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Teléfono" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="control-label">DIRECCIÓN:</label>
-                                    <input type="text" name="direccion" value="{{$direccion}}" class="form-control" placeholder="Ingrese direcci�n" autocomplete="off" required>
+                                    <input type="text" name="direccion" value="{{$direccion}}" class="form-control" placeholder="Ingrese dirección" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>

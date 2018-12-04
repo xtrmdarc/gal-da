@@ -15,6 +15,7 @@ class Empresa extends Model
         'direccion',
         'telefono',
         'moneda',
+        'igv',
         'id_pais'
     ];
 

@@ -23,7 +23,7 @@ class AppController extends Controller
 
     public static function LoginAuthenticated(Request $request, $user){
 
-        self::IniciarApp();
+        
 
         switch($user->id_rol)
         {
@@ -77,7 +77,7 @@ class AppController extends Controller
             }
 
         }
-       
+       self::IniciarApp();
         return redirect(self::$home);
         
     }

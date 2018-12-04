@@ -49,13 +49,13 @@ var listarSucursales = function(){
                         .append(
                         $('<li/>')
                             .html('<a style="display: inline-block;" onclick="listarProductos('+campo.id+')"><i class="fa fa-caret-right"></i> '+campo.nombre_sucursal+'</a>'
-                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                            +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                             .append(
                             $('<ul/>')
                                 .append(
                                 $('<li style="margin-left: 10px;"/>')
                                     .html('<a style="display: inline-block;" onclick="listarProductos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
-                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                                    +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                             )
                         )
                     )
@@ -88,7 +88,7 @@ var listarCategorias = function(){
                     .append(
                         $('<div/>')
                         .html('<a style="display: inline-block;" onclick="listarProductos('+campo.id_catg+')"><i class="fa fa-caret-right"></i> '+campo.descripcion+'</a>'
-                        +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\')"><i class="fa fa-pencil"></i></a>')
+                        +'<a style="display: inline-block;" class="pull-right" onclick="editarCategoria('+campo.id_catg+',\''+campo.descripcion+'\',\''+campo.id_sucursal+'\')"><i class="fa fa-pencil"></i></a>')
                     )
                 )
             });
@@ -275,9 +275,11 @@ var editarProducto = function(cod){
 }
 
 /* Editar categoria */
-var editarCategoria = function(cod,desc){
+var editarCategoria = function(cod,desc,id_suc){
     $("#id_catg").val(cod);
     $("#nombre_catg").val(desc);
+    $('#id_sucursal').val(id_suc);
+    $('#id_sucursal').selectpicker('refresh');
     $('#boton-catg').css("display","none");
     $('#nueva-catg').css("display","block");
 }
@@ -378,7 +380,7 @@ var editarPresentacion = function(cod_pres,nomb_prod){
                     // Mostrar check receta (tp-1)
                     $('#tp-1').css('display','block');
                     // Ocultar check stock / stock_minimo (tp-2)
-                    $('#tp-2').css('display','none');
+                    // $('#tp-2').css('display','none');
                 }
                 //id_tipo = 2 (Producto NO Transformado)
                 else{
@@ -391,7 +393,7 @@ var editarPresentacion = function(cod_pres,nomb_prod){
                     // Ocultar check receta (tp-1)
                     $('#tp-1').css('display','none');
                     // Mostrar check stock / stock_minimo (tp-2)
-                    $('#tp-2').css('display','block');
+                    //$('#tp-2').css('display','block');
                 }
             });
         }

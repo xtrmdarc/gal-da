@@ -14,6 +14,7 @@ use App\Models\TmTurno;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Application\AppController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -275,13 +276,16 @@ class AuthController extends Controller
 
         $sql = DB::update("UPDATE sucursal SET
 						nombre_sucursal  = ?
-				    WHERE id = ?", [$nombre_negocio,$sucursalId]);
-
-        if($planId == '1'){
+                    WHERE id = ?", [$nombre_negocio,$sucursalId]);
+        
+        
+        AppController::LoginAuthenticated($request,\Auth::user());
+        /*if($planId == '1'){
             return redirect()->route('tableroF');
         }else {
             return redirect()->route('tablero');
         }
+        */
 
     }
 

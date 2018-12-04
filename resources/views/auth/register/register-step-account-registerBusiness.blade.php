@@ -13,8 +13,8 @@
                         <div class="login-form-auth">
                             <h4 style="margin-bottom: 10px;">Ultimo paso, dinos el nombre de tu negocio</h4>
                             <div class="register-link-auth m-t-15 text-center">
-                                <p>Empezaras a administrar de una manera mas rapida tu negocio y tener todo en orden.</p>
-                                <p>Galda se compromente ayudarte a sacarle el maximo a tu negocio.</p>
+                                <p>Empezarás a administrar de una manera mas rápida tu negocio y tener todo en orden.</p>
+                                <p>Galda se compromente ayudarte a sacarle el máximo a tu negocio.</p>
                             </div>
                             <form method="POST" action="{{ route('web.auth.register.store_account_business') }}">
                                 @csrf
