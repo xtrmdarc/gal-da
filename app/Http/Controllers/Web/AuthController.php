@@ -183,7 +183,8 @@ class AuthController extends Controller
                 return view('contents.home.cuenta_verificada');
             }
         }else {
-            dd('Usuario no existe o ya verificaste.');
+            //dd('Usuario no existe o ya verificaste.');
+            return view('contents.home.cuenta_verificada_2');
         }
     }
 
@@ -298,7 +299,7 @@ class AuthController extends Controller
             return view('auth.verificar_mail.verificar_sub_usuario')->with(['user' => $user]);
 
         }else {
-            dd('Usuario no existe');
+            return view('contents.home.usuario_no_existe');
         }
     }
 
@@ -311,7 +312,7 @@ class AuthController extends Controller
 
         if($usuario_update == 1) 
         {
-            return ('DISEÑO PAPU');
+            return view('contents.home.subUsuario_verificada');
         }   
         else    {
             return null;

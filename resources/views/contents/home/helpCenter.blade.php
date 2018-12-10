@@ -35,7 +35,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="600ms">
+                    <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="600ms">
                         <a href="">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -46,18 +46,28 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
-                        <a href="{{route('manual_galda')}}">
-                            <div class="feature-inner">
-                                <div class="icon-wrapper">
-                                    <i class="fa fa-2x fa-star-o"></i>
+                    @if (Auth::check())
+                        <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
+                            <a href="{{route('manual_galda')}}">
+                                <div class="feature-inner">
+                                    <div class="icon-wrapper">
+                                        <i class="fa fa-2x fa-star-o"></i>
+                                    </div>
+                                    <h2>Manual del Gal-Da</h2>
+                                    @if(Auth::user()->plan_id == '1')
+                                        <p>Encuentra el detalle de cada m&oacute;dulo segun tu Plan <b>Free</b></p>
+                                    @endif
+                                    @if(Auth::user()->plan_id == '2')
+                                        <p>Encuentra el detalle de cada m&oacute;dulo segun tu Plan Basic</p>
+                                    @endif
+                                    @if(Auth::user()->plan_id == '3')
+                                        <p>Encuentra el detalle de cada m&oacute;dulo segun tu Plan Lite</p>
+                                    @endif
                                 </div>
-                                <h2>Manual del Gal-Da</h2>
-                                <p>Encuentra el detalle de cada m&oacute;dulo segun tu Plan</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="1200ms">
+                            </a>
+                        </div>
+                    @endif
+                    <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="1200ms">
                         <a href="">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -68,13 +78,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <div class="feature-inner">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="600ms">
+                    <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="1500ms">
                         <a href="">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -85,7 +89,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="900ms">
+                    <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="1800ms">
                         <a href="">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -95,10 +99,6 @@
                                 <p>Enterate de nuestras ultimas novedades en Gal-Da</p>
                             </div>
                         </a>
-                    </div>
-                    <div class="col-sm-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="1200ms">
-                        <div class="feature-inner">
-                        </div>
                     </div>
                 </div>
             </div><!--/#feature-container-->

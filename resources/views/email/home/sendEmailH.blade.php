@@ -35,7 +35,7 @@
                 <tr>
                     <td>
                         <a href="http://ec2-18-207-223-230.compute-1.amazonaws.com" style="display:block; width:407px; height:100px; margin:0 auto 30px;">
-                            <img src="https://s3.amazonaws.com/galda-test-picture-empresas/galdaLogo.png" width="407" height="130" alt="gal-da" style="display:block; border:0; margin:0;">
+                            <img src="https://s3.amazonaws.com/galda-test-picture-empresas/Logo+1_1539157884.png" width="407" height="130" alt="gal-da" style="display:block; border:0; margin:0;">
                         </a>
                         <!-- begin wrapper -->
                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -58,7 +58,7 @@
                                         <tr valign="top">
                                             <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
                                             <td colspan="3">
-                                                <p style="font-size:14px; line-height:22px; font-weight:bold; color:#333333; margin:0 0 5px;margin-bottom: 25px;">Hola! Solo necesitamos verificar que tienes acceso a este correo. Terminar de configurar tu cuenta haciendo clic en el boton de abajo</p>
+                                                <p style="font-size:14px; line-height:22px; font-weight:bold; color:#333333; margin:0 0 5px;margin-bottom: 25px;">Hola! Solo necesitamos verificar que tienes acceso a este correo. Termina de configurar tu cuenta haciendo clic en el boton de abajo</p>
                                                 <a style="width: 100%;
                                             text-transform: uppercase;
                                             font-size: 14px;
@@ -90,7 +90,7 @@
                                                     Surco, Lima, 15023 Perú <br>
                                                     Website: <a href="http://ec2-18-207-223-230.compute-1.amazonaws.com" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.gal-da.com</a>
                                                 </p>
-                                                <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">� Gal-Da 2018. Todos los derechos reservados.</p>
+                                                <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">@ Gal-Da 2018. Todos los derechos reservados.</p>
                                             </td>
                                             <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
                                             <td width="120">
@@ -129,7 +129,7 @@
                         </table>
                         <!-- end wrapper-->
                         <p style="margin:0; padding:34px 0 0; text-align:center; font-size:11px; line-height:13px; color:#333333;">
-                            Don�t want to recieve further emails? You can unsibscribe <a href="http://pixelbuddha.net/" style="color:#333333; text-decoration:underline;">here</a>
+                            No quieres recibir correos? Tu puedes desinscribirte <a href="" style="color:#333333; text-decoration:underline;">aqui</a>
                         </p>
                     </td>
                 </tr>

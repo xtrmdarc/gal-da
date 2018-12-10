@@ -40,7 +40,7 @@
   .background-light-brand{
     background-color: #EFEFEF;
   }
-/*
-.color-a-help-center p{
-    color: black!important;
-}*/
+
+.p-help-center-justify {
+    text-align: justify;
+}

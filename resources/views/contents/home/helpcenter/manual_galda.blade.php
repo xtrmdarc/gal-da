@@ -9,7 +9,7 @@
                     <div class="action">
                         <div class="col-sm-12">
                             <h1 class="title">Manual del Sistema Gal-Da</h1>
-                            <p>Aqui encontraras a detalle de como funciona cada M&oacute;dulo y seas eficiente en tu Negocio</p>
+                            <p>Aqui encontraras a detalle como funciona cada M&oacute;dulo y seas eficiente en tu Negocio</p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                                                         </a>
                                                     </h4>
                                                 </div>
-                                                <div id="collapseCaja" class="panel-collapse collapse in">
+                                                <div id="collapseCaja" class="panel-collapse collapse">
                                                     <div class="panel-body">
                                                         Antes de que empieces a explorar el sistema Gal-Da. Te recomendamos a configurar en la Secci&oacute;n <b>Datos de Empresa</b>
                                                         <div>
@@ -183,7 +183,7 @@
                                                         </a>
                                                     </h4>
                                                 </div>
-                                                <div id="collapseDatosyEmpresa" class="panel-collapse collapse in">
+                                                <div id="collapseDatosyEmpresa" class="panel-collapse collapse">
                                                     <div class="panel-body">
                                                         Antes de que empieces a explorar el sistema Gal-Da. Te recomendamos a configurar en la Secci&oacute;n <b>Datos de Empresa</b>
                                                         <div>
