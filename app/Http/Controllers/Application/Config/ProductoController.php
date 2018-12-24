@@ -198,7 +198,8 @@ class ProductoController extends Controller
 
     public function CategoriasXSucursal(Request $request){
         
-        $categorias = TmInsumoCatg::where('id_sucursal',$request->id_sucursal)->get();
+        $categorias = TmProductoCatg::where('id_sucursal',$request->id_sucursal)->get();
+        //dd(session('sucursal'),$request->id_sucursal,$categorias);
         return $categorias;
     }
 
@@ -209,6 +210,7 @@ class ProductoController extends Controller
         $id_sucursal_d = $post['id_sucursal_d'];
 
         $codProd = $post['cod_prod'];
+        dd($codProd);
         if($codProd != ''){
             //Actualizar
             $flag = 2;
