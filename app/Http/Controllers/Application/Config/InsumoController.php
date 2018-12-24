@@ -124,12 +124,12 @@ class InsumoController extends Controller
 
     public function CrudIns(Request $request)
     {
-        //$id_sucursal = session('id_sucursal');
+        $id_sucursal = session('id_sucursal');
         $post = $request->all();
 
        if($post['cod_ins'] != ''){
             //Actualizar
-            dd('ACTUALIZAR');
+            //dd('ACTUALIZAR');
            $flag = 2;
            $idCatg = $post['cod_catg'];
            $idMed = $post['cod_med'];
@@ -140,10 +140,19 @@ class InsumoController extends Controller
            $idIns = $post['cod_ins'];
            
 
-           $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns);"
-           ,array($flag,$idCatg,$idMed,$cod,$nombre,$stock,$estado,$idIns));
+           /*$consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns,':idSucursal');"
+           ,array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' => $stock,':estado' => $estado,':idIns' => $idIns,':idSucursal' => $id_sucursal));
 
-           return $consulta;
+           return $consulta;*/
+           $sql = DB::update("UPDATE tm_insumo SET
+						id_catg   = ?,
+						id_med   = ?,
+						cod_ins  = ?,
+                        nomb_ins = ?,
+                        stock_min = ?,
+                        estado = ?
+                    WHERE id_ins = ?",[$idCatg,$idMed,$cod,$nombre,$stock,$estado,$idIns]);
+           return $array['cod'] = 2;
         } else{
             //Crear
 
@@ -155,7 +164,7 @@ class InsumoController extends Controller
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
            $flag = 1;
-           $id_sucursal = $post['id_sucursal'];
+           //$id_sucursal = $post['id_sucursal'];
 
            $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b,:idSucursal);",
                array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' =>$stock,':idSucursal' => $id_sucursal ));
