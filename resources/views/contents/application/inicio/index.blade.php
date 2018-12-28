@@ -292,7 +292,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Tel&eacute;fono</label>
                                     <div class="input-group">
-                                        <input type="text" name="telefCli" id="telefCli" class="form-control global_filter" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
+                                        <input type="text" name="telefCli" id="telefCli" class="form-control global_filter validanumericos" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
                                         <button id="btn_buscarCliente" class="btn btn btn-primary" type="button"> <i class="fa fa-search"></i></button>
                                     </div>  
                                 </div>
@@ -619,5 +619,18 @@ function sessionTipoPedidoMostrador(){
 function sessionTipoPedidoDelivery(){
     {{session(['cod_tipe'=>3])}}
 } 
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
+    });
 </script>
 @endsection

@@ -266,7 +266,7 @@
                                 <label class="control-label">Precio venta</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">{{session('moneda_session')}}</span>
-                                    <input type="text" name="precio_prod" id="precio_prod" class="form-control" autocomplete="off" required="required" />
+                                    <input type="text" name="precio_prod" id="precio_prod" class="form-control validanumericos" autocomplete="off" required="required" />
                                 </div>
                             </div>
                         </div>
@@ -390,6 +390,19 @@
         $('input.global_filter').on( 'keyup click', function () {
             filterGlobal();
         } );
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
     });
 </script>
 

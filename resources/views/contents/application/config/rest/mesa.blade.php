@@ -88,7 +88,7 @@
                         <div class="col-sm-12">
                             <div class="form-group ent">
                                 <label class="control-label">Nro de Mesa</label>
-                                <input type="text" name="nro_mesa" id="nro_mesa" class="form-control" placeholder="Ingrese Nro Mesa" autocomplete="off" required="required"/>
+                                <input type="text" name="nro_mesa" id="nro_mesa" class="form-control" placeholder="Ingrese Nro Mesa" maxlength="5" autocomplete="off" required="required"/>
                             </div>
                         </div>
                     </div>

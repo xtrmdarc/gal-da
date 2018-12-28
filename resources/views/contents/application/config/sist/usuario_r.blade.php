@@ -62,7 +62,7 @@
                                         <div class="col-lg-6  sides_padding15  " id="dni_div">
                                             <div class="form-group">
                                                 <label class="control-label">DNI</label>
-                                                <input type="text" name="dni" value="" class="form-control" placeholder="Ingrese dni" autocomplete="off" required="required" />
+                                                <input type="text" name="dni" value="" class="form-control validanumericos" placeholder="Ingrese dni" maxlength="8" autocomplete="off" required="required" />
                                             </div>
                                         </div>
                                         
@@ -128,7 +128,7 @@
                                                 <label class="control-label">PIN</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i  class="fa fa-certificate"></i></span>
-                                                    <input type="password" name="pin" id="pin_field" value="" class="form-control" placeholder="Ingrese 4 digitos" autocomplete="off" required="required" />
+                                                    <input type="password" name="pin" id="pin_field" value="" class="form-control validanumericos" placeholder="Ingrese 4 digitos" maxlength="4" autocomplete="off" required="required" />
                                                     <span toggle="#pin_field" class="fa input-group-addon  fa-eye field-icon toggle-password"></span>
                                                 </div>
                                             </div>
@@ -200,6 +200,19 @@
                 "outlook.com"
             ]
         });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
     });
 </script>
 @endsection

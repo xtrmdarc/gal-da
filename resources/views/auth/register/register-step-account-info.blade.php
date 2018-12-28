@@ -19,7 +19,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Nombre</label>
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('nombres') }}" required autofocus placeholder="Nombre">
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('nombres') }}" maxlength="30" required autofocus placeholder="Nombre">
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Apellido Paterno</label>
-                                    <input id="name" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('ape_paterno') }}" required autofocus placeholder="Apellido Paterno">
+                                    <input id="name" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('ape_paterno') }}" maxlength="30" required autofocus placeholder="Apellido Paterno">
 
                                     @if ($errors->has('lastname'))
                                         <span class="invalid-feedback">
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Apellido Materno</label>
-                                    <input id="m_lastname" type="text" class="form-control{{ $errors->has('m_lastname') ? ' is-invalid' : '' }}" name="m_lastname" value="{{ old('ape_materno') }}" required autofocus placeholder="Apellido Materno">
+                                    <input id="m_lastname" type="text" class="form-control{{ $errors->has('m_lastname') ? ' is-invalid' : '' }}" name="m_lastname" value="{{ old('ape_materno') }}" maxlength="30" required autofocus placeholder="Apellido Materno">
 
                                     @if ($errors->has('m_lastname'))
                                         <span class="invalid-feedback">
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Dni</label>
-                                    <input id="dni" type="number" pattern="[0-9]{10}" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ old('dni') }}" required autofocus placeholder="Dni">
+                                    <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }} validanumericos" name="dni" value="{{ old('dni') }}"  maxlength="8" required autofocus placeholder="Dni">
 
                                     @if ($errors->has('dni'))
                                         <span class="invalid-feedback">
@@ -91,7 +91,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="phone" type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus placeholder="Teléfono">
+                                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }} validanumericos" name="phone" value="{{ old('phone') }}" maxlength="13" required autofocus placeholder="Teléfono">
                                         </div>
                                     </div>
 
@@ -113,6 +113,19 @@
     </div>
 
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $(function(){
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
 
-@endsection('content')
+    });
+</script>
+@endsection
 

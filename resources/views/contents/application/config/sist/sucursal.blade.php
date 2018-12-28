@@ -80,7 +80,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="control-label">Telefono</label>
-                                    <input type="text" name="telefono_sucursal" id="telefono_sucursal" class="form-control" placeholder="Ingrese Telefono" autocomplete="off" required="required"/>
+                                    <input type="text" name="telefono_sucursal" id="telefono_sucursal" class="form-control validanumericos" placeholder="Ingrese Telefono" autocomplete="off" required="required"/>
                                 </div>
                             </div>
                         </div>
@@ -120,5 +120,17 @@
             limite_sucursal = {!! session('plan_actual')->sucursal_max!!}
         });
     </script>
+    <script type="text/javascript">
+        $(function(){
 
+            $('.validanumericos').keypress(function(e) {
+                if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                    return false;
+            })
+                    .on("cut copy paste",function(e){
+                        e.preventDefault();
+                    });
+
+        });
+    </script>
 @endsection('content')

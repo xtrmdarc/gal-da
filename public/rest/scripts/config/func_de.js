@@ -25,6 +25,17 @@ $(function() {
                     }
                 }
             },
+            igv: {
+                validators: {
+                    notEmpty: {
+                        message: 'Dato obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]+$/i,
+                        message: 'Solo se permite números'
+                    }
+                }
+            },
             ruc: {
                 validators: {
                     notEmpty: {

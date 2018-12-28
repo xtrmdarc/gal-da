@@ -62,9 +62,9 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <div class="input-group ent">
-                                        <input type="text" name="serie" id="serie" class="form-control" placeholder="Serie" autocomplete="off"/>
+                                        <input type="text" name="serie" id="serie" class="form-control validanumericos" placeholder="Serie" autocomplete="off"/>
                                         <span class="input-group-addon">-</span>
-                                        <input type="text" name="numero" id="numero" class="form-control" placeholder="N�mero" autocomplete="off"/>
+                                        <input type="text" name="numero" id="numero" class="form-control validanumericos" placeholder="Número" autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>
@@ -83,5 +83,17 @@
 <script type="text/javascript">
     $('#config').addClass("active");
 </script>
+<script type="text/javascript">
+    $(function(){
 
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
+    });
+</script>
 @endsection('content')

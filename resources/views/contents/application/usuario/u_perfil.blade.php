@@ -40,20 +40,20 @@
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Nombres</label>
                                                             <div class="col-md-12">
-                                                                <input type="text" id="nombres_p" name="nombres_p" placeholder="Ingrese sus Nombres" class="form-control form-control-line" value="{{$nombres}}">
+                                                                <input type="text" id="nombres_p" name="nombres_p" placeholder="Ingrese sus Nombres" class="form-control form-control-line" value="{{$nombres}}" maxlength="30">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="col-md-6">Apellido Paterno</label>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="a_paterno_p" name="a_paterno_p" placeholder="Ingrese su Apellido Paterno" class="form-control form-control-line" value="{{$ape_paterno}}">
+                                                                <input type="text" id="a_paterno_p" name="a_paterno_p" placeholder="Ingrese su Apellido Paterno" class="form-control form-control-line" value="{{$ape_paterno}}" maxlength="30">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-md-6">Apellido Materno</label>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="a_materno_p" name="a_materno_p" placeholder="Ingrese su Apellido Materno" class="form-control form-control-line" value="{{$ape_materno}}">
+                                                                <input type="text" id="a_materno_p" name="a_materno_p" placeholder="Ingrese su Apellido Materno" class="form-control form-control-line" value="{{$ape_materno}}" maxlength="30">
                                                             </div>
                                                         </div>
 
@@ -67,7 +67,7 @@
                                                         <div class="form-group">
                                                             <label class="col-md-6">Dni</label>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line" value="{{$dni}}">
+                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line validanumericos" maxlength="8" value="{{$dni}}">
                                                             </div>
                                                         </div>
 
@@ -89,7 +89,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="telefono_p" name="telefono_p" placeholder="Ingrese su Telefono" class="form-control form-control-line" value="{{$phone}}">
+                                                                <input type="text" id="telefono_p" name="telefono_p" placeholder="Ingrese su Telefono" class="form-control form-control-line validanumericos" value="{{$phone}}" maxlength="13">
                                                             </div>
                                                         </div>
 
@@ -161,14 +161,14 @@
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Nombre</label>
                                                             <div class="col-md-12">
-                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line">
+                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line" maxlength="30">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="col-md-12">Apellido</label>
                                                             <div class="col-md-12">
-                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line">
+                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line" maxlength="30">
                                                             </div>
                                                         </div>
 
@@ -312,6 +312,19 @@
 
         $("#picture-profile").change(function() {
             readURL(this);
+        });
+    </script>
+    <script type="text/javascript">
+        $(function(){
+
+            $('.validanumericos').keypress(function(e) {
+                if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                    return false;
+            })
+                    .on("cut copy paste",function(e){
+                        e.preventDefault();
+                    });
+
         });
     </script>
 @endsection

@@ -214,7 +214,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label class="control-label">Stock m&iacute;nimo</label>
-                                <input class="form-control" type="text" autocomplete="off" name="stock_min" id="stock_min" />
+                                <input class="form-control validanumericos" type="text" autocomplete="off" name="stock_min" id="stock_min" />
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -251,5 +251,17 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $(function(){
 
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
+    });
+</script>
 @endsection('content')

@@ -138,9 +138,9 @@
                         <div class="form-group">
                             <label class="control-label">Serie/Nro.</label>
                             <div class="input-group display-flex">
-                                <input type="text" name="serie_doc" id="serie_doc" class="form-control text-right" placeholder="Serie" autocomplete="off" />
+                                <input type="text" name="serie_doc" id="serie_doc" class="form-control text-right validanumericos" placeholder="Serie" autocomplete="off" />
                                 <span class="input-group-addon">-</span>
-                                <input type="text" name="num_doc" id="num_doc" class="form-control" placeholder="N&uacute;mero" autocomplete="off" />
+                                <input type="text" name="num_doc" id="num_doc" class="form-control validanumericos" placeholder="N&uacute;mero" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -235,4 +235,17 @@
 </div>
 
 <script src="{{URL::to('rest/scripts/caja/func_egr.js')}}"></script>
+<script type="text/javascript">
+    $(function(){
+
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
+    });
+</script>
 @endsection

@@ -20,7 +20,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Nombre del Negocio</label>
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name_business') ? ' is-invalid' : '' }}" name="name_business" value="{{ old('name_business') }}" required autofocus placeholder="Nombre del Negocio">
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name_business') ? ' is-invalid' : '' }}" name="name_business" value="{{ old('name_business') }}" maxlength="30" required autofocus placeholder="Nombre del Negocio">
 
                                     @if ($errors->has('name_business'))
                                         <span class="invalid-feedback">

@@ -308,10 +308,10 @@
 
     <div class="modal inmodal fade" id="mdl-nuevo-cliente" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog">
-            <div class="modal-content animated bounceInTop">
+            <div class="modal-content animated bounceInTop unif_modal">
                 <div class="modal-header mhs-e">
+                    <h4 class="modal-title">Nuevo Cliente</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="mt">Nuevo Cliente</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -326,10 +326,8 @@
                             <form method="post" id="form_consultadni">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="text" name="dni_numero" id="dni_numero" class="form-control" placeholder="Ingrese DNI" autocomplete="off" />
-                                        <span class="input-group-btn">
-                                            <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                                        </span>
+                                        <input type="text" name="dni_numero" id="dni_numero" class="form-control validanumericos" placeholder="Ingrese DNI" autocomplete="off" />
+                                        <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                     </div>
                                 </div>
                             </form>
@@ -338,7 +336,7 @@
                             <form method="post" id="form_consultaruc">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Ingrese RUC" autocomplete="off" />
+                                        <input type="text" name="ruc_numero" id="ruc_numero" class="form-control validanumericos" placeholder="Ingrese RUC" autocomplete="off" />
                                         <span class="input-group-btn">
                                             <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                         </span>
@@ -560,7 +558,7 @@
             <input type="hidden" name="producto_id" value="[%:producto_id%]" />
             <input type="hidden" name="precio" value="[%:precio%]"/>
             <div class="col-xs-4 col-md-3 col-sm-3">
-                <input class="touchspin1" type="text" value="[%:cantidad%]" name="cantidad" style="text-align: center;" onchange="pedido.actualizar([%:id%], this);">
+                <input class="touchspin1 validanumericos" type="text" value="[%:cantidad%]" name="cantidad" style="text-align: center;" onchange="pedido.actualizar([%:id%], this);">
             </div>
             <div class="col-xs-5 col-md-6 col-sm-6">
                 <span name="producto">[%:producto%]</span><br>
@@ -598,5 +596,18 @@
 <script src="{{URL::to('rest/js/jquery.email-autocomplete.min.js')}}"></script>
 <script type="text/javascript">
     $('#restau').addClass("active");
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        $('.validanumericos').keypress(function(e) {
+            if(isNaN(this.value + String.fromCharCode(e.charCode)))
+                return false;
+        })
+                .on("cut copy paste",function(e){
+                    e.preventDefault();
+                });
+
+    });
 </script>
 @endsection
