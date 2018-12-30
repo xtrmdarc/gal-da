@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <div class="bg-404">
                                 <div class="error-image">
-                                    <img class="img-responsive" src="images/404.png" alt="">
+                                    <img class="img-responsive" src="{{ URL::to('home/images/404.png') }}" alt="">
                                 </div>
                             </div>
                             <h2>P&Aacute;GINA NO ENCONTRADA</h2>

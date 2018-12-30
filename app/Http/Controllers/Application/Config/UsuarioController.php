@@ -28,6 +28,7 @@ class UsuarioController extends Controller
         $user = \Auth::user()->parent_id;
         $id_usu = \Auth::user()->id_usu;
         $usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
+        $sesion_plan = session('plan_actual');
         $viewData = [];
 
         if(is_null($user)) {
@@ -42,8 +43,12 @@ class UsuarioController extends Controller
                 'titulo_vista' => 'Usuarios',
                 'usuarios_cant' => $usuarios_cant
             ];
-
-            return view('contents.application.config.sist.usuario',$viewData)->with($data);
+            if(is_null($sesion_plan)){
+                return view('contents.application.config.cargar_sesiones');
+            }
+            else {
+                return view('contents.application.config.sist.usuario',$viewData)->with($data);
+            }
         } else {
 
             
@@ -172,8 +177,15 @@ class UsuarioController extends Controller
             $contrasena_g = bcrypt($post['contrasena']);        
         }
         
-        
-        if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists()){return 0;}
+        //dd(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists());
+        if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4)->exists()){
+            //return 0;
+            $notification = [
+                'message' =>'El usuario tiene el mismo PIN que otro usuario.',
+                'alert-type' => 'error'
+            ];
+            return redirect()->route('config.Usuarios')->with($notification);
+        }
         
         if($id_usu != ''){
             if($id_rol != '3'){
@@ -193,7 +205,7 @@ class UsuarioController extends Controller
                         imagen = ?,
                         pin = ?
                     WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
-                    
+
             $notification = [ 
                 'message' =>'Datos modificados, Correctamente',
                 'alert-type' => 'success'
@@ -287,7 +299,7 @@ class UsuarioController extends Controller
                 $viewdata['id_sucursal']= $r->id_sucursal;
                 //dd($viewdata);
                 //$viewdata['id_empresa']= $r->nombre_empresa;
-              
+
             }
         }
    

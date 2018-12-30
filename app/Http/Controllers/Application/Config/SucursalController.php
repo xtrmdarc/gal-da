@@ -20,13 +20,19 @@ class SucursalController extends Controller
         $numero_sucursales = DB::table('empresa')
         ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
         ->where('empresa.id',session('id_empresa'))->count();
+        $sesion_plan = session('plan_actual');
 
         $data = [
             'breadcrumb' => 'config.Sucursal',
             'titulo_vista' => 'Sucursales',
             'numero_sucursales' => $numero_sucursales
         ];
-        return view('contents.application.config.sist.sucursal')->with($data);
+        if(is_null($sesion_plan)){
+            return view('contents.application.config.cargar_sesiones');
+        }
+        else {
+            return view('contents.application.config.sist.sucursal')->with($data);
+        }
     }
     public function ListaSucursales()
     {

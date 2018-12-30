@@ -24,14 +24,19 @@ class MesaController extends Controller
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
         $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesas;
         $viewdata['user_sucursal'] = $user_sucursal;
-        
+        $sesion_plan = session('plan_actual');
+
         $data = [
             'breadcrumb'=> 'config.MesasSalones',
             'titulo_vista' => 'Salones y Mesas',
             'mesas_actual'=> $cant_mesas_actual
         ];
-        
-        return view('contents.application.config.rest.mesa',$viewdata)->with($data);
+        if(is_null($sesion_plan)){
+            return view('contents.application.config.cargar_sesiones');
+        }
+        else {
+            return view('contents.application.config.rest.mesa',$viewdata)->with($data);
+        }
     }
     public function ListaSalones()
     {

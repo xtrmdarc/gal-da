@@ -278,9 +278,10 @@ class AuthController extends Controller
         $sql = DB::update("UPDATE sucursal SET
 						nombre_sucursal  = ?
                     WHERE id = ?", [$nombre_negocio,$sucursalId]);
-        
-        
-        AppController::LoginAuthenticated($request,\Auth::user());
+
+        return redirect()->route('tableroF');
+        //AppController::LoginAuthenticated($request,\Auth::user());
+
         /*if($planId == '1'){
             return redirect()->route('tableroF');
         }else {

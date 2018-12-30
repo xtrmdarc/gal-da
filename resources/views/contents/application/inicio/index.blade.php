@@ -477,6 +477,11 @@
                         <td><button class="digito">2</button>  </td>
                         <td><button class="digito">3</button>  </td>
                     </tr>
+                    <tr>
+                        <td><button class="digito" disabled></button>  </td>
+                        <td><button class="digito">0</button>  </td>
+                        <td><button class="digito" disabled></button>  </td>
+                    </tr>
 
                 </table>
 

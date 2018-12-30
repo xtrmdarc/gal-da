@@ -141,6 +141,20 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-12">
+        <div id="lizq-s" style="display: block;" class="wrapper wrapper-content">
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-sm-10 block-center">
+                        <br>
+                        <h1 class="ich m-t-none brand-color">M&oacute;dulo de Productos e Insumos</h1>
+                        <br>
+                        <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar los Productos e Insumos. Tener tus productos organizados ayudan a <strong class="brand-color"> que tus mozos puedan ofrecer un mejor servicios a tus comensales.</strong> Los Insumos te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tu stock junto con tu almacen </strong> del local.<strong class="accent-color"> Selecciona un Producto o Insumos para adminsitrar.</strong> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal inmodal fade" id="mdl-producto" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">

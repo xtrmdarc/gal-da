@@ -66,7 +66,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label">TELÉFONO:</label>
-                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Teléfono" autocomplete="off" required>
+                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Teléfono" maxlength="13" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>

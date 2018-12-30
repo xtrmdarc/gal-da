@@ -34,20 +34,22 @@
                                             </div>
                                         </div>
                                     </div>
-                            
+
                                     <div class="col-lg-6  sides_padding15">
                                         <div class="form-group">
                                             <label class="control-label">Cargo</label>
                                             <div class="input-group">
-                                                {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                 <select name="id_rol" id="id_rol" class="show-tick form-control" data-live-search="false"  autocomplete="off" required>
-                                            
+
                                                     <optgroup label="Seleccionar">
                                                         @foreach($user_rol as $r)
                                                             @if($r->id_rol == $id_rol)
                                                             <option selected="selected" value="{{$r->id_rol}}">{{$r->descripcion}}</option>
-                                                            @else 
-                                                            <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                                {{--/*
+                                                                    En Free no puedan cambiarle al editar de Rol a sus Trabajadores
+                                                                    @else
+                                                                    <option value="{{$r->id_rol}}">{{$r->descripcion}}</option>
+                                                                */--}}
                                                             @endif
                                                         @endforeach
                                                     </optgroup>
@@ -55,8 +57,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                
+
+
                                     <div class="col-lg-6 sides_padding15 " id="dni_div">
                                         <div class="form-group">
                                             <label class="control-label">Dni</label>
@@ -113,7 +115,8 @@
                                             <label class="control-label">Contrase&ntilde;a</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-                                                <input type="password" name="contrasena" value="{{is_null($id_usu) ? '' : $contrasena}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
+                                                <input type="password" name="contrasena" id="contrasena_show" value="{{is_null($id_usu) ? '' : $contrasena}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
+                                                <span toggle="#contrasena_show" class="fa input-group-addon  fa-eye field-icon toggle-password"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +126,7 @@
                                             <label class="control-label">PIN</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>    
-                                                <input type="password" name="pin" id="pin_field_e" value="{{$pin}}" class="form-control validanumericos" placeholder="Ingrese 4 digitos" maxlength="4" autocomplete="off" required="required" />
+                                                <input type="password" name="pin" id="pin_field_e" value="{{$pin}}" class="form-control validanumericos" placeholder="Ingrese 4 digitos" minlength="4" maxlength="4" autocomplete="off" required="required" />
                                                 <span toggle="#pin_field_e" class="fa input-group-addon  fa-eye field-icon toggle-password"></span>
                                             </div>
                                         </div>
