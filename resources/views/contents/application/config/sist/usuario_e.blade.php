@@ -101,11 +101,17 @@
                                             <div class="row ">
                                                 <div class="input-group  col-sm-6">
                                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    {{--/*
+                                                        Aun no se pueda editar el usuario.
                                                     <input type="text" name="usuario" value="{{is_null($id_usu) ? '' : $usuario}}" class="form-control" placeholder="Ingrese usuario" autocomplete="off" required="required" />
+                                                    */--}}
+                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{$usuario}}</span>
                                                 </div>
+                                                {{--/*
                                                 <div class="input-group col-sm-6">
-                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{'@'.$nombre_empresa}}</span>
+                                                    <span style="font-size:16px; margin-top:auto;margin-bottom:auto;">{{$usuario.'@'.$nombre_empresa}}</span>
                                                 </div>
+                                                */--}}
                                             </div>
                                         </div>
                                     </div>
