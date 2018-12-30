@@ -76,7 +76,7 @@
                                 <p class="p-help-center-justify">
                                    Es momento de Crear Productos!.
                                     <br>Para tus Productos primero creamos todas las Categorias que deseemoss. Como ('Bebidas','Grasas' y todo lo que tu negocio pueda brindar).<br>
-                                    <br>Ahora añadale sus precios correspondientes o como en Gal-Da lo llamamos <b>"Presentaciones"</b>.
+                                    <br>Ahora a&ntilde;adale sus precios correspondientes o como en Gal-Da lo llamamos <b>"Presentaciones"</b>.
 
                                 </p>
                             </div>

@@ -171,13 +171,11 @@ class UsuarioController extends Controller
             $cod_area = 0;
         }
         $contrasena = '';
-        $usuario = $post['usuario'].'@'.$nombre_empresa;
         if($id_rol==5){
             $contrasena = $post['contrasena'];
             $contrasena_g = bcrypt($post['contrasena']);        
         }
-        
-        //dd(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',3)->exists());
+
         if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4)->exists()){
             //return 0;
             $notification = [
@@ -199,12 +197,11 @@ class UsuarioController extends Controller
 						ape_paterno  = ?,
                         ape_materno = ?,
                         nombres = ?,
-                        email = ?,  
-                        usuario = ?,
+                        email = ?,
                         password = ?,
                         imagen = ?,
                         pin = ?
-                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,bcrypt($contrasena),$imagen,$pin,$id_usu]);
+                    WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,bcrypt($contrasena),$imagen,$pin,$id_usu]);
 
             $notification = [ 
                 'message' =>'Datos modificados, Correctamente',
@@ -214,6 +211,7 @@ class UsuarioController extends Controller
             return redirect()->route('config.Usuarios')->with($notification);
         } else {
             //dd($pin);
+            $usuario = $post['usuario'];
             $user = TmUsuario::create([
                 'id_areap' => $cod_area,
                 'id_rol' => $id_rol,
