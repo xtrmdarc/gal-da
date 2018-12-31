@@ -73,11 +73,12 @@
                     {{--/*
                     <li class="text-center " style="20px"><a class="btn  upgrade-btn" href="/upgrade"> <span class="hide-menu">Crecer</span></a></li>
                     */--}}
-                    <button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button>
-
-                    @else
-                        @if(Auth::user()->plan_id == '2')
-                            {{--/*PLAN BASIC*/--}}
+                    {{--/*
+                      <button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button>
+                    */--}}
+                      @else
+                          @if(Auth::user()->plan_id == '2')
+                              {{--/*PLAN BASIC*/--}}
                             <li class="nav-devider"></li>
                             <li class="nav-label"> <b>Plan Basic</b> </li>
                             @if(Auth::user()->id_rol == '1')

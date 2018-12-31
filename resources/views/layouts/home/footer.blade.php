@@ -42,7 +42,7 @@
             
             <div id="ft_line_separator" class="col-sm-12 text-center line-separator">
             </div>
-            <div class="col-xs-12">
+            <div class="col-sm-12">
                 <div class="row">
                     <div class="col-md-6 ">
                         <h2>Contacto</h2>

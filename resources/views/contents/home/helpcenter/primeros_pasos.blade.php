@@ -60,6 +60,14 @@
                                 <p class="p-help-center-justify" >
                                     Crea todos los usuarios en base al Plan que tienes.
                                 </p>
+                                <br><br>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img style="margin-left: 30%;" src="https://media.giphy.com/media/lobMrQ53ORnUcxmVHb/giphy.gif" alt="Crear Usuarios" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,6 +87,25 @@
                                     <br>Ahora a&ntilde;adale sus precios correspondientes o como en Gal-Da lo llamamos <b>"Presentaciones"</b>.
 
                                 </p>
+                                <br><br>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/mXiwzMOMQnUK3tjCBA/giphy.gif" alt="Crear CategorriaP" />
+                                            <p style="text-align: center;"><b>Categoria</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/ZNYsDNU7jvp0c02eBL/giphy.gif" alt="Crear Productos" />
+                                            <p style="text-align: center;"><b>Producto</b></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img style="margin-left: 30%;" src="https://media.giphy.com/media/1gWLQRUdWVmF1bTsy6/giphy.gif" alt="Crear Presentacion" />
+                                            <p style="text-align: center;"><b>Presentacion o Precio</b></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,6 +124,19 @@
                                     <br>Para tus Insumos crea todas las Categorias que desees. Como ('Carnes','Verduras' y todo lo que tu negocio pueda almacenar).<br>
                                     <br>Puedes controlarlo como parte de tu Stock y administrar tu Kardex mas adelante.
                                 </p>
+                                <br><br>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/NsDgZqq07V5CAGdxZr/giphy.gif" alt="Crear CategorriaI" />
+                                            <p style="text-align: center;"><b>Categoria</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/1yTeImw6M3kqCKKPTG/giphy.gif" alt="Crear Insumos" />
+                                            <p style="text-align: center;"><b>Insumos</b></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -112,9 +152,16 @@
                             <div class="panel-body">
                                 <p class="p-help-center-justify">
                                     Necesitamos aperturar una Caja para poder realizar pedidos!.
-                                    <br>En Gal-Da, te brindamos una Caja gratis. En la cual lo usaras para Aperturar y/o Cerrar una Caja.
+                                    <br>En Gal-Da, te brindamos una Caja gratis. En la cual lo usaras para Aperturar y/o Cerrar una Caja. (Necesitas previamente tener un usuario con el Rol de <b>Cajero</b>).
                                     <br><br>
-
+                                    <br><br>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img style="margin-left: 30%;" src="https://media.giphy.com/media/5eFQBb16f345deHYkL/giphy.gif" alt="Aperturar Caja" />
+                                        </div>
+                                    </div>
+                                </div>
                                 </p>
                             </div>
                         </div>
@@ -134,6 +181,19 @@
                                     <br>
                                     <br>Podemos ver como se reflejan en la vista de Pedidos.
                                 </p>
+                                <br><br>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/28kGo7l6lhYrMUTpSu/giphy.gif" alt="Crear Sala" />
+                                            <p style="text-align: center;"><b>Sala</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img style="width: 450px;" src="https://media.giphy.com/media/4ZiNAOa34DE3QZeu0M/giphy.gif" alt="Crear Mesa" />
+                                            <p style="text-align: center;"><b>Mesa</b></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
