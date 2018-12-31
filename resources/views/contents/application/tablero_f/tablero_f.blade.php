@@ -173,7 +173,7 @@
 
                         today = dd + '/' + mm + '/' + yyyy;
 
-                        chart.title('Ventas realizadas al dia de hoy ' + today);
+                        chart.title('Ventas realizadas el dia de hoy ' + today);
 
                         // set yAxis title
                         chart.yAxis().title('Numero de Ventas');

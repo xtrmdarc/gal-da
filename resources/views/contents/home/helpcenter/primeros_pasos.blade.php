@@ -38,7 +38,7 @@
                                 <br><br>
 
                                 <div>
-                                    <img style="margin-left: 30%;" src="https://media.giphy.com/media/w85OXBYiljzy1PWFDk/giphy.gif" alt="Datos Empresa" />
+                                    <img style="margin-left: 30%;" src="https://media.giphy.com/media/1ynhR17FObscvjFAPU/giphy.gif" alt="Datos Empresa" />
                                 </div>
                             </div>
                         </div>
@@ -208,9 +208,16 @@
                         <div id="collapse7" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p class="p-help-center-justify">
-                                    Realiaremos un Pedido..
+                                    Realiazamos un Pedido.
                                     <br><br>
-
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img style="margin-left: 30%;width: 450px;" src="https://media.giphy.com/media/31WWLzrnYQjRTD9lHL/giphy.gif" alt="Realizar Pedido" />
+                                            <p style="text-align: center;"><b>Pedido</b></p>
+                                        </div>
+                                    </div>
+                                </div>
                                 </p>
                             </div>
                         </div>
