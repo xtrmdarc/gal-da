@@ -211,7 +211,7 @@ class UsuarioController extends Controller
             return redirect()->route('config.Usuarios')->with($notification);
         } else {
             //dd($pin);
-            $usuario = $post['usuario'];
+            $usuario = $post['usuario'].'@'.$nombre_empresa;
             $user = TmUsuario::create([
                 'id_areap' => $cod_area,
                 'id_rol' => $id_rol,
