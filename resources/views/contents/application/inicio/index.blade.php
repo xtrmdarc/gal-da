@@ -290,9 +290,9 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 ">
                                 <div class="form-group">
-                                    <label class="control-label">Tel&eacute;fono</label>
+                                    <label class="control-label">Tel&eacute;fono/Celular</label>
                                     <div class="input-group">
-                                        <input type="text" name="telefCli" id="telefCli" class="form-control global_filter validanumericos" placeholder="Ingrese tel&eacute;fono" autocomplete="off" required="required"/>
+                                        <input type="text" name="telefCli" id="telefCli" class="form-control global_filter validanumericos" placeholder="Ingrese tel&eacute;fono" autocomplete="off" maxlength="13" required="required"/>
                                         <button id="btn_buscarCliente" class="btn btn btn-primary" type="button"> <i class="fa fa-search"></i></button>
                                     </div>  
                                 </div>

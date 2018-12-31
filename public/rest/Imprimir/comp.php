@@ -1,6 +1,8 @@
 <?php
-require_once __DIR__.'/public/rest/imprimir/num_letras.php';
-require_once __DIR__.'/public/rest/assets/pdf/cellfit.php';
+//require_once __DIR__.'/public/rest/imprimir/num_letras.php';
+require_once ('../public/rest/imprimir/num_letras.php');
+//require_once __DIR__.'/public/rest/assets/pdf/cellfit.php';
+require_once ('../public/rest/assets/pdf/cellfit.php');
 $de = session('datosempresa');
 
 $texto = 'Guarda tu voucher. Es el sustento para validar tu compra. No se aceptan devoluciones de dinero.';
