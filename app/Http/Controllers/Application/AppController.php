@@ -1,0 +1,194 @@
+<?php
+
+namespace App\Http\Controllers\Application;
+
+use App\Models\TmDatosEmpresa;
+use App\Models\TmRol;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Application\AppController;
+use App\Models\Sucursal;
+use App\Models\Empresa;
+use App\Models\Planes;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FeedbackSent;
+
+class AppController extends Controller
+{
+    //
+
+    public static $home= "/home";
+    public static $galdaMail = "dreyesc@gal-da.com";
+
+    public static function LoginAuthenticated(Request $request, $user){
+
+        
+
+        switch($user->id_rol)
+        {
+            //Administracion
+            case 1 : {
+                    
+                if($user->plan_id != 1){
+                    self::$home = "/tablero";
+                    session(['home'=>'/tablero']);
+                    //dd($home);
+                } else {
+                    if($user->plan_id == 1) {
+                            self::$home = "/tableroF";
+                            session(['home'=>'/tableroF']);
+                        //dd($home);
+                    }
+                }
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                break;
+            }
+            //Cajero
+            case 2 : {
+                
+                self::$home = "/inicio";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                break;
+            }
+            //Produccion
+            case 3 :{
+                
+                self::$home = "/cocina";
+                //$sucursales =  AppController::GetSucursales();
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                session(['id_areap'=>\Auth::user()->id_areap]);
+                
+                break;
+            }
+            //Mozo
+            case 4 :{
+                
+                self::$home = "/inicio";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                break;
+            }
+            //Multimozo
+            case 5 :{
+                
+                self::$home = "/inicio";
+                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                break;
+            }
+
+        }
+       self::IniciarApp();
+        return redirect(self::$home);
+        
+    }
+
+    private static function IniciarApp(){
+        
+        session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
+        session(['id_usu'=>\Auth::user()->id_usu]);
+
+        $moneda = DB::select('SELECT moneda FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($moneda as $r) {
+            $mon = $r->moneda;
+        }
+
+        $igv = DB::select('SELECT igv FROM db_rest.empresa where id = ?'
+            ,array(\Auth::user()->id_empresa));
+        foreach($igv as $r) {
+            $igv_empresa = $r->igv;
+        }
+
+        session(['id_empresa'=>\Auth::user()->id_empresa]);
+        session(['moneda_session'=>$mon]);
+        session(['moneda'=>$mon]);
+        session(['igv_session'=>$igv_empresa]);
+
+        if(\Auth::user()->id_rol == 1)  {
+            
+            $queryCajasAdmin = DB::table('tm_aper_cierre')
+                ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
+                ->where('tm_caja.id_sucursal',session('id_sucursal'))
+                ->WhereNull('tm_aper_cierre.fecha_cierre');
+            
+            if($queryCajasAdmin->exists())
+            {
+                $apertura = 1;
+                session(['apertura'=>1]);
+            }
+        }
+        else{
+            $queryCajasCajero = DB::table('tm_aper_cierre')
+                ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
+                ->Join('tm_usuario','tm_usuario.id_usu','=','tm_aper_cierre.id_usu')
+                ->where('tm_usuario.id_usu',\Auth::user()->id_usu)
+                ->WhereNull('tm_aper_cierre.fecha_cierre');
+            if($queryCajasCajero->exists())
+            {
+                $apertura = 1;
+                session(['apertura'=>1]);
+            }
+        }
+
+
+        //Almacenar el plan en la session
+        $plan_actual = Planes::find(\Auth::user()->plan_id)->first();
+        session(['plan_actual'=>$plan_actual]);
+    }
+
+    public static function ValidarPermisos($roles){
+        
+        $rol = \Auth::user()->id_rol;
+
+        if (is_array($roles)) {
+
+            for($i = 0; i< $roles.count() ; $i++){
+                if($roles[i] == $rol ) return true;
+            }
+            return false;
+        }
+
+        if( $rol == $roles )
+            return true;
+        return false;
+
+    }
+
+    public static function RedirectSegunRol($roles){
+        
+        if( self::ValidarPermisos($roles) == true){
+            
+            return redirect(self::$home);
+        }
+    }
+    public static function GetSucursales(){
+        
+        $id_sucursal = \Auth::user()->id_sucursal;
+        $rol = \Auth::user()->id_rol;
+        $id_empresa = \Auth::user()->id_empresa;
+        if($rol != 1)
+        {
+            return Sucursal::where('id',$id_sucursal)->get();
+        }
+        else
+        {
+            return Sucursal::where('id_empresa',$id_empresa)->get();
+        }
+        
+
+    }
+    public function CambioSucursal($id){
+        session(['id_sucursal'=> $id]);
+    }
+
+    public static function DatosEmpresa($id_empresa){
+        return (DB::table('empresa')->where('id',$id_empresa)->get())[0];
+    }
+
+    public function EnviarFeedback(Request $request){
+
+        Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
+    }
+
+    
+}

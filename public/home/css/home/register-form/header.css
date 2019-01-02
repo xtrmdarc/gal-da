@@ -1,0 +1,24 @@
+#header-register {
+    /*background-color: #fafafa;*/
+    padding: 0 1rem;
+    margin: 1rem;
+    display: flex;
+}
+#header-register li {
+    list-style-type: none;
+}
+.register-phases {
+    display: inline-flex;
+}
+.register-phases li {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.register-phases a {
+    color: #337ab7;
+}
+.logo-p{
+    width: 30px;
+    height: 30px;
+}

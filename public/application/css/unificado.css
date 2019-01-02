@@ -1,0 +1,49 @@
+/*Modales Pedidos*/
+.unif_modal .modal-header {
+    display: inherit;
+}
+
+.unif_modal .modal-header .close {
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}
+/*Modales Caja Aper*/
+#detalle .modal-header {
+    display: block!important;
+}
+#detalle .modal-header .close {
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}
+
+.ibox .my-scroll{
+    overflow: auto;
+}
+
+.ibox-content .my-scroll{
+    overflow: auto;
+}
+#table-caja {
+    width: 100%!important;
+}
+#table-alm {
+    width: 100%!important;
+}
+#table-area {
+    width: 100%!important;
+}
+/*Modales de Multimozo*/
+
+.unif_header .modal-header{
+    display: initial!important;
+}
+.unif_header .modal-header .close{
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}
