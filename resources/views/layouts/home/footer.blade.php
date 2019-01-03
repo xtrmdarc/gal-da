@@ -55,7 +55,8 @@
                             <a href="{{route('helpCenter')}}" style="color: #595959; font-weight: 900">Ir al Centro de Ayuda <br></a>
                         </address>
                     </div>
-                    <div class="col-md-6">
+                    {{--/*
+                     <div class="col-md-6">
                         <h2>Dirección</h2>
                         <address>
                             Prolongación la castellana 1314, <br>
@@ -64,13 +65,21 @@
                             Perú <br>
                         </address>
                     </div>
+                    */--}}
+                    <div class="col-md-6">
+                        <h2>Dirección</h2>
+                        <address>
+                            Lima, Perú <br>
+                            Santiago de Surco <br>
+                        </address>
+                    </div>
                 </div>
             </div>
             
-               
+
             <div class="col-sm-12">
                 <div class="copyright-text text-center">
-                    <p>&copy; Gal-Da 2018. Todos los derechos reservados.</p>
+                    <p>&copy; Gal-Da 2019. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>
