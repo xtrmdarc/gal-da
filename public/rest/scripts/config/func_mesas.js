@@ -243,7 +243,7 @@ $(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
             success: function (data) {
-            console.log(data);
+            //console.log(data);
                 if(data.cant_mesas >= limite_mesas)
                 {
                     $('#btn-nuevo').css('display','none');
@@ -310,7 +310,7 @@ $(function() {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
               success: function (datos) {
-                  console.log(datos);
+                  //console.log(datos);
                   if(datos == 1)
                   {
                     toastr.success('Datos modificados, correctamente.');

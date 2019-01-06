@@ -31,7 +31,7 @@ $(function() {
         }
     }).on('success.form.fv', function(e) {
         // Prevent form submission
-        console.log('entro a validarse');
+        //console.log('entro a validarse');
         e.preventDefault();
         var $form = $(e.target);
         
@@ -74,7 +74,7 @@ $(function() {
         }
     }).on('success.form.fv', function(e) {
         // Prevent form submission
-        console.log('entro a validarse');
+        //console.log('entro a validarse');
         e.preventDefault();
         var $form = $(e.target);
         
@@ -111,7 +111,7 @@ $(function() {
     })
     .on('success.form.fv', function(e) {
         // Prevent form submission
-        console.log('entro a validarse');
+        //console.log('entro a validarse');
         e.preventDefault();
         var $form = $(e.target);
         
@@ -150,7 +150,7 @@ $(function() {
 
     .on('success.form.fv', function(e) {
         // Prevent form submission
-        console.log('entro a validarse');
+        //console.log('entro a validarse');
         e.preventDefault();
         var $form = $(e.target);
         
@@ -169,7 +169,7 @@ var validarLimiteVentasPlan = function(){
 
 /* Validar apertura de caja */
 var validarApertura = function(){
-    console.log('cod ape' + $('#cod_ape').val());
+    //console.log('cod ape' + $('#cod_ape').val());
     if($('#cod_ape').val() == 0){
         $('#mdl-validar-apertura').modal('show');
     }
@@ -408,14 +408,14 @@ $('.digito').click(function(event){
                         },
                 success: function (response) {
                     //console.log(response.status + " " + response.nro_pedido);
-                    console.log("response  "+ response);
+                    //console.log("response  "+ response);
                     if( response.status == 'ok')
                     {
                         //Ajax para registrar mesa después aqui
                         //Primera vez, registrar la mesa para que se cree el pedido
                         //Una vez aperturada la mesa , se podrá contar con el nro_pedido ( No se puede testear aun porque no hay pedidos en las mesas)
 
-                        console.log("response  "+ response);
+                        //console.log("response  "+ response);
                         window.location.replace('/inicio/PedidoMesa/'+response.nro_pedido);
 
                     }
@@ -426,7 +426,7 @@ $('.digito').click(function(event){
                 error: function(xhr, status, error) {
                     //var err = JSON.parse(xhr.responseText);
                     
-                    console.log('Un iorch concha :' + error );
+                    //console.log('Un iorch concha :' + error );
                 }
             });
         
@@ -498,7 +498,7 @@ var buscarCliente = function(){
             telefono: $("input[name=telefCli]").val()
         },
         success: function(response){
-            console.log(response);
+            //console.log(response);
             if(response.nombres != null)
             {
                 $("input[name=nombCli]").val(response.nombres);
@@ -699,7 +699,7 @@ var setupSocketio = function(){
         $('#ind_mesa_pedidos_listos_'+data.id_pedido).html(n_pedidos_mesa_aux+1);
         $('#ind_mostrador_pedidos_listos_'+data.id_pedido).html(n_pedidos_mostrador_aux+1);
         $('#ind_delivery_pedidos_listos_'+data.id_pedido).html(n_pedidos_delivery_aux+1);
-        console.log(n_pedidos_mesa_aux,n_pedidos_mostrador_aux,n_pedidos_delivery_aux);
+        //console.log(n_pedidos_mesa_aux,n_pedidos_mostrador_aux,n_pedidos_delivery_aux);
     });
 }
 
@@ -733,7 +733,7 @@ $('#btn_escoger_apertura').on('click',function(){
         error: function(xhr, status, error) {
             //var err = JSON.parse(xhr.responseText);
             
-            console.log('Un iorch concha :' + error );
+            //console.log('Un iorch concha :' + error );
         }
     });
     

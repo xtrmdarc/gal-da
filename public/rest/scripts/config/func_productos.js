@@ -13,7 +13,7 @@ var areaP_x_sucursales = function (){
     $('select[name="id_sucursal_d"]').on('change', function() {
         var sucursalId = $(this).val();
 
-        console.log(sucursalId);
+        //console.log(sucursalId);
 
         $.ajax({
             type: "POST",
@@ -24,7 +24,7 @@ var areaP_x_sucursales = function (){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 //remove disabled from province and change the options
                 $('select[name="cod_area"]').prop("disabled", false);
                 $('select[name="cod_area"]').html(data.response);
@@ -182,7 +182,7 @@ var listarPresentaciones = function(cod_prod,nomb){
 
 
 var ActualizarCategoriaAreap = function(cod_area,cod_catg){
-    console.log(cod_area,cod_catg,'entro');
+    //console.log(cod_area,cod_catg,'entro');
     var id_sucursal = $('#id_sucursal_d').val();
     $.ajax({
         type: "POST",
@@ -196,7 +196,7 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         ,success:function(response){
-            console.log(response);
+            //console.log(response);
             $('#cod_area').empty();
             for(var i = 0 ; i< response.length; i++){
                 $('#cod_area').append(
@@ -219,7 +219,7 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         ,success:function(response){
-            console.log(response);
+            //console.log(response);
             $('#cod_catg').empty();
             for(var i = 0 ; i< response.length; i++){
                 $('#cod_catg').append(
@@ -254,9 +254,9 @@ var editarProducto = function(cod){
         },
         dataType: "json",
         success: function(item){
-            console.log(item);
+            //console.log(item);
             $.each(item, function(i, campo) {
-                console.log(campo);
+                //console.log(campo);
                 $('#nombre_prod').val(campo.nombre);
                 if(campo.id_tipo == 1){
                     $('#transf').iCheck('check');

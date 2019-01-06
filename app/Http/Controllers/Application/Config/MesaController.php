@@ -11,7 +11,6 @@ use App\Models\Sucursal;
 
 class MesaController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -42,18 +41,6 @@ class MesaController extends Controller
     {
         $id_usu = \Auth::user()->id_usu;
         $id_sucursal = session('id_sucursal');
-
-        /*$stm = DB::select("SELECT * FROM tm_salon WHERE id_usu =".$id_usu);
-
-        foreach($stm as $k => $v){
-            $stm[$k]->Mesas = DB::select("SELECT COUNT(id_mesa) AS total FROM tm_mesa WHERE id_catg = ".$v->id_catg)[0];
-        }*/
-
-        /*$stm = DB::table('tm_salon')
-            ->join('sucursal', 'tm_salon.id_sucursal', '=', 'sucursal.id')
-            ->where('sucursal.id_usu',$id_usu)
-            ->select('tm_salon.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
-            ->get();*/
 
         $stm = DB::table('tm_salon')
             ->join('sucursal', 'tm_salon.id_sucursal', '=', 'sucursal.id')
@@ -93,8 +80,6 @@ class MesaController extends Controller
             $idCatg = $post['cod_sala'];
             $idSucursal = $post['sucursal_sala'];
 
-            //$consulta = DB::Select("call usp_configSalones( :flag, :desc, :est, :idCatg);"
-            //    ,array($flag,$desc,$est,$idCatg));
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est, :idCatg,:idUsu, :_idSucursal);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idCatg' =>$idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
             $array = [];
@@ -109,8 +94,6 @@ class MesaController extends Controller
             $est = $post['est_salon'];
             $idSucursal = $post['sucursal_sala'];
 
-            //$consulta = Db::Select("call usp_configSalones( :flag, :desc, :est, @a);",
-//                array($flag,$desc,$est));
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est,@a, :idUsu, :_idSucursal);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
             foreach($consulta as $k)
@@ -140,8 +123,6 @@ class MesaController extends Controller
             $nroMesa = $post['nro_mesa'];
             $idMesa = $post['cod_mesa'];
 
-//            $consulta = DB::Select("call usp_configMesas( :flag, :idCatg, :nroMesa, :idMesa);",
-  //              array($flag,$idCatg,$nroMesa,$idMesa));
             $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, :idMesa, :_idSucursal);",
                 array(':flag' => $flag,':idCatg' => $idCatg,':nroMesa' => $nroMesa,':idMesa' => $idMesa,':_idSucursal' => $id_sucursal));
             foreach($consulta as $k)
@@ -156,8 +137,6 @@ class MesaController extends Controller
             $idCatg = $post['id_catg'];
             $nroMesa = $post['nro_mesa'];
 
-            //$consulta = DB::Select("call usp_configMesas( :flag, :idCatg, :nroMesa, @a);",
-              //  array($flag,$idCatg,$nroMesa));
             $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, @a, :_idSucursal);",
                 array(':flag' => $flag,':idCatg' => $id_sucursal_m,':nroMesa' => $nroMesa,':_idSucursal' => $id_sucursal));
             
@@ -211,7 +190,7 @@ class MesaController extends Controller
         foreach($id_sucursal_salon as $r){
             $id_catg_sucursal = $r->id_sucursal;
         }
-        //dd($idMesa);
+
         $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal);",
             array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal));
 
@@ -239,14 +218,10 @@ class MesaController extends Controller
             $sql =  DB::update("UPDATE tm_mesa SET estado = ? WHERE id_mesa = ? and id_sucursal = ?",
                 [$estado,$idMesa,$idSucursal]);
             return 1;
-            /*$estado_mesa = DB::select("select estado WHERE id_catg = ? and id_sucursal = ?",
-                [$estado,$idMesa,$idSucursal]);
-            dd($sql);*/
-
 
         } catch (Exception $e)
         {
-            dd("Error");
+            dd("Error");//Revisar
         }
     }
 }

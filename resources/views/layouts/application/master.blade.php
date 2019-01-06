@@ -185,10 +185,12 @@
 <!--Hopscotch-->
 <script src="{{ URL::to('application/js/hopscotch/hopscotch.js') }}"></script>
 <script src="{{ URL::to('application/js/hopscotch/demo.js') }}"></script>
+{{--
 <script>
     console.log(''+{!! json_encode(Auth::user()->id_rol)  !!}, ' areap : '+{!! json_encode(Auth::user()->id_rol)!!} );
     console.log({!!Auth::user()!!});
 </script>
+--}}
 {{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>--}}
 <!-- Notification toastr setup -->        
 <script type="text/javascript">

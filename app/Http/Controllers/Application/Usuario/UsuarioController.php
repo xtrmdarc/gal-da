@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -129,10 +128,7 @@ class UsuarioController extends Controller
 
         $idPassword = \Auth::user()->password;
         if (!password_verify($request->input('data.user.current_password'), $idPassword)) {
-            dd('Invalid password.');
-            /*$validator->after(function ($validator) {
-                $validator->errors()->add('data.site_user.current_password', 'The current password does not match.');
-            });*/
+            dd('Invalid password.');//Verificar
         } else {
             //dd('Password is valid!');
             foreach ($request->toArray()['data']['user'] as $field => $value) {
@@ -152,10 +148,9 @@ class UsuarioController extends Controller
                         break;
                 }
             }
-            //dd(\Auth::user()->password);
+
             \Auth::user()->save();
             return redirect()->route('ajustes.i_perfil');
         }
     }
-
 }

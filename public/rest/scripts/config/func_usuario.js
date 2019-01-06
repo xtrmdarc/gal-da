@@ -61,7 +61,7 @@ var mensaje = function(){
 }
 
 $('#frm-eliminar-usu').on('submit',function(e){
-    console.log('entro aqui');
+    //console.log('entro aqui');
     e.preventDefault();
     var $form = $(e.target);
 
@@ -75,7 +75,7 @@ $('#frm-eliminar-usu').on('submit',function(e){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
         success: function(data) {
-            console.log(data);
+            //console.log(data);
             if(data.usuarios_cant >= usuario_max)
             {   
                 $('#btn-usuario-nuevo').css('display','none');

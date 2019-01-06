@@ -7,7 +7,7 @@ var privateLib = (function(){
 $(function() {
 	id_sucursal = $('#id_sucursal').val();
 	id_areap = $('#id_areap').val();
-	console.log(ordenes);
+	//console.log(ordenes);
 	pedidosMesa();
 	pedidosMostrador();
 	pedidosDelivery();
@@ -15,7 +15,7 @@ $(function() {
 	setInterval(pedidosMostrador,10000); 
 	setupSocketio();
 	vl_table = $('#vl_tabla_pedidos').DataTable();
-	console.log('suc'+id_sucursal+ ' areap '+ id_areap);
+	//console.log('suc'+id_sucursal+ ' areap '+ id_areap);
 	$("#li_pedido").popover({
 		placement:'top',
 		html: true,
@@ -377,7 +377,7 @@ var preparacion = function(cod_ped,cod_det_ped){
 }
 
 var atendido = function(cod_ped,cod_det_ped){
-	console.log("#pedido_"+ cod_ped);
+	//console.log("#pedido_"+ cod_ped);
 	$("#pedido_"+ cod_det_ped).popover({
 		placement:'top',
 		html: true,
@@ -407,7 +407,7 @@ var atendidoMethodCall = function(cod_ped,cod_det_ped) {
 			/*pedidosMesa();
 		  pedidosMostrador();
 		  pedidosDelivery();*/
-		  console.log(datos)
+		  //console.log(datos)
 		  $('#pedido_'+cod_det_ped).addClass('pedido-atendido');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -419,10 +419,10 @@ var atendidoMethodCall = function(cod_ped,cod_det_ped) {
 var setupSocketio = function(){
 	
 	var socket = io.connect('http://ec2-18-207-223-230.compute-1.amazonaws.com:3000');
-	console.log("pedido-registrado"+id_areap+id_sucursal);
+	//console.log("pedido-registrado"+id_areap+id_sucursal);
     socket.on("pedido-registrado"+id_sucursal+id_areap+":App\\Events\\PedidoRegistrado", function(data){
-		console.log(ordenes);
-		console.log(data.orden);
+		//console.log(ordenes);
+		//console.log(data.orden);
 		for(var i = 0; i<ordenes.length; i++)
 		{
 			if(data.orden.pedido.id_pedido == ordenes[i].pedido.id_pedido){
@@ -432,7 +432,7 @@ var setupSocketio = function(){
 				
 				for(var j = 0; j< N; j++)
 				{
-					console.log('id_det_ped '+ pedidos[j].id_det_ped);
+					//console.log('id_det_ped '+ pedidos[j].id_det_ped);
 					var pedidosHtml = NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a',pedidos[j].nombre_usuario,pedidos[j].tipo_usuario);
 					$('#'+ordenes[i].IdListaPedidos).append(pedidosHtml[0]);
 					$('#vl_tabla_body_pedidos').append(pedidosHtml[1]);
@@ -444,16 +444,16 @@ var setupSocketio = function(){
 			}
 		}
 		
-		console.log('es nuevo');
+		//console.log('es nuevo');
 		NewOrder(data.orden);
 		
 		
 
-		console.log(data.orden);
+		//console.log(data.orden);
 	});
 	socket.on("pedido-cancelado"+id_sucursal+id_areap+":App\\Events\\PedidoCancelado", function(data){
 		//implementar evento
-		console.log(data);
+		//console.log(data);
 		$("#pedido_"+data.id_det_ped).popover({
 			placement:'top',
 			html: true,
@@ -464,12 +464,12 @@ var setupSocketio = function(){
 		});	
 		$('#pedido_'+data.id_det_ped).popover('show');
 		$("#pedido_"+data.id_det_ped).addClass("pedido-cancelado");
-		console.log('pedido-cancelado');
+		//console.log('pedido-cancelado');
 	});
 
 	socket.on("pedido-actualizado:App\\Events\\PedidoActualizado", function(data){
 		//implementar evento
-		console.log(data);
+		//console.log(data);
 		
 		$("#pedido_"+data.id_det_ped).popover({
 			placement:'top',
@@ -483,19 +483,19 @@ var setupSocketio = function(){
 		
 		//document.getElementById('#pedido_'+data.id_det_ped).classList.add('pedido-cancelado');
 
-		console.log('pedido-cancelado');
+		//console.log('pedido-cancelado');
 	});
 	socket.on("venta-efectuada"+id_sucursal+":App\\Events\\VentaEfectuada", function(data){
 		//implementar Venta efectuada (Descartar la orden cuando se disapare este evento)
-		console.log(data);
-		console.log('venta efectuada');
+		//console.log(data);
+		//console.log('venta efectuada');
 		for(var i = 0; i< ordenes.length; i++)
 		{
 			if(data.orden.id_pedido == ordenes[i].pedido.id_pedido)
 			{
 				$('#div_orden_'+data.orden.id_pedido).remove();
 				ordenes.splice(i,1);
-				console.log('entro en operacion de eliminar');
+				//console.log('entro en operacion de eliminar');
 			}
 		}
 
@@ -623,7 +623,7 @@ $('#area_prod_cb').on('change',function(){
 	var id_areap = this.value;
 	
 	$('#id_areap').val(id_areap);
-	console.log(id_areap);
+	//console.log(id_areap);
 	//Actualizar todo ordenes
 	DeleteAllOrders();
 	$.ajax({
@@ -638,8 +638,8 @@ $('#area_prod_cb').on('change',function(){
 		  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
 		success: function (datos) {
-			console.log(datos.ordenes);
-			console.log(datos.lista);
+			//console.log(datos.ordenes);
+			//console.log(datos.lista);
 		  	ActualizarPedidos(datos.ordenes,datos.lista);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -676,7 +676,7 @@ var BuscarPedidosLista = function (){
 	datos['estados'] = estados;
 	datos['id_sucursal'] = id_sucursal;
 	datos['id_areap'] = id_areap;
-	console.log(datos);
+	//console.log(datos);
 	$.ajax({
 		type: 'POST',
 		url: '/cocina/FiltroListaPedido',
@@ -688,8 +688,8 @@ var BuscarPedidosLista = function (){
 		success: function (data) {
 		//alert("Email has been sent!");
 			actualizarVLPedidos(data);
-			console.log('funciona');
-			console.log(data);
+			//console.log('funciona');
+			//console.log(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log(errorThrown + ' ' + textStatus);
@@ -704,7 +704,7 @@ var actualizarVLPedidos = function(pedidos){
 	vl_table.destroy(false);
 	//$('#vl_tabla_pedidos').empty();
 	for(var k = 0; k< vl_pedidos.length; k++)
-	{	console.log('#vl_pedido_'+vl_pedidos[k].id_det_ped);
+	{	//console.log('#vl_pedido_'+vl_pedidos[k].id_det_ped);
 		$('#vl_pedido_'+vl_pedidos[k].id_det_ped).remove();
 		
 		//vl_pedidos.splice(k,1);
@@ -715,7 +715,7 @@ var actualizarVLPedidos = function(pedidos){
 	var vl_pedidosHtml = '';
 	
 	for(var j = 0 ; j< pedidos.length;j++)
-	{	console.log(pedidos[j]);	
+	{	//console.log(pedidos[j]);
 		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
 		vl_pedidos.push(pedidos[j]);
 	}

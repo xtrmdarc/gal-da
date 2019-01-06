@@ -34,7 +34,7 @@ $(function() {
                     _token : token
                 },
                 success: function (cod) {
-                    console.log(cod);
+                    //console.log(cod);
                     if(cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
                         return false;

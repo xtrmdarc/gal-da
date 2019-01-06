@@ -90,7 +90,7 @@ var DatosGrles = function(){
             $('.fec_dg').text(moment(data.fecha_p).format('DD-MM-Y'));
             $('.hor_dg').text(moment(data.fecha_p).format('h:mm A'));
             $('.btn-imp').html('<a onclick="impPreCuenta('+data.id_pedido+','+data.id_mesa+',\''+data.est_m+'\')" class="btn btn-accent btn-lg"><i class="fa fa-print"></i></a>');
-            console.log('funciona');
+            //console.log('funciona');
         }
     });
 };    
@@ -630,7 +630,7 @@ var desocuparMesa = function(cod_ped){
 
 /* Imprimir Pre Cuenta*/
 var impPreCuenta = function(ped,cod,est){
-    console.log(ped,cod,est);
+    //console.log(ped,cod,est);
     $.ajax({
         url: '/inicio/preCuenta',
         type: "post",
@@ -821,11 +821,14 @@ $("#frm-facturar").submit(function(){
             },
             data: venta,
             success: function (r) {
-                console.log(r);
-                if(r.tipo != undefined ){console.log('entro hasta aqui tipo '+ r.tipo);$('#mdl-validar-limite-venta').modal('show'); return;}
+                //console.log(r);
+                if(r.tipo != undefined ){
+                    //console.log('entro hasta aqui tipo '+ r.tipo);
+                    $('#mdl-validar-limite-venta').modal('show'); return;
+                }
                 else {
                     if(1 == $('#tipoEmision').val()){
-                        console.log('entro hasta aqui');
+                        //console.log('entro hasta aqui');
                         if(r) var ini = window.location.replace('/inicio');
                     } else if (2 == $('#tipoEmision').val()){
                         if(1 == $('#cod_tipe').val()){

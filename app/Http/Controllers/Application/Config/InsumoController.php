@@ -10,7 +10,6 @@ use App\Models\Sucursal;
 
 class InsumoController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -129,7 +128,6 @@ class InsumoController extends Controller
 
        if($post['cod_ins'] != ''){
             //Actualizar
-            //dd('ACTUALIZAR');
            $flag = 2;
            $idCatg = $post['cod_catg'];
            $idMed = $post['cod_med'];
@@ -138,12 +136,7 @@ class InsumoController extends Controller
            $stock = $post['stock_min'];
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
-           
 
-           /*$consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, :estado, :idIns,':idSucursal');"
-           ,array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' => $stock,':estado' => $estado,':idIns' => $idIns,':idSucursal' => $id_sucursal));
-
-           return $consulta;*/
            $sql = DB::update("UPDATE tm_insumo SET
 						id_catg   = ?,
 						id_med   = ?,
@@ -164,7 +157,6 @@ class InsumoController extends Controller
            $estado = $post['estado'];
            $idIns = $post['cod_ins'];
            $flag = 1;
-           //$id_sucursal = $post['id_sucursal'];
 
            $consulta = DB::Select("call usp_configInsumo_g( :flag, :idCatg, :idMed, :cod, :nombre, :stock, @a, @b,:idSucursal);",
                array(':flag' => $flag,':idCatg' => $idCatg,':idMed' => $idMed,':cod' => $cod,':nombre' => $nombre,':stock' =>$stock,':idSucursal' => $id_sucursal ));

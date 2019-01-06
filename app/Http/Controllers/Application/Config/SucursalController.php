@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class SucursalController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');

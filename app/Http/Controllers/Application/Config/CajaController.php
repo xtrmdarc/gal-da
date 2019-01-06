@@ -9,7 +9,6 @@ use App\Models\Sucursal;
 
 class CajaController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -79,7 +78,6 @@ class CajaController extends Controller
                     return $array['cod'] = 4;
                 }
             }
-            //$consulta_update = DB::select('call usp_configCajas( :flag, :nombre, :estado, :idCaja)',array($flag, $nombre, $estado,$idCaja));
             $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu, :_idSucursal)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idCaja' => $idCaja,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
             $array = [];
@@ -94,7 +92,6 @@ class CajaController extends Controller
             $estado = $post['estado_caja'];
             $idSucursal = $post['id_sucursal'];
 
-            //$consulta_create = DB::select('call usp_configCajas( :flag, :nombre, :estado, @a)',array($flag, $nombre, $estado));
             $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
             $array = [];
@@ -107,6 +104,7 @@ class CajaController extends Controller
 
     public function Eliminar(Request $request){
 
+        //Aun no eliminaremos caja
         $post = $request->all();
 
         $cod_caja = $post['cod_caja_e'];

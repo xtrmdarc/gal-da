@@ -14,17 +14,13 @@ use App\Models\TmAreaProd;
 
 class AreaProdController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
     }
     public function index(){
-        
-        //falta area produccion
-        //dd(\Auth::user());
-        
+
         $id_sucursal = session('id_sucursal');
         $id_areap = \Auth::user()->id_areap;
 
@@ -34,11 +30,9 @@ class AreaProdController extends Controller
             
             $id_areap =  $areas_prod[0]->id_areap;
         }
-        
-        //
+
         $ordenes = $this->GetOrdenes($id_sucursal,$id_areap);
-        
-        
+
         $data = [
             'breadcrumb' => '',
             'vista_amplia' => true,
@@ -52,7 +46,7 @@ class AreaProdController extends Controller
         {
             $data['areas_prod'] = $areas_prod;
         }
-        //dd($data);
+
         return view('contents.application.areaprod.areaprod')->with($data);
     }
     
@@ -89,12 +83,7 @@ class AreaProdController extends Controller
         });
 
         $ordenes = $ordenes->toArray();
-        /*for($i = 0 ; $i< count($ordenes);$i++)
-        {
-            $ordenesArr[i] = 
-        }*/
 
-        //$productosRegistrados = [];
         $areasProd = [];
         foreach($ordenes as $k => $v)
         {   
@@ -128,7 +117,7 @@ class AreaProdController extends Controller
     }
 
     public function GetPedidosLista($id_sucursal,$id_areap,$estados)
-    {   //dd($id_sucursal,$id_areap,$estados);
+    {
         if(!isset($estados)) $estados = array('a','i','p','c');
         
         $pedidos =  DB::table('tm_pedido')
@@ -157,21 +146,10 @@ class AreaProdController extends Controller
     public function PedidosLista(Request $request){
 
         $data = $request->all();
-        //dd($data);
-        //mozo
-        //estados
-        
-        //$estado = $data['estados'];
+
         $pedidos = $this->GetPedidosLista($data['id_sucursal'],$data['id_areap'],isset($data['estados'])?$data['estados']:null );
-        //Tipo de pedido
-        //H-inicio
-        //H-fin
-        //
-        
 
-       
         return $pedidos;
-
     }
 
     public function ListarM(){
@@ -189,9 +167,8 @@ class AreaProdController extends Controller
                 
                 $c[$k]->CProducto = DB::select("SELECT desc_c FROM v_productos WHERE id_pres =  ? ",[$d->id_prod])[0];
             }
-            //dd($c);
+
             return json_encode($c);
-            
         }
         catch(Exception $e)
         {
@@ -228,7 +205,6 @@ class AreaProdController extends Controller
         {        
             $id_areap = session('id_areap');
             $id_sucursal = session('id_sucursal');
-            //$id_areap= 1;
             $c = DB::select("SELECT * FROM v_cocina_de WHERE id_areap = ? AND id_sucursal = ? ORDER BY fecha_pedido ASC",[$id_areap,$id_sucursal]);
            
             foreach($c as $k => $d)
@@ -239,7 +215,7 @@ class AreaProdController extends Controller
                 $c[$k]->CProducto = DB::select("SELECT desc_c FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
                     
             }
-            
+
             return json_encode($c);
             
         }
@@ -247,7 +223,6 @@ class AreaProdController extends Controller
         {
             die($e->getMessage());
         }
-
     }
 
     public function Preparacion(Request $request){
@@ -259,12 +234,9 @@ class AreaProdController extends Controller
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
 
-            
-            //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
             $val = DB::table('tm_detalle_pedido')   -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
                                                     -> where('estado','a')
                                                     ->update(['estado'=>'p','fecha_envio'=>$fecha]);
-
 
             if($val == 0){
             DB::table('tm_detalle_pedido')  -> where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
@@ -272,22 +244,12 @@ class AreaProdController extends Controller
                                             ->update(['estado'=>'a','fecha_envio'=>$fecha]);
             }
 
-            /* $this->conexionn->prepare($sql)
-              ->execute(array(
-                $fecha,
-                $data['cod_ped'],
-                $data['cod_prod'],
-                $data['fecha_p']
-                 ));*/
             return json_encode($val);
         }
         catch(Exception $e)
         {
             die($e->getMessage());
         }
-
-        //print_r(json_encode($this->model->Preparacion($_POST)));
-
     }
 
     public function Atendido(Request $request){
@@ -298,19 +260,10 @@ class AreaProdController extends Controller
             
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
-            
 
-            //$sql = "UPDATE tm_detalle_pedido SET estado = 'p', fecha_envio = ? WHERE id_pedido = ? AND id_prod = ? AND fecha_pedido = ?";
             DB::table('tm_detalle_pedido')  ->where(['id_pedido'=>$data['cod_ped'],'id_det_ped'=> $data['cod_det_ped']])
                                             ->update(['estado'=>'c','fecha_envio'=>$fecha]);
             event(new PedidoListo($data['cod_ped'],$data['cod_det_ped'],session('id_sucursal')));
-/*            $this->conexionn->prepare($sql)
-              ->execute(array(
-                $fecha,
-                $data['cod_ped'],
-                $data['cod_prod'],
-                $data['fecha_p']
-                 ));*/
 
             return json_encode(1);
         }
@@ -319,5 +272,4 @@ class AreaProdController extends Controller
             die($e->getMessage());
         }
     }
-
 }

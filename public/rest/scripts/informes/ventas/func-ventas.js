@@ -73,12 +73,12 @@ var listar = function(){
                     vsbt += parseFloat(campo.total /  (1+parseFloat(my_igv)));
                     vigv += parseFloat((campo.total / (1+parseFloat(my_igv))) * my_igv);
                     v_des += parseFloat(campo.descu);
-                    console.log("MYIGV:" + my_igv);
-                    console.log("IGV NETO:" +  (1+parseFloat(my_igv)));
-                    console.log("IGV:" + vigv);
-                    console.log("SBT:" + vsbt);
-                    console.log("DESC:" + v_des);
-                    console.log("TOTAL:" + vtotal);
+                    //console.log("MYIGV:" + my_igv);
+                    //console.log("IGV NETO:" +  (1+parseFloat(my_igv)));
+                    //console.log("IGV:" + vigv);
+                    //console.log("SBT:" + vsbt);
+                    //console.log("DESC:" + v_des);
+                    //console.log("TOTAL:" + vtotal);
                 });
             }
 

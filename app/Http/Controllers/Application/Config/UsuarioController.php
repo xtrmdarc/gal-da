@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Mail;
 
 class UsuarioController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -53,8 +52,6 @@ class UsuarioController extends Controller
 
             
             $owner = TmUsuario::where('id_usu', $user)->first();
-            //$subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
-            //array(':idParent' => $user));
             $subUsers =     DB::table('tm_usuario as tm_usuario')
                                     ->where('tm_usuario.id_sucursal',\Auth::user()->id_sucursal)
                                     ->where('tm_usuario.id_usu','<>',\Auth::user()->id_usu)
@@ -99,47 +96,6 @@ class UsuarioController extends Controller
     }
 
     public function RUUsuario(Request $request){
-        
-        /*
-        $post = $request->all();
-
-        //SuperAdmin User
-        $parentId = \Auth::user()->id_usu;
-
-        $flag = 1;
-        $id_usu = $post['id_usu'];
-        $imagen = $post['imagen'];
-        $dni = $post['dni'];
-        $nombres = $post['nombres'];
-        $ape_paterno = $post['ape_paterno'];
-        $ape_materno = $post['ape_materno'];
-        $email = $post['email'];
-        $id_rol = $post['id_rol'];
-        $plan_id = '1';
-
-        $cod_area = $post['cod_area'];
-        if($id_rol == '3'){
-            $cod_area = 1;
-        }
-        if($cod_area == null ){
-            $cod_area = 0;
-        }else {
-            $cod_area = 1;
-        }
-        $usuario = $post['usuario'];
-        $contrasena = $post['contrasena'];
-        $contrasena_g = bcrypt($post['contrasena']);
-
-        if($id_usu != ''){
-            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, :idUsu, :idParent, :plan_id, :password);",
-            array('2',$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$id_usu,$parentId,$plan_id,$contrasena_g));
-            return redirect()->route('config.Usuarios');
-        } else {
-            $consulta = DB::select("call usp_configUsuario_g( :flag, :idRol, :idArea, :dni, :apeP, :apeM, :nomb, :email, :usu, :cont, :img, @a, :idParent, :plan_id, :password)"
-                ,array($flag, $id_rol, $cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,$usuario,$contrasena,$imagen,$parentId,$plan_id,$contrasena_g));
-            return redirect()->route('config.Usuarios');
-        }
-        */
 
         $post = $request->all();
 
@@ -153,7 +109,7 @@ class UsuarioController extends Controller
         //Empresa
         $empresa = Empresa::find(\Auth::user()->id_empresa);
         $nombre_empresa =  $empresa->nombre_empresa;
-        //dd($post);
+
         $flag = 1;
         $id_usu = $post['id_usu'];
         $imagen = $post['imagen'];
@@ -177,7 +133,7 @@ class UsuarioController extends Controller
         }
 
         if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4)->exists()){
-            //return 0;
+
             $notification = [
                 'message' =>'El usuario tiene el mismo PIN que otro usuario.',
                 'alert-type' => 'error'
@@ -210,7 +166,7 @@ class UsuarioController extends Controller
 
             return redirect()->route('config.Usuarios')->with($notification);
         } else {
-            //dd($pin);
+
             $usuario = $post['usuario'].'@'.$nombre_empresa;
             $user = TmUsuario::create([
                 'id_areap' => $cod_area,
@@ -231,12 +187,12 @@ class UsuarioController extends Controller
                 'status'=> (($id_rol==5)?1:0),
                 'pin' => $pin
             ]);
-            //dd($user,$user->id_rol);
+
             if($user) {
-                //dd($user,$user->id_rol);
+
                 if($user->id_rol==5) {
                     TmUsuario::find($user->id_usu)->update(['status'=>1]);
-                    //dd($user);
+
                 }
                 else{
                     Mail::to($user->email)->send(new SubUsuarioCreado($user));
@@ -295,9 +251,6 @@ class UsuarioController extends Controller
                 $viewdata['pin']= $r->pin;
                 $viewdata['nombre_empresa']= $nombre_empresa;
                 $viewdata['id_sucursal']= $r->id_sucursal;
-                //dd($viewdata);
-                //$viewdata['id_empresa']= $r->nombre_empresa;
-
             }
         }
    
@@ -310,7 +263,6 @@ class UsuarioController extends Controller
             $cod_usu_e = $post['cod_usu_e'];
             $response = new \stdClass();
             $usuarioEnUso = DB::select('call usp_verificarUsuarioActivo(?)', [$cod_usu_e])[0];
-            
 
             if($usuarioEnUso->COD == 1) {$response->cod = 0; return json_encode($response);}
 
@@ -323,8 +275,7 @@ class UsuarioController extends Controller
                 $response->cod = 1;
                 
             }else {
-                dd("error");
-                //return redirect()->route('config.Usuarios');
+                dd("error");//Revisar
             }
             $response->usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
             return json_encode($response);
@@ -351,5 +302,4 @@ class UsuarioController extends Controller
         return $areas_prod;
 
     }
-
 }

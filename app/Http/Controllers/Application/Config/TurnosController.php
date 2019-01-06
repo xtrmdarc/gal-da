@@ -10,7 +10,6 @@ use App\Models\Sucursal;
 
 class TurnosController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');

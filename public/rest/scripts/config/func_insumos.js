@@ -133,7 +133,7 @@ var editarInsumo = function(cod){
     },
       dataType: "json",
       success: function(item){
-          console.log(item);
+          //console.log(item);
         $.each(item, function(i, campo) {
 
             $('#nombre_ins').val(campo.nomb_ins);
@@ -230,7 +230,7 @@ $('#id_sucursal_d').on('change',function(){
     ActualizarCategoriaAreap(null,null);
 });
 var ActualizarCategoriaAreap = function(cod_area,cod_catg){
-    console.log(cod_area,cod_catg,'entro');
+    //console.log(cod_area,cod_catg,'entro');
     var id_sucursal = $('#id_sucursal_d').val();
     /* 
     $.ajax({
@@ -268,7 +268,7 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         ,success:function(response){
-            console.log(response);
+            //console.log(response);
             $('#cod_catg').empty();
             for(var i = 0 ; i< response.length; i++){
                 $('#cod_catg').append(

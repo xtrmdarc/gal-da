@@ -16,14 +16,10 @@ use App\Mail\FeedbackSent;
 
 class AppController extends Controller
 {
-    //
-
     public static $home= "/home";
     public static $galdaMail = "dreyesc@gal-da.com";
 
     public static function LoginAuthenticated(Request $request, $user){
-
-        
 
         switch($user->id_rol)
         {
@@ -79,7 +75,6 @@ class AppController extends Controller
         }
        self::IniciarApp();
         return redirect(self::$home);
-        
     }
 
     private static function IniciarApp(){
@@ -130,7 +125,6 @@ class AppController extends Controller
             }
         }
 
-
         //Almacenar el plan en la session
         $plan_actual = Planes::find(\Auth::user()->plan_id)->first();
         session(['plan_actual'=>$plan_actual]);
@@ -174,8 +168,6 @@ class AppController extends Controller
         {
             return Sucursal::where('id_empresa',$id_empresa)->get();
         }
-        
-
     }
     public function CambioSucursal($id){
         session(['id_sucursal'=> $id]);
@@ -189,6 +181,4 @@ class AppController extends Controller
 
         Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
     }
-
-    
 }

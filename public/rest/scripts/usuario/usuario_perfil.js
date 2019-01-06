@@ -2,7 +2,7 @@
  * Created by louis on 28/06/2018.
  */
 $(function(){
-    console.log("TEST");
+    //console.log("TEST");
     var btn_cambiar_password_s = $("#cambiar_password_s");
     var btn_cambiar_password_h = $("#cambiar_password_h");
 
@@ -14,6 +14,4 @@ $(function(){
         $('#form-change-password-reset').hide();
         $('#form-change-password').fadeIn();
     });
-
-
 });

@@ -12,7 +12,6 @@ use App\Models\TmAreaProd;
 
 class ProductoController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -100,7 +99,7 @@ class ProductoController extends Controller
     {
         $id_sucursal = \Auth::user()->id_sucursal;
         $stm = DB::Select("SELECT * FROM tm_producto_catg where id_sucursal = ?".$id_sucursal);
-        //dd($stm);
+
         $data = array("data" => $stm);
 
         $json = json_encode($data);
@@ -199,7 +198,7 @@ class ProductoController extends Controller
     public function CategoriasXSucursal(Request $request){
         
         $categorias = TmProductoCatg::where('id_sucursal',$request->id_sucursal)->get();
-        //dd(session('sucursal'),$request->id_sucursal,$categorias);
+
         return $categorias;
     }
 
@@ -221,8 +220,6 @@ class ProductoController extends Controller
             $estado = $post['estado_catg'];
             $idProd = $post['cod_prod'];
 
-            //$consulta = DB::Select("call usp_configProducto_g( :flag, :idTipo, :idCatg, :idArea, :nombP, :descP, :estado, :idProd,:idSucursal,:idUsu);",
-              //  array(':flag' => $flag,':idTipo' => $idTipo,':idCatg' => $idCatg,':idArea' => $idArea,':nombP' => $nombP,':descP' => $descP,':estado' => $estado,':idProd' => $idProd,':idSucursal' => $id_sucursal_d,':idUsu' => $id_usu));
             $sql = DB::update("UPDATE tm_producto SET
 						id_tipo  = ?,
 						id_catg   = ?,
@@ -248,23 +245,6 @@ class ProductoController extends Controller
             foreach($consulta as $k) {
                 return $array['cod'] = $k->cod;
             }
-            /*$consulta_prod = DB::Select("SELECT COUNT(*) FROM tm_producto WHERE id_tipo = ? AND id_catg = ? AND id_areap = ?
-                                         AND nombre = ? AND id_sucursal = ? AND id_usu = ?",[$idTipo,$idCatg,$idArea,$nombP,$id_sucursal_d,$id_usu]);
-            if($consulta_prod == 0) {
-                $nuevo_producto = TmProducto::create([
-                    'id_tipo' => $idTipo,
-                    'id_catg' => $idCatg,
-                    'id_areap' => $idArea,
-                    'nombre' => $nombP,
-                    'descripcion' => $descP,
-                    'id_sucursal' => $id_sucursal_d,
-                    'id_usu' => $id_usu
-                ]);
-
-                return $array['cod'] = 1;
-            } else {
-                dd("Error :v");
-            }*/
         }
     }
 

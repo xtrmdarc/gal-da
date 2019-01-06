@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class VentasController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -62,7 +61,6 @@ class VentasController extends Controller
     {
         try{
 
-            
             $start = date('Y-m-d',strtotime($request->input('start')));
             $end = date('Y-m-d',strtotime($request->input('end')));
             $cod_cajas = $request->input('cod_cajas');
@@ -70,16 +68,10 @@ class VentasController extends Controller
 
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
-            //dd(array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
+
             $stm = DB::Select("SELECT v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.fec_ven,v.desc_td,v.ser_doc,v.nro_doc,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON  v.id_apc = c.id_apc WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
                 array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
-            /*
-            if(count($stm)<=0){
-                return back();
-            }
-            */
-            //dd($stm);
-            
+
             ob_end_clean();
             ob_start();
             
@@ -89,8 +81,6 @@ class VentasController extends Controller
         {
             die($e->getMessage());
         }
-        //return redirect('/creditos');
-        //require_once 'view/informes/ventas/exportar/inf_ventas_xls.php';
     }
     public function Detalle(Request $request)
     {
@@ -104,43 +94,4 @@ class VentasController extends Controller
         }
         return $stm;
     }
-    /*public function informeVentasF()
-    {
-        $viewdata = [];
-        $data = [
-            'breadcrumb'=>'inf_ventas'
-        ];
-        //Tipo de Pedido
-        $stm = DB::Select("SELECT * FROM tm_tipo_pedido");
-
-        //Clientes
-        $stm_clientes = DB::Select("SELECT id_cliente,nombre FROM v_clientes");
-
-        //Cajas
-        $stm_cajas = DB::Select("SELECT * FROM tm_caja");
-
-        $viewdata['TipoPedido'] = $stm;
-        $viewdata['Clientes'] = $stm_clientes;
-        $viewdata['Cajas'] = $stm_cajas;
-
-        return view('contents.application.informes.ventas.inf_ventasF',$viewdata)->with($data);
-    }
-    public function DatosFree(Request $request)
-    {
-        $post = $request->all();
-
-        $ifecha = date('Y-m-d H:i:s',strtotime($post['ifecha']));
-        $ffecha = date('Y-m-d H:i:s',strtotime($post['ffecha']));
-        $tped = $post['tped'];
-        $tcaj = $post['icaja'];
-        $tdoc = $post['tdoc'];
-
-        $informeCard = DB::select('call usp_informe_f_g( :ifecha, :ffecha,:tped,:tcaj,:tdoc)'
-            ,array(':ifecha' => $ifecha,':ffecha' => $ffecha,':tped' => $tped,':tcaj' => $tcaj,':tdoc' => $tdoc));
-
-        $data = array("data" => $informeCard);
-
-        $json = json_encode($data);
-        echo $json;
-    }*/
 }

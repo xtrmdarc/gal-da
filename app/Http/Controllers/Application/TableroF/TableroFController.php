@@ -9,7 +9,6 @@ use App\Models\TmVentum;
 
 class TableroFController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -277,7 +276,6 @@ class TableroFController extends Controller
             session('id_sucursal')));
 
         $data = array("data" => $queryTotal);
-        //$data = array("data" => [$query1,$query2,$query3,$query4]);
 
         return $data;
     }

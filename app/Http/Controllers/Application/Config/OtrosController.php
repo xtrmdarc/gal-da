@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class OtrosController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');

@@ -33,7 +33,7 @@ $('#tipo_ped, #tipo_doc, #cod_cajas').change( function() {
 });
 
 var listar_cards = function() {
-    console.log("New TEST");
+    //console.log("New TEST");
 
     var moneda = $("#moneda").val();
     ifecha = $("#start").val();
@@ -61,7 +61,7 @@ var listar_cards = function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(item){
-            console.log(item);
+            //console.log(item);
             if (item.data.length != 0) {
                 $.each(item.data, function(i, campo) {
                     totalVenta =  campo.totalVenta;

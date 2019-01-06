@@ -3,7 +3,7 @@
  */
 
 $(function() {
-    console.log("Se CARGA PRIEMRO");
+    //console.log("Se CARGA PRIEMRO");
 });
 
 /*function checkForm()

@@ -49,7 +49,7 @@ function setAnimation(){
         $("#zepellin-slider").offset({top: 130, left:x-dir});
 
         if(x+width < 0) $("#zepellin-slider").offset({top: 0, left:windowWidth});
-        console.log(x,y,width,windowWidth);
+        //console.log(x,y,width,windowWidth);
 
     },8);  
   
