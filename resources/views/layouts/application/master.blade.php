@@ -14,7 +14,7 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('application/images/favicon.png') }}">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <title>Gal-Da | Sistema</title>
 
     
     <link href="{{ URL::to('rest/css/style.css') }}" rel="stylesheet">

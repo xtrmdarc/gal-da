@@ -39,7 +39,7 @@
                     <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
-                        <img  src="{{URL::to('home/images/tablero.png')}}" style="width:100%" alt="">         
+                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="">
                     </div>
                 </div>
             </div>

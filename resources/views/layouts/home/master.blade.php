@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Home | Triangle</title>
+    <title>Gal-Da | Sistema</title>
     <script src="https://js.stripe.com/v3/"></script>
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
