@@ -7,7 +7,6 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gal-Da | Sistema</title>
-    <script src="https://js.stripe.com/v3/"></script>
     <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -19,7 +18,6 @@
     <link href="{{ URL::to('home/css/home/styles.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/home/header.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/home/pricing.css') }}" rel="stylesheet">
-    <link href="{{ URL::to('home/css/home/stripe.css') }}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{{ URL::to('home/js/html5shiv.js') }}"></script>
     <script src="{{ URL::to('home/js/respond.min.js') }}"></script>
@@ -51,7 +49,6 @@
       <script type="text/javascript" src="{{ URL::to('home/js/wow.min.js') }}"></script>
       <script type="text/javascript" src="{{ URL::to('home/js/main.js') }}"></script>
       <script type="text/javascript" src="{{ URL::to('home/js/register/register-step.js') }}"></script>
-      <script type="text/javascript" src="{{ URL::to('home/js/register/stripe.js') }}"></script>
       <!-- Begin of Chaport Live Chat code -->
       <script type="text/javascript">
       (function(w,d,v3){
