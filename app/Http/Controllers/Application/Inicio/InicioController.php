@@ -890,9 +890,9 @@ class InicioController extends Controller
             }
 
             //require_once __DIR__.'/public/rest/Imprimir/comp_pc.php';
-            //dd( __DIR__,'../public/rest/Imprimir/comp_pc.php', __DIR__.'/public/rest/Imprimir/comp_pc.php',app_path().'/public/rest/Imprimir/comp_pc.php');
+            //dd( __DIR__,'../public/rest/Imprimir/comp_pc.php', __DIR__.'/public/rest/Imprimir/comp_pc.php',public_path().'/rest/Imprimir/comp_pc.php');
             //require_once ('../public/rest/Imprimir/comp_pc.php');
-            require_once (app_path().'/public/rest/Imprimir/comp_pc.php');
+            require_once (public_path().'/rest/Imprimir/comp_pc.php');
             return json_encode(1);
         }
         catch(Exception $e)
