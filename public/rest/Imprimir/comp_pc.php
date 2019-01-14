@@ -1,7 +1,7 @@
 <?php
 //require_once __DIR__.'/public/rest/imprimir/num_letras.php';
 //require_once ('../public/rest/imprimir/num_letras.php');
-require_once (public_path().'/rest/imprimir/num_letras.php');
+require_once (public_path().'/rest/Imprimir/num_letras.php');
 //require_once __DIR__.'/public/rest/assets/pdf/cellfit.php';
 //require_once ('../public/rest/assets/pdf/cellfit.php');
 require_once (public_path().'/rest/assets/pdf/cellfit.php');
