@@ -866,8 +866,7 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
             }
-            //require_once __DIR__.'/public/rest/imprimir/comp.php';
-            require_once ('../public/rest/imprimir/comp.php');
+            require_once (public_path().'/rest/Imprimir/comp_pc.php');
             return json_encode(1);
         }
         catch(Exception $e)
@@ -888,10 +887,6 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::table('v_productos')->where('id_pres',$d->id_prod)->first();
             }
-
-            //require_once __DIR__.'/public/rest/Imprimir/comp_pc.php';
-            //dd( __DIR__,'../public/rest/Imprimir/comp_pc.php', __DIR__.'/public/rest/Imprimir/comp_pc.php',public_path().'/rest/Imprimir/comp_pc.php');
-            //require_once ('../public/rest/Imprimir/comp_pc.php');
             require_once (public_path().'/rest/Imprimir/comp_pc.php');
             return json_encode(1);
         }
