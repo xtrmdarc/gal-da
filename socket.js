@@ -3,8 +3,15 @@ var path = require('path');
 console.log(path.join(__dirname));
 var app = require('express')();
 var http = require('http').Server(app);
-var https = require('https');
-var io = require('socket.io')(http);
+
+
+var options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/cert.pem')
+}
+
+var https = require('https').Server(options,app);
+var io = require('socket.io')(https);
 var Redis = require('ioredis');
 var fs = require('fs');
 var redis = new Redis();
@@ -34,20 +41,16 @@ io.on('connection',function(socket){
 });
 io.set('origins', 'https://gal-da.com');
 
-
+/*
 http.listen(3000, function(){
     console.log('Listening on Port 3000');
     console.log("This file is " + __filename);
     
 });
+*/
 
 
-var options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/cert.pem')
-}
-
-https.createServer(options,app).listen(3020, function(){
+https.listen(3020, function(){
     console.log('listening on Port 3020 Secured');
     
 });
