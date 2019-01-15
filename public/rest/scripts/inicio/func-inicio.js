@@ -690,7 +690,7 @@ var mensaje = function(){
 }
 
 var setupSocketio = function(){
-    var socket = io.connect('https://192.168.10.10:3020');
+    var socket = io.connect('https://ec2-18-207-223-230.compute-1.amazonaws.com:3020');
     
     socket.on("pedido-listo"+id_sucursal+":App\\Events\\PedidoListo", function(data){
         var n_pedidos_mesa_aux = parseInt($('#ind_mesa_pedidos_listos_'+data.id_pedido).text());
