@@ -1,7 +1,12 @@
+
+var path = require('path');
+console.log(path.join(__dirname));
 var app = require('express')();
 var http = require('http').Server(app);
+var https = require('https');
 var io = require('socket.io')(http);
 var Redis = require('ioredis');
+var fs = require('fs');
 var redis = new Redis();
 
 var channelsToSubscribe = [
@@ -28,9 +33,21 @@ io.on('connection',function(socket){
     console.log('user connected');
 });
 
+
+
 http.listen(3000, function(){
     console.log('Listening on Port 3000');
+    console.log("This file is " + __filename);
+    
 });
+
+
+var options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/cert.pem')
+}
+
+https.createServer(options,app).listen(3020);
 
 /*const SOCKET_PORT = 3000;
 const REDIS = {
