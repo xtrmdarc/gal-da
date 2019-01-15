@@ -3,7 +3,7 @@ var path = require('path');
 console.log(path.join(__dirname));
 var app = require('express')();
 var http = require('http').Server(app);
-
+var fs = require('fs');
 
 var options = {
     key: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/privkey.pem'),
@@ -13,7 +13,7 @@ var options = {
 var https = require('https').Server(options,app);
 var io = require('socket.io')(https);
 var Redis = require('ioredis');
-var fs = require('fs');
+
 var redis = new Redis();
 
 var channelsToSubscribe = [
