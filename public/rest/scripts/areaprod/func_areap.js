@@ -418,7 +418,7 @@ var atendidoMethodCall = function(cod_ped,cod_det_ped) {
 	
 var setupSocketio = function(){
 	
-	var socket = io.connect('https://ec2-18-207-223-230.compute-1.amazonaws.com:3020');
+	var socket = io.connect('https://gal-da.com:3020');
 	//console.log("pedido-registrado"+id_areap+id_sucursal);
     socket.on("pedido-registrado"+id_sucursal+id_areap+":App\\Events\\PedidoRegistrado", function(data){
 		//console.log(ordenes);
