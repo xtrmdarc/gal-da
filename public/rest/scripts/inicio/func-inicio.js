@@ -690,7 +690,7 @@ var mensaje = function(){
 }
 
 var setupSocketio = function(){
-    var socket = io.connect();
+    var socket = io.connect('https://gal-da.com:3020');
     
     socket.on("pedido-listo"+id_sucursal+":App\\Events\\PedidoListo", function(data){
         var n_pedidos_mesa_aux = parseInt($('#ind_mesa_pedidos_listos_'+data.id_pedido).text());

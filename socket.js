@@ -32,7 +32,7 @@ redis.on('pmessage', function(channel,pattern, message) {
 io.on('connection',function(socket){
     console.log('user connected');
 });
-
+io.set('origins', 'https://gal-da.com');
 
 
 http.listen(3000, function(){
@@ -47,7 +47,10 @@ var options = {
     cert: fs.readFileSync('/etc/letsencrypt/live/gal-da.com/cert.pem')
 }
 
-https.createServer(options,app).listen(3020);
+https.createServer(options,app).listen(3020, function(){
+    console.log('listening on Port 3020 Secured');
+    
+});
 
 /*const SOCKET_PORT = 3000;
 const REDIS = {
