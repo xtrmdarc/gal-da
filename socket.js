@@ -39,7 +39,7 @@ redis.on('pmessage', function(channel,pattern, message) {
 io.on('connection',function(socket){
     console.log('user connected');
 });
-io.set('origins', 'https://gal-da.com');
+io.set('origins', '*:*');
 
 /*
 http.listen(3000, function(){
