@@ -866,7 +866,7 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
             }
-            require_once (public_path().'/rest/Imprimir/comp_pc.php');
+            require_once (public_path().'/rest/Imprimir/comp.php');
             return json_encode(1);
         }
         catch(Exception $e)
