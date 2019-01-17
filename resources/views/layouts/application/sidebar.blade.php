@@ -29,19 +29,19 @@
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Produccion</li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')
-                            <li><a href="/inicio"> <i class="fa fa-book"></i><span class="hide-menu">Pedidos</span></a></li>
+                            <li id="sb_pedidos"><a href="/inicio"> <i class="fa fa-book"></i><span class="hide-menu">Pedidos</span></a></li>
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '3')
-                            <li><a href="/cocina"> <i class="fa fa-home"></i><span class="hide-menu">Cocina</span></a></li>
+                            <li id="sb_cocina"><a href="/cocina"> <i class="fa fa-home"></i><span class="hide-menu">Cocina</span></a></li>
                         @endif
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Administracion</li>
-                        <li><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control </span></a></li>
+                        <li id="sb_tablero_f"><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control </span></a></li>
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                            <li><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
+                            <li id="sb_clientes_li"><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                            <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Caja</span></a>
+                            <li id="sb_caja_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Caja</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
                                     <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
@@ -50,8 +50,8 @@
                             </li>
                         @endif
                         @if(Auth::user()->id_rol == '1' )
-                            <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
-                                <ul aria-expanded="false" class="collapse">
+                            <li ><a id="sb_configuracion" class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
+                                <ul id="sb_collapse_configuracion" aria-expanded="false" class="collapse">
                                     <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>
                                     <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
                                     <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
@@ -60,7 +60,7 @@
                                     <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
                                     <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
-                                    <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
+                                    <li id="sb_datos_empresa_cf" ><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
                                     <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                     <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
                                     <li><a href="{{route('config.Sucursal')}}">Sucursales </a></li>
@@ -77,7 +77,7 @@
                       <button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button>
                     */--}}
                     <li class="text-center ">
-                        <li class="text-center"><a class="" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
+                        <li id="sb_centroayuda" class="text-center"><a class="" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
                     </li>
 
                       @else
@@ -159,7 +159,7 @@
                                 <li class="nav-label"> Administración</li>
                                 <li><a href="/tablero"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control</span></a></li>
                                 @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
-                                    <li> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
+                                    <li id="sb_caja_li"  > <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Caja</span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="{{route('apercaja')}}">Apertura de caja</a></li>
                                             <li><a href="{{route('ingcaja')}}">Ingresos </a></li>
@@ -167,7 +167,7 @@
                                         </ul>
                                     </li>
                                 @endif
-                                <li><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
+                                <li id="sb_clientes_li"><a href="/cliente"> <i class="fa fa-suitcase"></i><span class="hide-menu">Clientes</span></a></li>
                                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="/compras"> Compras</a></li>
