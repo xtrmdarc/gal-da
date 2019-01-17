@@ -505,7 +505,23 @@
                                         stageBackground: '#ffffff',       // Background color for the staged behind highlighted element
                                         nextBtnText: 'Siguiente',              // Next button text for this step
                                         prevBtnText: 'Anterior',
-                                        allowClose: false
+                                        allowClose: false,
+                                        onReset : function(element){
+                                                $.ajax({
+                                                        url: '/UserOnboarded',
+                                                        data:'',
+                                                        type:'POST',
+                                                        dataType: 'json',
+                                                        headers: {
+                                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                                },
+                                                        success: function(){
+                                                               console.log('llego');
+                                                        }
+                                                });
+                                                console.log('llego aqui');
+
+                                        }
                                 });
                 
                 driver.defineSteps([
@@ -570,22 +586,12 @@
                                 
                         },
                         {
-                                element:'#sb_cocina',
-                                popover: {
-                                        animate: true,
-                                        title: 'Módulo de producción',
-                                        description: 'Supervisa los pedidos que llegan a cocina en tiempo real.',
-                                        position:'right'
-                                }
-                                
-                        },
-                        {
                                 element:'#sb_centroayuda',
                                 popover: {
                                         animate: true,
                                         title: '¿Necesitas ayuda?',
                                         description: 'Te mostramos paso a paso cómo empezar a utilizar Gal-Da.',
-                                        position:'right'
+                                        
                                 }
                                 
                         }
@@ -595,8 +601,12 @@
                         
 
                 ]);
-
-                driver.start();
+                        
+                if({{ (Auth::user()->user_onboarded)}} == 0 )
+                {
+                        driver.start();
+                }
+                
         });
         
 </script>
