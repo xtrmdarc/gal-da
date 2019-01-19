@@ -51,6 +51,9 @@
     <!--hopscotch-->
     <link href="{{ URL::to('application/css/hopscotch/hopscotch.min.css') }}" rel="stylesheet">
     <!-- Custom PATCH CSS -->
+
+    <link rel="stylesheet" href="{{URL::to('application/css/driver.min.css') }}">
+
     {{--<script src="{{ URL::to('rest/js/jquery-2.1.1.js') }}"></script>--}}
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -62,6 +65,7 @@
     <script src="{{ URL::to('rest/js/bootstrap.min.js') }}"></script>
     
     
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
 </head>
@@ -166,7 +170,7 @@
 <script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ URL::to('rest/js/bootstrap-clockpicker.min.js') }}"></script>
 <script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
-
+<script src="{{ URL::to('application/js/driver.min.js') }}"></script>
 {{--
 <script>
     console.log(''+{!! json_encode(Auth::user()->id_rol)  !!}, ' areap : '+{!! json_encode(Auth::user()->id_rol)!!} );

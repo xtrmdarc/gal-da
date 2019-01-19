@@ -181,4 +181,13 @@ class AppController extends Controller
 
         Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
     }
+
+    public function UserOnboarded(Request $request){
+        
+        DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)
+                            ->update([
+                                'user_onboarded'=>1
+                            ]);
+        return json_encode(1);
+    }
 }
