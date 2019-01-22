@@ -17,7 +17,7 @@
             <div class="row" >
                 <div class="col-sm-4 col-sm-offset-8" style="text-align:right;" id="filter_global">
                     <div class="input-group">
-                        <input class="form-control global_filter" id="global_filter" type="text">
+                        <input class="form-control global_filter" id="global_filter" type="text" placeholder="Buscar Egresos de Caja">
                         <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                     </div>
                 </div>

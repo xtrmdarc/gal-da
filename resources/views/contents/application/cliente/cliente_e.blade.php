@@ -22,7 +22,7 @@
                 <form method="post" id="frm-consulta-dni">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" name="dni_numero" id="dni_numero" class="form-control" placeholder="Ingrese DNI" autocomplete="off" />
+                            <input type="text" name="dni_numero" id="dni_numero" class="form-control" placeholder="Buscar por DNI" autocomplete="off" />
                             <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                 <form method="post" id="frm-consulta-ruc">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Ingrese RUC" autocomplete="off" />
+                            <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Buscar por RUC" autocomplete="off" />
                             <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                         </div>
                     </div>
