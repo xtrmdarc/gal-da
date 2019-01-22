@@ -1,5 +1,7 @@
 @extends('layouts.home.master')
-
+@section('metas')
+    <meta name="description" content="Gal-Da es un Sistema Para Restaurantes. Software Para Restaurante Gratis. Programa Para Restaurante totalmente Gratis. Aumenta la productivdad de tu restaurante.">
+@endsection
 @section('content')
 <style>
     

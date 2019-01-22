@@ -147,6 +147,7 @@ class AuthController extends Controller
             'h_fin' => '24:00'
         ]);
         $thisUser = TmUsuario::findOrFail($user->id_usu);
+       
 
         $this->senEmail($thisUser);
     
@@ -218,7 +219,7 @@ class AuthController extends Controller
         $post = $request->all();
 
         $id_empresa = \Auth::user()->id_empresa;
-        $stm = DB::Select("SELECT * FROM empresa where id = ".$id_empresa);
+        $stm = DB::Select("SELECT * FROM empresa where id = ?",[$id_empresa]);
 
         $idUsu = \Auth::user()->id_usu;
         $nombres = $post['name'];
@@ -277,8 +278,9 @@ class AuthController extends Controller
 						nombre_sucursal  = ?
                     WHERE id = ?", [$nombre_negocio,$sucursalId]);
 
-        return redirect()->route('tableroF');
-        //AppController::LoginAuthenticated($request,\Auth::user());
+        //return redirect()->route('tableroF');
+        //dd(\Auth::user());
+        return AppController::LoginAuthenticated($request,\Auth::user());
 
         /*if($planId == '1'){
             return redirect()->route('tableroF');

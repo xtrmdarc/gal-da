@@ -20,7 +20,8 @@ class AppController extends Controller
     public static $galdaMail = "dreyesc@gal-da.com";
 
     public static function LoginAuthenticated(Request $request, $user){
-
+        
+        //dd($user,\Auth::user());
         switch($user->id_rol)
         {
             //Administracion
@@ -73,8 +74,11 @@ class AppController extends Controller
             }
 
         }
-       self::IniciarApp();
+        //dd(self::$home);
+        self::IniciarApp();
+        //dd($user, self::$home,$user);
         return redirect(self::$home);
+        
     }
 
     private static function IniciarApp(){
@@ -128,6 +132,7 @@ class AppController extends Controller
         //Almacenar el plan en la session
         $plan_actual = Planes::find(\Auth::user()->plan_id)->first();
         session(['plan_actual'=>$plan_actual]);
+        //dd('llega a login event ',$plan_actual);
     }
 
     public static function ValidarPermisos($roles){
