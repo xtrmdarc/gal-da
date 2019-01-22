@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('metas')
-    <title>Gal-Da | Sistema</title>
+    <title>Gal-Da | Sistema en línea para restaurantes </title>
     <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
