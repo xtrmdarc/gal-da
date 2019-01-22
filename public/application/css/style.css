@@ -7144,7 +7144,6 @@ tbody tr td:last-child {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-align: center;
