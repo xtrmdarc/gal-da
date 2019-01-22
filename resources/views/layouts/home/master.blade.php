@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('metas')
     <title>Gal-Da | Sistema</title>
     <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -35,6 +36,16 @@
           href="https://fonts.googleapis.com/css?family=PT+Sans:700,100,200,300,400">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Montserrat:700,100,200,300,400">
+          <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49332747-5"></script>
+      <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-49332747-5');
+      </script>
+
 </head><!--/head-->
 
 <body>

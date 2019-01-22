@@ -36,7 +36,7 @@
                                 <br>
                                 <h1 class="ich m-t-none brand-color">Módulo de Turnos</h1>
                                 <br>
-                                <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="brand-color">controlar el la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
+                                <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="brand-color">controlar la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
                             </div>
                         </div>
                     </div>

@@ -591,13 +591,10 @@
                                         animate: true,
                                         title: '¿Necesitas ayuda?',
                                         description: 'Te mostramos paso a paso cómo empezar a utilizar Gal-Da.',
+                                        position: 'top'
                                         
-                                }
-                                
+                                }       
                         }
-                        
-                        
-                        
                         
 
                 ]);

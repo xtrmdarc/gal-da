@@ -77,7 +77,7 @@
                       <button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button>
                     */--}}
                     <li class="text-center ">
-                        <li id="sb_centroayuda" class="text-center"><a class="" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
+                        <li id="sb_centroayuda" class="text-center"><a class="btn btn-primary" style="margin:8px;" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
                     </li>
 
                       @else
