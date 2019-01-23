@@ -35,7 +35,7 @@
 @endphp
 <div class="header">
 
-        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light" style="padding: 0;">
             <!-- Logo -->
             <div id="header_logo" class="navbar-header">
                
@@ -50,7 +50,7 @@
             </div>
             <!-- End Logo -->
             
-            <div class="navbar-collapse">
+            <div class="navbar-collapse" style="padding: 0 20px 0 0;">
                 <!-- toggle and nav items -->
                 <ul class="navbar-nav mr-auto mt-md-0 nav-header-suc">
                     <!-- This is  -->

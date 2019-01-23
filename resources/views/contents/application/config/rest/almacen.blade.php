@@ -73,7 +73,7 @@
                             <br>
                                 <h1 class="ich m-t-none brand-color">M&oacute;dulo para Almacenes y &Aacute;reas de producci&oacute;n  </h1>
                             <br>
-                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar Almacenes y Areas de Producción. Los almacenes te ayudarán a <strong class="brand-color"> administrar la rotación de productos </strong> de tu negocio. Las Áreas de Producción separan por categoría las operaciones productivas. La cocina, el bar, la dulcería son ejemplos de áreas de producción.</p>
+                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar Almacenes y &Aacute;reas de Producción. Los almacenes te ayudarán a <strong class="brand-color"> administrar la rotación de productos </strong> de tu negocio. Las Áreas de Producción separan por categoría las operaciones productivas. La cocina, el bar, la dulcería son ejemplos de áreas de producción.</p>
                         </div>
                     </div>
                 </div>

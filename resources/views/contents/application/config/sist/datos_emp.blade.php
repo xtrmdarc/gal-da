@@ -19,12 +19,12 @@
                             <div class="col-lg-6">
                                 <div class="ct-wizard-blue" id="wizardProfile">
                                     <div class="picture-container">
+                                        <h6>Cambiar Imagen</h6>
                                         <div class="picture">
                                             <img src="{{$logo_g}}" class="picture-src" id="wizardPicturePreview" title="" style="width: 265px;"/>
                                             <input type="hidden" name="logo" value="{{$logo_g}}" />
                                             <input type="file" name="logo" id="wizard-picture">
                                         </div>
-                                        <h6>Cambiar Imagen</h6>
                                     </div>
                                 </div>
                             </div>

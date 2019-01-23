@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('metas')
-    <title>Gal-Da | Sistema</title>
+    <title>Gal-Da | Sistema en línea para restaurantes </title>
     <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
     <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -45,6 +45,25 @@
 
       gtag('config', 'UA-49332747-5');
       </script>
+
+      <!-- Facebook Pixel Code -->
+      <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '2056800597741705');
+            fbq('track', 'PageView');
+      </script>
+          <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=2056800597741705&ev=PageView&noscript=1"
+          /></noscript>
+      <!-- End Facebook Pixel Code -->
+          
 
 </head><!--/head-->
 
