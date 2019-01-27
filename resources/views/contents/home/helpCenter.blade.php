@@ -35,7 +35,9 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="600ms">
+                    {{--/*
+
+                                        <div class="col-sm-4 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="600ms">
                         <a href="">
                             <div class="feature-inner">
                                 <div class="icon-wrapper">
@@ -100,6 +102,9 @@
                             </div>
                         </a>
                     </div>
+                    
+                    */--}}
+
                 </div>
             </div><!--/#feature-container-->
             <hr>
