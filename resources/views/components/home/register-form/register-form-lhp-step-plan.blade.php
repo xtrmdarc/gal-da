@@ -45,10 +45,10 @@
                                 <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para pequeños y medianos restaurantes</span></p>
                             </div>
                             <div class="section-plan-price clearfix">
-                                <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">$39.<span style="font-size:25px;vertical-align:top">90</span></span> <span class="text-month-price" style="">/mes</span></h5>
+                                <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">USD 39.<span style="font-size:25px;vertical-align:top">90</span></span> <span class="text-month-price" style="">/mes</span></h5>
                             </div>
                             <div class="section-price-desc clearfix">
-                                <p style="text-align: center;line-height: 1.5em;min-height: 1.5em"><span class="text-shade-10-0" style="font-weight: bold">o $390 /año</span></p>
+                                <p style="text-align: center;line-height: 1.5em;min-height: 1.5em"><span class="text-shade-10-0" style="font-weight: bold">o USD 390 /año</span></p>
                             </div>
                         </div>
                         <div class="section-plan-offer">
@@ -75,10 +75,10 @@
                                 <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para grandes cadenas de restaurantes</span></p>
                             </div>
                             <div class="section-plan-price clearfix">
-                                <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">$89.<span style="font-size:25px;vertical-align:top">90</span></span>  <span class="text-month-price" style="">/mes</span></h5>
+                                <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">USD 89.<span style="font-size:25px;vertical-align:top">90</span></span>  <span class="text-month-price" style="">/mes</span></h5>
                             </div>
                             <div class="section-price-desc clearfix">
-                                <p style="text-align: center;line-height: 1.5em;min-height: 1.5em"><span class="text-shade-10-0" style="font-weight: bold">o $890 /año</span></p>
+                                <p style="text-align: center;line-height: 1.5em;min-height: 1.5em"><span class="text-shade-10-0" style="font-weight: bold">o USD 890 /año</span></p>
                             </div>
                         </div>
                         <div class="section-plan-offer">
