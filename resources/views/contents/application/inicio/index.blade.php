@@ -578,8 +578,9 @@
                     <div class="col-sm-12">
                         <p >
                             Para poder utilizar el módulo de pedidos debes <strong>terminar
-                            la configuración de tu empresa. </strong><br> 
-                            Es necesario para personalizar la experiencia.
+                            la configuración de la Empresa. </strong><br>
+                            <!--Es necesario para personalizar la experiencia.-->
+                            <br>Inicia Sesión como <strong>Administrador</strong> para terminar la configuración.
                         </p>
                     </div>
                 </div>
@@ -587,8 +588,15 @@
             <div class="modal-footer">
                 <div class="row">
                     <button onclick="window.location.replace('{{''.session('home')}}')" type="button"  class="btn btn-danger">Cancelar</button>
-                    <button type="button" onclick="window.location.replace('/ajustesDatosEmpresa')" class="btn btn-success branding" style="margin-right:8px">Configurar</button>
-                       
+                    @if(Auth::user()->id_rol == 1)
+                        <button type="button" onclick="window.location.replace('/ajustesDatosEmpresa')" class="btn btn-success branding" style="margin-right:8px">Configurar</button>
+                    @else
+                        <li><a href="{{ route('logout') }}"  class="btn btn-success branding" style="margin-right:8px" onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit(); "> Cerrar Sesion</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form></li>
+                    @endif
                 </div>
             </div>
                

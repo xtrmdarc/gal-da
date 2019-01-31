@@ -16,6 +16,7 @@ class ProductoController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('userRol');
     }
     public function index()
     {

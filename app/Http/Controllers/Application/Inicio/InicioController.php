@@ -24,7 +24,7 @@ class InicioController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
-
+        $this->middleware('userRol',['only' => ['Index']]);
     }
     public function Index(){
         
