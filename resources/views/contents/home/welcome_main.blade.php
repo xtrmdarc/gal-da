@@ -32,12 +32,12 @@
         <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
     <!--/#home-slider-->
-
+    
     <section id="quees" class="section_landing">
         <div class="container">
             <div class="row">
                 <div class="text-center " >
-                    <h1 class="LandingMainHeader" style="font-size:4em">Nuestra Plataforma</h1>                                 
+                    <h1 class="LandingMainHeader" style="font-size:4em">Tu Plataforma</h1>                                 
                     <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
@@ -46,10 +46,43 @@
                 </div>
             </div>
         </div>
-        
-
     </section>
-
+  
+    @php
+    /*
+    <section id="quees" class="section_landing">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h1 class="title text-center"  >Tu Plataforma</h1>
+                    <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
+                    </p>
+                </div>
+                <div class="col-sm-8 text-center " >
+                    <div class="item active" style="margin-top:2em;">                             
+                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    */
+    @endphp
+    <section id="en_linea_section"  class="section_landing">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8" >
+                    <video  width="100%" autoplay loop muted playsinline src="{{URL::to('home/images/en_linea.mp4')}}"></video>
+                </div>
+                <div class="col-sm-4">
+                    <h1 class="title text-center ">Pon tu restaurante en línea</h1>
+                    <p style="margin-top:20px;">Gal-Da es el sistema para restaurantes que te permite sincronizar los procesos de tu negocio en <b style="brand-color"> tiempo real.</b></p>
+                    <p>Reduce los tiempos de operación y atención. Clientes más felices y más tiempo para invertir en tu restaurante. </p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="services">
         <div class="container">
             <div class="row">
@@ -113,7 +146,7 @@
         </div>
     </section>
     <!--/#services-->
-
+    
     <section id="action" class="responsive">
         <div class="vertical-center">
             <div class="container">
