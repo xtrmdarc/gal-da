@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="text-center " >
                     <h1 class="LandingMainHeader" style="font-size:4em">Tu Plataforma</h1>                                 
-                    <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
+                    <p>Gal-Da es el sistema para restaurantes que te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. Cuenta con un intuitivo POS (PTV) y herramientas administrativas.
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
                         <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="">
@@ -77,8 +77,8 @@
                 </div>
                 <div class="col-sm-4">
                     <h1 class="title text-center ">Pon tu restaurante en línea</h1>
-                    <p style="margin-top:20px;">Gal-Da es el sistema para restaurantes que te permite sincronizar los procesos de tu negocio en <b style="brand-color"> tiempo real.</b></p>
-                    <p>Reduce los tiempos de operación y atención. Clientes más felices y más tiempo para invertir en tu restaurante. </p>
+                    <p style="margin-top:20px;">Cada segundo cuenta, por eso Gal-Da te permite sincronizar los <b style="brand-color">pedidos en tiempo real</b> con la cocina.</p>
+                    <p>De esta manera, reduces los tiempos de operación y atención. Clientes más felices y más tiempo para invertir en tu restaurante. </p>
                 </div>
             </div>
         </div>
