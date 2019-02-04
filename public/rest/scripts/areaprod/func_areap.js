@@ -518,7 +518,7 @@ var NewOrder = function (orden){
 
 	for (var i = 0; i< pedidos.length;i++)
 	{	
-		var pedidoHtml = NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado,pedidos[i].nombre_usuario,pedidos[i].tipo_usuario);
+		var pedidoHtml = NewPedido(orden.pedido.id_pedido, pedidos[i].id_det_ped, pedidos[i].nombre_prod ,pedidos[i].pres_prod , pedidos[i].cantidad, pedidos[i].comentario, pedidos[i].fecha,pedidos[i].estado,pedidos[i].nombre_usuario,pedidos[i].tipo_usuario);
 		pedidosHtml = pedidosHtml + pedidoHtml[0];
 		vl_pedidosHtml = vl_pedidosHtml + pedidoHtml[1];
 		vl_pedidos.push(pedidos[i]);
@@ -564,7 +564,7 @@ var NewOrder = function (orden){
 	StartTimerDemora(id_ordenDemora,orden.pedido.fecha_pedido);
 }
 
-function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado,nombre_usuario,tipo_usuario ){
+function NewPedido(id_ped,id_det_ped, nombre, presentacion,cantidad, comentarios,fecha,estado,nombre_usuario,tipo_usuario ){
 
 
 	var id_pedidoDemora =  `pedido_demora_`+id_det_ped;
@@ -572,6 +572,7 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 	var vl_id_pedido = 'vl_pedido_'+id_det_ped;
 	var id_pedidoNotify = `pedido_notify_`+id_det_ped;
 	var id_pedidoAlertaDemora = `pedido_alerta_`+id_det_ped;
+	if(id_ped)
 	StartTimerDemora(id_pedidoDemora,fecha,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);	
 	
 	var clasePedido = '';
@@ -589,7 +590,7 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 	arrNewPedidos[0]= `<li id="${id_pedido}" class="list-group-item ${clasePedido} "  data-toogle="popover"  >
 				<div class="row"   >		
 					<div class="col-7 col-sm-7" onclick="privateLib.preparacion(${id_ped},${id_det_ped})">
-						${cantidad+ ' '}${nombre}
+						${cantidad+ ' '}${nombre + ' - '+ presentacion}
 						<div class="row">
 							<div class="col-sm-12">
 								${comentarios}
@@ -603,14 +604,13 @@ function NewPedido(id_ped,id_det_ped, nombre, cantidad, comentarios,fecha,estado
 				</div>
 				
 			</li>
-			
 			`;
 
 	arrNewPedidos[1] = `<tr id="${vl_id_pedido}">
 							<td>${nombre_usuario}</td>
 							<td>${tipo_usuario}</td>
 							<td>${cantidad}</td>
-							<td>${nombre}</td>
+							<td>${nombre+ ' - '+ presentacion}</td>
 							<td><a class="btn ${vl_claseEstado}"> ${estadoPedido}  </a></td>
 							<td>${fecha}</td>
 						</tr>
@@ -716,13 +716,13 @@ var actualizarVLPedidos = function(pedidos){
 	
 	for(var j = 0 ; j< pedidos.length;j++)
 	{	//console.log(pedidos[j]);
-		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
+		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod ,pedidos[j].pres_prod, pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
 		vl_pedidos.push(pedidos[j]);
 	}
 	$('#vl_tabla_body_pedidos').append(vl_pedidosHtml);
 	vl_table= $('#vl_tabla_pedidos').DataTable();
 }
-function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify,){
+function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify){
 
 	var now = new Date(0,0,0,0,0,0,0);
 	var start = new Date() - new Date(tiempo);
@@ -746,7 +746,7 @@ function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_
         if(timer){
             timer.innerHTML =/* digits2(demora.getHours()) + ":" +*/ digits2(demora.getMinutes())+ ":"+digits2(demora.getSeconds());
             //clock.innerHTML = 'hola';
-			
+			console.log(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);
 			if(demora.getMinutes() >= 15 ) {
 				if(!$('#'+id_pedido).hasClass('pedido-demorando')){
 					

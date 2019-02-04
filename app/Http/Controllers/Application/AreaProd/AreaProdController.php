@@ -104,6 +104,7 @@ class AreaProdController extends Controller
             {
                 $producto = DB::select("SELECT * FROM v_productos WHERE id_pres = ? AND id_areap",[$ordenes[$k]['items'][$i]['id_prod']])[0];  
                 $ordenes[$k]['items'][$i]['nombre_prod'] = $producto->nombre_prod;
+                $ordenes[$k]['items'][$i]['pres_prod'] = $producto->pres_prod;
                 $ordenes[$k]['items'][$i]['id_areap'] = $producto->id_areap;
                 $ordenes[$k]['items'][$i]['fecha']  = $ordenes[$k]['items'][$i]['fecha_pedido'];
                 $ordenes[$k]['items'][$i]['nombre_usuario'] = $nombrePedido;
