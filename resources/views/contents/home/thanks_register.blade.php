@@ -53,6 +53,9 @@
 @section('scripts')
     <script type="text/javascript" src="{{ URL::to('application/js/lib/sweetalert/sweetalert.min.js') }}"></script>
     <script>
+        $(function(){
+            fbq('track','StartTrial');
+        });
         $('#btn_resend_verimail').on('click',function(){
             //window.location.reload();
             

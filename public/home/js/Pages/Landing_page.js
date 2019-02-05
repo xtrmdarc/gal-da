@@ -11,6 +11,8 @@ $(function(){
             });
         });
     });
+
+    fbq('track','ViewContent',{content_ids:'land_1',content_name:'home',content_type:'landing_page'});
     
 });
 
