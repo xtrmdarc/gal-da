@@ -41,8 +41,14 @@ class AuthController extends Controller
         $post = $request->all();
 
         if(TmUsuario::Where('email',$post['email'])->exists()){
-            $errors = ['Ya esiste este correo en nuestros registros.' ];
-            return view('auth.register.register-step-account')->with($errors);
+            $errors = [];
+            $errors[] = 'Ya existe el correo en nuestros registros.';
+            if(count($errors) > 0) {
+                return view('auth.register.register-step-account')->withErrors($errors);
+            }
+            else {
+                return view('auth.register.register-step-account');
+            }
         }else {
             $empresa = Empresa::create([
                 'nombre_empresa' => $post['name_business']

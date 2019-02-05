@@ -11,10 +11,10 @@
                 <div class="col-lg-4 card-center">
                     <div class="auth-content card-auth">
                         <div class="login-form-auth">
-                            <h4 style="margin-bottom: 10px;">Empieza con nuestro plan gratis para siempre</h4>
+                            <h4 style="margin-bottom: 10px;">Empieza con nuestro plan <strong>Gratis</strong> para siempre</h4>
                             <div class="register-link-auth m-t-15 text-center">
                                     <p>Empieza a hacer crecer tu negocio <br>
-                                ¿Ya mencionamos que es gratis por siempre?</p>
+                                ¿Ya mencionamos que es GRATIS por siempre?</p>
                             </div>
                             <form method="POST" action="{{ route('web.auth.register.store_account') }}" style="margin-top:20px;">
                                 @csrf
@@ -38,7 +38,17 @@
                                     </span>
                                     @endif
                                 </div>
-
+                                @if (count($errors) > 0)
+                                    <div class="form-group">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $error }}</strong>
+                                                </span>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Crea tu cuenta</button>
                                 <div class="register-link-auth m-t-15 text-center">
                                     <p>¿Ya tienes una cuenta? <a href="{{ route('login') }}"> Inicia Sesión</a></p>
