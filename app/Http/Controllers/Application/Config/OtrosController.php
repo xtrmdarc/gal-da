@@ -154,7 +154,7 @@ class OtrosController extends Controller
             } else {
                 $filenametostore = $viewdata['logo'];
             }
-
+            dd($igv);
             $sql = DB::update("UPDATE empresa SET
                     razon_social  = ?,
                     abrev_rs   = ?,
