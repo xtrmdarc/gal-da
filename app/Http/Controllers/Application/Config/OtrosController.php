@@ -154,7 +154,7 @@ class OtrosController extends Controller
             } else {
                 $filenametostore = $viewdata['logo'];
             }
-            dd($igv);
+
             $sql = DB::update("UPDATE empresa SET
                     razon_social  = ?,
                     abrev_rs   = ?,
@@ -166,7 +166,7 @@ class OtrosController extends Controller
                     moneda = ?,
                     id_pais = ?
                 WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id_pais,$id]);
-
+            dd($sql);
             session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
 
             return redirect('/ajustesDatosEmpresa');
