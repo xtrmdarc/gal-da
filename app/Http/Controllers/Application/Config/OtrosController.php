@@ -112,7 +112,7 @@ class OtrosController extends Controller
     public function GuardarDE(Request $request){
         $post = $request->all();
 
-        $id = $post['id'];
+        $id = (int)$post['id'];
         $razon_social = $post['razon_social'];
         $abrev_rs = $post['abrev_rs'];
         $ruc = $post['ruc'];
@@ -120,7 +120,7 @@ class OtrosController extends Controller
         $telefono = $post['telefono'];
         $direccion = $post['direccion'];
         $logo = $post['logo'];
-        $igv = $post['igv']/100;
+        $igv = number_format($post['igv']*1.00/100, 2, ".", "");
         $id_pais = $post['country'];
 
         if($id != ''){
@@ -154,19 +154,21 @@ class OtrosController extends Controller
             } else {
                 $filenametostore = $viewdata['logo'];
             }
-
-            $sql = DB::update("UPDATE empresa SET
-                    razon_social  = ?,
-                    abrev_rs   = ?,
-                    ruc   = ?,
-                    telefono  = ?,
-                    direccion = ?,
-                    logo = ?,
-                    igv = ?,
-                    moneda = ?,
-                    id_pais = ?
-                WHERE id = ?",[$razon_social,$abrev_rs,$ruc,$telefono,$direccion,$filenametostore,$igv,$moneda,$id_pais,$id]);
-
+            
+            
+            //dd($igv);
+            $sql = DB::table('empresa')->where('id',$id)->update([
+                'razon_social' =>$razon_social,
+                'abrev_rs'   =>$abrev_rs,
+                'ruc'  =>$ruc,
+                'telefono'  => $telefono,
+                'direccion' => $direccion,
+                'igv' => $igv,
+                'logo' =>$filenametostore,
+                'moneda' =>$moneda,
+                'id_pais' =>$id_pais
+            ]);
+            //dd(DB::getQueryLog());
             session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
 
             return redirect('/ajustesDatosEmpresa');
