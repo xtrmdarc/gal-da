@@ -276,30 +276,37 @@ class AuthController extends Controller
 
         $nombre_negocio = $post['name_business'];
 
-        $sql = DB::update("UPDATE tm_usuario SET
+        if($nombre_negocio == ''){
+            $errors = [];
+            $errors[] = 'Completa el nombre de tu negocio.';
+            if(count($errors) > 0) {
+                return view('auth.register.register-step-account-registerBusiness')->withErrors($errors);
+            }
+        }else {
+            $sql = DB::update("UPDATE tm_usuario SET
 						name_business  = ?,
 						estado = ?
 				    WHERE id_usu = ?", [$nombre_negocio,'a',$idUsu]);
 
-        $sql = DB::update("UPDATE empresa SET
+            $sql = DB::update("UPDATE empresa SET
 						nombre_empresa  = ?
 				    WHERE id = ?", [$nombre_negocio,$empresaId]);
 
-        $sql = DB::update("UPDATE sucursal SET
+            $sql = DB::update("UPDATE sucursal SET
 						nombre_sucursal  = ?
                     WHERE id = ?", [$nombre_negocio,$sucursalId]);
 
-        //return redirect()->route('tableroF');
-        //dd(\Auth::user());
-        return AppController::LoginAuthenticated($request,\Auth::user());
+            //return redirect()->route('tableroF');
+            //dd(\Auth::user());
+            return AppController::LoginAuthenticated($request,\Auth::user());
 
-        /*if($planId == '1'){
-            return redirect()->route('tableroF');
-        }else {
-            return redirect()->route('tablero');
+            /*if($planId == '1'){
+                return redirect()->route('tableroF');
+            }else {
+                return redirect()->route('tablero');
+            }
+            */
         }
-        */
-
     }
 
     public function verificarTokenSubUsuario($email,$verifyToken)

@@ -28,7 +28,17 @@
                                             </span>
                                     @endif
                                 </div>
-
+                                @if (count($errors) > 0)
+                                    <div class="form-group">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $error }}</strong>
+                                                </span>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">¡ Potencia tu negocio !</button>
                             </form>
                         </div>
