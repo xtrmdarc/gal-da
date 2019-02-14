@@ -2491,7 +2491,7 @@ span.stButton_gradient,
   margin-top: 50px;
   padding: 25px 53px;
   text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
 }
 
 .btn-error:hover, .btn-error:focus  {
