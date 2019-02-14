@@ -9,7 +9,7 @@
                 <div class="row" >
                     
                     <div class="col-md-6 col-sm-6">
-                        <h1>Empieza a optimizar  tu restaurante gratis</h1>
+                        <h2 style="font-size:2.5em;">Empieza a optimizar  tu restaurante gratis</h2>
                         <p style="font-size: 1.3em;"> Sin tiempo límite. Sin tarjetas de crédito requeridas.</p>
                     </div>
                     <div class="col-md-6 col-sm-6">

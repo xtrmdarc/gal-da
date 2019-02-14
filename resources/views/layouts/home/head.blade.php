@@ -25,7 +25,7 @@
                 </button>
 
                 <a class="navbar-brand" href="/">
-                    <h1><img id="logo-home" class="image-responsive" src="{{ URL::to('home/images/logo-1.png') }}" alt="logo"></h1>
+                    <img id="logo-home" class="image-responsive" src="{{ URL::to('home/images/logo-1.png') }}" alt="logo">
                 </a>
 
             </div>
