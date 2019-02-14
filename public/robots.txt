@@ -1,2 +1,3 @@
+Sitemap: https://www.gal-da.com/externos/sitemap.xml
 User-agent: *
 Disallow:
