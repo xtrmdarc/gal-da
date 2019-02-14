@@ -82,7 +82,7 @@
     font-size: 14px;
     color: #0099ae;
     border: 1px solid #0099ae;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     padding: 10px 25px;
   }
@@ -2756,7 +2756,7 @@ span.stButton_gradient,
   font-family: 'PT Sans',sans-serif;
   font-style: normal;
   font-weight: bold;
-  line-height: normal;
+  /* line-height: normal; */
   font-size: 42px;
   color: white;
 
@@ -2777,7 +2777,7 @@ span.stButton_gradient,
   color: white;
   border: white;
   background-color: #FBA017 !important;
-  margin-left: 5px;
+  
   font-family: 'PT Sans';
   font-size: 16px;
   font-style:normal;
@@ -2817,7 +2817,7 @@ html, body {
 }
 
 .btn{
-  font-family: 'PT Sans';
+  font-family: 'Montserrat',sans-serif;
 }
 .line-separator{
   margin-bottom : 20px;
@@ -2853,4 +2853,119 @@ html, body {
       margin-bottom: 10px !important;
     }
   
+}
+
+.card {
+  background: #ffffff none repeat scroll 0 0;
+  /* margin: 15px 10px;*/
+  padding: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.billing-form p{
+  color: black;
+  opacity: 0.5;
+}
+
+.billing-form label{
+  color: black;
+  opacity: 0.5;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.billing-form .section-title{
+  color: black;
+  opacity: 1;
+}
+
+.btn-brand-color{
+  color: white;
+  background-color: #1fbdb7;
+}
+
+.btn-brand-color:hover{
+  color: white;
+  background: #147c79;
+}
+
+.btn-brand-color:focus{
+  color: white;
+  background: #147c79;
+}
+
+.equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+.full-sticky-right{
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.billing-summary-bar h2,.billing-summary-bar,.billing-summary-bar h1,.billing-summary-bar h3,.billing-summary-bar h4,.billing-summary-bar p label{
+  color: white;
+}
+.billing-summary-bar .btn{
+  color: black;
+}
+.btn-half-width{
+  width:80%;
+}
+
+.billing-form input[type=text],.billing-form select{
+  padding: 2px 10px 2px 10px;
+  height: 35px;
+  font-size: 14px;
+}
+.nav-billing a{
+  color: black;
+  opacity: 0.5;
+}
+.nav-billing li.active a {
+  opacity: 1;
+}
+
+div[data-toggle="collapse"]{
+  cursor: pointer;
+}
+
+.billing-summary-bar .precio{
+  font-size: 350%;
+  margin-top: 20px;
+  display: block;
+}
+
+.btn-cta{
+  background-color: #FBA017 !important;
+  font-family: 'Montserrat', sans-serif;
+  color: white !important;
+}
+
+.billing-summary-bar .btn-inactive{
+  opacity: 0.5;
+}
+
+.LandingMainHeader{
+  font-size: 45px;
+  font-family: 'PT Sans',sans-serif;
+  font-weight: bold;
+  
+  color: white;
+  margin-top: 20px;
+}
+
+.LandingSecondHeader{
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 10px;
+  display: block
+}
+
+#quees h2{
+
 }

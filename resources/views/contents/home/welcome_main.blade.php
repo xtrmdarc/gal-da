@@ -12,10 +12,10 @@
             <div class="row">
                 <div class="main-slider" >
                     <div class="slide-text col-md-4 col-sm-4" >
-                        <h1 class="LandingMainHeader" style="margin-top:10px;">Rápido, seguro y confiable </h1>
-                        <h2 class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</h2>
+                        <h1 class="LandingMainHeader" style="margin-top:10px;">El sistema que tu restaurante necesita </h1>
+                        <span class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</span>
                         {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
-                        <a href="/register" class="btn btn-common btn-cta-landing-main">Empieza gratis</a>
+                        <a href="/register" class="btn btn-common btn-cta-landing-main ">Empieza gratis</a>
                     </div>
                     <img src="{{ URL::to('home/images/home/slider/sun.png') }}" class="slider-sun" alt="slider image">
                     <img id="nubes-slider" src="{{ URL::to('home/images/home/slider/nubes.png') }}" class="slider-nubes" alt="slider image">
@@ -38,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="text-center " >
-                    <h1 class="LandingMainHeader" style="font-size:4em">Tu Plataforma</h1>                                 
+                    <h2 style="font-size:4em">Tu Plataforma</h2>
                     <p>Gal-Da es el sistema para restaurantes que te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. Cuenta con un intuitivo POS (TPV) y herramientas administrativas.
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
@@ -49,27 +49,7 @@
         </div>
     </section>
   
-    @php
-    /*
-    <section id="quees" class="section_landing">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h1 class="title text-center"  >Tu Plataforma</h1>
-                    <p>Gal-Da te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. 
-                    </p>
-                </div>
-                <div class="col-sm-8 text-center " >
-                    <div class="item active" style="margin-top:2em;">                             
-                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="">
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-    */
-    @endphp
+    
     <section id="en_linea_section"  class="section_landing">
         <div class="container">
             <div class="row">
@@ -77,7 +57,7 @@
                     <video  width="100%" autoplay loop muted playsinline src="{{URL::to('home/images/en_linea.mp4')}}"></video>
                 </div>
                 <div class="col-sm-4">
-                    <h1 class="title text-center ">Pon tu restaurante en línea</h1>
+                    <h2 class="title text-center " style="font-size:2.5em">Pon tu restaurante en línea</h2>
                     <p style="margin-top:20px;">Cada segundo cuenta, por eso Gal-Da te permite sincronizar los <b style="brand-color">pedidos en tiempo real</b> con la cocina.</p>
                     <p>De esta manera, reduces los tiempos de operación y atención. Clientes más felices y más tiempo para invertir en tu restaurante. </p>
                 </div>
@@ -154,7 +134,7 @@
                 <div class="row">
                     <div class="action take-tour">
                         <div class="col-sm-7 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <h1 class="title">Módulo de delivery</h1>
+                            <h2 class="title" style="font-size:3em">Módulo de delivery</h2>
                             <p>Incrementa tus ventas implementando hoy mismo el delivery en tu restaurante.</p>
                         </div>
                         <div class="col-sm-5 text-center wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
@@ -214,7 +194,7 @@
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                         <p><img src="{{ URL::to('home/images/home/clients.png') }}" class="img-responsive" alt=""></p>
-                        <h1 class="title">Clientes Felices</h1>
+                        <h2 class="title" style="font-size:3em">Clientes Felices</h2>
                         <p>Únete a nuestro grupo de cliente embajadores. <br> Y aprovecha grandes beneficios </p>
                     </div>
                     @php
