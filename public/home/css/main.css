@@ -2971,6 +2971,6 @@ div[data-toggle="collapse"]{
 
 }
 .navbar-brand h1{
-  display: none;
+  display: none !important;
 }
 
