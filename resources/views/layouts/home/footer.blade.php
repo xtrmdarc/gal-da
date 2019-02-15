@@ -3,7 +3,7 @@
         <div class="row">
 
             <div id="ft_bottom_separator" class="col-sm-12 text-center bottom-separator">
-                <img src="images/home/under.png" class="img-responsive inline" alt="">
+                
             </div>
             <div class="col-xs-12">
                 <div class="row" >

@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="main-slider" >
                     <div class="slide-text col-md-4 col-sm-4" >
-                        <h1 class="LandingMainHeader" style="margin-top:10px;">El sistema que tu restaurante necesita </h1>
+                        <h2 class="LandingMainHeader" style="margin-top:10px;">El sistema que tu restaurante necesita </h2>
                         <span class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</span>
                         {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
                         <a href="/register" class="btn btn-common btn-cta-landing-main ">Empieza gratis</a>
@@ -39,10 +39,10 @@
             <div class="row">
                 <div class="text-center " >
                     <h2 style="font-size:4em">Tu Plataforma</h2>
-                    <p>Gal-Da es el sistema para restaurantes que te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. Cuenta con un intuitivo POS (TPV) y herramientas administrativas.
+                    <p>Gal-Da es el <b>software para restaurantes</b> en la nube que te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. Cuenta con un intuitivo POS (TPV) y herramientas administrativas.
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
-                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="tablero de control del sistema para restaurantes gratis gal-da">
+                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="tablero de control de nuestro software para restaurantes gratis gal-da">
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="{{ URL::to('home/images/home/monkey-use-landing-icon.jpg') }}" alt="icono mono usando gal-da porque facil de usar ">
+                            <img src="{{ URL::to('home/images/home/monkey-use-landing-icon.jpg') }}" alt="icono mono usando nuestro software para restaurante gratis porque es facil de usar ">
                         </div>
                         <h2>Fácil de usar</h2>
                         <p>Es intuitivo y cómodo de utilizar. Desarrollado a medida de la exigencia del mercado gastronómico.</p>
@@ -79,7 +79,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="{{ URL::to('home/images/home/multiple-devices.jpg') }}" alt="dispositivos multiples en los que gal-da se puede usar">
+                            <img src="{{ URL::to('home/images/home/multiple-devices.jpg') }}" alt="dispositivos multiples en los que nuestro software para restaurante gratis se puede usar">
                         </div>
                         <h2>Online</h2>
                         <p>Completamente en línea. No requiere instalación ni mantenimiento y se puede utilizar desde cualquier lugar.</p>
@@ -88,7 +88,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="{{ URL::to('home/images/home/metrics-landing-icon.png') }}" alt="icono de informes realizados por el sistema gal-da">
+                            <img src="{{ URL::to('home/images/home/metrics-landing-icon.png') }}" alt="icono de informes realizados por nuestro software para restaurante gratis gal-da">
                         </div>
                         <h2>Informes y reportes</h2>
                         <p>Información y estadística útil acerca del desempeño de tu restaurante para tomar decisiones.</p>
@@ -99,7 +99,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="{{ URL::to('home/images/home/zepelling-gratis.png') }}" alt="zepelling turquesa gratis">
+                            <img src="{{ URL::to('home/images/home/zepelling-gratis.png') }}" alt="zepelling turquesa gratis simbolo de nuestro software para restaurante gratis">
                         </div>
                         <h2>Gratis</h2>
                         <p>Prueba nuestro plan completamente gratis con calidad empresarial.</p>
@@ -108,7 +108,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
-                            <img src="{{ URL::to('home/images/home/relax-movil-landing-icon.png') }}" alt="sombrilla playa que refleja la libertad de quien usa gal-da">
+                            <img src="{{ URL::to('home/images/home/relax-movil-landing-icon.png') }}" alt="sombrilla playa que refleja la libertad de quien usa nuestro software para restaurante gratis">
                         </div>
                         <h2>Móvil</h2>
                         <p>Controla y monitorea las operaciones de tu restaurante desde cualquier parte con tu dispositivo móvil.</p>
@@ -117,7 +117,7 @@
                 <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
                     <div class="single-service">
                         <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                            <img src="{{ URL::to('home/images/home/save-time-landing-icon.png') }}" alt="alcancía ahorrador">
+                            <img src="{{ URL::to('home/images/home/save-time-landing-icon.png') }}" alt="alcancía ahorrador llena de los ahorros que produce nuestro software para restaurante gratis">
                         </div>
                         <h2>Ahorra tiempo</h2>
                         <p>Aumenta tu productividad optimizando los tiempos de las operaciones de tu negocio.</p>
@@ -193,7 +193,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <p><img src="{{ URL::to('home/images/home/clients.png') }}" class="img-responsive" alt="clientes felices carrousel"></p>
+                        <p><img src="{{ URL::to('home/images/home/clients.png') }}" class="img-responsive" alt="clientes felices que usaron nuestro software para restaurantes gratis carrousel"></p>
                         <h2 class="title" style="font-size:3em">Clientes Felices</h2>
                         <p>Únete a nuestro grupo de cliente embajadores. <br> Y aprovecha grandes beneficios </p>
                     </div>
