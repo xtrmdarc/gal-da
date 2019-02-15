@@ -2954,7 +2954,8 @@ div[data-toggle="collapse"]{
   font-size: 45px;
   font-family: 'PT Sans',sans-serif;
   font-weight: bold;
-  
+  line-height: 45px;
+  display: block;
   color: white;
   margin-top: 20px;
 }
@@ -2969,3 +2970,7 @@ div[data-toggle="collapse"]{
 #quees h2{
 
 }
+.navbar-brand h1{
+  display: none;
+}
+
