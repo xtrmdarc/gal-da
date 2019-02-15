@@ -7,7 +7,7 @@
       <meta name="author" content="">
       <meta name="csrf-token" content="{{ csrf_token() }}">
       @yield('metas')
-      <title>Gal-Da | Sistema en línea para restaurantes </title>
+      <title>Gal-Da | Software para restaurantes gratis en línea </title>
       <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
       <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
       <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
