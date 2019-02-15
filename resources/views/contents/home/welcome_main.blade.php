@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="main-slider" >
                     <div class="slide-text col-md-4 col-sm-4" >
-                        <h2 class="LandingMainHeader" style="margin-top:10px;">El sistema que tu restaurante necesita </h2>
+                        <span class="LandingMainHeader" style="margin-top:10px;">El sistema que tu restaurante necesita </span>
                         <span class="LandingSecondHeader">Organiza y aumenta la productividad de tu restaurante más rápido que nunca</span>
                         {{--<p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>--}}
                         <a href="/register" class="btn btn-common btn-cta-landing-main ">Empieza gratis</a>
