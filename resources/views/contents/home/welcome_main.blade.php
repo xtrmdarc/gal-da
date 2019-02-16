@@ -20,8 +20,8 @@
                     <img src="{{ URL::to('home/images/home/slider/sun.png') }}" class="slider-sun" alt="sol silder">
                     <img id="nubes-slider" src="{{ URL::to('home/images/home/slider/nubes.png') }}" class="slider-nubes" alt="nubes slider ">
                 
-                    <img id="zepellin-slider" src="{{ URL::to('home/images/home/slider/zepellin.png') }}" class="slider-zepellin" alt="slider zepellin ">
-                    <img src="{{ URL::to('home/images/home/slider/restaurante.png') }}" class="slider-hill" alt="Tu restaurante gal-da">
+                    <img id="zepellin-slider" src="{{ URL::to('home/images/home/slider/zepellin-min.png') }}" class="slider-zepellin" alt="slider zepellin ">
+                    <img src="{{ URL::to('home/images/home/slider/restaurante-min.png') }}" class="slider-hill" alt="Tu restaurante gal-da">
                     <img src="{{ URL::to('home/images/home/slider/menu.png') }}" class="slider-house" alt="menu del restaurante">
                     
                     <img src="{{ URL::to('home/images/home/slider/birds1.png') }}" class="slider-birds1" alt="slider aves ">
@@ -42,7 +42,7 @@
                     <p>Gal-Da es el <b>software para restaurantes</b> en la nube que te ayuda a automatizar y optimizar los procesos y tareas de tu restaurante, bar, café entre otros. Cuenta con un intuitivo POS (TPV) y herramientas administrativas.
                         </p>  
                     <div class="item active" style="margin-top:2em;">                             
-                        <img  src="{{URL::to('https://s3.amazonaws.com/galda-test-picture-empresas/tablero.png')}}" style="width:100%" alt="tablero de control de nuestro software para restaurantes gratis gal-da">
+                        <img  src="{{URL::to('home/images/home/tablero-min.png')}}" style="width:100%" alt="tablero de control de nuestro software para restaurantes gratis gal-da">
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
             <div class="row">
                 <div class="single-features">
                     <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms" style="padding:0px;">
-                        <img src="{{ URL::to('home/images/home/galda-app.png') }}" class="img-responsive"  alt="restaurante utiliza sistema gal-da">
+                        <img src="{{ URL::to('home/images/home/galda-app-min.png') }}" class="img-responsive"  alt="restaurante utiliza sistema gal-da">
                     </div>
                     <div class="col-sm-6 wow fadeInRight" style="margin-top:0px;" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h2>Más rápido imposible.</h2>
