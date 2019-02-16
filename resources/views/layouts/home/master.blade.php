@@ -10,15 +10,15 @@
       <title>Gal-Da | Software para restaurantes gratis en línea </title>
       <meta name="google-site-verification" content="Uwkj6rtsfo0SZxzCbHpV5ZCFJqj3YB7p4f1fXQ5V35U" />
       <link href="{{ URL::to('home/css/bootstrap.min.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="stylesheet">
+      <link href="{{ URL::to('home/css/font-awesome.min.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
       <link href="{{ URL::to('home/css/animate.min.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/lightbox.css') }}" rel="stylesheet">
+      <link href="{{ URL::to('home/css/lightbox.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
       <link href="{{ URL::to('home/css/main.css') }}" rel="stylesheet">
       <link href="{{ URL::to('home/css/responsive.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/auth/auth.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/home/styles.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/home/header.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/home/pricing.css') }}" rel="stylesheet">
+      <link href="{{ URL::to('home/css/auth/auth.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
+      <link href="{{ URL::to('home/css/home/styles.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
+      <link href="{{ URL::to('home/css/home/header.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
+      <link href="{{ URL::to('home/css/home/pricing.css') }}" rel="preload" onload="this.rel = 'stylesheet">
       <!--[if lt IE 9]>
       <script src="{{ URL::to('home/js/html5shiv.js') }}"></script>
       <script src="{{ URL::to('home/js/respond.min.js') }}"></script>
@@ -30,8 +30,8 @@
       <link rel="apple-touch-icon-precomposed" href="{{ URL::to('home/images/ico/apple-touch-icon-57-precomposed.png') }}">
     
       
-      <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Nunito:700,100,200,300">
+      {{-- <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Nunito:700,100,200,300"> --}}
       <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=PT+Sans:700,100,200,300,400">
       <link rel="stylesheet"

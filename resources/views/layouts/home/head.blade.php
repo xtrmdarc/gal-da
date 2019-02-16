@@ -25,7 +25,7 @@
                 </button>
 
                 <a class="navbar-brand" href="/">
-                    <img id="logo-home" class="image-responsive" src="{{ URL::to('home/images/logo-1.png') }}" alt="logo">
+                    <img id="logo-home" class="image-responsive" src="{{ URL::to('home/images/logo-1-min.png') }}" alt="logo">
                     <h1>Gal-Da, Software para restaurantes gratis</h1>
                 </a>
 

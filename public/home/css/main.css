@@ -388,7 +388,7 @@ ul.sub-menu {
 
 #footer  {
   padding-bottom: 10px;
-  background-image: url(../images/home/footer_background.png);
+  background-image: url(../images/home/footer_background-min.png);
   background-size: cover;
   background-position: bottom;
  
@@ -535,7 +535,7 @@ ul.sub-menu {
 *******Home Page******
 **************************/
 #home-slider {
-  background: url(../images/home/slider-bg4.png) 0 100% repeat-x;
+  background: url(../images/home/slider-bg4-min.png) 0 100% repeat-x;
   position: relative;
   height: 560px;
 }
@@ -2559,6 +2559,9 @@ span.stButton_gradient,
   text-align: center;
   margin-top: 80px;
   margin-bottom: 95px;
+}
+#logo-home {
+  width: 150px;
 }
 
 .logo-image img {
