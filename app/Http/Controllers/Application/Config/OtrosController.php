@@ -63,7 +63,7 @@ class OtrosController extends Controller
         if(isset($cod_tributario)){
             $viewdata['identificacionTributaria'] = $cod_tributario;
         }else {
-            $viewdata['identificacionTributaria'] = 'Pais Externo';
+            $viewdata['identificacionTributaria'] = 'ID Fiscal (Ruc, Nif, etc)';
         }
 
 
@@ -154,9 +154,7 @@ class OtrosController extends Controller
             } else {
                 $filenametostore = $viewdata['logo'];
             }
-            
-            
-            //dd($igv);
+
             $sql = DB::table('empresa')->where('id',$id)->update([
                 'razon_social' =>$razon_social,
                 'abrev_rs'   =>$abrev_rs,
