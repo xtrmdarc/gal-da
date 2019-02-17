@@ -54,7 +54,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8" >
-                    <video  width="100%" autoplay loop muted playsinline src="{{URL::to('home/images/en_linea.mp4')}}"></video>
+                    <video  width="100%" autoplay loop muted playsinline src="{{URL::to('home/images/en_linea_min.mp4')}}"></video>
                 </div>
                 <div class="col-sm-4">
                     <h2 class="title text-center " style="font-size:2.5em">Pon tu restaurante en línea</h2>
