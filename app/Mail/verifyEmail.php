@@ -32,7 +32,7 @@ class verifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to Gal-Da!')
+        return $this->subject('Bienvenido a Gal-Da!')
                     ->view('email.home.sendEmailH');
     }
 }
