@@ -15,10 +15,10 @@
       <link href="{{ URL::to('home/css/lightbox.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
       <link href="{{ URL::to('home/css/main.css') }}" rel="stylesheet">
       <link href="{{ URL::to('home/css/responsive.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/auth/auth.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
+      <link href="{{ URL::to('home/css/auth/auth.css') }}" rel="stylesheet">
       <link href="{{ URL::to('home/css/home/styles.css') }}" rel="preload" onload="this.rel = 'stylesheet'">
       <link href="{{ URL::to('home/css/home/header.css') }}" rel="stylesheet">
-      <link href="{{ URL::to('home/css/home/pricing.css') }}"rel="stylesheet">
+      <link href="{{ URL::to('home/css/home/pricing.css') }}" rel="stylesheet">
       <!--[if lt IE 9]>
       <script src="{{ URL::to('home/js/html5shiv.js') }}"></script>
       <script src="{{ URL::to('home/js/respond.min.js') }}"></script>
