@@ -286,6 +286,7 @@ class InicioController extends Controller
             'vista_amplia' => true
         ];
         if ($val == 1){
+            
             return view('contents.application.inicio.orden')->with($data);
         } else {
             self::Index();
@@ -482,6 +483,7 @@ class InicioController extends Controller
                     //Verificar
                 }
                 $id_apc = session('id_apc');
+                //dd(session('id_apc'));
                 $igv = session('igv_session');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
                 $arrayParam = array(
@@ -525,6 +527,13 @@ class InicioController extends Controller
                 );
                 DB::statement('call usp_restEmitirVentaDet( ?, ?, ?, ?)',$arrayParam2);
 
+                //el usuario superadminsitrador ha hecho mas de 1 venta
+                $id_user_super = \Auth::user()->parent_id?\Auth::user()->parent_id : \Auth::user()->id_usu;
+                DB::table('tm_usuario')->where('id_usu',$id_user_super)->update([
+                    'primer_pedido' => true
+                ]);
+
+                //Broadcastear venta de pedido
                 $ordenVendida = TmPedido::find($data['cod_pedido']);
                 event(new VentaEfectuada($ordenVendida));
 
@@ -935,5 +944,6 @@ class InicioController extends Controller
     public function EscogerApc(Request $request)
     {
         session(['id_apc'=>$request->id_apc]);
+        
     }
 }

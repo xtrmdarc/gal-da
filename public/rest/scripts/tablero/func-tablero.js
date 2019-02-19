@@ -1,5 +1,5 @@
 $(function() {  
-    $("#mdl-feedback").modal('show');
+    /* $("#mdl-feedback").modal('show');*/
     setupSocketio();
     datosGenerales();
     $('#tablero').addClass("active");
@@ -86,7 +86,7 @@ $.ajax({
         //$('#meta_a').text((meta).toFixed(2)+"%");
         
         var con = 1;
-        $.each(item['data9'][0], function(i, dato) {
+        $.each(item['data9'], function(i, dato) {
             var importeTodos = parseFloat(dato.cantidad) * parseFloat(dato.precio);
             var porcentajeTodos = (parseFloat(importeTodos) * 100 ) / parseFloat(item['data1'][0].total_v);
             $('#lista_platos')
@@ -116,7 +116,7 @@ $.ajax({
         });
 
         var cont = 1;
-        $.each(item['data10'][0], function(i, datu) {
+        $.each(item['data10'], function(i, datu) {
             var importePlatos = parseFloat(datu.cantidad) * parseFloat(datu.precio);
             var porcentajePlatos = (parseFloat(importePlatos) * 100 ) / parseFloat(item['data1'][0].total_v);
             $('#lista_productos')
@@ -210,6 +210,28 @@ function datosGrafico(){
 });
 }
 */
+
+$('#frm-feedback').on('submit',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    $form = $(e.target);
+    
+    $.ajax({
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        type: 'POST',  
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",   
+        success : function(){
+            
+        }
+    });
+
+    $('#mdl-feedback').modal('hide');
+
+});
 
 var setupSocketio = function(){
 

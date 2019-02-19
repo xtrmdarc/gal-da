@@ -130,7 +130,9 @@ class AppController extends Controller
         }
 
         //Almacenar el plan en la session
-        $plan_actual = Planes::find(\Auth::user()->plan_id)->first();
+        //$plan_actual = Planes::find(\Auth::user()->plan_id)->first();
+        $plan_actual = Planes::where('id',\Auth::user()->plan_id)->first();
+        //dd($plan_actual,\Auth::user()->plan_id);
         session(['plan_actual'=>$plan_actual]);
         //dd('llega a login event ',$plan_actual);
     }
@@ -183,7 +185,9 @@ class AppController extends Controller
     }
 
     public function EnviarFeedback(Request $request){
-
+        DB::table('tm_usuario')->update([
+            'free_feedback_sent' => 1
+        ]);
         Mail::to(self::$galdaMail)->send(new FeedbackSent(\Auth::user(),$request->comentario));
     }
 

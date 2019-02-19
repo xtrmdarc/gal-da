@@ -135,7 +135,7 @@
 
     Breadcrumbs::register('config.Almacen', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');
-        $breadcrumbs->push('Almacenes y Areas de Producción',route('config.Almacen'));
+        $breadcrumbs->push('Almacenes y Áreas de Producción',route('config.Almacen'));
     });
     Breadcrumbs::register('config.MesasSalones', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');

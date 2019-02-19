@@ -157,6 +157,14 @@ class AuthController extends Controller
                 'h_fin' => '24:00'
             ]);
             
+            $subscription_id = DB::table('subscription')->insertGetId([
+                'id_usu' => $user_id,
+                'es_mensual' => 1,
+                'estado' => 1,
+                'plan_id' => 1
+            ]);
+
+            DB::table('tm_usuario')->where('id_usu',$user_id)->update(['subscription_id'=>$subscription_id]);
 
             $thisUser = TmUsuario::findOrFail($user->id_usu);
 

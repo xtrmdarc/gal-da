@@ -56,7 +56,7 @@
                                     <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
                                     <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
                                     <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
-                                    <li><a href="{{route('config.Almacen')}}">Areas de Produccion</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Áreas de Produccion</a></li>
                                     <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
                                     <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
@@ -130,7 +130,7 @@
                                     <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
                                     <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
                                     <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
-                                    <li><a href="{{route('config.Almacen')}}">Areas de Produccion</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Áreas de Produccion</a></li>
                                     <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
                                     <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
@@ -211,7 +211,7 @@
                                             <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
                                             <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
                                             <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
-                                            <li><a href="{{route('config.Almacen')}}">Areas de Produccion</a></li>
+                                            <li><a href="{{route('config.Almacen')}}">Áreas de Produccion</a></li>
                                             <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                             <li><a href="{{route('config.Productos')}}">Productos </a></li>
                                             <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>

@@ -1,6 +1,7 @@
 /**
  * Created by louis on 30/06/2018.
  */
+/* Se comenta porque no  se usa este código, el codigo js está en la vista
 $(function() {
     $('#informes').addClass("active");
     moment.locale('es');
@@ -237,5 +238,29 @@ var detalle = function(cod,doc,num){
                 );
             });
         }
+  
+  
     });
 };
+*/
+$('#frm-feedback').on('submit',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    $form = $(e.target);
+    
+    $.ajax({
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        type: 'POST',  
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",   
+        success : function(){
+            
+        }
+    });
+
+    $('#mdl-feedback').modal('hide');
+
+});

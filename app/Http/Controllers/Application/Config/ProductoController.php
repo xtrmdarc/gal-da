@@ -261,7 +261,7 @@ class ProductoController extends Controller
         $stock = $post['stock_min'];
         $estado = $post['estado_pres'];
         $idPres = $post['cod_pres'];
-
+        
         if($post['cod_pres'] != ''){
             //Actualizar El error esta aqui de qu eno deja al transformado concha son
             $flag = 2;

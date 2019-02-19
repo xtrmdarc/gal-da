@@ -119,10 +119,44 @@
                 </div>
         </div>
         
-        
+        <div class="modal inmodal fade" id="mdl-feedback" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+                <div class="modal-dialog">
+                        <div class="modal-content animated bounceInRight">
+                        <form id="frm-feedback" method="post" enctype="multipart/form-data" action="/EnviarFeedback">
+                        @csrf
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                <h4 class="modal-title">Apreciamos tu opinión</h4>
+                        </div>
+                        <div class="modal-body">
+                
+                                <div class="row">
+                                <div class="col-sm-12">
+                                        <p>
+                                        ¡Hola, gracias por usar Galda! Nos gustaría conocer tu opinión <b>¿Tienes sugerencias o preguntas?</b> 
+                                        Las tomaremos en cuenta para brindarte una mejor experiencia
+                                        </p>
+                                </div>
+                                <div class="col-sm-12">
+                                        <div class="form-group">
+                                        <label>Comentario:</label>
+                                        <textarea name="comentario" class="form-control" style="height:100px" placeholder="Ingrese comentario" autocomplete="off" rows="5" text=""> </textarea>
+                                        </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" ><i class="fa fa-sign-in"></i> Enviar </button>
+                        </div>
+                        </form>
+                        </div>
+                </div>
+        </div>        
 
 @endsection('content')
 @section('scripts')
+<script src="{{URL::to('rest/scripts/tablero_f/func_tablero_f.js')}}"></script>
 <script type="text/javascript">
 
         anychart.onDocumentReady(function () {
@@ -516,7 +550,9 @@
                                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                                                 },
                                                         success: function(){
-                                                               console.log('llego');
+                                                                console.log('llego');
+                                                                drift.SNIPPET_VERSION = '0.3.1';
+                                                                drift.load('4i42nk6d6zuw');
                                                         }
                                                 });
                                                 console.log('llego aqui');
@@ -603,6 +639,16 @@
                 {
                         driver.start();
                 }
+                else{
+                        drift.SNIPPET_VERSION = '0.3.1';
+                        drift.load('4i42nk6d6zuw');
+                }
+
+                if({{ Auth::user()->primer_pedido }} == 1 && {{ Auth::user()->free_feedback_sent  }}== 0 )
+                {
+                        $("#mdl-feedback").modal('show');
+                }
+                
                 
         });
         

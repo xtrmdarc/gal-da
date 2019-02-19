@@ -168,7 +168,9 @@ class OtrosController extends Controller
             ]);
             //dd(DB::getQueryLog());
             session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
-
+            session(['moneda_session'=>$mon]);
+            session(['moneda'=>$mon]);
+            
             return redirect('/ajustesDatosEmpresa');
         }
     }
