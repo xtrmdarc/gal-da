@@ -156,67 +156,7 @@ class AuthController extends Controller
                 'h_inicio' => '19:00',
                 'h_fin' => '24:00'
             ]);
-            //crear Mozo
-            TmUsuario::create([
-                'id_areap' => '0',
-                'id_rol' => 4,
-                'dni' => '',
-                'parent_id' => $user->id_usu,
-                'estado' => 'a',
-                'nombres' => 'Jose',
-                'ape_paterno' => 'Mozo',
-                'ape_materno' => 'Mozo',
-                //'email' => $email,
-                'plan_id' => '1',
-                //'password' => bcrypt($contrasena),
-                'usuario' => 'mozo@'.$post['name_business'],
-                'verifyToken' => null,
-                'id_sucursal' => $sucursal_id,
-                'id_empresa' => $empresa_id,
-                'status'=> 1,
-                'pin' => '1234'
-            ]);
-            //Crear Cajero
-            TmUsuario::create([
-                'id_areap' => '0',
-                'id_rol' => 2,
-                'dni' => '',
-                'parent_id' => $user->id_usu,
-                'estado' => 'a',
-                'nombres' => 'Luis',
-                'ape_paterno' => 'Cajero',
-                'ape_materno' => 'Cajero',
-                //'email' => $email,
-                'plan_id' => '1',
-                //'password' => bcrypt($contrasena),
-                'usuario' => 'cajero@'.$post['name_business'],
-                'verifyToken' => null,
-                'id_sucursal' => $sucursal_id,
-                'id_empresa' => $empresa_id,
-                'status'=> 1,
-                //'pin' => '1234'
-            ]);
-            //Crear Produccion
-            TmUsuario::create([
-                'id_areap' => $are_prod->id_areap,
-                'id_rol' => 3,
-                'dni' => '',
-                'parent_id' => $user->id_usu,
-                'estado' => 'a',
-                'nombres' => 'Emilio',
-                'ape_paterno' => 'Cocina',
-                'ape_materno' => 'Cocina',
-                //'email' => $email,
-                'plan_id' => '1',
-                //'password' => bcrypt($contrasena),
-                'usuario' => 'cocina@'.$post['name_business'],
-                'verifyToken' => null,
-                'id_sucursal' => $sucursal_id,
-                'id_empresa' => $empresa_id,
-                'status'=> 1,
-                //'pin' => '1234'
-            ]);
-
+            
 
             $thisUser = TmUsuario::findOrFail($user->id_usu);
 
