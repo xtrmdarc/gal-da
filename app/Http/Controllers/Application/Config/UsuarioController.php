@@ -38,6 +38,7 @@ class UsuarioController extends Controller
                 array(':idParent' => $id_usu));
             $viewData['users'] = $subUsers;
             $viewData['breadcrumb'] = '';
+            
             $data = [
                 'breadcrumb' => 'config.Usuarios',
                 'titulo_vista' => 'Usuarios',
@@ -60,7 +61,7 @@ class UsuarioController extends Controller
                                     ->leftJoin('tm_rol','tm_rol.id_rol','tm_usuario.id_rol')
                                     ->select('tm_usuario.*','tm_rol.descripcion as desc_r')
                                     ->get();
-
+            dd($subUsers);
             $viewData['owner'] = $owner;
             $viewData['users'] = $subUsers;
             
@@ -90,7 +91,7 @@ class UsuarioController extends Controller
         $viewdata['user_areaProd']= $area_produccion;
         $viewdata['id_usu']= $id_usu;
         $viewdata['breadcrumb'] = 'config.nuevo_usuario';
-        $viewdata['nombre_empresa']=$empresa->nombre_empresa;
+        $viewdata['nombre_empresa']=$empresa->empresa_usuario;
         $viewdata['titulo_vista']= 'Nuevo usuario';
 
         return view('contents.application.config.sist.usuario_r',$viewdata);
@@ -109,7 +110,7 @@ class UsuarioController extends Controller
         
         //Empresa
         $empresa = Empresa::find(\Auth::user()->id_empresa);
-        $nombre_empresa =  $empresa->nombre_empresa;
+        $nombre_empresa =  $empresa->empresa_usuario;
 
         $flag = 1;
         $id_usu = $post['id_usu'];
@@ -182,22 +183,23 @@ class UsuarioController extends Controller
                 'plan_id' => $planId_admin,
                 'password' => bcrypt($contrasena),
                 'usuario' => $usuario,
-                'verifyToken' => (($id_rol==5)?null: Str::random(40)),
+                'verifyToken' => null,
                 'id_sucursal' => $post['id_sucursal'],
                 'id_empresa' => $userEmpresa,
-                'status'=> (($id_rol==5)?1:0),
+                'status'=> 1,
                 'pin' => $pin
             ]);
 
             if($user) {
 
-                if($user->id_rol==5) {
-                    TmUsuario::find($user->id_usu)->update(['status'=>1]);
+                //if($user->id_rol==5) {
+                
+                
 
-                }
-                else{
-                    Mail::to($user->email)->send(new SubUsuarioCreado($user));
-                }
+                // }
+                // else{
+                //     Mail::to($user->email)->send(new SubUsuarioCreado($user));
+                // }
                 
                 $notification = [ 
                     'message' =>'Usuario registrado correctamente',
@@ -217,7 +219,10 @@ class UsuarioController extends Controller
         $viewdata['titulo_vista']='Editar usuario';
         $viewdata['breadcrumb']='config.editar_usuario';
         $id_user = \Auth::user()->id_usu;
-        $nombre_empresa = Empresa::find(\Auth::user()->id_empresa)->nombre_empresa;
+
+        $id_empresa = \Auth::user()->id_empresa;
+        $nombre_empresa = Empresa::find(\Auth::user()->id_empresa)->empresa_usuario;
+        
         if(isset($user)){
             $user_rol = TmRol::all();
             $area_produccion = TmAreaProd::where('id_usu',$id_user)->get();
@@ -231,7 +236,9 @@ class UsuarioController extends Controller
             foreach($area_produccion as $a) {
                 $viewdata['nombre'] = $a->nombre;
             }
-            $stm = DB::select("SELECT * FROM v_usuarios WHERE id_usu = ?",[($user)]);
+
+            $stm = DB::select("SELECT * FROM v_usuarios WHERE id_empresa = ? AND index_por_cuenta = ? ",[$id_empresa,$user]);
+
             foreach($stm as $r) {
                
                 $viewdata['id_usu'] = $r->id_usu;

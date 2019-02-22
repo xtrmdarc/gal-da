@@ -285,7 +285,8 @@ class AuthController extends Controller
         $sucursalId = \Auth::user()->id_sucursal;
 
         $nombre_negocio = $post['name_business'];
-
+        $empresa_usuario = $post['empresa_usuario'];
+        $usuario = $post['usuario'];
         if($nombre_negocio == ''){
             $errors = [];
             $errors[] = 'Completa el nombre de tu negocio.';
@@ -295,12 +296,14 @@ class AuthController extends Controller
         }else {
             $sql = DB::update("UPDATE tm_usuario SET
 						name_business  = ?,
-						estado = ?
-				    WHERE id_usu = ?", [$nombre_negocio,'a',$idUsu]);
+						estado = ?,
+                        usuario= ?
+				    WHERE id_usu = ?", [$nombre_negocio,'a',$usuario,$idUsu]);
 
             $sql = DB::update("UPDATE empresa SET
-						nombre_empresa  = ?
-				    WHERE id = ?", [$nombre_negocio,$empresaId]);
+						nombre_empresa  = ?,
+                        empresa_usuario = ?
+				    WHERE id = ?", [$nombre_negocio,$empresa_usuario,$empresaId]);
 
             $sql = DB::update("UPDATE sucursal SET
 						nombre_sucursal  = ?

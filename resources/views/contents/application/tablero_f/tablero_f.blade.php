@@ -638,6 +638,8 @@
                 if({{ (Auth::user()->user_onboarded)}} == 0 )
                 {
                         driver.start();
+                        fbq('track','StartTrial');
+                        
                 }
                 else{
                         drift.SNIPPET_VERSION = '0.3.1';

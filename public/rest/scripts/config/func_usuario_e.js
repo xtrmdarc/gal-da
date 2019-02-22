@@ -60,7 +60,7 @@ var comboAreaProd = function(){
 
         $('#email_div').css('display','none');
 
-        $('#pass_div').css('display','block');
+        // $('#pass_div').css('display','block');
 
         $('input[name="dni"]').prop('disabled', true);
         
@@ -72,7 +72,7 @@ var comboAreaProd = function(){
 
         $('input[name="email"]').prop('disabled', true);
 
-        $('input[name="contrasena"]').prop('disabled', false);
+        // $('input[name="contrasena"]').prop('disabled', false);
     }
     else{
         $('#dni_div').css('display','block');
@@ -172,7 +172,7 @@ function HandleRolSelection(){
 
         $('#pin_div').css('display','none');
 
-        $('#pass_div').css('display','block');
+        // $('#pass_div').css('display','block');
 
         $('input[name="dni"]').prop('disabled', true);
         
@@ -184,7 +184,7 @@ function HandleRolSelection(){
 
         $('input[name="email"]').prop('disabled', true);
 
-        $('input[name="contrasena"]').prop('disabled', false);
+        // $('input[name="contrasena"]').prop('disabled', false);
     }
     else{
         
@@ -204,7 +204,7 @@ function HandleRolSelection(){
         $('#email_div').css('display','block');
         $('#frm-usuario').formValidation('revalidateField', 'area-p');
 
-        $('#pass_div').css('display','none');
+        // $('#pass_div').css('display','none');
         
         $('input[name="dni"]').prop('disabled', false);
         
@@ -216,7 +216,7 @@ function HandleRolSelection(){
 
         $('input[name="email"]').prop('disabled', false);
 
-        $('input[name="contrasena"]').prop('disabled', true);
+        // $('input[name="contrasena"]').prop('disabled', true);
        
     }
 }

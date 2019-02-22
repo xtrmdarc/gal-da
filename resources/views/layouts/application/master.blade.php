@@ -88,11 +88,26 @@
             };
             }
         }();
-        drift.SNIPPET_VERSION = '0.3.1';
-        drift.load('4i42nk6d6zuw');
+        
     </script>
-        <!-- End of Async Drift Code -->
-    
+    <!-- End of Async Drift Code -->
+    <!-- Facebook Pixel Code -->
+     <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2056800597741705');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=2056800597741705&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
@@ -104,6 +119,7 @@
     <svg class="circular" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
 </div>
+
 <!-- Main wrapper  -->
 <div id="main-wrapper">
     <!-- header header  -->
@@ -229,6 +245,18 @@
               break;
       }
     @endif
+
+    $(function(){
+        /*
+        setTimeout(function(){
+
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('4i42nk6d6zuw');
+        },3000);
+
+        */
+       
+    });
 </script>
 
 @yield('scripts')
