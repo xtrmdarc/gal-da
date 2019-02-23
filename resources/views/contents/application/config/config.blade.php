@@ -8,7 +8,7 @@
         <div class="col-sm-4 sides_padding15">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-bitbucket"></i> Restaurante</h5>
+                    <h5><i class="fa fa-bitbucket"></i> Restaurantess</h5>
                 </div>
                 <div class="ibox-content no-padding">
                     <div class="list-group">
