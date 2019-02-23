@@ -23,7 +23,7 @@ $fechaa = date("m-Y h:i: A");
             <div class="ibox-title">
                 <div class="ibox-title-buttons pull-right">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
-                    <a class="btn btn-warning" href="/tableroF"><i class="fa fa-arrow-left"></i> Atr&aacute;s </a>
+                    <a class="btn btn-warning" href="/informes"><i class="fa fa-arrow-left"></i> Atr&aacute;s </a>
                 </div>
                 <h5><strong><i class="fa fa-list"></i> Total de las Ventas</strong></h5>
             </div>
@@ -89,6 +89,7 @@ $fechaa = date("m-Y h:i: A");
                         </div>
                     </div>
                 </div>
+            </div>
         </form>
         <div class="punteo">
             <div class="row">

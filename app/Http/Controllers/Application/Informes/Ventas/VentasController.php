@@ -48,11 +48,12 @@ class VentasController extends Controller
         $ffecha = date('Y-m-d H:i:s',strtotime($post['ffecha']));
         $stm = DB::Select("SELECT v.id_ven,v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.total AS stotal,v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_apc = c.id_apc WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND v.id_tped like ? AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_cli like ? and v.id_sucursal = ? GROUP BY v.id_ven",
             array($ifecha,$ffecha,$post['tped'],$post['tdoc'],$post['icaja'],$post['cliente'],session('id_sucursal')));
+        //dd($stm);
         foreach($stm as $k => $d)
         {
             $stm[$k]->Cliente = DB::select("SELECT nombre FROM v_clientes WHERE id_cliente = ?",[$d->id_cli])[0];
         }
-        //dd($post,$stm);
+        dd($stm);
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;
@@ -69,7 +70,7 @@ class VentasController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.fec_ven,v.desc_td,v.ser_doc,v.nro_doc,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON  v.id_apc = c.id_apc WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
+            $stm = DB::Select("SELECT v.id_ped as N_Pedido,v.id_tpag,v.pago_efe as Pago_Efectivo,v.pago_tar as Pago_Tarjeta,v.descu as Descuento,v.fec_ven as Fecha_vencimiento,v.desc_td as Comprobante,v.ser_doc as Serial_Documento,v.nro_doc as Numero_Documento,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS Total,v.igv as IGV,c.desc_caja as Nombre_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON  v.id_apc = c.id_apc WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
                 array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
 
             ob_end_clean();

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Application\Informes\Finanzas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class RemuneracionesController extends Controller
 {
     //
@@ -29,16 +30,38 @@ class RemuneracionesController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT id_usu,DATE(fecha_re) AS fecha_re,des_tg,desc_usu,desc_per,motivo,importe,estado FROM v_gastosadm WHERE id_tg = 3 AND DATE(fecha_re) >= ? AND DATE(fecha_re) <= ?",
-            array($ifecha,$ffecha));
-
+        $stm = DB::Select("SELECT id_usu,id_sucursal,DATE(fecha_re) AS fecha_re,des_tg,desc_usu,desc_per,motivo,importe,estado FROM v_gastosadm WHERE id_tg = 3 AND DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
+            array($ifecha,$ffecha,session('id_sucursal')));
+        //dd($stm);
         foreach($stm as $k => $d)
         {
-            $stm[$k]->Caja =  DB::Select("SELECT desc_caja FROM v_caja_aper WHERE id_usu = ".$d->id_usu." AND DATE(fecha_a) = '".$d->fecha_re."'")[0];
+            $stm[$k]->Caja =  DB::Select("SELECT desc_caja FROM v_caja_aper WHERE id_sucursal = ? AND DATE(fecha_a) = ?",[$d->id_sucursal,$d->fecha_re])[0];
         }
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;
     }
+    public function ExportExcel(Request $request)
+    {
+        try{
 
+            $start = date('Y-m-d',strtotime($request->input('start')));
+            $end = date('Y-m-d',strtotime($request->input('end')));
+
+            $_SESSION["min-1"] = $_REQUEST['start'];
+            $_SESSION["max-1"] = $_REQUEST['end'];
+
+            $stm = DB::Select("SELECT id_usu,id_sucursal,DATE(fecha_re) AS fecha_re,des_tg,desc_usu,desc_per,motivo,importe,estado FROM v_gastosadm WHERE id_tg = 3 AND DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
+                array($start,$end,session('id_sucursal')));
+
+            ob_end_clean();
+            ob_start();
+
+            return Excel::download(new ExportFromArray($stm),'inf-remuneraciones-'.$start.'.xlsx');
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }

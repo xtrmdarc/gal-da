@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Application\Informes\Finanzas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class AperCajaController extends Controller
 {
     //
@@ -29,8 +30,8 @@ class AperCajaController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ?",
-            array($ifecha,$ffecha));
+        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
+            array($ifecha,$ffecha,session('id_sucursal')));
 
         $data = array("data" => $stm);
         $json = json_encode($data);
@@ -56,5 +57,29 @@ class AperCajaController extends Controller
         //$arr->put('Gastos',$gastos);
 
         echo json_encode($arr);
+    }
+
+    public function ExportExcel(Request $request)
+    {
+        try{
+
+            $start = date('Y-m-d',strtotime($request->input('start')));
+            $end = date('Y-m-d',strtotime($request->input('end')));
+
+            $_SESSION["min-1"] = $_REQUEST['start'];
+            $_SESSION["max-1"] = $_REQUEST['end'];
+
+            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,monto_a as Monto_aperturado,fecha_c as Fecha_cierre,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Mombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
+                array($start,$end,session('id_sucursal')));
+
+            ob_end_clean();
+            ob_start();
+
+            return Excel::download(new ExportFromArray($stm),'inf-apertura-y-cierre-caja-'.$start.'.xlsx');
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 }

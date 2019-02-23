@@ -81,7 +81,7 @@
                             <label class="control-label">Caja</label>
                             <select name="cb_caja" id="cb_caja" class="form-control selectpicker">
                                 @foreach ($cajas as $caja)
-                                <option value="{{$caja->id_apc}}" >{{$caja->descripcion}}</option>
+                                <option value="{{$caja->id_apc}}" >{{$caja->descripcion}} - {{$caja->t_des}}</option>
                                 @endforeach
                             </select>
                         </div>
