@@ -1,3 +1,8 @@
+@php
+$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+$testnVentas = $nventas;
+$viewdata['nventas'] = $testnVentas;
+@endphp
  <!-- Left Sidebar  -->
 <div class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -10,7 +15,7 @@
                     {{--/*PLAN FREE*/--}}
 
                         <li class="nav-devider"></li>
-                        <li class="nav-label"> <b>Plan Free</b> </li>
+                        <li class="nav-label"> <b>Plan Free</b><span style="margin-left: 40px;"><b>{{ $nventas  }} </b>/ 1000</span></li>
                         @if(Auth::user()->id_rol == '1')
                             <li class="nav-label"> Rol : ADMINISTRADOR </li>
                         @endif
@@ -49,6 +54,9 @@
                                 </ul>
                             </li>
                         @endif
+                        @if(Auth::user()->id_rol == '1')
+                            <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                        @endif
                         @if(Auth::user()->id_rol == '1' )
                             <li ><a id="sb_configuracion" class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
                                 <ul id="sb_collapse_configuracion" aria-expanded="false" class="collapse">
@@ -84,7 +92,7 @@
                           @if(Auth::user()->plan_id == '2')
                               {{--/*PLAN BASIC*/--}}
                             <li class="nav-devider"></li>
-                            <li class="nav-label"> <b>Plan Basic</b> </li>
+                            <li class="nav-label"> <b>Plan Basic</b><span style="margin-left: 40px;"><b>{{ $nventas  }} </b>/ ∞</span></li>
                             @if(Auth::user()->id_rol == '1')
                                 <li class="nav-label"> Rol : ADMINISTRADOR </li>
                             @endif
@@ -145,9 +153,9 @@
                             <li class="nav-devider"></li>
                         @endif
                             @if(Auth::user()->plan_id == '3')
-                                {{--/*PLAN LITE*/--}}
+                                {{--/*PLAN PRO*/--}}
                                 <li class="nav-devider"></li>
-                                <li class="nav-label"> Plan Lite </li>
+                                <li class="nav-label"> <b>Plan Pro</b><span style="margin-left: 40px;"><b>{{ $nventas  }} / ∞</b></span></li>
                                 <li class="nav-devider"></li>
                                 <li class="nav-label"> Produccion </li>
                                 @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')
