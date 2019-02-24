@@ -36,9 +36,11 @@ $fechaa = date("m-Y");
                         <div class="form-group">
                             <label >Escoge un periodo</label>
                             <div class="input-group">
-                                <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
+                                <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="true" value="'01-'.{{$fechaa}}"/>
+                                <!--<input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>-->
                                 <span class="input-group-addon">al</span>
-                                <input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />
+                                <!--<input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />-->
+                                <input style="text-align: center;" type="text" name="end" id="end" class="form-control DatePicker" autocomplete="off" readonly="true" value="{{$fecha}}"/>
                             </div>
                         </div>
                     </div>

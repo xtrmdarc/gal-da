@@ -35,9 +35,11 @@ $fechaa = date("m-Y h:i: A");
                                 <div class="form-group">
                                     <label >Escoge un periodo</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
+                                        <!--<input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>-->
+                                        <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="false" value="'01-'.{{$fechaa}}"/>
                                         <span class="input-group-addon">al</span>
-                                        <input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />
+                                        <input style="text-align: center;" type="text" name="end" id="end" class="form-control DatePicker" autocomplete="off" readonly="false" value="{{$fecha}}"/>
+                                        <!--<input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />-->
                                     </div>
                                 </div>
                             </div>
@@ -56,12 +58,11 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                                <label for="tipo_ped">Clientes</label>
-                            <select name="cliente" id="cliente" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-
+                            <label for="tipo_doc">Comprobantes</label>
+                            <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" autocomplete="off">
                                 <option value="%" active>Todos</option>
-                                @foreach($Clientes as $r)
-                                    <option value="{{$r->id_cliente}}">{{$r->nombre}}</option>
+                                @foreach($Comprobantes as $r)
+                                    <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -79,11 +80,12 @@ $fechaa = date("m-Y h:i: A");
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="tipo_doc">Comprobantes</label>
-                            <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" autocomplete="off">
+                            <label for="tipo_ped">Clientes</label>
+                            <select name="cliente" id="cliente" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+
                                 <option value="%" active>Todos</option>
-                                @foreach($Comprobantes as $r)
-                                    <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
+                                @foreach($Clientes as $r)
+                                    <option value="{{$r->id_cliente}}">{{$r->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>

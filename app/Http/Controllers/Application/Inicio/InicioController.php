@@ -280,10 +280,13 @@ class InicioController extends Controller
     public function ValidarEstadoPedido($cod){
 
         $val = self::ValidarEstadoP($cod);
+        //Comprobantes
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
         $data = [
             'cod'=> $cod,
             'breadcrumb'=> '' ,
-            'vista_amplia' => true
+            'vista_amplia' => true,
+            'Comprobantes' => $stm_comprobantes
         ];
         if ($val == 1){
             return view('contents.application.inicio.orden')->with($data);

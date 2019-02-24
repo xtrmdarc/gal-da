@@ -194,9 +194,9 @@
                                     <div class="form-group">
                                         <label>Tipo Documento</label>
                                         <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control" data-live-search-style="begins" data-live-search="true" title="Seleccionar" autocomplete="off">
-                                            <option value="1">BOLETA</option>
-                                            <option value="2">FACTURA</option>
-                                            <option value="3">TICKET</option>
+                                            @foreach($Comprobantes as $r)
+                                                <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
