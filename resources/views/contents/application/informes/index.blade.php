@@ -11,32 +11,35 @@
                 </div>
                 <div class="ibox-content no-padding">
                     <div class="list-group">
-                        @if(Auth::user()->plan_id == '2')
-                            {{--/*PLAN BASIC*/--}}
+                        @if(Auth::user()->plan_id == '1')
+                            {{--/*PLAN FREE*/--}}
                             <a class="list-group-item ventas_free" href="#">
+                                <h4 class="list-group-item-heading">Informe de Ventas</h4>
+                                <p class="list-group-item-text">Informe de las ventas realizadas en el Negocio.</p>
+                            </a>
+                        @else
+                            {{--/*PLAN BASIC y LITE*/--}}
+                            <a class="list-group-item ventas" href="#">
                                 <h4 class="list-group-item-heading">Informe de Ventas</h4>
                                 <p class="list-group-item-text">Diversos informes de las ventas realizadas en la empresa.</p>
                             </a>
-                        @else
-                            @if(Auth::user()->plan_id == '3')
-                                {{--/*PLAN LITE*/--}}
-                                <a class="list-group-item ventas" href="#">
-                                    <h4 class="list-group-item-heading">Informe de Ventas</h4>
-                                    <p class="list-group-item-text">Diversos informes de las ventas realizadas en la empresa.</p>
-                                </a>
-                                <a class="list-group-item compras" href="#">
-                                    <h4 class="list-group-item-heading">Informe de Compras</h4>
-                                    <p class="list-group-item-text">Las compras que has realizado.</p>
-                                </a>
-                                <a class="list-group-item finanzas" href="#">
-                                    <h4 class="list-group-item-heading">Informe de Finanzas</h4>
-                                    <p class="list-group-item-text">Todo lo concerniente al flujo de dinero en las cajas.</p>
-                                </a>
-                                <a class="list-group-item inventario" href="#">
-                                    <h4 class="list-group-item-heading">Informe de Inventario</h4>
-                                    <p class="list-group-item-text">Movimientos de stock generados por las ventas, compras.</p>
-                                </a>
-                            @endif
+
+                        @endif
+                        {{--/*TODO LOS PLANES*/--}}
+                        <a class="list-group-item finanzas" href="#">
+                            <h4 class="list-group-item-heading">Informe de Finanzas</h4>
+                            <p class="list-group-item-text">Todo lo concerniente al flujo de dinero en las cajas.</p>
+                        </a>
+                        @if(Auth::user()->plan_id == '3')
+                            {{--/*PLAN LITE*/--}}
+                            <a class="list-group-item compras" href="#">
+                                <h4 class="list-group-item-heading">Informe de Compras</h4>
+                                <p class="list-group-item-text">Las compras que has realizado.</p>
+                            </a>
+                            <a class="list-group-item inventario" href="#">
+                                <h4 class="list-group-item-heading">Informe de Inventario</h4>
+                                <p class="list-group-item-text">Movimientos de stock generados por las ventas, compras.</p>
+                            </a>
                         @endif
                     </div>
                 </div>

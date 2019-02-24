@@ -52,12 +52,12 @@ var listar = function(){
             {"data": "desc_caja"},
             {"data": "desc_per"},
 			{"data":"fecha_a","render": function ( data, type, row ) {
-                return '<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
-                +moment(data).format('h:mm A');
+                   return data?'<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
+                +moment(data).format('h:mm A'):'Geoge Concha';
             }},
             {"data":"fecha_c","render": function ( data, type, row ) {
-                return '<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
-                +moment(data).format('h:mm A');
+                    return data?'<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
+                +moment(data).format('h:mm A'):'Caja aun Abierta';
             }},
             {
                 "data": "monto_s",
@@ -101,6 +101,9 @@ var detalle = function(cod_apc,fecha_ape){
         success: function(data) {
             var fechaApertura = moment(data.Datos.fecha_a).format('Do MMMM YYYY, h:mm A');
             var fechaCierre = moment(data.Datos.fecha_c).format('Do MMMM YYYY, h:mm A');
+            if(fechaCierre == 'Invalid date'){
+                fechaCierre = 'Caja un Abierta';
+            }
             var totalIng = (parseFloat(data.total_i) + parseFloat(data.Ingresos.total_i)).toFixed(2);
             $("#apc").html(moneda+' '+data.Datos.monto_a);
             $("#t_ing").html(moneda+' '+totalIng);

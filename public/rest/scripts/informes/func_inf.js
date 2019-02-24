@@ -10,7 +10,7 @@ $(".ventas_free").click(function() {
 			$('<div class="panel-body no-padding"/>')
 				.append(
 				$('<div class="list-group"/>')
-					.append('<a class="list-group-item" href="/informesVentasTF">Todas las ventas</a>')
+					.append('<a class="list-group-item" href="/informesVentas">Todas las ventas</a>')
 			)
 		)
 	)
