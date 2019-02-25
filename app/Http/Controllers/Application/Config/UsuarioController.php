@@ -128,12 +128,14 @@ class UsuarioController extends Controller
         if($cod_area == null ){
             $cod_area = 0;
         }
-        $contrasena = '';
+        //$contrasena = '';
+        $contrasena = $post['contrasena'];
+        /*
         if($id_rol==5){
             $contrasena = $post['contrasena'];
             $contrasena_g = bcrypt($post['contrasena']);        
         }
-
+        */
         if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4)->exists()){
 
             $notification = [

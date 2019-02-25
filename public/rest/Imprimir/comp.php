@@ -101,7 +101,7 @@ $pdf->SetFont('LucidaConsole','',9);
 
 	$sbt = ($data->total / (1 + $data->igv));
 	$igv = (($sbt - $data->descu) * $data->igv);
-
+	
 	if($data->id_tdoc == 1){
 		$pdf->SetXY(2, $y+6+$z);//modificar solo esto
 		$pdf->CellFitScale(55, 3,'Dscto: '.session('moneda'), 0, 1, 'R');

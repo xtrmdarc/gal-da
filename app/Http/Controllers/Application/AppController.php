@@ -102,7 +102,7 @@ class AppController extends Controller
         session(['moneda_session'=>$mon]);
         session(['moneda'=>$mon]);
         session(['igv_session'=>$igv_empresa]);
-
+       
         if(\Auth::user()->id_rol == 1)  {
             
             $queryCajasAdmin = DB::table('tm_aper_cierre')
