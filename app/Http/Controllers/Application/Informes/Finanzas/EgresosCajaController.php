@@ -51,7 +51,12 @@ class EgresosCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
+            $stm = DB::Select("SELECT fecha_re as Fecha_de_Registro,desc_usu as Nombre_usuario,importe as Importe,motivo as Motivo,desc_per as Personal,
+                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,serie_doc as Serie_Doc, num_doc as Numero_Doc,v_gastosadm.estado as Estado, tm_caja.descripcion as Caja, sucursal.nombre_sucursal as Nombre_de_Sucursal
+                FROM v_gastosadm
+                left JOIN tm_caja on v_gastosadm.id_usu = tm_caja.id_usu
+                left join sucursal on v_gastosadm.id_usu = sucursal.id_usu
+                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and v_gastosadm.id_sucursal = ?",
                 array($start,$end,session('id_sucursal')));
 
             ob_end_clean();

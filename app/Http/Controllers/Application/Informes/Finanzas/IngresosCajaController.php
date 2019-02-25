@@ -55,7 +55,11 @@ class IngresosCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT * FROM tm_ingresos_adm WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal = ?",
+            $stm = DB::Select("SELECT fecha_reg as Fecha_de_Registro,tm_caja.descripcion as Caja,importe as Importe,motivo as Motivo,tm_ingresos_adm.estado as Estado,sucursal.nombre_sucursal as Nombre_de_Sucursal
+                FROM tm_ingresos_adm
+                left join sucursal on tm_ingresos_adm.id_sucursal = sucursal.id
+                left JOIN tm_caja on tm_ingresos_adm.id_usu = tm_caja.id_usu
+                WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and tm_ingresos_adm.id_sucursal = ?",
                 array($start,$end,session('id_sucursal')));
 
             ob_end_clean();

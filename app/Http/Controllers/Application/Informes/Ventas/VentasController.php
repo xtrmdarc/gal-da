@@ -70,7 +70,10 @@ class VentasController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT v.id_ped as N_Pedido,v.id_tpag,v.pago_efe as Pago_Efectivo,v.pago_tar as Pago_Tarjeta,v.descu as Descuento,v.fec_ven as Fecha_vencimiento,v.desc_td as Comprobante,v.ser_doc as Serial_Documento,v.nro_doc as Numero_Documento,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS Total,v.igv as IGV,c.desc_caja as Nombre_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON  v.id_apc = c.id_apc WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
+            $stm = DB::Select("SELECT v.id_ped as N_Pedido,v.pago_efe as Pago_Efectivo,v.pago_tar as Pago_Tarjeta,v.descu as Descuento,
+            v.fec_ven as Fecha,v.desc_td as Comprobante,v.ser_doc as Serial_Documento,
+            v.nro_doc as Numero_Documento,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS Total,v.igv as IGV,c.desc_caja as Nombre_caja
+            FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON  v.id_apc = c.id_apc WHERE (DATE(v.fec_ven) >= ? AND DATE(v.fec_ven) <= ?) AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_sucursal = ? GROUP BY v.id_ven",
                 array($start,$end,$tipo_doc,$cod_cajas,session('id_sucursal')));
 
             ob_end_clean();

@@ -69,7 +69,7 @@ class AperCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,monto_a as Monto_aperturado,fecha_c as Fecha_cierre,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Mombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
+            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,fecha_c as Fecha_cierre,monto_a as Monto_aperturado,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Nombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
                 array($start,$end,session('id_sucursal')));
 
             ob_end_clean();

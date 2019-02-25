@@ -15,7 +15,7 @@ $viewdata['nventas'] = $testnVentas;
                     {{--/*PLAN FREE*/--}}
 
                         <li class="nav-devider"></li>
-                        <li class="nav-label"> <b>Plan Free</b><span style="margin-left: 40px;"><b>{{ $nventas  }} </b>/ 1000</span></li>
+                        <li class="nav-label"> <b>Plan Free</b><span style="float: right;"><b>{{ $nventas  }} </b>/ 1000</span></li>
                         @if(Auth::user()->id_rol == '1')
                             <li class="nav-label"> Rol : ADMINISTRADOR </li>
                         @endif
@@ -92,7 +92,7 @@ $viewdata['nventas'] = $testnVentas;
                           @if(Auth::user()->plan_id == '2')
                               {{--/*PLAN BASIC*/--}}
                             <li class="nav-devider"></li>
-                            <li class="nav-label"> <b>Plan Basic</b><span style="margin-left: 40px;"><b>{{ $nventas  }} </b>/ ∞</span></li>
+                            <li class="nav-label"> <b>Plan Basic</b><span style="float: right;"><b>{{ $nventas  }} </b>/ ∞</span></li>
                             @if(Auth::user()->id_rol == '1')
                                 <li class="nav-label"> Rol : ADMINISTRADOR </li>
                             @endif
@@ -155,7 +155,7 @@ $viewdata['nventas'] = $testnVentas;
                             @if(Auth::user()->plan_id == '3')
                                 {{--/*PLAN PRO*/--}}
                                 <li class="nav-devider"></li>
-                                <li class="nav-label"> <b>Plan Pro</b><span style="margin-left: 40px;"><b>{{ $nventas  }} / ∞</b></span></li>
+                                <li class="nav-label"> <b>Plan Pro</b><span style="float: right;"><b>{{ $nventas  }} / ∞</b></span></li>
                                 <li class="nav-devider"></li>
                                 <li class="nav-label"> Produccion </li>
                                 @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')

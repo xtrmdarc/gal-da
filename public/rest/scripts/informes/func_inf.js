@@ -57,8 +57,8 @@ $(".finanzas").click(function() {
 			.append(
 				$('<div class="list-group"/>')
 				.append('<a class="list-group-item" href="/informesCajas">Aperturas y cierres de caja</a>')
-				.append('<a class="list-group-item" href="/informesIngresos">Todos los ingresos</a>')
-				.append('<a class="list-group-item" href="/informesEgresos">Todos los egresos</a>')
+				.append('<a class="list-group-item" href="/informesIngresos">Todos los ingresos Administrativos</a>')
+				.append('<a class="list-group-item" href="/informesEgresos">Todos los egresos Administrativos</a>')
 				.append('<a class="list-group-item" href="/informesRemuneracion">Egresos por remuneraci&oacute;n</a>')
 				)
 			)
