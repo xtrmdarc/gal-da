@@ -164,6 +164,92 @@ class AuthController extends Controller
                 'plan_id' => 1
             ]);
 
+            //crear Mozo
+            TmUsuario::create([
+                'id_areap' => '0',
+                'id_rol' => 4,
+                'dni' => '',
+                'parent_id' => $user->id_usu,
+                'estado' => 'a',
+                'nombres' => 'Jose',
+                'ape_paterno' => 'Mozo',
+                'ape_materno' => 'Mozo',
+                //'email' => $email,
+                'plan_id' => '1',
+                //'password' => bcrypt($contrasena),
+                'usuario' => 'mozo@'.$post['name_business'],
+                'verifyToken' => null,
+                'id_sucursal' => $sucursal_id,
+                'id_empresa' => $empresa_id,
+                'status'=> 1,
+                'pin' => '1234'
+            ]);
+            //Crear Cajero
+            TmUsuario::create([
+                'id_areap' => '0',
+                'id_rol' => 2,
+                'dni' => '',
+                'parent_id' => $user->id_usu,
+                'estado' => 'a',
+                'nombres' => 'Luis',
+                'ape_paterno' => 'Cajero',
+                'ape_materno' => 'Cajero',
+                //'email' => $email,
+                'plan_id' => '1',
+                //'password' => bcrypt($contrasena),
+                'usuario' => 'cajero@'.$post['name_business'],
+                'verifyToken' => null,
+                'id_sucursal' => $sucursal_id,
+                'id_empresa' => $empresa_id,
+                'status'=> 1,
+                //'pin' => '1234'
+            ]);
+            /*
+            //Crear Produccion
+            TmUsuario::create([
+                'id_areap' => $are_prod->id_areap,
+                'id_rol' => 3,
+                'dni' => '',
+                'parent_id' => $user->id_usu,
+                'estado' => 'a',
+                'nombres' => 'Emilio',
+                'ape_paterno' => 'Cocina',
+                'ape_materno' => 'Cocina',
+                //'email' => $email,
+                'plan_id' => '1',
+                //'password' => bcrypt($contrasena),
+                'usuario' => 'cocina@'.$post['name_business'],
+                'verifyToken' => null,
+                'id_sucursal' => $sucursal_id,
+                'id_empresa' => $empresa_id,
+                'status'=> 1,
+                //'pin' => '1234'
+            ]);
+            */
+
+            //Crear 1 salon
+            $id_salon = DB::table('tm_salon')->insertGetId([
+                'descripcion' => 'Patio principal',
+                'estado' => 'a',
+                'id_sucursal' =>$sucursal_id,
+                'id_usu' => $user->id_usu
+            ]);
+
+            //Crear 2 mesas
+            DB::table('tm_mesa')->insert([
+                'id_catg'=>$id_salon,
+                'nro_mesa' => 'M01',
+                'estado' => 'a',
+                'id_sucursal' => $sucursal_id
+            ]);
+            
+            DB::table('tm_mesa')->insert([
+                'id_catg'=>$id_salon,
+                'nro_mesa' => 'M02',
+                'estado' => 'a',
+                'id_sucursal' => $sucursal_id
+            ]);
+
             DB::table('tm_usuario')->where('id_usu',$user_id)->update(['subscription_id'=>$subscription_id]);
 
             $thisUser = TmUsuario::findOrFail($user->id_usu);
@@ -287,6 +373,15 @@ class AuthController extends Controller
         $nombre_negocio = $post['name_business'];
         $empresa_usuario = $post['empresa_usuario'];
         $usuario = $post['usuario'];
+
+        if(DB::table('empresa')->where('empresa_usuario',$empresa_usuario)->exists() )
+        {
+            $errors = [];
+            $errors[] = 'El nombre de negocio no está disponible.';
+            if(count($errors) > 0) {
+                return view('auth.register.register-step-account-registerBusiness')->withErrors($errors);
+            }
+        }
         if($nombre_negocio == ''){
             $errors = [];
             $errors[] = 'Completa el nombre de tu negocio.';
