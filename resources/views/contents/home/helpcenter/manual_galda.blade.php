@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="tab-content br-n pn">
-                    <!--ConfiguraciÛn-->
+                    <!--ConfiguraciÔøΩn-->
                     <div id="navpills-1" class="tab-pane active">
                         <div class="col-md-9 col-sm-7">
                             <div class="row">
@@ -132,7 +132,7 @@
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordionRestaurante" href="#collapseAlyAr">
-                                                            2. Almac&eacute;n y Areas de Producci&oacute;n
+                                                            2. Almac&eacute;n y √Åreas de Producci&oacute;n
                                                         </a>
                                                     </h4>
                                                 </div>
@@ -819,7 +819,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--CrÈditos-->
+                    <!--CrÔøΩditos-->
                     <div id="navpills-9" class="tab-pane">
                         <div class="col-md-9 col-sm-7">
                             <div class="row">

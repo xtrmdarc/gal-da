@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Application\Informes\Finanzas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class EgresosCajaController extends Controller
 {
     //
@@ -29,8 +30,8 @@ class EgresosCajaController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ?",
-            array($ifecha,$ffecha));
+        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
+            array($ifecha,$ffecha,session('id_sucursal')));
 
         foreach($stm as $k => $d)
         {
@@ -39,5 +40,33 @@ class EgresosCajaController extends Controller
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;
+    }
+    public function ExportExcel(Request $request)
+    {
+        try{
+
+            $start = date('Y-m-d',strtotime($request->input('start')));
+            $end = date('Y-m-d',strtotime($request->input('end')));
+
+            $_SESSION["min-1"] = $_REQUEST['start'];
+            $_SESSION["max-1"] = $_REQUEST['end'];
+
+            $stm = DB::Select("SELECT fecha_re as Fecha_de_Registro,desc_usu as Nombre_usuario,importe as Importe,motivo as Motivo,desc_per as Personal,
+                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,serie_doc as Serie_Doc, num_doc as Numero_Doc,v_gastosadm.estado as Estado, tm_caja.descripcion as Caja, sucursal.nombre_sucursal as Nombre_de_Sucursal
+                FROM v_gastosadm
+                left JOIN tm_caja on v_gastosadm.id_usu = tm_caja.id_usu
+                left join sucursal on v_gastosadm.id_usu = sucursal.id_usu
+                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and v_gastosadm.id_sucursal = ?",
+                array($start,$end,session('id_sucursal')));
+
+            ob_end_clean();
+            ob_start();
+
+            return Excel::download(new ExportFromArray($stm),'inf-egresos-'.$start.'.xlsx');
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 }

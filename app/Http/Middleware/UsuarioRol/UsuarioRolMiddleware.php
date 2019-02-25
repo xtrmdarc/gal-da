@@ -17,6 +17,7 @@ class UsuarioRolMiddleware
     public function handle($request, Closure $next)
     {
         $idRol = \Auth::user()->id_rol;
+        $idPlan = \Auth::user()->plan_id;
 
         if($idRol == 3 || $idRol == 4 || $idRol == 5) {
             if($request->getPathInfo() != '/inicio'){
@@ -31,6 +32,16 @@ class UsuarioRolMiddleware
                 ($request->getPathInfo() == '/ajustesTipoDocumento') || ($request->getPathInfo() == '/ajustesUsuarios') ||
                 ($request->getPathInfo() == '/ajustesSucursal') || ($request->getPathInfo() == '/ajustesTurnos')){
                 return redirect('/inicio');
+            }
+        }
+        if($idPlan == 1)
+        {
+            if($request->getPathInfo() == '/tablero'){
+                return redirect('/tableroF');
+            }
+        } else {
+            if($request->getPathInfo() == '/tableroF'){
+                return redirect('/tablero');
             }
         }
 

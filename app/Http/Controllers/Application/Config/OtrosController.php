@@ -167,7 +167,12 @@ class OtrosController extends Controller
                 'id_pais' =>$id_pais
             ]);
             //dd(DB::getQueryLog());
-            session(['datosempresa'=> json_decode(json_encode(AppController::DatosEmpresa(\Auth::user()->id_empresa),true))]);
+            //AppController::IniciarApp();
+            $datos_empresa = AppController::DatosEmpresa(\Auth::user()->id_empresa);
+            session(['datosempresa'=> json_decode(json_encode($datos_empresa,true))]);
+            session(['moneda_session'=>$moneda]);
+            session(['moneda'=>$moneda]);
+            session(['igv_session'=>$datos_empresa->igv]);
 
             return redirect('/ajustesDatosEmpresa');
         }

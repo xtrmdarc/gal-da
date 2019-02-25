@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-lg-6 sides_padding15" id="email_div">
+                                    <div class="col-lg-12 sides_padding15" id="email_div">
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
                                             <input type="email" name="email" id="email" value="{{is_null($id_usu) ? '' : $email}}" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
@@ -116,9 +116,9 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-lg-6 sides_padding15" style="display:none;" id="pass_div">
+                                    <div class="col-lg-6 sides_padding15"  id="pass_div">
                                         <div class="form-group">
-                                            <label class="control-label">Contrase&ntilde;a</label>
+                                            <label class="control-label">Contraseña</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
                                                 <input type="password" name="contrasena" id="contrasena_show" value="{{is_null($id_usu) ? '' : $contrasena}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />

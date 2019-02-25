@@ -40,7 +40,7 @@
                                     <th>Ape.Materno</th>
                                     <th style="text-align: center">Cargo</th>
                                     <th style="text-align: center">Estado</th>
-                                    <th style="text-align: center">Verificado</th>
+                                    <th style="text-align: center;display:none;">Verificado</th>
                                     <th style="text-align: center">Acciones</th>
                                 </tr>
                                 </thead>
@@ -70,11 +70,11 @@
                                             <a onclick="{{'estadoUsuario('.$user->id_usu.',\'i\');'}} "> <span class="label label-danger">INACTIVO</span></a>
                                         @endif
                                     </td>
-                                    <td style="text-align: center">
+                                    <td style="text-align: center;display:none;">
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
                                     <td style="text-align: right">
-                                        <a href="/ajustesRUsuario/{{$user->id_usu}}">
+                                        <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
                                         <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
                                         <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
                                     </td>

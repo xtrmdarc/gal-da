@@ -21,8 +21,9 @@ class Egr_CajaController extends Controller
         if(\Auth::user()->id_rol == 1 )
         {
             $cajasAbiertas = DB::table('tm_aper_cierre')
-                            ->select('tm_aper_cierre.id_apc','tm_caja.descripcion')
+                            ->select('tm_aper_cierre.id_apc','tm_caja.descripcion','tm_turno.descripcion as t_des')
                             ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
+                            ->Join('tm_turno','tm_turno.id_turno','=','tm_aper_cierre.id_turno')
                             ->where('tm_caja.id_sucursal',session('id_sucursal'))
                             ->WhereNull('tm_aper_cierre.fecha_cierre')->get();
 

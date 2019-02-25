@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <div class="card-two">
                             <div class="card-body p-b-0">
-                                <h1 class="card-title"><i class="fa fa-user mid-icon"></i> Administracion de Cuenta</h1>
+                                <h1 class="card-title"><i class="fa fa-user mid-icon"></i> Administración de Cuenta</h1>
                                 <h3 style="margin: 18px 0 32px;">Hola <b>{{$nombres}}</b></h3>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs customtab" role="tablist">
@@ -16,7 +16,7 @@
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Pago</span></a> </li>
                                     */--}}
                                     @if(\Auth::user()->id_rol == 1 )
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Subscripcion</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Subscripción</span></a> </li>
                                     @endif
                                 </ul>
                                 <!-- Tab panes -->
@@ -27,8 +27,8 @@
                                                 <div class="card-body" style="padding-top: 20px;">
                                                     <form class="form-horizontal form-material" method="post" enctype="multipart/form-data" action="/perfil">
                                                         @csrf
-                                                        <h4><i class="fa fa-user mid-icon"></i><b> Informacion Personal</b></h4>
-                                                        <span>Administra tu cuenta e informacion personal</span>
+                                                        <h4><i class="fa fa-user mid-icon"></i><b> Información Personal</b></h4>
+                                                        <span>Administra tu cuenta e información personal</span>
 
                                                         <header style="padding-top: 129px;padding-bottom: 20px;">
                                                             <div class="avatar">
@@ -104,7 +104,7 @@
                                             <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
                                                     <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
-                                                    <span>Modifica tus contrasenias.</span>
+                                                    <span>Modifica tu contraseña</span>
 
                                                     <div id="form-change-password" class="form-horizontal form-material">
                                                         <div class="form-group" style="padding-top: 20px;">
@@ -261,7 +261,7 @@
                                                         <span>Administra tu actual suscripcion, actualiza tu plan.</span>
 
                                                         <input type="hidden" name="plan_id" value="1">
-                                                        <h5 class="m-t-30"><b>Plan Free</b> - $0.0 mensual</h5>
+                                                        <h5 class="m-t-30"><b>Plan {{$subscription->nombre }} </b> - {{$subscription->precio}} $ {{$subscription->es_mensual==0?'anual':'mensual'}} </h5>
                                                         <h5 class="m-t-30">N de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>

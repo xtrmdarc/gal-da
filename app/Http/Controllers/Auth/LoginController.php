@@ -58,7 +58,7 @@ class LoginController extends Controller
 
         $login = $request->input($this->username());
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';
-
+        
         return [$field => $login,
             'password' => $request->password,
             'status' => '1'];
@@ -82,8 +82,9 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-
+        
         if ($this->attemptLogin($request)) {
+            
             return $this->sendLoginResponse($request);
         }
 
