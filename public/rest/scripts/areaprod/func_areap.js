@@ -432,8 +432,9 @@ var setupSocketio = function(){
 				
 				for(var j = 0; j< N; j++)
 				{
+					console.log(pedidos[j]);
 					//console.log('id_det_ped '+ pedidos[j].id_det_ped);
-					var pedidosHtml = NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a',pedidos[j].nombre_usuario,pedidos[j].tipo_usuario);
+					var pedidosHtml = NewPedido(data.orden.pedido.id_pedido,pedidos[j].id_det_ped, pedidos[j].nombre_prod , pedidos[j].pres_prod, pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,'a',pedidos[j].nombre_usuario,pedidos[j].tipo_usuario);
 					$('#'+ordenes[i].IdListaPedidos).append(pedidosHtml[0]);
 					$('#vl_tabla_body_pedidos').append(pedidosHtml[1]);
 					ordenes[i].items.push(pedidos[j]);
@@ -772,7 +773,7 @@ return {ordenes,NewOrder,preparacion,atendido,atendidoMethodCall,actualizarVLPed
 
 function ActualizarPedidos(pordenes,vl_pedidos)
 {
-
+	console.log(pordenes);
 	for(var i =0; i<pordenes.length;i++)
 	{
 		privateLib.NewOrder(pordenes[i]);

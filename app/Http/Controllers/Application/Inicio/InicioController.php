@@ -338,6 +338,7 @@ class InicioController extends Controller
                     $data['items'][$d]['id_det_ped'] = $id;
                     $producto = DB::select("SELECT * FROM v_productos WHERE id_pres = ?",[$data['items'][$d]['producto_id']])[0];
                     $data['items'][$d]['nombre_prod'] = $producto->nombre_prod;
+                    $data['items'][$d]['pres_prod'] = $producto->pres_prod;
                     $data['items'][$d]['id_areap'] = $producto->id_areap;
                     $productosRegistrados[] = $producto;
                     $data['items'][$d]['fecha']  = $fecha;
@@ -415,14 +416,15 @@ class InicioController extends Controller
     public function CancelarPedido(Request $request){
         
         $data = $request->all();
+        //Este codigo es el codigo de presentacion
         $cod = $data['cod_ped'];
 
         DB::table('tm_detalle_pedido')->where('id_det_ped',$data['cod_det_ped'])
                                     ->where('id_pedido',$data['cod_ped'])
                                     ->where('estado','<>','i')
                                     ->update(['estado'=>'i']);
-
-        $aux = DB::select('SELECT p.id_sucursal as id_sucursal, p.id_areap as id_areap FROM tm_detalle_pedido dp join tm_producto p on dp.id_prod = p.id_prod where dp.id_det_ped = ?',[$data['cod_det_ped']])[0];
+        //dd('SELECT p.id_sucursal as id_sucursal, p.id_areap as id_areap FROM tm_detalle_pedido dp join tm_producto p on dp.id_prod = p.id_prod where dp.id_det_ped = '.$data['cod_det_ped']);
+        $aux = DB::select('SELECT p.id_sucursal as id_sucursal, p.id_areap as id_areap FROM tm_detalle_pedido dp join tm_producto_pres pp on pp.id_pres = dp.id_prod join tm_producto p on pp.id_prod = p.id_prod where dp.id_det_ped = ?',[$data['cod_det_ped']])[0];
   
         event(new PedidoCancelado($data['cod_det_ped'],$aux->id_sucursal,$aux->id_areap ));   
 
