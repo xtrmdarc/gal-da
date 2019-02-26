@@ -11,7 +11,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         @if(Auth::user()->plan_id == '1')
-                            <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max.' en Plan '.session('plan_actual')->nombre   }}</h5>
+                            <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}</h5>
                         @else
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios </h5>
                         @endif
@@ -23,7 +23,7 @@
                                 <h5 id="text-limite-usuario" style="display:none" >Limite alcanzado. </h5>
                             @else
                                 <h5>
-                                    Limite alcanzado. 
+                                    Limite alcanzado - <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a>
                                 </h5>
                             @endif  
                         </div>
