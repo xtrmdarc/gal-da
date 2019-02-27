@@ -369,7 +369,7 @@ class InicioController extends Controller
                             $orden['items'][] = $itemPedido;
                         }
                     }
-                  
+                    
                     event(new PedidoRegistrado($orden,$a));
                 }
 
