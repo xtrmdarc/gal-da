@@ -1,5 +1,5 @@
 
-let plan_billing = {};
+let plan_billing =[];
 let billing_page = {};
 
 $(function(){
@@ -67,24 +67,27 @@ $('.btn-plan-periodo').click(function(e){
 
     let id_periodo = $btn.attr('period');
     console.log(id_periodo,plan_billing.precio_mensual);
-    $('#precio_mensual_regular').text('$ '+plan_billing.precio_mensual);
-
+    
+    let plan_mensual = plan_billing.find(p=> p.id_periodicidad == 1);
+    let plan_anual = plan_billing.find(p=> p.id_periodicidad == 2);
+    $('#precio_mensual_regular').text('$ '+plan_mensual.precio);
+    
     if(id_periodo == 1)
     {    
-        $('#precio_mensual_actual').text('$ '+(parseFloat(plan_billing.precio_mensual)).toFixed(2) );
-        $('#precio_total').text('$ '+ (parseFloat(plan_billing.precio_mensual)).toFixed(2));
-        $('#automatic-payment').text('$'+ (parseFloat(plan_billing.precio_mensual)).toFixed(2) + ' cada mes');
-        $('#btn-pagar').text('Pagar $'+ (parseFloat(plan_billing.precio_mensual)).toFixed(2));
+        $('#precio_mensual_actual').text('$ '+(parseFloat(plan_mensual.precio)).toFixed(2) );
+        $('#precio_total').text('$ '+ (parseFloat(plan_mensual.precio)).toFixed(2));
+        $('#automatic-payment').text('$'+ (parseFloat(plan_mensual.precio)).toFixed(2) + ' cada mes');
+        $('#btn-pagar').text('Pagar $'+ (parseFloat(plan_mensual.precio)).toFixed(2));
         
-        plan_billing.es_anual = 0;
+        //plan_billing.es_anual = 0;
     }
     else if(id_periodo == 12 )
     {
-        $('#precio_mensual_actual').text('$ '+( parseFloat(plan_billing.precio_anual)/12).toFixed(2));
-        $('#precio_total').text('$ '+parseFloat(plan_billing.precio_anual).toFixed(2));
-        $('#automatic-payment').text('$'+ (parseFloat(plan_billing.precio_anual)).toFixed(2)+ ' cada año');
-        $('#btn-pagar').text('Pagar $'+ (parseFloat(plan_billing.precio_anual)).toFixed(2));
-        plan_billing.es_anual = 1;
+        $('#precio_mensual_actual').text('$ '+( parseFloat(plan_anual.precio)/12).toFixed(2));
+        $('#precio_total').text('$ '+parseFloat(plan_anual.precio).toFixed(2));
+        $('#automatic-payment').text('$'+ (parseFloat(plan_anual.precio)).toFixed(2)+ ' cada año');
+        $('#btn-pagar').text('Pagar $'+ (parseFloat(plan_anual.precio)).toFixed(2));
+        //plan_billing.es_anual = 1;
     }
     
     
@@ -101,11 +104,14 @@ function SePuedePagar(){
     }
 }
 
-function GetPlanInfo(plan){
-
-    plan_billing.nombre = plan.nombre;
-    plan_billing.precio_mensual = plan.precio_mensual;
-    plan_billing.precio_anual = plan.precio_anual;
+function GetPlanInfo(planes){
+    
+    planes.forEach(plan => {
+        plan_billing.push(plan);
+    });
+    // plan_billing.nombre = plan.nombre;
+    // plan_billing.precio_mensual = plan.precio_mensual;
+    // plan_billing.precio_anual = plan.precio_anual;
     
 }
 

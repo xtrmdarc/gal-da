@@ -136,7 +136,12 @@ class UsuarioController extends Controller
             $contrasena_g = bcrypt($post['contrasena']);        
         }
         */
-        if(TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4)->exists()){
+        
+        $verificaPinMozo = TmUsuario::where('id_empresa',$userEmpresa)->where('pin',$pin)->where('id_rol',4);
+        if($id_usu != '')
+            $verificaPinMozo = $verificaPinMozo->where('id_usu','<>',$id_usu);
+        
+        if($verificaPinMozo->exists()){
 
             $notification = [
                 'message' =>'El usuario tiene el mismo PIN que otro usuario.',
@@ -157,8 +162,10 @@ class UsuarioController extends Controller
 						ape_paterno  = ?,
                         ape_materno = ?,
                         nombres = ?,
-                        email = ?,
-                        password = ?,
+                        email = ?, 
+                        ".
+                        (($contrasena != '' || !isset($contrasena))?'':'password = ?,' )
+                        ."
                         imagen = ?,
                         pin = ?
                     WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,bcrypt($contrasena),$imagen,$pin,$id_usu]);

@@ -41,7 +41,9 @@ $viewdata['nventas'] = $testnVentas;
                         @endif
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Administracion</li>
+                        @if(Auth::user()->id_rol == '1')
                         <li id="sb_tablero_f"><a href="/tableroF"> <i class="fa fa-bar-chart"></i><span class="hide-menu">Tablero de Control </span></a></li>
+                        @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li id="sb_clientes_li"><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif

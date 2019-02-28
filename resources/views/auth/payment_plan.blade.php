@@ -388,7 +388,12 @@
                         <div class="col-sm-12 text-center " id="wrapper-btn-pagar" style="margin-top:3px;"  >
                             <button class="btn btn-cta btn-block"  id="btn-pagar" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>"> Pagar ${{number_format($plan->precio_mensual,2,'.','')}} </button>
                         </div>
+                        <div class="col-sm-12 text-center" style="margin-top:50px;">
+                            <p style="opacity:0.8;">¿Aún no estás seguro?</p>
+                            <p><a href="{{session('home')}}" style="color:white;text-decoration:underline;"> Sigue disfrutando de Gal-Da Gratis </a></p>
+                        </div>
                     </div>
+                    
 
                 </div>
                 
@@ -472,7 +477,7 @@
 <script src="https://checkout.culqi.com/v2"></script>
 <script>
 
-    GetPlanInfo({!! json_encode($plan) !!});
+    GetPlanInfo({!! json_encode($culqi_planes) !!});
 
     Culqi.publicKey = 'pk_test_xwCI0lmt8MrIT9N1';
     Culqi.init();

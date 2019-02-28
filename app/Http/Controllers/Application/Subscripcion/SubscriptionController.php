@@ -71,12 +71,14 @@ class SubscriptionController extends Controller
 
         $paises = DB::table('pais')->get();
 
+        $planes = DB::table('culqi_plan')->where('id_plan',$id)->get();
         $plan = DB::table('planes')->where('id',$id)->first();
         $data = [
-            'plan'=> $plan,
+            'culqi_planes'=> $planes,
             'info_fact' => $billing_info,
             'paises' => $paises,
-            'tarjeta' => $card
+            'tarjeta' => $card,
+            'plan'=> $plan
         ];
 
         //dd($data,isset($info_fact->CardId));
