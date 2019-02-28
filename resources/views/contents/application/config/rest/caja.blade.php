@@ -7,7 +7,7 @@
                 <div class="ibox animated bounce">
                     <div class="ibox-title">
                         <div class="pull-left">
-                            <h5><i class="fa fa-newspaper-o"></i> Cajas - {{\Auth::user()->plan_id == 1? '1/1':''}}</h5>
+                            <h5><i class="fa fa-newspaper-o"></i> Cajas{{\Auth::user()->plan_id == 1? ' - 1/1':''}}</h5>
                         </div>
 
                         <div class="pull-right">

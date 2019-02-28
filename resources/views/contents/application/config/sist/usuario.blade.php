@@ -17,10 +17,10 @@
                         @endif
                         
                         <div class="pull-right">
-                         
-                            @if(  $usuarios_cant < session('plan_actual')->usuario_max)
+                            {{-- {{dd($usuarios_cant<session('plan_actual')->usuario_max?true:false)}} --}}
+                            @if(  $usuarios_cant < session('plan_actual')->usuario_max  || session('plan_actual')->usuario_max == -1)
                                 <a href="/ajustesRegistrarUsuario" id="btn-usuario-nuevo"><button type="button"  class="btn btn-primary"><i class="fa fa-plus-circle"></i> Nuevo Usuario</button></a>
-                                <h5 id="text-limite-usuario" style="display:none" >Limite alcanzado. </h5>
+                                {{-- <h5 id="text-limite-usuario" style="display:none" >Limite alcanzado. </h5> --}}
                             @else
                                 <h5>
                                     Limite alcanzado - <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a>
