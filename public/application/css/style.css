@@ -7612,6 +7612,9 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+.upgrade-btn-2{
+  background-image: url("../images/btn-upgrade.png");
+}
 
 .mini-sidebar .upgrade-btn{
   display: none;

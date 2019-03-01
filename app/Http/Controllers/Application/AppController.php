@@ -85,6 +85,7 @@ class AppController extends Controller
         
         session(['datosempresa'=> json_decode(json_encode(self::DatosEmpresa(\Auth::user()->id_empresa),true))]);
         session(['id_usu'=>\Auth::user()->id_usu]);
+        session(['rol_usr'=>\Auth::user()->id_rol]);
 
         $moneda = DB::select('SELECT moneda FROM db_rest.empresa where id = ?'
             ,array(\Auth::user()->id_empresa));

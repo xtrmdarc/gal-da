@@ -122,7 +122,7 @@
         <div class="modal inmodal fade" id="mdl-feedback" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
                 <div class="modal-dialog">
                         <div class="modal-content animated bounceInRight">
-                        <form id="frm-feedback" method="post" enctype="multipart/form-data" action="/EnviarFeedback">
+                        <form id="frm-feedback" class="unif_modal" method="post" enctype="multipart/form-data" action="/EnviarFeedback">
                         @csrf
                         <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

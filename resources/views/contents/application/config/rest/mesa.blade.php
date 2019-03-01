@@ -47,10 +47,15 @@
             
             <div id="lizq-i" style="display: none;">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Mesa(s) de <span id="title-mesa"></span> - <span id="mesas_count">{{$mesas_actual}}</span>/{{(session('plan_actual')->mesa_max)}} en Plan {{(session('plan_actual')->nombre)}}</h5>
+                    <div class="ibox-title" {{session('plan_actual')->mesas_max == -1?'style="display:none;"':''}} >
+                        <h5>Mesa(s) de <span id="title-mesa"></span> - <span id="mesas_count">{{$mesas_actual}}</span>/{{(session('plan_actual')->mesa_max)}}</h5>
                         <div class="ibox-title-buttons pull-right" {{$mesas_actual>= session('plan_actual')->mesa_max?'style=display:none':""}} id="btn-nuevo"></div>
-                        <h5 id="limite_mesas_txt" class="pull-right" {{$mesas_actual< session('plan_actual')->mesa_max?"style=display:none":""}}  >Límite alcanzado.</h5>
+                        <h5 id="limite_mesas_txt" class="pull-right" {{$mesas_actual< session('plan_actual')->mesa_max?"style=display:none":""}}  >Limite alcanzado - <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a></h5>
+                    </div>
+                    <div class="ibox-title"  {{session('plan_actual')->mesas_max == -1?'style=display:block;':'style=display:none;'}} >
+                        <h5>Mesa(s) de <span id="title-mesa"></span> </h5>
+                        <div class="ibox-title-buttons pull-right" id="btn-nuevo"></div>
+                        {{-- <h5 id="limite_mesas_txt" class="pull-right" {{$mesas_actual< session('plan_actual')->mesa_max?"style=display:none":""}}  >Limite alcanzado - <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a></h5> --}}
                     </div>
                     <div class="ibox-content my-scroll">
                         <meta name="csrf-token" content="{{ csrf_token() }}">

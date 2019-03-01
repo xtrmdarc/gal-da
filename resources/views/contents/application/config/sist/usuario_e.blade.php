@@ -121,7 +121,7 @@
                                             <label class="control-label">Contraseña</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-                                                <input type="password" name="contrasena" id="contrasena_show" value="{{is_null($id_usu) ? '' : $contrasena}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" required="required" />
+                                                <input type="password" name="contrasena" id="contrasena_show" value="{{is_null($id_usu) ? '' : $contrasena}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" />
                                                 <span toggle="#contrasena_show" class="fa input-group-addon  fa-eye field-icon toggle-password"></span>
                                             </div>
                                         </div>

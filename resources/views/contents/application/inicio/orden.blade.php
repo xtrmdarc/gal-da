@@ -442,13 +442,19 @@
                                 <div class="col-xs-5 col-sm-6 col-md-6"><strong>Producto</strong></div>
                                 <div class="col-xs-4 col-sm-4 col-md-4"><strong>P.U. / Total</strong></div>
                                 <div class="col-xs-1 col-sm-1 col-md-1"></div>
-                            </div>
+                            </div>  
                         </li>
                         <div class="scroll_content" id="list-subitems"></div>
                     </ul>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Volver</button>
+                <div class="modal-footer" style="display:block">
+                    <div style="float:left">
+                        <span class="label label-primary">En Espera</span>
+                        <span class="label label-warning">Preparando</span>
+                        <span class="label label-success">Listo</span>
+                    </div>
+
+                    <button type="button" style="float:right" class="btn btn-white" data-dismiss="modal">Volver</button>
                 </div>
             </form>
             </div>

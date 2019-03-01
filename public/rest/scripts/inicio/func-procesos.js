@@ -540,13 +540,13 @@ var subPedido = function(cod,prod){
                 var opc = item.estado;
                 switch(opc){
                     case 'a':
-                        estado = '<span class="label label-primary">S</span>'
+                        estado = '<span class="label label-primary">E</span>'
                     break;
                     case 'p':
                         estado = '<span class="label label-warning">P</span>'
                     break;
                     case 'c':
-                        estado = '<span class="label label-success">D</span>'
+                        estado = '<span class="label label-success">L</span>'
                     break;
                 }
 

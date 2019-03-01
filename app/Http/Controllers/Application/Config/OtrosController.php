@@ -130,11 +130,11 @@ class OtrosController extends Controller
                 $viewdata['logo']= $r->logo;
             }
 
-            if(!(is_null($viewdata['logo']) or $viewdata['logo'] == '')) {
-                $url = Storage::disk('s3')->delete($viewdata['logo']);
-            }
             if($request->hasFile('logo')) {
 
+                if(!(is_null($viewdata['logo']) or $viewdata['logo'] == '')) {
+                    $url = Storage::disk('s3')->delete($viewdata['logo']);
+                }
                 //get filename with extension
                 $filenamewithextension = $request->file('logo')->getClientOriginalName();
 

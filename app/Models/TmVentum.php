@@ -43,6 +43,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class TmVentum extends Eloquent
 {
+	protected $table = 'tm_venta';
 	protected $primaryKey = 'id_venta';
 	public $timestamps = false;
 

@@ -21,8 +21,8 @@ class TableroFController extends Controller
         date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $fechai = date("Y-m-d 00:00 ");
-        $fecha = date("Y-m-d H:i");
-
+        $fecha = date("Y-m-d H:i:s");
+        //dd($fechai,$fecha);
         //Total en $$ del dia.
         $total_dinero_venta_g = TmVentum::where('fecha_venta','>=',$fechai)
                           ->where('fecha_venta','<=',$fecha)
