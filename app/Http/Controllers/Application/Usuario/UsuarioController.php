@@ -83,11 +83,11 @@ class UsuarioController extends Controller
                 $viewdata['imagen'] = $r->imagen;
             }
 
-            if (!(is_null($viewdata['imagen']) or $viewdata['imagen'] == '')) {
-                $url = Storage::disk('s3')->delete($viewdata['imagen']);
-            }
             if ($request->hasFile('imagen_p')) {
 
+                if (!(is_null($viewdata['imagen']) or $viewdata['imagen'] == '')) {
+                    $url = Storage::disk('s3')->delete($viewdata['imagen']);
+                }
                 //get filename with extension
                 $filenamewithextension = $request->file('imagen_p')->getClientOriginalName();
 
