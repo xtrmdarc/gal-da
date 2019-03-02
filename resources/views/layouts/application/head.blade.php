@@ -250,6 +250,9 @@
                     */--}}
 
                     <!-- End Messages -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="mostrarVideo();">Video</a>
+                    </li>
                     <!-- Profile -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ !empty($imagen_g) ? $imagen_g : URL::to('application/images/user-1.png') }}" alt="user" class="profile-pic" /></a>
@@ -267,9 +270,25 @@
                 </ul>
             </div>
         </nav>
-
 </div>
 
+<div class="modal inmodal" id="mdl-video-o" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog modal-sm" style="max-width: 900px;">
+        <div class="modal-content animated bounceInRight">
+            <div class="unif_modal">
+                <div class="modal-body" style="background: none!important; padding: 0rem!important;">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="iframe-container">
+                                <div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/s/vst9n/prrnju" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var now = new Date(<?php echo time() * 1000 ?>);
     //var df = new SimpleDateFormat("HH:mm:ss");
@@ -292,5 +311,21 @@
     } 
     //console.log('llega aca');
    
+</script>
+<script>
+    var mostrarVideo = function(){
+        $("#mdl-video-o").modal('show');
+    }
+    // Get the modal
+    var modal = document.getElementById('mdl-video-o');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            $("#mdl-video-o").modal('hide');
+        }
+    }
+
+
 </script>
 <!-- End header header -->
