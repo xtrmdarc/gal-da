@@ -152,7 +152,24 @@
                         </form>
                         </div>
                 </div>
-        </div>        
+        </div>
+        <div class="modal inmodal" id="mdl-video-o" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+                <div class="modal-dialog modal-sm" style="max-width: 900px;">
+                        <div class="modal-content animated bounceInRight">
+                        <div class="unif_modal">
+                                <div class="modal-body" style="background: none!important; padding: 0rem!important;">
+                                <div class="row">
+                                        <div class="col-sm-12">
+                                        <div class="iframe-container">
+                                                <div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe width="560" height="315" src="https://www.youtube.com/embed/bjCSmPyLbBQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </div>
+                        </div>
+                </div>
+        </div>       
 
 @endsection('content')
 @section('scripts')
@@ -531,7 +548,7 @@
 <script type="text/javascript">
 
         $(function(){
-
+                /*
                 const driver = new Driver({
                                         animate: false,
                                         doneBtnText: 'Listo!',              // Text on the final button
@@ -633,12 +650,72 @@
                         }
                         
 
-                ]);
+                ]);*/
+                /*
+                        const driver_tut = new Driver({
+                                                animate: false,
+                                                doneBtnText: 'Listo!',              // Text on the final button
+                                                closeBtnText: 'Cerrar',            // Text on the close button for this step
+                                                stageBackground: '#ffffff',       // Background color for the staged behind highlighted element
+                                                nextBtnText: 'Siguiente',              // Next button text for this step
+                                                prevBtnText: 'Anterior',
+                                                allowClose: false,
+                                                onReset : function(element){
+                                                        $.ajax({
+                                                                url: '/UserOnboarded',
+                                                                data:'',
+                                                                type:'POST',
+                                                                dataType: 'json',
+                                                                headers: {
+                                                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                                        },
+                                                                success: function(){
+                                                                        console.log('llego');
+                                                                        drift.SNIPPET_VERSION = '0.3.1';
+                                                                        drift.load('4i42nk6d6zuw');
+                                                                }
+                                                        });
+                                                        console.log('llego aqui');
+
+                                                }
+                                        });
                         
+                        driver_tut.defineSteps([
+                                {
+                                        element:'#tutorial-video',
+                                        popover: {
+                                                animate: true,
+                                                title: 'Video tutorial',
+                                                description: 'Puedes volver a acceder al video tutorial aquí',
+                                                position: 'left'
+                                                
+                                        }       
+                                }
+
+                        ]); 
+                */
                 if({{ (Auth::user()->user_onboarded)}} == 0 )
                 {
-                        driver.start();
+                        //driver.start();
                         fbq('track','StartTrial');
+                        $("#mdl-video-o").modal('show');
+                        $('#mdl-video-o').on('hidden.bs.modal', function () {
+                                // driver_tut.start();
+                                $.ajax({
+                                        url: '/UserOnboarded',
+                                        data:'',
+                                        type:'POST',
+                                        dataType: 'json',
+                                        headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                },
+                                        success: function(){
+                                                //console.log('llego');
+                                                drift.SNIPPET_VERSION = '0.3.1';
+                                                drift.load('4i42nk6d6zuw');
+                                        }
+                                });
+                        })
                         
                 }
                 else{

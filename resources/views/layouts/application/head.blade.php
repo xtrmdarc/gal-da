@@ -251,7 +251,7 @@
 
                     <!-- End Messages -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="mostrarVideo();">Video</a>
+                        <a id="tutorial-video" class="nav-link dropdown-toggle text  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="mostrarVideo();">Tutorial</a>
                     </li>
                     <!-- Profile -->
                     <li class="nav-item dropdown">
@@ -280,7 +280,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="iframe-container">
-                                <div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/s/vst9n/prrnju" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+                                <div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe width="560" height="315" src="https://www.youtube.com/embed/bjCSmPyLbBQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                             </div>
                         </div>
                     </div>

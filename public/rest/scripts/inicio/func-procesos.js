@@ -199,7 +199,7 @@ var listarProductos = function(cod){
             $.each(data, function(i, item) {
                 $('#list-prods')
                     .append(
-                    $('<div class="col-xs-2" style="display:inline-block;width: 155px !important; padding-right: 0 !important; padding-left: 20px !important;"/>')
+                    $('<div class="col-xs-2" style="display:inline-block;width: 155px !important; padding-right: 0 !important; padding-left: 20px !important;float:left;"/>')
                     .append(
                         $('<div class="ibox" style="margin-bottom: 10px !important;"/>')
                         .append(
