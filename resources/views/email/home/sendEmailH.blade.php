@@ -86,11 +86,10 @@
                                             <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
                                             <td>
                                                 <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
-                                                    Prolongación la castellana 1314<br>
-                                                    Surco, Lima, 15023 Perú <br>
-                                                    Website: <a href="http://ec2-18-207-223-230.compute-1.amazonaws.com" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.gal-da.com</a>
+                                                    Surco, Lima, Perú <br>
+                                                    Website: <a href="http://www.gal-da.com" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.gal-da.com</a>
                                                 </p>
-                                                <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">@ Gal-Da 2018. Todos los derechos reservados.</p>
+                                                <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">@ Gal-Da 2019. Todos los derechos reservados.</p>
                                             </td>
                                             <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
                                             <td width="120">
@@ -129,7 +128,7 @@
                         </table>
                         <!-- end wrapper-->
                         <p style="margin:0; padding:34px 0 0; text-align:center; font-size:11px; line-height:13px; color:#333333;">
-                            No quieres recibir correos? Tu puedes desinscribirte <a href="" style="color:#333333; text-decoration:underline;">aqui</a>
+                            No quieres recibir correos? Tu puedes desinscribirte <a href="#" style="color:#333333; text-decoration:underline;">aqui</a>
                         </p>
                     </td>
                 </tr>
