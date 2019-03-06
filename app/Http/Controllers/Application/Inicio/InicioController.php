@@ -193,11 +193,11 @@ class InicioController extends Controller
         if($respuesta_validado != null){
             return $respuesta_validado;
         }
-        
+        date_default_timezone_set('America/Lima');
         try
         {
             $data = $request->all();
-
+            
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             $id_usu = \Auth::user()->id_usu;
@@ -252,7 +252,7 @@ class InicioController extends Controller
             );
             $cliente->save();
 
-            //date_default_timezone_set('America/Lima');
+            date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             
