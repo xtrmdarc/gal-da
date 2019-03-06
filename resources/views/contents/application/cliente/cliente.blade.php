@@ -48,7 +48,7 @@
                         @endif
                         </td>
                         <td style="text-align: right">
-                            <a href="{{url('cliente_e/'.$r->id_cliente)}}" class="btn btn-success btn-xs">
+                            <a href="{{url('cliente_e/'.$r->index_por_cuenta)}}" class="btn btn-success btn-xs">
                             <i class="fa fa-edit"></i> Editar</a>
                             <button type="button" class="btn btn-danger btn-xs" onclick="eliminarCliente({{$r->id_cliente.',\''. $r->nombre.'\''}});"><i class="fa fa-trash-o"></i></button>
                         </td>

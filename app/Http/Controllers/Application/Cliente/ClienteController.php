@@ -37,6 +37,8 @@ class ClienteController extends Controller
 
     public function index_e($id=null){
 
+        
+
         $data= null;    
         $breadcrumb = 'ncliente';
         $data = [
@@ -44,12 +46,16 @@ class ClienteController extends Controller
             'titulo_vista' => 'Nuevo cliente'
         ];
         if(isset($id)){
-            $cliente = TmCliente::Where('id_cliente',$id)
+            
+            $id_cliente = (DB::table('tm_cliente')->where('index_por_cuenta',$id)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_cliente;
+
+            $cliente = TmCliente::Where('id_cliente',$id_cliente)
                                 ->first();
             $breadcrumb = 'ecliente';
             $data['cliente'] = $cliente;
             $data['breadcrumb'] = $breadcrumb;
             $data['titulo_vista'] = 'Editar Cliente';
+            
         }
 
         return view('contents.application.cliente.cliente_e')->with($data);
