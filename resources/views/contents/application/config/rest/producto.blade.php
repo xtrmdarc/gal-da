@@ -212,14 +212,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Descripci&oacute;n</label>
-                                <textarea name="descripcion" id="descripcion" class="form-control" rows="2"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
                                 <label class="control-label">Categor&iacute;a</label>
                                     <select name="cod_catg" id="cod_catg" class="selectpicker show-tick form-control" autocomplete="off" title="Seleccionar" data-size="5">
                                        
@@ -235,6 +227,14 @@
                                     <option value="a">ACTIVO</option>
                                     <option value="i">INACTIVO</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Descripci&oacute;n</label>
+                                <textarea name="descripcion" id="descripcion" class="form-control" rows="2"></textarea>
                             </div>
                         </div>
                     </div>

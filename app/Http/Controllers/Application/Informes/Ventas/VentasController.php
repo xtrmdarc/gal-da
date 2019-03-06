@@ -24,7 +24,7 @@ class VentasController extends Controller
         $stm = DB::Select("SELECT * FROM tm_tipo_pedido");
 
         //Clientes
-        $stm_clientes = DB::Select("SELECT id_cliente,nombre FROM v_clientes where id_sucursal = ?",[session('id_sucursal')]);
+        $stm_clientes = DB::Select("SELECT id_cliente,nombre FROM v_clientes where id_empresa = ?",[session('id_empresa')]);
 
         //Cajas
         $stm_cajas = DB::Select("SELECT * FROM tm_caja where id_sucursal = ?",[session('id_sucursal')]);

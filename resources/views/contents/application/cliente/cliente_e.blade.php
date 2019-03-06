@@ -75,12 +75,14 @@
                                     <input type="text" name="ape_materno" id="ape_materno" value="{{isset($cliente)?$cliente->ape_materno:''}}" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" />
                                 </div>
                             </div>
-                            <div class="col-lg-6" id="d_fecha" style="display: block;">
+                            {{--/*
+                             <div class="col-lg-6" id="d_fecha" style="display: block;">
                                 <div class="form-group">
                                     <label>Fecha de Nacimiento</label>
                                     <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" value="{{isset($cliente)?$cliente->fecha_nac:''}}" class="form-control DatePicker" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
                                 </div>
                             </div>
+                            */--}}
                             <div class="col-lg-6" id="d_telefono" style="display: block;">
                                 <div class="form-group">
                                     <label>Tel&eacute;fono</label>

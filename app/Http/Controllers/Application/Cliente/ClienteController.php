@@ -65,7 +65,8 @@ class ClienteController extends Controller
             $idEmpresa = \Auth::user()->id_empresa;
 
             $data = $request->all();
-            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            $fecha_nac = '';
 
             if($data['id_cliente'] != ''){
 
