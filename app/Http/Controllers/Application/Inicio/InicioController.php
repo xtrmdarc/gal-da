@@ -428,7 +428,8 @@ class InicioController extends Controller
         $data = $request->all();
         //Este codigo es el codigo de presentacion
         $cod = $data['cod_ped'];
-
+        $index = $data['index_pedido'];
+        //dd($index);
         DB::table('tm_detalle_pedido')->where('id_det_ped',$data['cod_det_ped'])
                                     ->where('id_pedido',$data['cod_ped'])
                                     ->where('estado','<>','i')
@@ -440,12 +441,12 @@ class InicioController extends Controller
 
         if($data['cod_tipe'] == 1){
             //self::ValidarEstadoPedido($cod);
-           return redirect('/inicio/PedidoMesa/'.$cod.'');
+           return redirect('/inicio/PedidoMesa/'.$index.'');
 
         } elseif($data['cod_tipe'] == 2){
-           return redirect('/inicio/PedidoMostrador/'.$cod.'');
+           return redirect('/inicio/PedidoMostrador/'.$index.'');
         } elseif($data['cod_tipe'] == 3){
-           return redirect('/inicio/PedidoDelivery/'.$cod.'');
+           return redirect('/inicio/PedidoDelivery/'.$index.'');
         }
     }
 
@@ -960,6 +961,5 @@ class InicioController extends Controller
     public function EscogerApc(Request $request)
     {
         session(['id_apc'=>$request->id_apc]);
-        
     }
 }

@@ -471,6 +471,7 @@
                 <input type="hidden" name="cod_ped" id="cod_ped">
                 <input type="hidden" name="cod_pro" id="cod_pro">
                 <input type="hidden" name="fec_ped" id="fec_ped">
+                <input type="hidden" name="index_pedido" id="index_pedido" value="{{$index}} ">
                 <input type="hidden" name="cod_tipe" value="{{session('cod_tipe')}}"/>
                 <div class="modal-header mh-p">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
