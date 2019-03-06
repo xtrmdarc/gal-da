@@ -193,7 +193,7 @@
                                 <label class="control-label">Sucursal</label>
                                 <select name="id_sucursal_d" id="id_sucursal_d" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
                                     @foreach($user_sucursal as $r)
-                                        <option {{ $r->id == session('id_sucursal') ? 'selected="selected"' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                        <option {{ $r->id == session('id_sucursal') ? 'selected=selected' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                     @endforeach
                                 </select>
                             </div>

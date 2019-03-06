@@ -662,7 +662,8 @@ class InicioController extends Controller
         try
         {
             $data = $request->all();
-            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            $fecha_nac = '';
 
             $arrayParam =  array(
                 ':flag' => 1,
