@@ -6,6 +6,7 @@
 <input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
 <input type="hidden" id="cod_m" value="<?php //echo $_GET['m']; ?>"/>
 <input type="hidden" id="cod_p" value="{{$cod}}"/>
+<input type="hidden" id="index" value="{{$index}}"/>
 <input type="hidden" id="cod_tipe" value="{{session('cod_tipe')}} "/>
 <input type="hidden" id="rol_usr" value="{{session('rol_usr')}} "/>
 
