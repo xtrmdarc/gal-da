@@ -380,13 +380,13 @@
                                         <input type="text" name="ape_materno" id="ape_materno" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6" id="d_fecha" style="display: block;">
+                                <div class="col-lg-6" id="d_fecha" style="display: none;">
                                     <div class="form-group">
                                         <label>Fecha de Nacimiento</label>
                                         <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" class="form-control" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6" id="d_telefono" style="display: block;">
+                                <div class="col-lg-12" id="d_telefono" style="display: block;">
                                     <div class="form-group">
                                         <label>Tel&eacute;fono</label>
                                         <input type="text" name="telefono" id="telefono" data-mask="999999999" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
