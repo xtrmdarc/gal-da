@@ -1,7 +1,7 @@
 @extends('layouts.application.master')
 @section('content')
 @php
-//date_default_timezone_set('America/Lima');
+date_default_timezone_set('America/Lima');
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 $fecha = date("d-m-Y h:i A");
 @endphp
@@ -123,7 +123,7 @@ $fecha = date("d-m-Y h:i A");
                         <div class="form-group">
                             <label>Fecha de Apertura:</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-calendar m-r-xs"></i></span>
                                 <input type="text" name="fecha_aper" id="fecha_aper" value="" class="form-control" placeholder="Fecha de apertura" autocomplete="off" required="required" readonly="true" />
                             </div>
                         </div>
@@ -132,8 +132,8 @@ $fecha = date("d-m-Y h:i A");
                         <div class="form-group">
                             <label>Fecha de Cierre:</label>
                             <div class="input-group date">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input type="text" name="fecha_cierre" id="fecha_cierre" class="form-control" placeholder="Fecha de cierre" autocomplete="off" required="required" value="{{$fecha}}"/>
+                                <span class="input-group-addon"><i class="fa fa-calendar m-r-xs"></i></span>
+                                <input type="text" name="fecha_cierre" id="fecha_cierre" class="form-control" placeholder="Fecha de cierre" autocomplete="off" required="required" readonly="true" value="{{$fecha}}"/>
                             </div>
                         </div>
                     </div>
