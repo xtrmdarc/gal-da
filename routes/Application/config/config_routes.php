@@ -9,7 +9,7 @@
     Route::post('ajustesListaCaja', 'Application\Config\CajaController@ListaCajas')->name('config.ListaCajas');
     Route::post('ajustesCrudCaja', 'Application\Config\CajaController@CrudCaja')->name('config.CrudCaja');
     Route::post('/ajustesEliminarCaja', 'Application\Config\CajaController@Eliminar')->name('config.Caja.Eliminar');
-
+    
     //Almacen
 
     Route::get('/ajustesAlmacen', 'Application\Config\AlmacenController@index')->name('config.Almacen');

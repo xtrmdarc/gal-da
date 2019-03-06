@@ -94,10 +94,10 @@ var listarCajas = function(){
                 }},
                 {"data":null,"render": function ( data, type, row) {
                     if(data.id_rol_v == '1'){
-                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\',\''+data.nombre_sucursal+'\');"><i class="fa fa-edit"></i>Editar</button>';
                            /*+'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.nombre_sucursal+'\');"> <i class="fa fa-trash"></i></button></div>';*/
                     }if(data.id_rol_v == '2') {
-                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarCaja('+data.id_caja+',\''+data.descripcion+'\',\''+data.id_sucursal+'\',\''+data.estado+'\',\''+data.nombre_sucursal+'\');"><i class="fa fa-edit"></i>Editar</button>';
                     }
                 }}
             ]
@@ -112,13 +112,23 @@ var eliminarCaja = function(cod,nomb,sucur){
 }
 
 /* Editar caja */
-var editarCaja = function(cod,nomb,sucur,est){
-    $('#cod_caja').val(cod);
-    $('#nomb_caja').val(nomb);
-    $('#id_sucursal').selectpicker('val', sucur);
-    $('#estado_caja').selectpicker('val', est);
-    $('#title-caja').text('Editar Caja');
-    $('#mdl-caja').modal('show');
+var editarCaja = function(cod,nomb,sucur,est,nombre_sucursal){
+
+    if(cod)
+    {
+        $('#cod_caja').val(cod);
+        $('#nomb_caja').val(nomb);
+        $('#id_sucursal').selectpicker('val', sucur);
+        $('#estado_caja').selectpicker('val', est);
+    
+        $('#id_sucursal').selectpicker('hide');
+        $('#nombre_sucursal').val(nombre_sucursal);
+        $('#nombre_sucursal').css('display','block');
+    
+        $('#title-caja').text('Editar Caja');
+        $('#mdl-caja').modal('show');
+    }
+    
 }
 
 /* Boton nueva caja */
@@ -133,4 +143,9 @@ $('#mdl-caja').on('hidden.bs.modal', function() {
     $('#frm-caja').formValidation('resetForm', true);
     $('#estado_caja').selectpicker('val', 'a');
     $('#id_sucursal').selectpicker('val', '');
+
+    $('#id_sucursal').selectpicker('show');
+    // $('#nombre_sucursal').val(nombre_sucursal);
+    $('#nombre_sucursal').css('display','none');
+
 });

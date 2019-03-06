@@ -14,11 +14,13 @@ var areaP_x_sucursales = function (){
         var sucursalId = $(this).val();
 
         //console.log(sucursalId);
-
+        /*
         $.ajax({
             type: "POST",
             url: "/ajustesCrudProd",
-            data: {id_sucursal_d : sucursalId },
+            data: {
+                id_sucursal_d : sucursalId
+             },
             dataType: "json",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -30,6 +32,7 @@ var areaP_x_sucursales = function (){
                 $('select[name="cod_area"]').html(data.response);
             }
         });
+        */
     });
 }
 var listarSucursales = function(){
