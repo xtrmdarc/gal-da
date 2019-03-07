@@ -27,6 +27,7 @@
                             <th>Cliente/Raz&oacute;n Social</th>
                             <th>DNI</th>
                             <th>RUC</th>
+                            <th>Tel&eacute;fono</th>
                             <th>Direcci&oacute;n</th>
                             <th style="text-align: center">Estado</th>
                             <th style="text-align: center">Acciones</th>
@@ -39,6 +40,7 @@
                         <td>{{$r->nombre}}</td>
                         <td>{{$r->dni}}</td>
                         <td>{{$r->ruc}}</td>
+                        <td>{{$r->telefono}}</td>
                         <td>{{$r->direccion}}</td>
                         <td style="text-align: center">
                         @if($r->estado == 'a')
