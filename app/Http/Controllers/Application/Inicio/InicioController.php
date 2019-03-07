@@ -250,33 +250,73 @@ class InicioController extends Controller
                     'id_usu' =>$id_usu
                 ]
             );
-            $cliente->save();
 
-            date_default_timezone_set('America/Lima');
-            setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
-            $fecha = date("Y-m-d H:i:s");
-            
-            $arrayParam =  array(
-                1,
-                3,
-                $id_usu,//id_usu
-                $fecha,
-                trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
-                $data['direcCli'],
-                $data['telefCli'],
-                $data['comentario'],
-                $cliente->id_cliente,
-                session('id_sucursal')
-            );
+            if (TmCliente::where('id_empresa', session('id_empresa'))
+                ->where('telefono',$data['telefCli'])->exists()) {
 
-            $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+                $user_tel = DB::table('tm_cliente')
+                    ->where('id_empresa', session('id_empresa'))
+                    ->where('telefono',$data['telefCli'])
+                    ->select('id_cliente')
+                    ->get();
 
-            session(['cod_tipe'=>3]);
-            $response->tipo = 3;
-            $response->num_pedido = $row->cod;
-            $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
+                foreach($user_tel as $r){
+                    $id_cliente_u = $r->id_cliente;
+                }
+
+                date_default_timezone_set('America/Lima');
+                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+                $fecha = date("Y-m-d H:i:s");
+
+                $arrayParam =  array(
+                    1,
+                    3,
+                    $id_usu,//id_usu
+                    $fecha,
+                    trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
+                    $data['direcCli'],
+                    $data['telefCli'],
+                    $data['comentario'],
+                    $id_cliente_u,
+                    session('id_sucursal')
+                );
+
+                $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+
+                session(['cod_tipe'=>3]);
+                $response->tipo = 3;
+                $response->num_pedido = $row->cod;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
             return json_encode($response);
-            
+
+            }
+            else {
+                $cliente->save();
+                date_default_timezone_set('America/Lima');
+                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+                $fecha = date("Y-m-d H:i:s");
+
+                $arrayParam =  array(
+                    1,
+                    3,
+                    $id_usu,//id_usu
+                    $fecha,
+                    trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
+                    $data['direcCli'],
+                    $data['telefCli'],
+                    $data['comentario'],
+                    $cliente->id_cliente,
+                    session('id_sucursal')
+                );
+
+                $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+
+                session(['cod_tipe'=>3]);
+                $response->tipo = 3;
+                $response->num_pedido = $row->cod;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
+            return json_encode($response);
+            }
         } catch (Exception $e) 
         {
             die($e->getMessage());
