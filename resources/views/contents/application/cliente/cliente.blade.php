@@ -27,6 +27,7 @@
                             <th>Cliente/Raz&oacute;n Social</th>
                             <th>DNI</th>
                             <th>RUC</th>
+                            <th>Tel&eacute;fono</th>
                             <th>Direcci&oacute;n</th>
                             <th style="text-align: center">Estado</th>
                             <th style="text-align: center">Acciones</th>
@@ -39,6 +40,7 @@
                         <td>{{$r->nombre}}</td>
                         <td>{{$r->dni}}</td>
                         <td>{{$r->ruc}}</td>
+                        <td>{{$r->telefono}}</td>
                         <td>{{$r->direccion}}</td>
                         <td style="text-align: center">
                         @if($r->estado == 'a')
@@ -48,7 +50,7 @@
                         @endif
                         </td>
                         <td style="text-align: right">
-                            <a href="{{url('cliente_e/'.$r->id_cliente)}}" class="btn btn-success btn-xs">
+                            <a href="{{url('cliente_e/'.$r->index_por_cuenta)}}" class="btn btn-success btn-xs">
                             <i class="fa fa-edit"></i> Editar</a>
                             <button type="button" class="btn btn-danger btn-xs" onclick="eliminarCliente({{$r->id_cliente.',\''. $r->nombre.'\''}});"><i class="fa fa-trash-o"></i></button>
                         </td>

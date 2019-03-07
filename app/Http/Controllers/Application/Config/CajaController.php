@@ -59,7 +59,7 @@ class CajaController extends Controller
 
         echo json_encode($data);
     }
-
+    
     public function CrudCaja(Request $request)
     {
         $id_usu = \Auth::user()->id_usu;

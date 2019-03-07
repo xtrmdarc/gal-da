@@ -29,7 +29,7 @@ $fechaa = date("m-Y h:i: A");
             </div>
             <div class="ibox-content" style="position: relative; min-height: 30px;">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -78,7 +78,7 @@ $fechaa = date("m-Y h:i: A");
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="display: none">
                         <div class="form-group">
                             <label for="tipo_ped">Clientes</label>
                             <select name="cliente" id="cliente" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">

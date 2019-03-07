@@ -31,7 +31,7 @@ var listarSalones = function(){
             }},
             {"data":null,"render": function ( data, type, row) {
                 return '<div class="text-right"><button class="btn btn-info btn-xs" onclick="listarMesas('+data.id_catg+',\''+data.descripcion+'\');"> Ver </button>'
-                +'&nbsp;<button class="btn btn-success btn-xs" onclick="editarSalon('+data.id_catg+',\''+data.estado+'\',\''+data.id_sucursal+'\',\''+data.descripcion+'\');"> <i class="fa fa-edit"></i> Editar </button>'
+                +'&nbsp;<button class="btn btn-success btn-xs" onclick="editarSalon('+data.id_catg+',\''+data.estado+'\',\''+data.id_sucursal+'\',\''+data.descripcion+'\',\''+data.nombre_sucursal+'\');"> <i class="fa fa-edit"></i> Editar </button>'
                 +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarSalon('+data.id_catg+',\''+data.id_sucursal+'\',\''+data.descripcion+'\');"> <i class="fa fa-trash"></i></button></div>';
             }}
         ]
@@ -90,12 +90,25 @@ var listarMesas = function(cod_sal,desc_sal){
 }
 
 /* Editar datos del salon */
-var editarSalon = function(cod,est,id_sucursal,nomb){
-  $('#cod_sala').val(cod);
-  $('#desc_sala').val(nomb);
-  $('#id_sucursal').selectpicker('val', id_sucursal);
-  $('#est_salon').selectpicker('val', est);
-  $("#mdl-salon").modal('show');
+var editarSalon = function(cod,est,id_sucursal,nomb,nombre_sucursal){
+
+    if(cod)
+    { 
+        $('#id_sucursal').selectpicker('hide');
+        $('#nombre_sucursal').val(nombre_sucursal);
+        $('#nombre_sucursal').css('display','block');
+
+    }
+    
+    $('#cod_sala').val(cod);
+    $('#desc_sala').val(nomb);
+    $('#id_sucursal').selectpicker('val', id_sucursal);
+    
+    $('#est_salon').selectpicker('val', est);
+    $("#mdl-salon").modal('show');
+
+  
+ 
 }
 
 var agregarMesa = function(){
@@ -428,6 +441,10 @@ $('#mdl-salon').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-salon').formValidation('resetForm', true);
     $("#est_salon").selectpicker('val', 'a');
+
+    $('#id_sucursal').selectpicker('show');
+    // $('#nombre_sucursal').val(nombre_sucursal);
+    $('#nombre_sucursal').css('display','none');
 });
 
 $('#mdl-mesa').on('hidden.bs.modal', function() {

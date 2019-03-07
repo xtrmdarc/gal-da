@@ -14,11 +14,13 @@ var areaP_x_sucursales = function (){
         var sucursalId = $(this).val();
 
         //console.log(sucursalId);
-
+        /*
         $.ajax({
             type: "POST",
             url: "/ajustesCrudProd",
-            data: {id_sucursal_d : sucursalId },
+            data: {
+                id_sucursal_d : sucursalId
+             },
             dataType: "json",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -30,6 +32,7 @@ var areaP_x_sucursales = function (){
                 $('select[name="cod_area"]').html(data.response);
             }
         });
+        */
     });
 }
 var listarSucursales = function(){
@@ -233,6 +236,60 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
     
     
   
+}
+
+var ActualizarCategoriaAreap2 = function(cod_area,cod_catg,id_sucursal){
+    //console.log(cod_area,cod_catg,'entro');
+    var id_sucursal = id_sucursal;
+    $.ajax({
+        type: "POST",
+        url: "/AreasProdXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+
+        },
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        ,success:function(response){
+            //console.log(response);
+            $('#cod_area').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_area').append(
+                    `<option value="${response[i].id_areap}"> ${response[i].nombre} </option>`
+            );
+            }
+            $('#cod_area').selectpicker('refresh');
+            if(cod_area!=null) $('#cod_area').selectpicker('val',cod_area);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/CategoriasXSucursal",
+        data: {
+            id_sucursal: id_sucursal,
+        },
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        ,success:function(response){
+            //console.log(response);
+            $('#cod_catg').empty();
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_catg').append(
+                    `<option value="${response[i].id_catg}"> ${response[i].descripcion} </option>`
+            );
+            }
+            $('#cod_catg').selectpicker('refresh');
+            if(cod_catg!=null) $('#cod_catg').selectpicker('val',cod_catg);
+        }
+    });
+
+
+
 }
 
 /* Editar datos de un producto */
@@ -751,7 +808,9 @@ $('#id_stock').on('ifUnchecked', function(event){
 /* Boton nuevo producto */
 $('.btn-prodnuevo').click( function() {
     $('#cod_prod').val('');
+    var id_sucu = $('#cod_sucu').val();
     $('#cod_catg').selectpicker('destroy');
+    ActualizarCategoriaAreap2(null,null,id_sucu);
     comboCategoria();
     $('#mdl-producto').modal('show');
 });

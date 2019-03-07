@@ -208,8 +208,8 @@ class ProductoController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
         $id_sucursal_d = $post['id_sucursal_d'];
-        $codProd = $post['cod_prod'];
-
+        $codProd = $post['cod_prod']; 
+        
         if($codProd != ''){
             //Actualizar
             $flag = 2;

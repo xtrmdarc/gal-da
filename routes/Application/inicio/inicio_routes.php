@@ -3,9 +3,9 @@ Route::prefix('/inicio')->group(function(){
     
     Route::get('/','Application\Inicio\InicioController@Index')->name('produccion');
     Route::post('RegistrarMesa','Application\Inicio\InicioController@RMesa');
-    Route::get('PedidoMesa/{cod}', function($cod){
+    Route::get('PedidoMesa/{index}', function($index){
         session(['cod_tipe'=>1]);
-        return App::call('App\Http\Controllers\Application\Inicio\InicioController@ValidarEstadoPedido', ['cod' => $cod]);
+        return App::call('App\Http\Controllers\Application\Inicio\InicioController@ValidarEstadoPedido', ['index' => $index]);
     });
     Route::post('DatosGrles','Application\Inicio\InicioController@DatosGrles');
     Route::post('ListarPedidos','Application\Inicio\InicioController@listarPedidos');
@@ -13,8 +13,8 @@ Route::prefix('/inicio')->group(function(){
     Route::post('ListarProductos','Application\Inicio\InicioController@listarProductos');
     Route::post('BuscarProducto','Application\Inicio\InicioController@buscarProducto'); 
     Route::post('VerificarMozoPIN','Application\Inicio\InicioController@VerificarMozoPIN');
-    Route::get('ImprimirPC/{cod}','Application\Inicio\InicioController@ImprimirPC');
-    Route::get('Imprimir/{cod}','Application\Inicio\InicioController@Imprimir');
+    Route::get('ImprimirPC/{index}','Application\Inicio\InicioController@ImprimirPC');
+    Route::get('Imprimir/{index}','Application\Inicio\InicioController@Imprimir');
     //crud
     Route::post('RegistrarPedido','Application\Inicio\InicioController@registrarPedido');
     Route::post('ListarDetallePed','Application\Inicio\InicioController@ListarDetallePed');

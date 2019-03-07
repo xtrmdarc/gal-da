@@ -6,6 +6,7 @@
 <input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
 <input type="hidden" id="cod_m" value="<?php //echo $_GET['m']; ?>"/>
 <input type="hidden" id="cod_p" value="{{$cod}}"/>
+<input type="hidden" id="index" value="{{$index}}"/>
 <input type="hidden" id="cod_tipe" value="{{session('cod_tipe')}} "/>
 <input type="hidden" id="rol_usr" value="{{session('rol_usr')}} "/>
 
@@ -379,13 +380,13 @@
                                         <input type="text" name="ape_materno" id="ape_materno" class="form-control" placeholder="Ingrese apellido materno" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6" id="d_fecha" style="display: block;">
+                                <div class="col-lg-6" id="d_fecha" style="display: none;">
                                     <div class="form-group">
                                         <label>Fecha de Nacimiento</label>
                                         <input type="text" name="fecha_nac" id="fecha_nac" data-mask="99-99-9999" class="form-control" placeholder="Ingrese fecha de nacimiento" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6" id="d_telefono" style="display: block;">
+                                <div class="col-lg-12" id="d_telefono" style="display: block;">
                                     <div class="form-group">
                                         <label>Tel&eacute;fono</label>
                                         <input type="text" name="telefono" id="telefono" data-mask="999999999" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
@@ -470,6 +471,7 @@
                 <input type="hidden" name="cod_ped" id="cod_ped">
                 <input type="hidden" name="cod_pro" id="cod_pro">
                 <input type="hidden" name="fec_ped" id="fec_ped">
+                <input type="hidden" name="index_pedido" id="index_pedido" value="{{$index}} ">
                 <input type="hidden" name="cod_tipe" value="{{session('cod_tipe')}}"/>
                 <div class="modal-header mh-p">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>

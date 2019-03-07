@@ -179,43 +179,50 @@ class UsuarioController extends Controller
         } else {
 
             $usuario = $post['usuario'].'@'.$nombre_empresa;
-            $user = TmUsuario::create([
-                'id_areap' => $cod_area,
-                'id_rol' => $id_rol,
-                'dni' => $dni,
-                'parent_id' => $parentId,
-                'estado' => 'a',
-                'nombres' => $nombres,
-                'ape_paterno' => $ape_paterno,
-                'ape_materno' => $ape_materno,
-                'email' => $email,
-                'plan_id' => $planId_admin,
-                'password' => bcrypt($contrasena),
-                'usuario' => $usuario,
-                'verifyToken' => null,
-                'id_sucursal' => $post['id_sucursal'],
-                'id_empresa' => $userEmpresa,
-                'status'=> 1,
-                'pin' => $pin
-            ]);
 
-            if($user) {
-
-                //if($user->id_rol==5) {
-                
-                
-
-                // }
-                // else{
-                //     Mail::to($user->email)->send(new SubUsuarioCreado($user));
-                // }
-                
-                $notification = [ 
-                    'message' =>'Usuario registrado correctamente',
-                    'alert-type' => 'success'
+            if (TmUsuario::where('id_empresa', session('id_empresa'))
+                           ->where('usuario',$usuario)->exists()) {
+                $notification = [
+                    'message' =>'Nombre de Usuario existente',
+                    'alert-type' => 'error'
                 ];
-
                 return redirect()->route('config.Usuarios')->with($notification);
+            }
+            else {
+                $user = TmUsuario::create([
+                    'id_areap' => $cod_area,
+                    'id_rol' => $id_rol,
+                    'dni' => $dni,
+                    'parent_id' => $parentId,
+                    'estado' => 'a',
+                    'nombres' => $nombres,
+                    'ape_paterno' => $ape_paterno,
+                    'ape_materno' => $ape_materno,
+                    'email' => $email,
+                    'plan_id' => $planId_admin,
+                    'password' => bcrypt($contrasena),
+                    'usuario' => $usuario,
+                    'verifyToken' => null,
+                    'id_sucursal' => $post['id_sucursal'],
+                    'id_empresa' => $userEmpresa,
+                    'status'=> 1,
+                    'pin' => $pin
+                ]);
+
+                if($user) {
+
+                    //if($user->id_rol==5) {
+                    // }
+                    // else{
+                    //     Mail::to($user->email)->send(new SubUsuarioCreado($user));
+                    // }
+
+                    $notification = [
+                        'message' =>'Usuario registrado correctamente',
+                        'alert-type' => 'success'
+                    ];
+                    return redirect()->route('config.Usuarios')->with($notification);
+                }
             }
         }
     }

@@ -4,7 +4,7 @@
 
 <input type="hidden" id="m" value=""/>
 <input type="hidden" id="moneda" value=""/>
-
+<input id="cod_sucu" type="hidden" value="{{session('id_sucursal')}}">
 
 
 <div class="wrapper wrapper-content ng-scope">
@@ -123,8 +123,8 @@
                                     <table class="table table-condensed table-hover" id="table-productos">
                                         <thead>
                                         <th>Producto</th>
-                                        <th style="text-align: right">�Transformable?</th>
-                                        <th style="text-align: right">�Activo?</th>
+                                        <th style="text-align: right">¿Transformable?</th>
+                                        <th style="text-align: right">¿Activo?</th>
                                         <th></th>
                                         </thead>
                                     </table>
@@ -193,7 +193,7 @@
                                 <label class="control-label">Sucursal</label>
                                 <select name="id_sucursal_d" id="id_sucursal_d" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
                                     @foreach($user_sucursal as $r)
-                                        <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                        <option {{ $r->id == session('id_sucursal') ? 'selected=selected' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -206,14 +206,6 @@
                                 <select name="cod_area" id="cod_area" class="selectpicker show-tick form-control"  autocomplete="off" required="required" title="Seleccionar" data-size="5">
                                 
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Descripci&oacute;n</label>
-                                <textarea name="descripcion" id="descripcion" class="form-control" rows="2"></textarea>
                             </div>
                         </div>
                     </div>
@@ -235,6 +227,14 @@
                                     <option value="a">ACTIVO</option>
                                     <option value="i">INACTIVO</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Descripci&oacute;n</label>
+                                <textarea name="descripcion" id="descripcion" class="form-control" rows="2"></textarea>
                             </div>
                         </div>
                     </div>

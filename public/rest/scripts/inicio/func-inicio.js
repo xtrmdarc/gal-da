@@ -48,9 +48,9 @@ $(function() {
                 switch(response.tipo)
                 {
                     case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
-                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
-                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
-                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.index_por_cuenta);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.index_por_cuenta);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.index_por_cuenta);break;}
                     
                 }
                     
@@ -91,9 +91,9 @@ $(function() {
                 switch(response.tipo)
                 {
                     case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
-                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
-                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
-                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.index_por_cuenta);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.index_por_cuenta);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.index_por_cuenta);break;}
                     
                 }
                     
@@ -128,9 +128,9 @@ $(function() {
                 switch(response.tipo)
                 {
                     case 0: {$('#mdl-validar-limite-venta').modal('show');break;}
-                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.num_pedido);break;}
-                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.num_pedido);break;}
-                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.num_pedido);break;}
+                    case 1: {window.location.replace('/inicio/PedidoMesa/'+response.index_por_cuenta);break;}
+                    case 2: {window.location.replace('/inicio/PedidoMostrador/'+response.index_por_cuenta);break;}
+                    case 3: {window.location.replace('/inicio/PedidoDelivery/'+response.index_por_cuenta);break;}
                     
                 }
                     
@@ -416,7 +416,7 @@ $('.digito').click(function(event){
                         //Una vez aperturada la mesa , se podrá contar con el nro_pedido ( No se puede testear aun porque no hay pedidos en las mesas)
 
                         //console.log("response  "+ response);
-                        window.location.replace('/inicio/PedidoMesa/'+response.nro_pedido);
+                        window.location.replace('/inicio/PedidoMesa/'+response.index_por_cuenta);
 
                     }
                     else

@@ -37,6 +37,8 @@ class ClienteController extends Controller
 
     public function index_e($id=null){
 
+        
+
         $data= null;    
         $breadcrumb = 'ncliente';
         $data = [
@@ -44,12 +46,16 @@ class ClienteController extends Controller
             'titulo_vista' => 'Nuevo cliente'
         ];
         if(isset($id)){
-            $cliente = TmCliente::Where('id_cliente',$id)
+            
+            $id_cliente = (DB::table('tm_cliente')->where('index_por_cuenta',$id)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_cliente;
+
+            $cliente = TmCliente::Where('id_cliente',$id_cliente)
                                 ->first();
             $breadcrumb = 'ecliente';
             $data['cliente'] = $cliente;
             $data['breadcrumb'] = $breadcrumb;
             $data['titulo_vista'] = 'Editar Cliente';
+            
         }
 
         return view('contents.application.cliente.cliente_e')->with($data);
@@ -65,7 +71,8 @@ class ClienteController extends Controller
             $idEmpresa = \Auth::user()->id_empresa;
 
             $data = $request->all();
-            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            $fecha_nac = '';
 
             if($data['id_cliente'] != ''){
 
@@ -94,36 +101,56 @@ class ClienteController extends Controller
                 $post = $request->all();
 
                 if($idRol == 1) {
-                    $nuevo_cliente = TmCliente::create([
-                        'dni' => $post['dni'],
-                        'ruc' => $post['ruc'],
-                        'ape_paterno' => $post['ape_paterno'],
-                        'ape_materno' => $post['ape_materno'],
-                        'nombres' => $post['nombres'],
-                        'razon_social' => $post['razon_social'],
-                        'telefono' => $post['telefono'],
-                        'fecha_nac' => $fecha_nac,
-                        'correo' => $post['correo'],
-                        'direccion' => $post['direccion'],
-                        'id_usu' => $idUsu,
-                        'id_empresa' => $idEmpresa,
-                    ]);
-                    
+
+                    if (TmCliente::where('id_empresa', session('id_empresa'))
+                        ->where('dni',$post['dni'])->exists()) {
+                        $notification = [
+                            'message' =>'Ya existe el Cliente con el mismo Dni',
+                            'alert-type' => 'error'
+                        ];
+                        return redirect('/cliente')->with($notification);
+                    }
+                    else {
+                        $nuevo_cliente = TmCliente::create([
+                            'dni' => $post['dni'],
+                            'ruc' => $post['ruc'],
+                            'ape_paterno' => $post['ape_paterno'],
+                            'ape_materno' => $post['ape_materno'],
+                            'nombres' => $post['nombres'],
+                            'razon_social' => $post['razon_social'],
+                            'telefono' => $post['telefono'],
+                            'fecha_nac' => $fecha_nac,
+                            'correo' => $post['correo'],
+                            'direccion' => $post['direccion'],
+                            'id_usu' => $idUsu,
+                            'id_empresa' => $idEmpresa,
+                        ]);
+                    }
                 }else if($idRol == 2){
-                    $nuevo_cliente = TmCliente::create([
-                        'dni' => $post['dni'],
-                        'ruc' => $post['ruc'],
-                        'ape_paterno' => $post['ape_paterno'],
-                        'ape_materno' => $post['ape_materno'],
-                        'nombres' => $post['nombres'],
-                        'razon_social' => $post['razon_social'],
-                        'telefono' => $post['telefono'],
-                        'fecha_nac' => $fecha_nac,
-                        'correo' => $post['correo'],
-                        'direccion' => $post['direccion'],
-                        'id_usu' => $idUsu,
-                        'id_empresa' => $idEmpresa,
-                    ]);
+                    if (TmCliente::where('id_empresa', session('id_empresa'))
+                        ->where('dni',$post['dni'])->exists()) {
+                        $notification = [
+                            'message' =>'Ya existe el Cliente con el mismo Dni',
+                            'alert-type' => 'error'
+                        ];
+                        return redirect('/cliente')->with($notification);
+                    }
+                    else {
+                        $nuevo_cliente = TmCliente::create([
+                            'dni' => $post['dni'],
+                            'ruc' => $post['ruc'],
+                            'ape_paterno' => $post['ape_paterno'],
+                            'ape_materno' => $post['ape_materno'],
+                            'nombres' => $post['nombres'],
+                            'razon_social' => $post['razon_social'],
+                            'telefono' => $post['telefono'],
+                            'fecha_nac' => $fecha_nac,
+                            'correo' => $post['correo'],
+                            'direccion' => $post['direccion'],
+                            'id_usu' => $idUsu,
+                            'id_empresa' => $idEmpresa,
+                        ]);
+                    }
                 }
                 $notification = [ 
                     'message' =>'Cliente registrado, correctamente.',

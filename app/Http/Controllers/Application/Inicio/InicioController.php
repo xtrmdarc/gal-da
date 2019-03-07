@@ -104,11 +104,13 @@ class InicioController extends Controller
                 
                 $response->nro_pedido = $this->RegistrarMesa($request)->cod;
                 $response->status = 'ok';
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
             }
             else 
             {
                 $response->status = 'ok';
                 $response->nro_pedido = $request->nro_pedido;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$response->nro_pedido)->first())->index_por_cuenta;
             }
         }
         else $response->status = 'bad';
@@ -131,9 +133,10 @@ class InicioController extends Controller
             //ValidarEstadoPedido($row['cod']);
             $response->tipo = 1;
             $response->num_pedido = $row->cod;
+            $response->index_por_cuenta = $row->index_por_cuenta;
             return json_encode($response);
 
-        } else {
+        } else {    
            return redirect('/inicio');
         }
     }
@@ -149,7 +152,9 @@ class InicioController extends Controller
         
         if(session('rol_usr') == 4){ $id_moso = $id_usu; } else { $id_moso = $data['cod_mozo']; };
         $row = DB::select('call  usp_restRegMesa_g( ?, ?, ?, ?, ?, ?,?, ?,?)',[1,$data['cod_mesa'],1,$id_usu,$id_moso,$fecha,$data['nomb_cliente'],$data['comentario'],session('id_sucursal') ])[0];
-
+        
+        $row->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
+        
         return $row;
     }
 
@@ -188,11 +193,11 @@ class InicioController extends Controller
         if($respuesta_validado != null){
             return $respuesta_validado;
         }
-        
+        date_default_timezone_set('America/Lima');
         try
         {
             $data = $request->all();
-
+            
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha = date("Y-m-d H:i:s");
             $id_usu = \Auth::user()->id_usu;
@@ -213,6 +218,7 @@ class InicioController extends Controller
             session(['cod_tipe'=>2]);
             $response->tipo = 2;
             $response->num_pedido = $row->cod;
+            $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
             return json_encode($response);
 
         } catch (Exception $e) 
@@ -244,41 +250,83 @@ class InicioController extends Controller
                     'id_usu' =>$id_usu
                 ]
             );
-            $cliente->save();
 
-            //date_default_timezone_set('America/Lima');
-            setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
-            $fecha = date("Y-m-d H:i:s");
-            
-            $arrayParam =  array(
-                1,
-                3,
-                $id_usu,//id_usu
-                $fecha,
-                trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
-                $data['direcCli'],
-                $data['telefCli'],
-                $data['comentario'],
-                $cliente->id_cliente,
-                session('id_sucursal')
-            );
+            if (TmCliente::where('id_empresa', session('id_empresa'))
+                ->where('telefono',$data['telefCli'])->exists()) {
 
-            $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+                $user_tel = DB::table('tm_cliente')
+                    ->where('id_empresa', session('id_empresa'))
+                    ->where('telefono',$data['telefCli'])
+                    ->select('id_cliente')
+                    ->get();
 
-            session(['cod_tipe'=>3]);
-            $response->tipo = 3;
-            $response->num_pedido = $row->cod;
+                foreach($user_tel as $r){
+                    $id_cliente_u = $r->id_cliente;
+                }
 
+                date_default_timezone_set('America/Lima');
+                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+                $fecha = date("Y-m-d H:i:s");
+
+                $arrayParam =  array(
+                    1,
+                    3,
+                    $id_usu,//id_usu
+                    $fecha,
+                    trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
+                    $data['direcCli'],
+                    $data['telefCli'],
+                    $data['comentario'],
+                    $id_cliente_u,
+                    session('id_sucursal')
+                );
+
+                $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+
+                session(['cod_tipe'=>3]);
+                $response->tipo = 3;
+                $response->num_pedido = $row->cod;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
             return json_encode($response);
-            
+
+            }
+            else {
+                $cliente->save();
+                date_default_timezone_set('America/Lima');
+                setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+                $fecha = date("Y-m-d H:i:s");
+
+                $arrayParam =  array(
+                    1,
+                    3,
+                    $id_usu,//id_usu
+                    $fecha,
+                    trim($data['nombCli']).' '.trim($data['appCli']).' '.trim($data['apmCli']),
+                    $data['direcCli'],
+                    $data['telefCli'],
+                    $data['comentario'],
+                    $cliente->id_cliente,
+                    session('id_sucursal')
+                );
+
+                $row = DB::select('call usp_restRegDelivery_g( ?, ?, ?,?,?,?,?, ?,?,?)',$arrayParam)[0];
+
+                session(['cod_tipe'=>3]);
+                $response->tipo = 3;
+                $response->num_pedido = $row->cod;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
+            return json_encode($response);
+            }
         } catch (Exception $e) 
         {
             die($e->getMessage());
         }
     }
 
-    public function ValidarEstadoPedido($cod){
+    public function ValidarEstadoPedido($index){
 
+        $cod = (DB::table('tm_pedido')->where('index_por_cuenta',$index)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_pedido;
+        
         $val = self::ValidarEstadoP($cod);
         //Comprobantes
         $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
@@ -286,14 +334,16 @@ class InicioController extends Controller
             'cod'=> $cod,
             'breadcrumb'=> '' ,
             'vista_amplia' => true,
-            'Comprobantes' => $stm_comprobantes
+            'Comprobantes' => $stm_comprobantes,
+            'index' =>$index
         ];
         if ($val == 1){
             
             return view('contents.application.inicio.orden')->with($data);
         } else {
+            
             self::Index();
-        }
+        }           
     }
 
     public function RegistrarPedido(Request $request)
@@ -418,7 +468,8 @@ class InicioController extends Controller
         $data = $request->all();
         //Este codigo es el codigo de presentacion
         $cod = $data['cod_ped'];
-
+        $index = $data['index_pedido'];
+        //dd($index);
         DB::table('tm_detalle_pedido')->where('id_det_ped',$data['cod_det_ped'])
                                     ->where('id_pedido',$data['cod_ped'])
                                     ->where('estado','<>','i')
@@ -430,12 +481,12 @@ class InicioController extends Controller
 
         if($data['cod_tipe'] == 1){
             //self::ValidarEstadoPedido($cod);
-           return redirect('/inicio/PedidoMesa/'.$cod.'');
+           return redirect('/inicio/PedidoMesa/'.$index.'');
 
         } elseif($data['cod_tipe'] == 2){
-           return redirect('/inicio/PedidoMostrador/'.$cod.'');
+           return redirect('/inicio/PedidoMostrador/'.$index.'');
         } elseif($data['cod_tipe'] == 3){
-           return redirect('/inicio/PedidoDelivery/'.$cod.'');
+           return redirect('/inicio/PedidoDelivery/'.$index.'');
         }
     }
 
@@ -651,7 +702,8 @@ class InicioController extends Controller
         try
         {
             $data = $request->all();
-            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            $fecha_nac = '';
 
             $arrayParam =  array(
                 ':flag' => 1,
@@ -867,10 +919,10 @@ class InicioController extends Controller
         }
     }
 
-    public function Imprimir($cod){
+    public function Imprimir($index){
 
         try{
-
+            $cod = (DB::table('tm_pedido')->where('index_por_cuenta',$index)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_pedido;
             $data = DB::table('v_ventas_con')->where('id_ped',$cod)->first();
             $data->Cliente = DB::table('v_clientes')->where('id_cliente',$data->id_cli)->first();
             /* Traemos el detalle */
@@ -889,10 +941,11 @@ class InicioController extends Controller
         }
     }
 
-    public function ImprimirPC($cod){
+    public function ImprimirPC($index){
 
         try
         {        
+            $cod = (DB::table('tm_pedido')->where('index_por_cuenta',$index)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_pedido;
             $data = DB::table('v_pedido_mesa')->where('id_pedido',$cod)->first();
             /* Traemos el detalle */
             $data->Detalle = DB::select("SELECT id_prod,SUM(cantidad) AS cantidad, precio FROM tm_detalle_pedido WHERE id_pedido = ? AND estado <> 'i' GROUP BY id_prod",[$data->id_pedido]);
@@ -949,6 +1002,5 @@ class InicioController extends Controller
     public function EscogerApc(Request $request)
     {
         session(['id_apc'=>$request->id_apc]);
-        
     }
 }

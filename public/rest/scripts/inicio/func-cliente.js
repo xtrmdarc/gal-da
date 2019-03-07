@@ -111,7 +111,7 @@ $('#RegistrarCliente').on('click', function(){
 				url: '/inicio/NuevoCliente',
 				success: function(datos){
 					if(datos == 1){
-						toastr.warning('Advertencia, Datos duplicados.');
+						toastr.warning('Advertencia, Clientes duplicados.');
 					}else {
 						$('#mdl-nuevo-cliente').modal('hide');
 						$('#mdl-facturar').modal('show');

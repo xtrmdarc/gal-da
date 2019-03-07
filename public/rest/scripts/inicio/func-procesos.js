@@ -89,6 +89,7 @@ var DatosGrles = function(){
             $('.cli_dg').text(data.nomb_c);
             $('.fec_dg').text(moment(data.fecha_p).format('DD-MM-Y'));
             $('.hor_dg').text(moment(data.fecha_p).format('h:mm A'));
+            if(data.id_tipo_p == 1)
             $('.btn-imp').html('<a onclick="impPreCuenta('+data.id_pedido+','+data.id_mesa+',\''+data.est_m+'\')" class="btn btn-accent btn-lg"><i class="fa fa-print"></i></a>');
             //console.log('funciona');
         }
@@ -199,7 +200,7 @@ var listarProductos = function(cod){
             $.each(data, function(i, item) {
                 $('#list-prods')
                     .append(
-                    $('<div class="col-xs-2" style="display:inline-block;width: 155px !important; padding-right: 0 !important; padding-left: 20px !important;"/>')
+                    $('<div class="col-xs-2" style="display:inline-block;width: 155px !important; padding-right: 0 !important; padding-left: 20px !important;float:left;"/>')
                     .append(
                         $('<div class="ibox" style="margin-bottom: 10px !important;"/>')
                         .append(
@@ -631,6 +632,7 @@ var desocuparMesa = function(cod_ped){
 /* Imprimir Pre Cuenta*/
 var impPreCuenta = function(ped,cod,est){
     //console.log(ped,cod,est);
+    let index_por_cuenta = $('#index').val();
     $.ajax({
         url: '/inicio/preCuenta',
         type: "post",
@@ -650,7 +652,7 @@ var impPreCuenta = function(ped,cod,est){
             console.log(errorThrown + ' ' + textStatus);
         }   
     }).done(function(){
-        var ini =  window.open('/inicio/ImprimirPC/'+   ped,'_blank');
+        var ini =  window.open('/inicio/ImprimirPC/'+   index_por_cuenta,'_blank');
     });
 }
 
@@ -810,7 +812,7 @@ $("#frm-facturar").submit(function(){
         venta.precProd = $("input[name='precProd[]']").map(function(){return $(this).val();}).get();
 
         var cod = $('#cod_pedido').val();
-       
+        var index_por_cuenta = $('#index').val();
         $.ajax({
             //dataType: 'JSON',
             type: 'POST',
@@ -833,13 +835,13 @@ $("#frm-facturar").submit(function(){
                     } else if (2 == $('#tipoEmision').val()){
                         if(1 == $('#cod_tipe').val()){
                             //if(r) var ini = window.open('pedido_mesa.php?Cod='+cod,'_self');
-                            if(r) var ini =window.location.replace('/inicio/PedidoMesa/'+cod,'_self');
+                            if(r) var ini =window.location.replace('/inicio/PedidoMesa/'+index_por_cuenta,'_self');
                         } else if(2 == $('#cod_tipe').val()){
                             //if(r) var ini = window.open('pedido_mostrador.php?Cod='+cod,'_self');
-                            if(r) var ini = window.location.replace('/inicio/PedidoMostrador/'+cod,'_self');
+                            if(r) var ini = window.location.replace('/inicio/PedidoMostrador/'+index_por_cuenta,'_self');
                         } else if(3 == $('#cod_tipe').val()){
                             //if(r) var ini = window.open('pedido_delivery.php?Cod='+cod,'_self');
-                            if(r) var ini = window.location.replace('/inicio/PedidoDelivery/'+cod,'_self');
+                            if(r) var ini = window.location.replace('/inicio/PedidoDelivery/'+index_por_cuenta,'_self');
                         }
                     }
                 }
@@ -849,7 +851,7 @@ $("#frm-facturar").submit(function(){
                 console.log(errorThrown + ' ' + textStatus);
             }   
         }).done(function(){
-            var ini = window.open('/inicio/Imprimir/'+   cod,'_blank');
+            var ini = window.open('/inicio/Imprimir/'+   index_por_cuenta,'_blank');
         });
         return false;
     }

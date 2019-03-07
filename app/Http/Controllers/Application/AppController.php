@@ -179,6 +179,7 @@ class AppController extends Controller
     }
     public function CambioSucursal($id){
         session(['id_sucursal'=> $id]);
+        session(['id_apc'=>0]);
     }
 
     public static function DatosEmpresa($id_empresa){
