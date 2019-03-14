@@ -36,7 +36,7 @@
                             <br>
                             <h1 class="ich m-t-none brand-color">Módulo de Documentos</h1>
                             <br>
-                            <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los tipos de documentos de tu negocio. Los tipos de documento te ayudan a <strong class="brand-color">organizar tus operaciones de venta</strong> y  <strong class="brand-color"> automatizar cálculos importantes</strong> para la continuidad de tu empresa.</p>
+                            <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los tipos de documentos de tu negocio. Los tipos de documento te ayudan a <strong class="brand-color">organizar tus operaciones de venta</strong> y  <strong class="accent-color"> automatizar cálculos importantes</strong> para la continuidad de tu empresa.</p>
                         </div>
                     </div>
                 </div>

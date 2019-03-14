@@ -23,14 +23,17 @@ class AlmacenController extends Controller
 
         $lista_almacenes = DB::table('tm_almacen')
             ->join('sucursal', 'tm_almacen.id_sucursal', '=', 'sucursal.id')
-            ->where('sucursal.id_usu',$id_usu)
+            ->where('tm_almacen.id_sucursal', session('id_sucursal'))
             ->select('tm_almacen.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
             ->get();
 
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
-        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                   ->where('id', session('id_sucursal'))->get();
         $user_sucursal_free = Sucursal::where('id_empresa', $user_AdminSucursal)->first();
+        $user_sucursal_plan = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                      ->where('id', session('id_sucursal'))->first();
 
         foreach($user_sucursal as $a) {
             $viewdata['id_sucursal'] = $a->id;
@@ -39,7 +42,7 @@ class AlmacenController extends Controller
         }
 
         $viewdata['user_sucursal'] = $user_sucursal;
-        $viewdata['user_sucursal_free'] = $user_sucursal_free;
+        $viewdata['user_sucursal_plan'] = $user_sucursal_plan;
         $viewdata['lista_almacenes'] = $lista_almacenes;
         $viewdata['titulo_vista'] = 'Almacén y Áreas de producción';
 
@@ -55,7 +58,7 @@ class AlmacenController extends Controller
 
         $data = DB::table('tm_almacen')
             ->join('sucursal', 'tm_almacen.id_sucursal', '=', 'sucursal.id')
-            ->where('sucursal.id_usu',$id_usu)
+            ->where('tm_almacen.id_sucursal',session('id_sucursal'))
             ->select('tm_almacen.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
             ->get();
 
@@ -104,9 +107,10 @@ class AlmacenController extends Controller
         $post = $request->all();
 
         $cod = $post['codigo'];
-        $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ? and id_usu = ?",[($cod),$id_usu]);
+        $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ? and id_usu = ? and id_sucursal = ?",[($cod),$id_usu,session('id_sucursal')]);
+
         foreach($stm as $k => $v){
-            $stm[$k]->Almacen = DB::select("SELECT id_alm,nombre FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
+            $stm[$k]->Almacen = DB::select("SELECT id_alm,nombre,id_sucursal FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
         }
         $data = array("data" => $stm);
         echo json_encode($data);
@@ -141,7 +145,7 @@ class AlmacenController extends Controller
             $nombre = $post['nomb_area'];
             $estado = $post['estado_area'];
 
-            $id_sucursal_alm = DB::select("SELECT id_sucursal FROM tm_almacen WHERE id_alm = ?",array($id_Alm));
+            $id_sucursal_alm = DB::select("SELECT id_sucursal FROM tm_almacen WHERE id_alm = ? and id_sucursal = ?",array($id_Alm,session('id_sucursal')));
             foreach($id_sucursal_alm as $k){
                 $id_sucursal_alm_d = $k->id_sucursal;
             }
@@ -170,8 +174,8 @@ class AlmacenController extends Controller
             }
             echo " </select>";
         } else {
-            echo '<input type="hidden" name="cod_alma" id="cod_alma" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->id}}" required="required" disabled/>';
-            echo '<input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->nombre_sucursal}}" required="required" disabled/>';
+            echo '<input type="hidden" name="cod_alma" id="cod_alma" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_plan->id}}" required="required" disabled/>';
+            echo '<input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_plan->nombre_sucursal}}" required="required" disabled/>';
         }
 
     }

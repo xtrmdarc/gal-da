@@ -22,7 +22,8 @@ class ProductoController extends Controller
     {
         $id_usu = \Auth::user()->id_usu;
         $user_AdminSucursal = auth()->user()->id_empresa;
-        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                 ->where('id', session('id_sucursal'))->get();
 
         $viewdata = [];
         $stm = DB::select("SELECT * FROM tm_area_prod WHERE estado = 'a' and id_usu = ? ",[$id_usu]);
@@ -48,7 +49,7 @@ class ProductoController extends Controller
 
     public function ListaProd(Request $request)
     {
-        $id_sucursal = \Auth::user()->id_sucursal;
+        $id_sucursal = session('id_sucursal');
         $post = $request->all();
         $cod = $post['cod'];
         $cat = $post['cat'];

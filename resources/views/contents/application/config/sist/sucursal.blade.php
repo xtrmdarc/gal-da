@@ -51,7 +51,7 @@
     <div class="modal inmodal fade" id="mdl-sucursal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog" style="max-width: 400px;">
             <div class="modal-content animated bounceInRight">
-                <form id="frm-sucursal" method="post" enctype="multipart/form-data">
+                <form id="frm-sucursal" class="unif_modal" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
                     <input type="hidden" name="cod_sucursal" id="cod_sucursal">

@@ -36,7 +36,7 @@
                                 <br>
                                 <h1 class="ich m-t-none brand-color">Módulo de Turnos</h1>
                                 <br>
-                                <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="brand-color">controlar la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
+                                <p class="ng-binding ">Aquí puedes crear, modificar y eliminar los turnos de tu negocio. Los turnos te ayudan a <strong class="accent-color">controlar la efectividad y eficiencia</strong> de tus trabajadores y <strong class="brand-color"> de tu negocio </strong>en determinados periodos.</p>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                         <div class="input-group clockpicker">
                                             <input type="text" name="h_inicio_t" id="h_inicio_t" class="form-control"placeholder="Ingrese H. Inicio" autocomplete="off" required="required" value=""/>
                                             <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
+                                                <span class="fa fa-clock-o"></span>
                                             </span>
                                         </div>
                                         
@@ -85,7 +85,7 @@
                                     <div class="input-group clockpicker">
                                         <input type="text" name="h_fin_t" id="h_fin_t" class="form-control" placeholder="Ingrese H. Fin" autocomplete="off" required="required" value=""/>
                                         <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-time"></span>
+                                            <span class="fa fa-clock-o"></span>
                                         </span>
                                     </div>
                                 </div>

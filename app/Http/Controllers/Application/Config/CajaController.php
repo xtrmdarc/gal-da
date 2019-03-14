@@ -19,7 +19,8 @@ class CajaController extends Controller
     {
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
-        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                   ->where('id', session('id_sucursal'))->get();
         $viewdata['user_sucursal'] = $user_sucursal;
         $data = [
             'breadcrumb'=> 'config.Cajas',
@@ -39,6 +40,7 @@ class CajaController extends Controller
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
                 ->where('id_usu',$id_usu)
+                ->where('id_sucursal',session('id_sucursal'))
                 ->orWhere('id_rol','=','2')
                 ->get();
 
@@ -50,6 +52,7 @@ class CajaController extends Controller
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
                 ->where('id_usu',$id_usu)
+                ->where('id_sucursal',session('id_sucursal'))
                 ->orWhere('id_rol','=','2')
                 ->get();
             foreach($data as $k => $v){

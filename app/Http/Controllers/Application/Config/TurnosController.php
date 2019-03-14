@@ -20,7 +20,8 @@ class TurnosController extends Controller
 
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
-        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                 ->where('id', session('id_sucursal'))->get();
         $viewdata['user_sucursal'] = $user_sucursal;
 
         $data = [

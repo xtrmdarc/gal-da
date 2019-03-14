@@ -73,7 +73,7 @@
                             <br>
                                 <h1 class="ich m-t-none brand-color">M&oacute;dulo para Almacenes y &Aacute;reas de producci&oacute;n  </h1>
                             <br>
-                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar Almacenes y &Aacute;reas de Producción. Los almacenes te ayudarán a <strong class="brand-color"> administrar la rotación de productos </strong> de tu negocio. Las Áreas de Producción separan por categoría las operaciones productivas. La cocina, el bar, la dulcería son ejemplos de áreas de producción.</p>
+                            <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar Almacenes y &Aacute;reas de Producción. Los almacenes te ayudarán a <strong class="brand-color"> administrar la rotación de productos </strong> de tu negocio. Las Áreas de Producción separan por categoría las operaciones productivas. <strong class="accent-color">La cocina, el bar, la dulcería son ejemplos de áreas de producción. </strong></strong></p>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Sucursal</label>
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-renren"></i></span>
                                         <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
                                             @if(Auth::user()->id_sucursal != null)
                                                 <option value="">Seleccionar</option>
@@ -131,8 +130,8 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="control-label">Nombre</label>
-                                    <input type="hidden" name="id_sucursal" id="id_sucursal" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->id}}" required="required" disabled/>
-                                    <input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_free->nombre_sucursal}}" required="required" disabled/>
+                                    <input type="hidden" name="id_sucursal" id="id_sucursal" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_plan->id}}" required="required" disabled/>
+                                    <input type="text" name="" id="" class="form-control" placeholder="Ingrese nombre" autocomplete="off" value ="{{$user_sucursal_plan->nombre_sucursal}}" required="required" disabled/>
                                 </div>
                             </div>
                         </div>
