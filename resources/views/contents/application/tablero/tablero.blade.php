@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="row m-t-xs">
-                                    <div class="col-sm-6 col-sm-offset-6">
+                                    <div class="col-sm-12 col-sm-offset-6">
                                         <h3 class="m-b-xs text-navy">Efectivo real</h3>
                                         <h1 class="no-margins" id="efe_real"></h1>
                                         <div class="font-bold text-navy">100% <i class="fa fa-money"></i></div>
