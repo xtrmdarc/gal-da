@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Application\Informes\Finanzas;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Sucursal;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
@@ -21,7 +22,12 @@ class EgresosCajaController extends Controller
             'breadcrumb'=>'inf_egrcaja',
             'titulo_vista' => 'Informe egresos'
         ];
-        return view('contents.application.informes.finanzas.inf_egresos')->with($data);
+
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
+        return view('contents.application.informes.finanzas.inf_egresos',$viewdata)->with($data);
     }
 
     public function Datos(Request $request)
@@ -30,8 +36,10 @@ class EgresosCajaController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
-            array($ifecha,$ffecha,session('id_sucursal')));
+        $sucu_filter = $post['sucu_filter'];
+
+        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal like ? and id_empresa = ?",
+            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
         {
@@ -47,18 +55,22 @@ class EgresosCajaController extends Controller
 
             $start = date('Y-m-d',strtotime($request->input('start')));
             $end = date('Y-m-d',strtotime($request->input('end')));
+            $sucu_filter = $request->input('sucu_filter');
 
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
             $stm = DB::Select("SELECT fecha_re as Fecha_de_Registro,desc_usu as Nombre_usuario,importe as Importe,motivo as Motivo,desc_per as Personal,
-                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,serie_doc as Serie_Doc, num_doc as Numero_Doc,v_gastosadm.estado as Estado, tm_caja.descripcion as Caja, sucursal.nombre_sucursal as Nombre_de_Sucursal
+                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,
+                serie_doc as Serie_Doc,
+                num_doc as Numero_Doc,
+                v_gastosadm.estado as Estado,
+                nombre_sucursal as Nombre_de_Sucursal
                 FROM v_gastosadm
-                left JOIN tm_caja on v_gastosadm.id_usu = tm_caja.id_usu
-                left join sucursal on v_gastosadm.id_usu = sucursal.id_usu
-                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and v_gastosadm.id_sucursal = ?",
-                array($start,$end,session('id_sucursal')));
-
+                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ?
+                and v_gastosadm.id_sucursal like ? and id_empresa = ?;",
+                array($start,$end,$sucu_filter,session('id_empresa')));
+            dd($stm);
             ob_end_clean();
             ob_start();
 

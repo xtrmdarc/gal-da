@@ -4,13 +4,13 @@ $(function() {
 	listar();
     
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
@@ -36,6 +36,9 @@ var listar = function(){
     ffecha = $("#end").val();
     cmozo = $("#mozo").selectpicker('val');
 
+    var cantidad_mozo = 0,
+        total_mozo = 0;
+
     $.ajax({
         type: "POST",
         url: "/informesDatosMozos",
@@ -49,8 +52,18 @@ var listar = function(){
         },
         dataType: "json",
         success: function(item){
-            $('#cant_v').text(item['dato'].cantidad);
-            $('#total_v').text(moneda+' '+item['dato'].total);
+
+            if (item.dato.length != 0) {
+                $.each(item.dato, function (i, campo) {
+                    cantidad_mozo = campo.cantidad;
+                    total_mozo = campo.total;
+
+
+                });
+            }
+
+            $('#cant_v').text(cantidad_mozo);
+            $('#total_v').text(total_mozo);
         }
     });
 

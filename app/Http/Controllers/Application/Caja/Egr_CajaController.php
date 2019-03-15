@@ -44,7 +44,7 @@ class Egr_CajaController extends Controller
                                 ->Where('id_sucursal',session('id_sucursal'))
                                 ->Where('id_usu',session('id_usu'))
                                 ->get();
-        $TDocumentos = TmTipoDoc::where('id_sucursal',session('id_sucursal'))->get();
+        $TDocumentos = TmTipoDoc::where('id_empresa',session('id_empresa'))->get();
         $personal = TmUsuario::where('id_sucursal',session('id_sucursal'))->get();
         $data = [
 

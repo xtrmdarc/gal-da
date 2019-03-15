@@ -11,11 +11,13 @@ Route::post('informesDatosVentasExcel', 'Application\Informes\Ventas\VentasContr
 
 Route::get('/informesVentasProducto', 'Application\Informes\Ventas\ProductosController@index')->name('inf_productos');
 Route::post('informesDatosProductos', 'Application\Informes\Ventas\ProductosController@Datos')->name('config.Productos.Datos');
+Route::post('informesDatosProductosExcel', 'Application\Informes\Ventas\ProductosController@ExportExcel')->name('config.Productos.ExportExcel');
 
 //Ventas Mozos
 
 Route::get('/informesVentasMozos', 'Application\Informes\Ventas\MozosController@index')->name('inf_mozos');
 Route::post('informesDatosMozos', 'Application\Informes\Ventas\MozosController@Datos');
+Route::post('informesDatosMozosExcel', 'Application\Informes\Ventas\MozosController@ExportExcel')->name('config.Mozos.ExportExcel');
 
 //Venta por forma de Pago
 

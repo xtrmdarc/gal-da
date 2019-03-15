@@ -203,7 +203,7 @@ class UsuarioController extends Controller
                     'password' => bcrypt($contrasena),
                     'usuario' => $usuario,
                     'verifyToken' => null,
-                    'id_sucursal' => $post['id_sucursal'],
+                    'id_sucursal' => session('id_sucursal'),
                     'id_empresa' => $userEmpresa,
                     'status'=> 1,
                     'pin' => $pin

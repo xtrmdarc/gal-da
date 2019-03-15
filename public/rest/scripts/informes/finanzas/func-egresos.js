@@ -24,6 +24,9 @@ $(function() {
         listar();
     });
 
+    $('#sucu_filter').change( function() {
+        listar();
+    });
 });
 
 var listar = function(){
@@ -31,6 +34,7 @@ var listar = function(){
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
 	var	table =	$('#table')
 	.DataTable({
@@ -43,7 +47,8 @@ var listar = function(){
 			"url": "/informesDatosEgresos",
 			"data": {
                 ifecha: ifecha,
-                ffecha: ffecha
+                ffecha: ffecha,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

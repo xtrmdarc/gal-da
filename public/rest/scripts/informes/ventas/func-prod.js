@@ -3,13 +3,13 @@ $(function() {
 	listar();
     
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
@@ -74,7 +74,7 @@ var listar = function(){
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha
-            },dataSrc : "",
+            },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

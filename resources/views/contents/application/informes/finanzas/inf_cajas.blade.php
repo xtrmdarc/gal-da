@@ -31,7 +31,7 @@ $fechaa = date("m-Y");
             </div>
             <div class="ibox-content" style="position: relative; min-height: 30px;">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label >Escoge un periodo</label>
                             <div class="input-group">
@@ -39,6 +39,17 @@ $fechaa = date("m-Y");
                                 <span class="input-group-addon">al</span>
                                 <input style="text-align: center;" type="text" name="end" id="end" class="form-control DatePicker" autocomplete="off" readonly="true" value="{{$fecha}}"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="sucu_filter">Sucursal</label>
+                            <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%" active>Todas las Sucursales</option>
+                                @foreach($sucursales_filtro as $r)
+                                    <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -89,6 +100,11 @@ $fechaa = date("m-Y");
                                     <span class="fa fa-clock-o m-r-xs"></span>
                                     <label>Turno:</label>
                                     <span id="d_turno"></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-building m-r-xs"></span>
+                                    <label>Sucursal:</label>
+                                    <span id="d_sucursal"></span>
                                 </li>
                                 <li>
                                     <span class="fa fa-calendar m-r-xs"></span>

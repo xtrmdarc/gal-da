@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Application\Informes\Finanzas;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Sucursal;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
@@ -21,7 +22,12 @@ class RemuneracionesController extends Controller
             'breadcrumb'=>'inf_remu',
             'titulo_vista' => 'Informe remuneraciones'
         ];
-        return view('contents.application.informes.finanzas.inf_remuneraciones')->with($data);
+
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
+        return view('contents.application.informes.finanzas.inf_remuneraciones',$viewdata)->with($data);
     }
 
     public function Datos(Request $request)

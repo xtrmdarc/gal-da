@@ -24,6 +24,9 @@ $(function() {
         listar();
     });
 
+    $('#sucu_filter').change( function() {
+        listar();
+    });
 });
 
 var listar = function(){
@@ -31,6 +34,7 @@ var listar = function(){
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
 	var	table =	$('#table')
 	.DataTable({
@@ -43,13 +47,15 @@ var listar = function(){
 			"url": "/informesDatosIngresos",
 			"data": {
                 ifecha: ifecha,
-                ffecha: ffecha
+                ffecha: ffecha,
+                sucu_filter: sucu_filter
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
 		},
 		"columns":[
+            {"data": "nombre_sucursal"},
 			{"data":"fecha_reg","render": function ( data, type, row ) {
                 return '<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
                 +moment(data).format('h:mm A');
