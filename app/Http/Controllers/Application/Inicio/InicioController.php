@@ -16,6 +16,7 @@ use App\Models\Empresa;
 use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
 use App\Events\VentaEfectuada;
+use App\Models\EFacturacion;
 
 
 class InicioController extends Controller
@@ -178,7 +179,7 @@ class InicioController extends Controller
         {
             $response = new \stdClass();
             $nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
-            if($nventas >= 21) {
+            if($nventas >= 1000) {
                 $response->tipo =0;
                 return json_encode($response);
             }
@@ -329,7 +330,7 @@ class InicioController extends Controller
         
         $val = self::ValidarEstadoP($cod);
         //Comprobantes
-        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
         $data = [
             'cod'=> $cod,
             'breadcrumb'=> '' ,
@@ -525,11 +526,13 @@ class InicioController extends Controller
             return $respuesta_validado;
         }
         $data = $request->all();
+        // SETEAR SI ESTA ACTIVADO LA FACTURACION ELECTRONICA. LE QUEDAN CPE's ? 
+
         if($data['cod_pedido'] != ''){
            
             try
             {
-                date_default_timezone_set('America/Lima');
+                date_default_timezone_set('America/Lima');  
                 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 $fecha = date("Y-m-d H:i:s");
 
@@ -542,36 +545,72 @@ class InicioController extends Controller
                 //dd(session('id_apc'));
                 $igv = session('igv_session');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
+                
+                
+                $comprobante = DB::table('tm_tipo_doc')->where('id_tipo_doc',$data['tipo_doc'])->first(); 
+                
                 $arrayParam = array(
-                    1,
-                    $data['tipo_pedido'],
-                    $data['tipoEmision'],
-                    $data['cod_pedido'],
-                    $data['cliente_id'],
-                    $data['tipo_pago'],
-                    $data['tipo_doc'],
-                    $id_usu,
-                    $id_apc,//Apc
-                    $data['pago_t'],
-                    $data['m_desc'],
-                    $igv,
-                    $data['total_pedido'],
-                    $fecha
+                        1,//flag
+                        $data['tipo_pedido'], //tipo pedido
+                        $data['tipoEmision'], //tipo emision
+                        $data['cod_pedido'], //id pedido
+                        $data['cliente_id'], //id cliente
+                        $data['tipo_pago'], //tipo pago
+                        $data['tipo_doc'], //tipo doc
+                        $id_usu, //id _usu
+                        $id_apc,//Apc
+                        $data['pago_t'], // monto pago
+                        $data['m_desc'],//monto descuento
+                        $igv, //igv 
+                        $data['total_pedido'], //total monto
+                        $fecha, //fecha emision
+                        //---
+                        '0101', //tipo operacion (tipo factura = venta interna)
+                        $fecha, //fecha vencimiento
+                        $comprobante->tipo_doc_codigo, //tipo doc = Factura
+                        'PEN', //moneda
+                        $data['total_pedido']/(1+$igv), //MtoOperGravadas
+                        0, // MtoOperExoneradas
+                        $data['total_pedido']/(1+$igv) *$igv,//  MtoIGV
+                        $data['total_pedido']/(1+$igv) *$igv, //  TotalImpuestos
+                        $data['total_pedido']/(1+$igv), // MtoVenta
+                        $data['total_pedido'], // total //falta guardar MtoImpVenta
+                        session('id_empresa'), //
+                        $comprobante->electronico //factura electronicamente
                     );
-                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
 
+                
+                
+                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
+
+                //Cod es el id de la venta realizada.
                 foreach($st as $s){
                     $cod = $s->cod;
                 }
+
+
+                if($comprobante->electronico==1)
+                {
+                    EFacturacion::generarInvoice($cod);
+                }
+                
 
                 $a = $data['idProd'];
                 $b = $data['cantProd'];
                 $c = $data['precProd'];
     
+
                 for($x=0; $x < sizeof($a); ++$x){
                     if ($b[$x] > 0){
-                        $params = array($cod,$a[$x],$b[$x],$c[$x]);
-                        DB::insert("INSERT INTO tm_detalle_venta (id_venta,id_prod,cantidad,precio) VALUES (?,?,?,?)",$params);
+                        $params = array($cod,
+                                        $a[$x], //id producto
+                                        $b[$x], //cantidad
+                                        $c[$x], //precio
+                                        'NIU', //unidad 
+                                        $igv , //porcentaje igv
+                                        '10' //tipo afe igv
+                                    );
+                        DB::insert("INSERT INTO tm_detalle_venta (id_venta,id_prod,cantidad,precio,unidad,porcentaje_igv,tip_afe_igv) VALUES (?,?,?,?,?,?,?)",$params);
                     }
                 }
 
@@ -932,6 +971,7 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
             }
+            
             require_once (public_path().'/rest/Imprimir/comp.php');
             return json_encode(1);
         }

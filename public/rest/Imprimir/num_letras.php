@@ -133,13 +133,13 @@ function numtoletras($xcifra)
                     break;
                 case 2:
                     if ($xcifra < 1) {
-                        $xcadena = "CERO Y $xdecimales/100 soles";
+                        $xcadena = "CERO CON $xdecimales/100 soles";
                     }
                     if ($xcifra >= 1 && $xcifra < 2) {
-                        $xcadena = "UN Y $xdecimales/100 soles ";
+                        $xcadena = "UN CON $xdecimales/100 soles ";
                     }
                     if ($xcifra >= 2) {
-                        $xcadena.= " Y $xdecimales/100 soles "; //
+                        $xcadena.= " CON $xdecimales/100 soles "; //
                     }
                     break;
             } // endswitch ($xz)

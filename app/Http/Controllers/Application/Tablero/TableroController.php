@@ -16,6 +16,7 @@ class TableroController extends Controller
         $this->middleware('afterRegister');
         $this->middleware('userRol');
     }
+
     public function index(){
 
         //Solo puede verlo el adminsitrador
@@ -24,8 +25,7 @@ class TableroController extends Controller
         $data = [
 
             'breadcrumb'=> 'inicio',
-            'titulo_vista' => 'Tablero'  
-            
+            'titulo_vista' => 'Tablero'     
         ];
   
         return view('contents.application.tablero.tablero') ;
