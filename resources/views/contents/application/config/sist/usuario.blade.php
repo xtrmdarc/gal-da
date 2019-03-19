@@ -35,10 +35,13 @@
                             <table class="table table-hover table-condensed table-striped" id="table" width="100%">
                                 <thead>
                                 <tr>
+                                    <th>Sucursal</th>
                                     <th>Nombres</th>
                                     <th>Ape.Paterno</th>
                                     <th>Ape.Materno</th>
+                                    <th style="text-align: center">Usuario</th>
                                     <th style="text-align: center">Cargo</th>
+                                    <th>Pin</th>
                                     <th style="text-align: center">Estado</th>
                                     <th style="text-align: center;display:none;">Verificado</th>
                                     <th style="text-align: center">Acciones</th>
@@ -47,9 +50,11 @@
                                 <tbody>
                                 @foreach($users as $user)
                                 <tr>
+                                    <td>{{$user->nombre_sucursal}}</td>
                                     <td>{{$user->nombres}}</td>
                                     <td>{{$user->ape_paterno}}</td>
                                     <td>{{$user->ape_materno}}</td>
+                                    <td>{{$user->usuario}}</td>
                                     <td style="text-align: center">
                                         @if($user->id_rol == 1)
                                             <span class="label label-danger">{{$user->desc_r}}</span>
@@ -62,6 +67,14 @@
                                         @else
                                             <span class="label label-success">{{$user->desc_r}}</span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        @if($user->pin == '0' || $user->pin == ' ' || $user->pin == '')
+                                            No tiene
+                                        @else
+                                            {{$user->pin}}
+                                        @endif
+
                                     </td>
                                     <td style="text-align: center">
                                         @if($user->estado == 'a')

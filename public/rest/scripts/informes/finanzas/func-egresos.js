@@ -55,6 +55,7 @@ var listar = function(){
             }
 		},
 		"columns":[
+            {"data": "nombre_sucursal"},
 			{"data":"fecha_re","render": function ( data, type, row ) {
                 return '<i class="fa fa-calendar"></i> '+moment(data).format('DD-MM-Y')+'<br><i class="fa fa-clock-o"></i> '
                 +moment(data).format('h:mm A');

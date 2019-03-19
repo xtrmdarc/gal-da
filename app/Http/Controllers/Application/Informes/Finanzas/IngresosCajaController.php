@@ -65,19 +65,19 @@ class IngresosCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("select ti.id_ing,ti.id_usu,ti.id_apc,ti.importe,ti.motivo,ti.fecha_reg,ti.estado,ti.id_sucursal,S.nombre_sucursal from tm_ingresos_adm as ti
+            $stm = DB::Select("select ti.fecha_reg as Fecha_de_Registro,ti.importe as Importe,ti.motivo as Motivo,ti.estado as Estado,S.nombre_sucursal as Nombre_de_Sucursal from tm_ingresos_adm as ti
                            JOIN sucursal as S ON ti.id_sucursal = S.id WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal like ? and id_empresa = ?",
                 array($start,$end,$sucu_filter,session('id_empresa')));
-
-            foreach($stm as $k => $d)
-            {
-                $stm[$k]->Caja = DB::select("SELECT desc_caja FROM v_caja_aper WHERE id_apc = ".$d->id_apc)[0];
-            }
-            foreach($stm as $k => $d)
-            {
-                $stm[$k]->Cajero = DB::select("SELECT CONCAT(nombres,' ',ape_paterno,' ',ape_materno) AS desc_usu FROM tm_usuario WHERE id_usu = ".$d->id_usu)[0];
-            }
-
+            /*
+                foreach($stm as $k => $d)
+                {
+                    $stm[$k]->Caja = DB::select("SELECT desc_caja FROM v_caja_aper WHERE id_apc = ".$d->id_apc)[0];
+                }
+                foreach($stm as $k => $d)
+                {
+                    $stm[$k]->Cajero = DB::select("SELECT CONCAT(nombres,' ',ape_paterno,' ',ape_materno) AS desc_usu FROM tm_usuario WHERE id_usu = ".$d->id_usu)[0];
+                }
+            */
             ob_end_clean();
             ob_start();
 

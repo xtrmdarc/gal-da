@@ -22,7 +22,7 @@ class MesaController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
-        $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesas;
+        $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesas;
         $viewdata['user_sucursal'] = $user_sucursal;
         $sesion_plan = session('plan_actual');
 
@@ -124,8 +124,9 @@ class MesaController extends Controller
             $nroMesa = $post['nro_mesa'];
             $idMesa = $post['cod_mesa'];
 
-            $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, :idMesa, :_idSucursal);",
-                array(':flag' => $flag,':idCatg' => $idCatg,':nroMesa' => $nroMesa,':idMesa' => $idMesa,':_idSucursal' => $id_sucursal));
+            $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, :idMesa, :_idSucursal, :_idEmpresa);",
+                array(':flag' => $flag,':idCatg' => $idCatg,':nroMesa' => $nroMesa,':idMesa' => $idMesa,':_idSucursal' => $id_sucursal,':_idEmpresa' => session('id_empresa')));
+
             foreach($consulta as $k)
             {   
                 $response->cod = $k->cod;
@@ -138,8 +139,8 @@ class MesaController extends Controller
             $idCatg = $post['id_catg'];
             $nroMesa = $post['nro_mesa'];
 
-            $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, @a, :_idSucursal);",
-                array(':flag' => $flag,':idCatg' => $id_sucursal_m,':nroMesa' => $nroMesa,':_idSucursal' => $id_sucursal));
+            $consulta = DB::Select("call usp_configMesas_g( :flag, :idCatg, :nroMesa, @a, :_idSucursal, :_idEmpresa);",
+                array(':flag' => $flag,':idCatg' => $id_sucursal_m,':nroMesa' => $nroMesa,':_idSucursal' => $id_sucursal,':_idEmpresa' => session('id_empresa')));
             
             foreach($consulta as $k)
             {
@@ -147,7 +148,7 @@ class MesaController extends Controller
                 
             }
         }
-        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesa;
+        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesa;
         return json_encode($response);
     }
 
@@ -192,14 +193,14 @@ class MesaController extends Controller
             $id_catg_sucursal = $r->id_sucursal;
         }
 
-        $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal);",
-            array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal));
+        $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal, :_idEmpresa);",
+            array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal,':_idEmpresa' => session('id_empresa')));
 
         foreach($consulta as $k)
         {
             $response->cod  = $k->cod;
         }
-        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesa;
+        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesa;
         return json_encode($response);
     }
 

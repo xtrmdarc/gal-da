@@ -58,6 +58,7 @@ $fechaa = date("m-Y");
                     <table id="table" class="table table-hover table-condensed table-striped" width="100%">
                         <thead>
                         <tr>
+                            <th>Sucursal</th>
                             <th>Fecha</th>
                             <th>Caja</th>
                             <th>Usuario</th>

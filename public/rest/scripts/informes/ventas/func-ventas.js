@@ -4,13 +4,13 @@ $(function() {
     listar();
 
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
     
@@ -21,6 +21,11 @@ $(function() {
 
     $("#end").on("dp.change", function (e) {
         $('#start').data("DateTimePicker").maxDate(e.date);
+        listar();
+    });
+
+    $('#sucu_filter').change( function() {
+        cajas_x_sucursal();
         listar();
     });
 });
@@ -38,6 +43,7 @@ var listar = function(){
     tdoc = $("#tipo_doc").selectpicker('val');
     icaja = $('#cod_cajas').selectpicker('val');
     cliente = $('#cliente').selectpicker('val');
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
     var vsbt = 0,
         vigv = 0,
@@ -53,7 +59,8 @@ var listar = function(){
             tped: tped,
             tdoc: tdoc,
             icaja: icaja,
-            cliente: cliente
+            cliente: cliente,
+            sucu_filter: sucu_filter
         },
         dataType: "json",
         headers: {
@@ -117,7 +124,8 @@ var listar = function(){
                 tped: tped,
                 tdoc: tdoc,
                 icaja: icaja,
-                cliente: cliente
+                cliente: cliente,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -213,6 +221,55 @@ var detalle = function(cod,doc,num){
     });
 };
 
+var cajas_x_sucursal = function (){
+    $('select[name="sucu_filter"]').on('change', function() {
+        var sucursalId = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "/informesDatosVentasLcajas",
+            data: {
+                id_sucursal_d : sucursalId
+            },
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $('#cod_cajas').empty();
+                for(var i = 0 ; i< response.length; i++){
+                    $('#cod_cajas').append(
+                    `<option value="${response[i].id_caja}"> ${response[i].descripcion} </option>`
+                );
+                }
+                $('#cod_cajas').selectpicker('refresh');
+
+            },
+            error: function () {
+                $('#cod_cajas').html('There was an error!');
+            }
+        });
+        /*
+         $.ajax({
+         type: "POST",
+         url: "/ajustesCrudProd",
+         data: {
+         id_sucursal_d : sucursalId
+         },
+         dataType: "json",
+         headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function (data) {
+         //console.log(data);
+         //remove disabled from province and change the options
+         $('select[name="cod_area"]').prop("disabled", false);
+         $('select[name="cod_area"]').html(data.response);
+         }
+         });
+         */
+    });
+}
 /*s
 
 $('#frm-excel-informe').on('submit',function(e){

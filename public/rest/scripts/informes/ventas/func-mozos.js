@@ -29,12 +29,17 @@ $('#mozo').change( function() {
 	listar();
 });
 
+$('#sucu_filter').change( function() {
+    listar();
+});
+
 var listar = function(){
 
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
     cmozo = $("#mozo").selectpicker('val');
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
     var cantidad_mozo = 0,
         total_mozo = 0;
@@ -45,7 +50,8 @@ var listar = function(){
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
-            cmozo: cmozo
+            cmozo: cmozo,
+            sucu_filter: sucu_filter
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -78,7 +84,8 @@ var listar = function(){
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
-                cmozo: cmozo
+                cmozo: cmozo,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

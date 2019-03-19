@@ -29,7 +29,7 @@ $fechaa = date("m-Y h:i: A");
             </div>
             <div class="ibox-content" style="position: relative; min-height: 30px;">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -43,6 +43,30 @@ $fechaa = date("m-Y h:i: A");
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="sucu_filter">Sucursal</label>
+                            <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%" active>Todas las Sucursales</option>
+                                @foreach($sucursales_filtro as $r)
+                                    <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="">Cajas</label>
+                            <select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%">Todas</option>
+                                {{--/*
+                                  @foreach($Cajas as $r)
+                                    <option value="{{$r->id_caja}}">{{$r->descripcion}}</option>
+                                    @endforeach
+                                */--}}
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -63,17 +87,6 @@ $fechaa = date("m-Y h:i: A");
                                 <option value="%" active>Todos</option>
                                 @foreach($Comprobantes as $r)
                                     <option value="{{$r->id_tipo_doc}}">{{$r->descripcion}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label for="cod_cajas">Cajas</label>
-                            <select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%">Todas</option>
-                                @foreach($Cajas as $r)
-                                    <option value="{{$r->id_caja}}">{{$r->descripcion}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -30,7 +30,7 @@ $fechaa = date("m-Y");
             </div>
             <div class="ibox-content" style="position: relative; min-height: 30px;">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label >Escoge un periodo</label>
                             <div class="input-group">
@@ -42,7 +42,19 @@ $fechaa = date("m-Y");
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="sucu_filter">Sucursal</label>
+                            <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%" active>Todas las Sucursales</option>
+                                @foreach($sucursales_filtro as $r)
+                                    <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="sucu_filter">Buscar Productos</label>
                         <div class="input-group">
                             <input class="form-control global_filter" id="global_filter" type="text">
                             <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>

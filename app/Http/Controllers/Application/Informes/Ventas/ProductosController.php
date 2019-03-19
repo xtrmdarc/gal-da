@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Application\Informes\Ventas;
 
 use Illuminate\Http\Request;
+use App\Models\Sucursal;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,7 +22,12 @@ class ProductosController extends Controller
             'breadcrumb'=>'inf_productos',
             'titulo_vista' => 'Informe Productos'
         ];
-        return view('contents.application.informes.ventas.inf_productos')->with($data);
+
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
+        return view('contents.application.informes.ventas.inf_productos',$viewdata)->with($data);
     }
 
     public function Datos(Request $request)
@@ -30,7 +36,8 @@ class ProductosController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
+        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total
+                           FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
             array($ifecha,$ffecha));
 
         foreach($stm as $k => $d)

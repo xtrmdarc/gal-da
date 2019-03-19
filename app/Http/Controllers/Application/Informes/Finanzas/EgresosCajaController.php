@@ -70,7 +70,7 @@ class EgresosCajaController extends Controller
                 WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ?
                 and v_gastosadm.id_sucursal like ? and id_empresa = ?;",
                 array($start,$end,$sucu_filter,session('id_empresa')));
-            dd($stm);
+
             ob_end_clean();
             ob_start();
 
