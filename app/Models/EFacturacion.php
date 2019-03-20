@@ -107,7 +107,7 @@ class EFacturacion
             ->setMtoValorVenta($detalle->mto_valor_venta) //falta guardar
             ->setMtoBaseIgv($detalle->mto_base_igv) //falta guardar
             ->setPorcentajeIgv($detalle->porcentaje_igv) //falta guardar
-            ->setIgv($detlale->igv) //falta guardar
+            ->setIgv($detalle->igv) //falta guardar
             ->setTipAfeIgv($detalle->tip_afe_igv) //falta guardar
             ->setTotalImpuestos($detalle->total_impuestos) //falta guardar
             ->setMtoPrecioUnitario($detalle->mto_precio_unitario) //falta guardar
@@ -135,7 +135,7 @@ class EFacturacion
         // Aqui se firma el xml y se obtiene el xml firmado para guardarse
         $signedInvoiceXml = $see->getXmlSigned($invoice);
         // Se obtiene la ruta donde se alojará el archivo
-        $path = $util->writeXml($invoice, $signedInvoiceXml); // Configurar para que se guarde en el bucket y guardar esa ruta en la bd
+        $path = $util->writeXml($invoice, $signedInvoiceXml,'S3'); // Configurar para que se guarde en el bucket y guardar esa ruta en la bd
         
         // Guardar Hash en tm_venta y v_ventas_con y la ruta del S3 donde se guardará el archivo xml
         $hash = $util->getHashFromSignedXml($signedInvoiceXml);

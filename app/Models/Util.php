@@ -9,10 +9,13 @@ use Greenter\Report\HtmlReport;
 use Greenter\Report\PdfReport;
 use Greenter\Report\Resolver\DefaultTemplateResolver;
 use Greenter\See;
+use Illuminate\Support\Facades\Storage;
 
 class Util
 {
   
+
+
     public function numtoletras($xcifra)
     {
         $xarray = array(0 => "Cero",
@@ -219,10 +222,19 @@ class Util
 HTML;
         return $result;
     }
-    public function writeXml(DocumentInterface $document, $xml)
-    {
-        return $this->writeFile($document->getName().'.xml', $xml);
+    public function writeXml(DocumentInterface $document, $xml, $repo)
+    {   
+        switch ($repo)
+        {
+            case  'DISK' : {$path = $this->writeFile($document->getName().'.xml', $xml);break; }
+            case  'S3' : {$path = $this->writeFileS3($document->getName().'.xml', $xml); break; }
+            default : {
+                $path = $this->writeFile($document->getName().'.xml', $xml); 
+            }
+        }
+        return $path;
     }
+
     public function writeCdr(DocumentInterface $document, $zip)
     {
         $this->writeFile('R-'.$document->getName().'.zip', $zip);
@@ -237,6 +249,22 @@ HTML;
         file_put_contents($path, $content);
         return $path;
     }
+
+    public function writeFileS3($filename, $content)
+    {
+        if (getenv('GREENTER_NO_FILES')) {
+            return;
+        }
+
+        Storage::disk('s3')->put($filename, $content);
+               
+        // $path = __DIR__.'/'.$filename;
+        // file_put_contents(__DIR__.'/../files/'.$filename, $content);
+        // file_put_contents($path, $content);
+        
+        return $filename;
+    }
+
     public function getPdf(DocumentInterface $document)
     {
         $html = new HtmlReport('', [
