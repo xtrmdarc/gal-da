@@ -181,4 +181,25 @@
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Turnos',route('config.Turnos'));
     });
+
+    Breadcrumbs::register('comprobantes.factura', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Facturas',route('comprobantes.factura'));
+    });
+
+    Breadcrumbs::register('comprobantes.boleta', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Boletas',route('comprobantes.boleta'));
+    });
+
+    Breadcrumbs::register('comprobantes.nota', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Notas',route('comprobantes.nota'));
+    });
+
+    Breadcrumbs::register('comprobantes.resumen', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Resumen Diario',route('comprobantes.resumen'));
+    });
+
 ?>

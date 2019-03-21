@@ -51,7 +51,7 @@
                                     <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{isset($cliente)?$cliente->ruc:''}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" id="d_dni">
                                 <div class="form-group">
                                     <label>DNI</label>
                                     <input type="text" name="dni" id="dni" data-mask="99999999" value="{{isset($cliente)?$cliente->dni:''}}" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>

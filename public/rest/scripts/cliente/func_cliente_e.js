@@ -1,6 +1,7 @@
 $(function() {
     $('input:radio[id=td_dni]').on('ifChecked', function(event){
         $("#f_dni").css("display","block");
+        $("#d_dni").css("display","block");
         $("#f_ruc").css("display","none");
         $("#d_ruc").css("display","none");
         $("#d_rs").css("display","none");
@@ -14,6 +15,7 @@ $(function() {
 
     $('input:radio[id=td_ruc]').on('ifChecked', function(event){
         $("#f_dni").css("display","none");
+        $("#d_dni").css("display","none");
         $("#f_ruc").css("display","block");
         $("#d_ruc").css("display","block");
         $("#d_rs").css("display","block");
@@ -83,4 +85,21 @@ $(".ent input").keypress(function(event) {
     if(valueKey.search('[0-9]')!=0 && keycode!=8){
         return false;
     }
+});
+
+$('input[name=tipo_doc]').on('change',function(e){
+    
+    let rb = $(e.target);
+    if(rb.val() == 1)
+    {
+        $('#div_dni').css('display','block');
+        $('#div_ruc').css('display','none');
+    }
+    else{
+        $('#div_dni').css('display','none');
+        $('#div_ruc').css('display','block');
+    }
+
+   
+
 });

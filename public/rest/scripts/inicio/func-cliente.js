@@ -87,6 +87,7 @@ $('#RegistrarCliente').on('click', function(){
 		var correo = $('#correo').val();
 		var razon_social = $('#razon_social').val();
 		var direccion = $('#direccion').val();
+        var tipoCliente = $('input:radio[name=tipo_docc]:checked').val();
 
 		if(dni.length == 8 || ruc.length == 11){
 			$.ajax({
@@ -102,25 +103,25 @@ $('#RegistrarCliente').on('click', function(){
 						telefono:telefono,
 						correo:correo,
 						razon_social:razon_social,
-						direccion:direccion
+                        direccion:direccion,
+                        tipoCliente:tipoCliente
                 },
                 dataSrc:'',   
                 headers:{
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
 				url: '/inicio/NuevoCliente',
-				success: function(datos){
-					if(datos == 1){
+				success: function(respuesta){
+					if(respuesta.dup > 0){
 						toastr.warning('Advertencia, Clientes duplicados.');
 					}else {
 						$('#mdl-nuevo-cliente').modal('hide');
 						$('#mdl-facturar').modal('show');
-						var tipoCliente = $('input:radio[name=tipo_docc]:checked').val();
+                        var tipoCliente = $('input:radio[name=tipo_docc]:checked').val();
+                        $('#cliente_id').val(respuesta.id_cliente);
 						if( tipoCliente == 1){
-                            $('#cliente_id').val(dni);
                             $("#nombre_c").val(nombres);
 						} else{
-                            $('#cliente_id').val(ruc);
                             $("#nombre_c").val(razon_social);
 						}
                         toastr.success('Datos registrados, correctamente.');

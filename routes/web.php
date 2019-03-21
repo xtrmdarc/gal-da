@@ -17,7 +17,8 @@ include 'Web/auth.php';
 /*Home*/
 include 'Web/home.php';
 
-//Includes de rutas por m�dulo
+//Includes de rutas por módulo
+include 'Application/comprobantes/comprobantes_routes.php';
 include 'Application/areaprod/areaprod_routes.php';
 include 'Application/caja/cajas_routes.php';
 include 'Application/cliente/cliente_routes.php';

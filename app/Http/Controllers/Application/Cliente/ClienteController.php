@@ -71,8 +71,9 @@ class ClienteController extends Controller
             $idEmpresa = \Auth::user()->id_empresa;
 
             $data = $request->all();
-            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
-            $fecha_nac = '';
+            if(isset($data['fecha_nac']))
+                $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            else $fecha_nac = '';
 
             if($data['id_cliente'] != ''){
 
@@ -99,59 +100,49 @@ class ClienteController extends Controller
             } else {
 
                 $post = $request->all();
-
-                if($idRol == 1) {
-
-                    if (TmCliente::where('id_empresa', session('id_empresa'))
-                        ->where('dni',$post['dni'])->exists()) {
-                        $notification = [
-                            'message' =>'Ya existe el Cliente con el mismo Dni',
-                            'alert-type' => 'error'
-                        ];
-                        return redirect('/cliente')->with($notification);
-                    }
-                    else {
-                        $nuevo_cliente = TmCliente::create([
-                            'dni' => $post['dni'],
-                            'ruc' => $post['ruc'],
-                            'ape_paterno' => $post['ape_paterno'],
-                            'ape_materno' => $post['ape_materno'],
-                            'nombres' => $post['nombres'],
-                            'razon_social' => $post['razon_social'],
-                            'telefono' => $post['telefono'],
-                            'fecha_nac' => $fecha_nac,
-                            'correo' => $post['correo'],
-                            'direccion' => $post['direccion'],
-                            'id_usu' => $idUsu,
-                            'id_empresa' => $idEmpresa,
-                        ]);
-                    }
-                }else if($idRol == 2){
-                    if (TmCliente::where('id_empresa', session('id_empresa'))
-                        ->where('dni',$post['dni'])->exists()) {
-                        $notification = [
-                            'message' =>'Ya existe el Cliente con el mismo Dni',
-                            'alert-type' => 'error'
-                        ];
-                        return redirect('/cliente')->with($notification);
-                    }
-                    else {
-                        $nuevo_cliente = TmCliente::create([
-                            'dni' => $post['dni'],
-                            'ruc' => $post['ruc'],
-                            'ape_paterno' => $post['ape_paterno'],
-                            'ape_materno' => $post['ape_materno'],
-                            'nombres' => $post['nombres'],
-                            'razon_social' => $post['razon_social'],
-                            'telefono' => $post['telefono'],
-                            'fecha_nac' => $fecha_nac,
-                            'correo' => $post['correo'],
-                            'direccion' => $post['direccion'],
-                            'id_usu' => $idUsu,
-                            'id_empresa' => $idEmpresa,
-                        ]);
-                    }
+                
+                $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
+                if ($result->duplicado >0) {
+                    $notification = [
+                        'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
+                        'alert-type' => 'error'
+                    ];
+                    return redirect('/cliente')->with($notification);
                 }
+                // if($idRol == 1) {
+                    
+                        $nuevo_cliente = TmCliente::create([
+                            'dni' => $post['dni'],
+                            'ruc' => $post['ruc'],
+                            'ape_paterno' => $post['ape_paterno'],
+                            'ape_materno' => $post['ape_materno'],
+                            'nombres' => $post['nombres'],
+                            'razon_social' => $post['razon_social'],
+                            'telefono' => $post['telefono'],
+                            'fecha_nac' => $fecha_nac,
+                            'correo' => $post['correo'],
+                            'direccion' => $post['direccion'],
+                            'id_usu' => $idUsu,
+                            'id_empresa' => $idEmpresa,
+                        ]);
+                // }else if($idRol == 2){
+                   
+                //         $nuevo_cliente = TmCliente::create([
+                //             'dni' => $post['dni'],
+                //             'ruc' => $post['ruc'],
+                //             'ape_paterno' => $post['ape_paterno'],
+                //             'ape_materno' => $post['ape_materno'],
+                //             'nombres' => $post['nombres'],
+                //             'razon_social' => $post['razon_social'],
+                //             'telefono' => $post['telefono'],
+                //             'fecha_nac' => $fecha_nac,
+                //             'correo' => $post['correo'],
+                //             'direccion' => $post['direccion'],
+                //             'id_usu' => $idUsu,
+                //             'id_empresa' => $idEmpresa,
+                //         ]);
+                  
+                // }
                 $notification = [ 
                     'message' =>'Cliente registrado, correctamente.',
                     'alert-type' => 'success'

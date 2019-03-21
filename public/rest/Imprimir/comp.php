@@ -137,13 +137,18 @@ $pdf->SetFont('LucidaConsole','',9);
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+6+$z+$a+9);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'SON: '.numtoletras($data->total - $data->descu), 0, 1, 'L');
-	$pdf->SetXY(6, $y+6+$z+$a+15);//modificar solo esto
-	$pdf->CellFitScale(60, 3,'Hash: '.$data->hash_xml_file, 0, 0, 'R');
-	$pdf->SetXY(3, $y+6+$z+$a+25);//modificar solo esto
-	$pdf->MultiCell(67, 4,$texto,0,'C',0,15);
-	$pdf->SetXY(2, $y+6+$z+$a+41);//modificar solo esto
+	$b = 15;
+	if($data->electronico == 1)
+	{
+		$pdf->SetXY(6, $y+6+$z+$a+15);//modificar solo esto
+		$pdf->CellFitScale(60, 3,'Hash: '.$data->hash_xml_file, 0, 0, 'R');
+		$pdf->SetXY(3, $y+6+$z+$a+25);//modificar solo esto
+		$pdf->MultiCell(67, 4,$texto,0,'C',0,15);
+		$b = 41;
+	}
+	$pdf->SetXY(2, $y+6+$z+$a+$b);//modificar solo esto
 	$pdf->MultiCell(70, 4,'Gracias por su preferencia',0,'C',0,15);
-	$pdf->SetXY(2, $y+6+$z+$a+45);//modificar solo esto
+	$pdf->SetXY(2, $y+6+$z+$a+$b+4);//modificar solo esto
 	$pdf->MultiCell(70, 3,'Lo esperamos pronto.',0,'C',0,15);
 	// $pdf->SetFont('LucidaConsole','',8);
 	

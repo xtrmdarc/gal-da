@@ -142,10 +142,10 @@ class EFacturacion
         DB::table('tm_venta')->where('id_venta',$id_venta)->update([
                                     'name_xml_file' => $invoice->getName(),
                                     'path_xml_file' => $path,
-                                    'hash_xml_file' => $hash
+                                    'hash_xml_file' => $hash,
+                                    'nombre_cliente' => $cliente->getRznSocial()
                                     ])
                                 ;
-        
         /*
         if ($res->isSuccess()) {
 

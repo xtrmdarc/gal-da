@@ -7664,3 +7664,32 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
       display: none;
   } 
 }
+
+.form-modern p{
+  color: black;
+  opacity: 0.5;
+}
+
+.form-modern label{
+  color: black;
+  opacity: 0.5;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.form-modern .section-title{
+  color: black;
+  opacity: 1;
+}
+
+.form-modern input[type=text],.billing-form select{
+  padding: 2px 10px 2px 10px;
+  height: 35px;
+  font-size: 14px;
+}
+
+.form-modern ::placeholder{
+  color: rgb(168, 168, 168);
+  
+  
+}

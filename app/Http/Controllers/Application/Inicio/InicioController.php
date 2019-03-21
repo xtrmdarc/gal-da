@@ -724,7 +724,7 @@ class InicioController extends Controller
         try
         {   
             $criterio = ($request->all())['criterio'];
-            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%') AND id_sucursal = ?  ORDER BY dni LIMIT 1",[session('id_sucursal')]);
+            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%' OR nombre LIKE '%$criterio%') AND (id_empresa = ? OR id_empresa is null)  ORDER BY dni LIMIT 1",[session('id_empresa')]);
 
             return json_encode($stm);
 
@@ -740,9 +740,11 @@ class InicioController extends Controller
     {
         try
         {
+            $response = new \stdClass();
+            
             $data = $request->all();
-            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
-            $fecha_nac = '';
+            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = '';
 
             $arrayParam =  array(
                 ':flag' => 1,
@@ -759,11 +761,39 @@ class InicioController extends Controller
                 ':idSucursal' =>session('id_sucursal'),
                 ':idEmpresa' =>session('id_empresa')
             );
-            $consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
-
-            foreach($consulta as $row){
-                return json_encode($row->dup);
+            $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
+            $response->dup = $result->duplicado;
+            if($response->dup >0 )
+            {
+                return json_encode($response);
             }
+            $id_cliente = DB::table('tm_cliente')->insertGetId([
+                                                    'dni'=> $data['dni'],
+                                                    'ruc' => $data['ruc'],
+                                                    'ape_paterno'=> $data['ape_paterno'],
+                                                    'ape_materno'=> $data['ape_materno'],
+                                                    'nombres'=> $data['nombres'],
+                                                    'razon_social'=> $data['razon_social'],
+                                                    'telefono'=> $data['telefono'],
+                                                    'fecha_nac'=> $fecha_nac,
+                                                    'correo'=> $data['correo'],
+                                                    'direccion'=> $data['direccion'],
+                                                    'id_sucursal'=> session('id_sucursal'),
+                                                    'id_empresa'=> session('id_empresa'),
+                                                    'es_empresa' => $data['tipoCliente']==1?0:1
+                                                ]);
+                        
+            $response->id_cliente = $id_cliente;
+            $response->nombres = $data['nombres'];
+            $response->ape_materno = $data['ape_paterno'];
+            $response->ape_paterno = $data['ape_materno'];
+            $response->razon_social = $data['razon_social'];
+
+            //$consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
+            return json_encode($response);
+            // foreach($consulta as $row){
+            //     return json_encode($row->dup);
+            // }
         } 
         catch (Exception $e) 
         {
