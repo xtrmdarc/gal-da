@@ -201,7 +201,7 @@ var listMostrador = function(){
                 if(item.estado == 'a'){
                     $('#list-mostrador')
                     .append(
-                        $('<a  href="inicio/PedidoMostrador/'+item.id_pedido+'"/>')
+                        $('<a  href="inicio/PedidoMostrador/'+item.index_por_cuenta+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(
@@ -297,7 +297,7 @@ var listDelivery = function(){
                     
                     $('#list-preparacion')
                     .append(
-                        $('<a  href="inicio/PedidoDelivery/'+item.id_pedido+'"/>')
+                        $('<a  href="inicio/PedidoDelivery/'+item.index_por_cuenta+'"/>')
                         .append(
                            $('<li class="warning-element limost"/>')
                             .append(

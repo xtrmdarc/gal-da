@@ -781,7 +781,7 @@ class InicioController extends Controller
 
         try
         {
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c' AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos,p.index_por_cuenta FROM tm_pedido AS p INNER JOIN tm_pedido_llevar AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c' AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_llevar WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];
@@ -821,7 +821,7 @@ class InicioController extends Controller
     public function ListarDelivery(){
         try
         {
-            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c'AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
+            $c = DB::select("SELECT tp.*,p.fecha_pedido,p.estado, count(dp.id_pedido) as pedidos_listos,p.index_por_cuenta FROM tm_pedido AS p INNER JOIN tm_pedido_delivery AS tp ON p.id_pedido = tp.id_pedido LEFT JOIN tm_detalle_pedido dp ON (p.id_pedido = dp.id_pedido and dp.estado = 'c') WHERE p.estado <> 'i' AND p.estado <> 'c'AND p.id_sucursal = ? GROUP BY 1,p.fecha_pedido,p.estado",[session('id_sucursal')]);
             foreach($c as $k => $d)
             {
                 $c[$k]->Total = DB::select("SELECT IFNULL(SUM(precio*cantidad),0) AS total FROM v_det_delivery WHERE estado <> 'i' AND id_pedido = " . $d->id_pedido)[0];
