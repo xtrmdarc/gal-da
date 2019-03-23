@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models;
 use Greenter\Model\Company\Company;
+use Greenter\Model\Company\Address;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Invoice;
@@ -17,13 +18,22 @@ class EFacturacion
 {
     
     public static function obtenerCompany(){
+        
+        // Direccion provisional
+        $address = new Address();
+        $address->setUbigueo('150101')
+            ->setDepartamento('LIMA')
+            ->setProvincia('LIMA')
+            ->setDistrito('LIMA')
+            ->setUrbanizacion('NONE')
+            ->setDireccion('AV LS');
 
         $datos_empresa = AppController::DatosEmpresa(session('id_empresa'));
         $company = new Company();
         $company->setRuc($datos_empresa->ruc);
         $company->setRazonSocial($datos_empresa->razon_social);
-        // $company->setNombreComercial($datos_empresa->nombre_empresa);//opcional
-        // $company->setAddress() Falta implementar
+        $company->setNombreComercial($datos_empresa->nombre_empresa);//opcional
+        $company->setAddress($address);
         // $company->email() //opcional
 
         return $company;
@@ -115,7 +125,8 @@ class EFacturacion
 
             $detalles_invoice[] = $item;
         }
-
+        
+       
         $invoice->setDetails($detalles_invoice)
         ->setLegends([
             (new Legend())
@@ -143,23 +154,71 @@ class EFacturacion
                                     'name_xml_file' => $invoice->getName(),
                                     'path_xml_file' => $path,
                                     'hash_xml_file' => $hash,
-                                    'nombre_cliente' => $cliente->getRznSocial()
+                                    'nombre_cliente' => $cliente->getRznSocial(),
+                                    'id_estado_comprobante' => 2
                                     ])
                                 ;
-        /*
-        if ($res->isSuccess()) {
-
-            /**@var $res \Greenter\Model\Response\BillResult
-            $cdr = $res->getCdrResponse();
-            $util->writeCdr($invoice, $res->getCdrZip());
-            $util->showResponse($invoice, $cdr);
-        } else {
-            echo $util->getErrorResponse($res->getError());
-        }
-        */
 
     }
    
+    
+    public static function enviarInvoiceSunat($id_venta)
+    {
+        $util = Util::getInstance();
+        //Necesito el invoice 
 
+        $doc = DB::table('v_factura_invoice')->where('id_venta',$id_venta)->first();
+
+
+        // Envio a SUNAT
+        $see = $util->getSee(SunatEndpoints::FE_BETA);
+        
+        /** Si solo desea enviar un XML ya generado utilice esta función**/
+        $invoice_content = \Storage::disk('s3')->get($doc->path_xml_file);
+        // $invoice_dom = new \DOMDocument();
+        // $invoice_dom->loadXML($invoice_content);
+        // $util->toInvoice($invoice_dom);
+        //  echo ($invoice_content);
+        // echo $invoice_content;
+        $company = new Company ();
+        $datos_empresa = AppController::DatosEmpresa(session('id_empresa'));
+        $company->setRuc($datos_empresa->ruc);
+        $invoice = new Invoice();
+        $invoice->setCompany($company);
+        $invoice->setTipoDoc($doc->tipo_doc_codigo);
+        $invoice->setSerie($doc->serie);
+        $invoice->setCorrelativo($doc->correlativo);
+       
+        $res = $see->sendXml(get_class($invoice),$invoice->getName(), $invoice_content);
+        // $res = $see->send($invoice);
+        DB::table('tm_venta')->where('id_venta',$id_venta)->update(['id_estado_comprobante'=>3]);
+        // $util->writeXml($invoice, $see->getFactory()->getLastXml(),'S3');
+        if ($res->isSuccess()) {
+            /**@var $res \Greenter\Model\Response\BillResult*/
+            $cdr = $res->getCdrResponse();
+            $util->writeCdr($invoice, $res->getCdrZip(),'S3');
+            
+            if($cdr->getCode() == '0')
+            {
+                DB::table('tm_venta')->where('id_venta',$id_venta)
+                                    ->update(['mensaje_sunat'=>$cdr->getDescription(),
+                                            'codigo_sunat'=>$cdr->getCode(),
+                                            'id_estado_comprobante'=>4]);
+                                
+            }
+            else
+            {
+                DB::table('tm_venta')->where('id_venta',$id_venta)
+                ->update(['mensaje_sunat'=>$cdr->getDescription(),
+                        'codigo_sunat'=>$cdr->getCode()]);
+            }    
+           
+            // $util->showResponse($invoice, $cdr);
+        } else {
+            echo $util->getErrorResponse($res->getError());
+        }
+
+
+    }
 
 }

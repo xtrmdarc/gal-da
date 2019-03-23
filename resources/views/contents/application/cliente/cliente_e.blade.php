@@ -42,6 +42,7 @@
             <form id="form" action="/cliente_e/RUCliente" method="post" enctype="multipart/form-data">
                 @csrf
             <input type="hidden" name="id_cliente" value="{{isset($cliente)?$cliente->id_cliente:''}}" />
+            <input type="hidden" name="tipo_cliente" id="tipo_cliente" value="1" >
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">

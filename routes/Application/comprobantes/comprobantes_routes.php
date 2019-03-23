@@ -6,6 +6,9 @@
         Route::prefix('factura')->group(function(){
             Route::get('/','Application\Comprobantes\FacturasController@index')->name('comprobantes.factura');
             Route::post('/BuscarFacturas','Application\Comprobantes\FacturasController@buscarFacturas');
+            Route::post('/EnviarFactura','Application\Comprobantes\FacturasController@enviarFacturaSunat');
+            Route::post('/ObtenerFacturaXID','Application\Comprobantes\FacturasController@getFacturaInvoiceXID');
+            
         });
         // Rutas para boletas
         Route::prefix('boleta')->group(function(){

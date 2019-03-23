@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Comprobantes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\EFacturacion;
 
 class FacturasController extends Controller
 {
@@ -61,4 +62,27 @@ class FacturasController extends Controller
         return  json_encode($facturas);
 
     }
+
+    public function enviarFacturaSunat(Request $request){
+        
+        $data = $request->all();
+        
+        EFacturacion::enviarInvoiceSunat($data['id_venta']);
+        
+        $factura_response = DB::table('v_facturas_comprobante')->where('id_venta',$data['id_venta'])
+        ->where('id_empresa',session('id_empresa'))->first();
+ 
+        return json_encode($factura_response);
+    }
+
+    public function getFacturaInvoiceXID(Request $request)
+    {
+        $data = $request->all();
+
+        $factura = DB::table('v_facturas_comprobante')->where('id_venta',$data['id_venta'])
+                                                    ->where('id_empresa',session('id_empresa'))->first();
+
+        return json_encode($factura);
+    }
+
 }

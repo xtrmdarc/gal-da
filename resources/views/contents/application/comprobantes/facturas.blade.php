@@ -83,7 +83,7 @@
             {{-- tabla --}}
             <div class="row">
                 <div class="col-sm-12">
-                    <table id="table-factura-comprobante" class="table " >
+                    <table id="table-factura-comprobante" class="table " style="position:relative" >
                         <thead>
                             <tr>
                                 <th>Serie</th>
@@ -92,6 +92,7 @@
                                 <th>Cliente</th>
                                 <th>Estado</th>
                                 <th>Mensaje SUNAT</th>
+                                <th>Visualizar</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>                    

@@ -87,7 +87,8 @@ class ClienteController extends Controller
                     'telefono' => $data['telefono'],
                     'fecha_nac' => $fecha_nac,
                     'correo' => $data['correo'],
-                    'direccion' => $data['direccion']
+                    'direccion' => $data['direccion'],
+                    'es_empresa' => $data['tipo_cliente']==1?0:1
                 );
                 TmCliente::where('id_cliente',$data['id_cliente'])
                         ->update($arrayParam);
@@ -100,7 +101,7 @@ class ClienteController extends Controller
             } else {
 
                 $post = $request->all();
-                
+
                 $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
                 if ($result->duplicado >0) {
                     $notification = [

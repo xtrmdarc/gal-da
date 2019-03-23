@@ -589,10 +589,7 @@ class InicioController extends Controller
                 }
 
 
-                if($comprobante->electronico==1)
-                {
-                    EFacturacion::generarInvoice($cod);
-                }
+                
                 
 
                 $a = $data['idProd'];
@@ -607,7 +604,7 @@ class InicioController extends Controller
                                         $b[$x], //cantidad
                                         $c[$x], //precio
                                         'NIU', //unidad 
-                                        $igv , //porcentaje igv
+                                        $igv , //porcentaje igv 0.18
                                         '10' //tipo afe igv
                                     );
                         DB::insert("INSERT INTO tm_detalle_venta (id_venta,id_prod,cantidad,precio,unidad,porcentaje_igv,tip_afe_igv) VALUES (?,?,?,?,?,?,?)",$params);
@@ -621,6 +618,11 @@ class InicioController extends Controller
                     $fecha.''
                 );
                 DB::statement('call usp_restEmitirVentaDet( ?, ?, ?, ?)',$arrayParam2);
+
+                if($comprobante->electronico==1)
+                {
+                    EFacturacion::generarInvoice($cod);
+                }
 
                 //el usuario superadminsitrador ha hecho mas de 1 venta
                 $id_user_super = \Auth::user()->parent_id?\Auth::user()->parent_id : \Auth::user()->id_usu;
@@ -724,8 +726,8 @@ class InicioController extends Controller
         try
         {   
             $criterio = ($request->all())['criterio'];
-            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%' OR nombre LIKE '%$criterio%') AND (id_empresa = ? OR id_empresa is null)  ORDER BY dni LIMIT 1",[session('id_empresa')]);
-
+            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%' OR nombre LIKE '%$criterio%') AND (id_empresa = ? OR id_empresa is null)  ORDER BY dni LIMIT 5",[session('id_empresa')]);
+            // dd($stm);
             return json_encode($stm);
 
         }

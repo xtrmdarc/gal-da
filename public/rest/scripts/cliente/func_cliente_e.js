@@ -11,6 +11,7 @@ $(function() {
         $("#d_fecha").css("display","block");
         $("#d_telefono").css("display","block");
         $("#d_correo").css("display","block");
+        $('#tipo_cliente').val(1);
     });
 
     $('input:radio[id=td_ruc]').on('ifChecked', function(event){
@@ -25,6 +26,7 @@ $(function() {
         $("#d_fecha").css("display","none");
         $("#d_telefono").css("display","none");
         $("#d_correo").css("display","none");
+        $('#tipo_cliente').val(2);
     });
 
     /* Consultar dni del nuevo cliente */

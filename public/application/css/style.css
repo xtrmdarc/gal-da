@@ -7689,7 +7689,18 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 }
 
 .form-modern ::placeholder{
-  color: rgb(168, 168, 168);
+  color: rgb(168, 168, 168); 
+}
+
+.div_overlay{
   
-  
+  width: 100%; 
+  height: 100%; 
+  /*top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0; */
+  background-color: rgba(231, 231, 231, 0.76); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
 }
