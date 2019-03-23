@@ -44,6 +44,7 @@ class OtrosController extends Controller
             $viewdata['logo']= $r->logo;
             $viewdata['igv']= $r->igv;
             $viewdata['moneda']= $r->moneda;
+            $viewdata['desc_moneda']= $r->desc_moneda;
             $viewdata['paisEmpresa']= $r->id_pais;
         }
 
@@ -117,6 +118,7 @@ class OtrosController extends Controller
         $abrev_rs = $post['abrev_rs'];
         $ruc = $post['ruc'];
         $moneda = $post['moneda'];
+        $desc_moneda = $post['desc_moneda'];
         $telefono = $post['telefono'];
         $direccion = $post['direccion'];
         $logo = $post['logo'];
@@ -164,6 +166,7 @@ class OtrosController extends Controller
                 'igv' => $igv,
                 'logo' =>$filenametostore,
                 'moneda' =>$moneda,
+                'desc_moneda' =>$desc_moneda,
                 'id_pais' =>$id_pais
             ]);
             //dd(DB::getQueryLog());
@@ -172,6 +175,7 @@ class OtrosController extends Controller
             session(['datosempresa'=> json_decode(json_encode($datos_empresa,true))]);
             session(['moneda_session'=>$moneda]);
             session(['moneda'=>$moneda]);
+            session(['desc_moneda'=>$desc_moneda]);
             session(['igv_session'=>$datos_empresa->igv]);
 
             return redirect('/ajustesDatosEmpresa');

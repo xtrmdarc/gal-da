@@ -59,14 +59,20 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">MONEDA:</label>
+                                            <label class="control-label">TELÉFONO</label>
+                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Teléfono" maxlength="13" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">MONEDA</label>
                                             <input type="text" name="moneda" value="{{$moneda}}" class="form-control" placeholder="$ ó S/." autocomplete="off" required>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">TELÉFONO:</label>
-                                            <input type="text" name="telefono" value="{{$telefono}}" class="form-control" placeholder="Ingrese Teléfono" maxlength="13" autocomplete="off" required>
+                                            <label class="control-label">NOMBRE MONEDA</label>
+                                            <input type="text" name="desc_moneda" value="{{$desc_moneda}}" class="form-control" placeholder="Ej. Soles" maxlength="13" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
