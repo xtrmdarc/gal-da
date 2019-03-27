@@ -154,7 +154,7 @@ class UsuarioController extends Controller
             if($id_rol != '3'){
                 $cod_area = 0;
             }
-            
+
             $sql = DB::update("UPDATE tm_usuario SET
 						id_rol  = ?,
 						id_areap   = ?,
@@ -164,7 +164,7 @@ class UsuarioController extends Controller
                         nombres = ?,
                         email = ?, 
                         ".
-                        (($contrasena != '' || !isset($contrasena))?'':'password = ?,' )
+                        (($contrasena == '' || !isset($contrasena))?' ':'password = ?,' )
                         ."
                         imagen = ?,
                         pin = ?
