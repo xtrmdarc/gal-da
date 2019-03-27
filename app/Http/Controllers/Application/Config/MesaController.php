@@ -22,7 +22,7 @@ class MesaController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
-        $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesas;
+        $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesas;
         $viewdata['user_sucursal'] = $user_sucursal;
         $sesion_plan = session('plan_actual');
 
