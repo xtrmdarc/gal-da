@@ -38,9 +38,8 @@ class IngresosCajaController extends Controller
         $ffecha = date('Y-m-d',strtotime($_POST['ffecha']));
         $sucu_filter = $post['sucu_filter'];
 
-        $stm = DB::Select("select ti.id_ing,ti.id_usu,ti.id_apc,ti.importe,ti.motivo,ti.fecha_reg,ti.estado,ti.id_sucursal,S.nombre_sucursal from tm_ingresos_adm as ti
-                           JOIN sucursal as S ON ti.id_sucursal = S.id WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal like ? and id_empresa = ?",
-            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
+        $stm = DB::Select("SELECT * FROM tm_ingresos_adm WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal = ?",
+            array($ifecha,$ffecha,session('id_sucursal')));
 
         foreach($stm as $k => $d)
         {
@@ -65,9 +64,12 @@ class IngresosCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("select ti.fecha_reg as Fecha_de_Registro,ti.importe as Importe,ti.motivo as Motivo,ti.estado as Estado,S.nombre_sucursal as Nombre_de_Sucursal from tm_ingresos_adm as ti
-                           JOIN sucursal as S ON ti.id_sucursal = S.id WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal like ? and id_empresa = ?",
-                array($start,$end,$sucu_filter,session('id_empresa')));
+            $stm = DB::Select("SELECT fecha_reg as Fecha_de_Registro,tm_caja.descripcion as Caja,importe as Importe,motivo as Motivo,tm_ingresos_adm.estado as Estado,sucursal.nombre_sucursal as Nombre_de_Sucursal
+                FROM tm_ingresos_adm
+                left join sucursal on tm_ingresos_adm.id_sucursal = sucursal.id
+                left JOIN tm_caja on tm_ingresos_adm.id_usu = tm_caja.id_usu
+                WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and tm_ingresos_adm.id_sucursal = ?",
+                array($start,$end,session('id_sucursal')));
             /*
                 foreach($stm as $k => $d)
                 {
