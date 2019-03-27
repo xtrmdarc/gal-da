@@ -117,25 +117,25 @@ class AuthController extends Controller
                 'descripcion' => 'BOLETA',
                 'serie' => '001',
                 'numero' => '0000001',
-                'id_empresa' => $sucursal_id,
+                'id_sucursal' => $sucursal_id,
             ]);
             $tipo_doc_factura = TmTipoDoc::create([
                 'descripcion' => 'FACTURA',
                 'serie' => '001',
                 'numero' => '0000001',
-                'id_empresa' => $sucursal_id,
+                'id_sucursal' => $sucursal_id,
             ]);
             $tipo_doc_ticket = TmTipoDoc::create([
                 'descripcion' => 'TICKET',
                 'serie' => '001',
                 'numero' => '0000001',
-                'id_empresa' => $sucursal_id,
+                'id_sucursal' => $sucursal_id,
             ]);
             $tipo_doc_otros = TmTipoDoc::create([
                 'descripcion' => 'OTROS',
                 'serie' => '001',
                 'numero' => '0000001',
-                'id_empresa' => $sucursal_id,
+                'id_sucursal' => $sucursal_id,
             ]);
             //Turnos
             $primer_turno = TmTurno::create([
