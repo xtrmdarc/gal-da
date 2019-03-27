@@ -92,7 +92,7 @@ class OtrosController extends Controller
 
     public function ListarTD()
     {
-        $stm = DB::Select("SELECT * FROM tm_tipo_doc where id_empresa = ".session('id_empresa'));
+        $stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
         echo json_encode($stm);
     }
 
