@@ -155,6 +155,9 @@ class UsuarioController extends Controller
                 $cod_area = 0;
             }
 
+            if((($contrasena == '' || !isset($contrasena)))) {
+                $contrasena = ' ';
+            }
             $sql = DB::update("UPDATE tm_usuario SET
 						id_rol  = ?,
 						id_areap   = ?,
@@ -163,9 +166,7 @@ class UsuarioController extends Controller
                         ape_materno = ?,
                         nombres = ?,
                         email = ?, 
-                        ".
-                        (($contrasena == '' || !isset($contrasena))?' ':'password = ?,' )
-                        ."
+                        password = ?,
                         imagen = ?,
                         pin = ?
                     WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,bcrypt($contrasena),$imagen,$pin,$id_usu]);
