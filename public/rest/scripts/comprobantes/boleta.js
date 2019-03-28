@@ -1,67 +1,68 @@
 //Declaracion de clases
 
-class factura {
+class boleta {
 
-    constructor(id,fact){
-        console.log(id,fact);
-        let facturas_html =``;
+    constructor(id,boleta){
+        console.log(id,boleta);
+        let boletas_html =``;
         var $self = this;
         this.id = id;
-        this.id_estado_comprobante = fact.id_estado_comprobante;
-        this.desc_estado_comprobante = fact.desc_estado_comprobante;
-        this.id_venta = fact.id_venta;
-        this.mensaje_sunat = fact.mensaje_sunat?fact.mensaje_sunat:'';
+        this.id_estado_comprobante = boleta.id_estado_comprobante;
+        this.desc_estado_comprobante = boleta.desc_estado_comprobante;
+        this.id_venta = boleta.id_venta;
+        this.mensaje_sunat = boleta.mensaje_sunat?boleta.mensaje_sunat:'';
         this.overlay_div;
         this.loader_div;
         
-        this.id_btn_enviar_sunat = ''+id+fact.id_venta+'_btn_enviar';
-        this.id_btn_firmar_xml = ''+id+fact.id_venta+'_btn_firmar';
-        this.id_btn_estado = ''+id+fact.id_venta+'_btn_estado';
-        this.id_btn_baja = ''+id+fact.id_venta+'_btn_baja';
+        // this.id_btn_enviar_sunat = ''+id+boleta.id_venta+'_btn_enviar';
+        // this.id_btn_firmar_xml = ''+id+boleta.id_venta+'_btn_firmar';
+        // this.id_btn_estado = ''+id+boleta.id_venta+'_btn_estado';
+        // this.id_btn_baja = ''+id+boleta.id_venta+'_btn_baja';
 
-        this.id_tr_fact = ''+id+fact.id_venta+'_tr_fact';
+        this.id_tr_boleta = ''+id+boleta.id_venta+'_tr_boleta';
 
-        this.id_td_serie = ''+id+fact.id_venta+'_td_serie';
-        this.id_td_correlativo= ''+id+fact.id_venta+'_td_correlativo';
-        this.id_td_fecha_venta= ''+id+fact.id_venta+'_td_fecha_venta';
-        this.id_td_nombre_cliente= ''+id+fact.id_venta+'_td_nombre_cliente';
-        this.id_td_estado= ''+id+fact.id_venta+'_td_estado';
-        this.id_td_mensaje= ''+id+fact.id_venta+'_td_mensaje';
-        this.id_td_visualizar = ''+id+fact.id_venta+'_td_visualizar';
-        this.id_td_accion= ''+id+fact.id_venta+'_td_accion';
+        this.id_td_visualizar = ''+id+boleta.id_venta+'_td_visualizar';
+
+        this.id_td_serie = ''+id+boleta.id_venta+'_td_serie';
+        this.id_td_correlativo= ''+id+boleta.id_venta+'_td_correlativo';
+        this.id_td_fecha_venta= ''+id+boleta.id_venta+'_td_fecha_venta';
+        this.id_td_nombre_cliente= ''+id+boleta.id_venta+'_td_nombre_cliente';
+        this.id_td_estado= ''+id+boleta.id_venta+'_td_estado';
+        this.id_td_mensaje= ''+id+boleta.id_venta+'_td_mensaje';
+        // this.id_td_accion= ''+id+boleta.id_venta+'_td_accion';
 
         this.estado = this.determinarEstado();
         
         // this.estado.color
-        facturas_html += `
-                        <tr id="${this.id_tr_fact}" >
-                            <td id="${this.id_td_serie}" >${fact.serie}</td>
-                            <td id="${this.id_td_correlativo}">${fact.correlativo} </td>
-                            <td id="${this.id_td_fecha_venta}">${fact.fecha_venta} </td>
-                            <td id="${this.id_td_nombre_cliente}">${fact.nombre_cliente} </td>
+        boletas_html += `
+                        <tr id="${this.id_tr_boleta}" >
+                            <td id="${this.id_td_serie}" >${boleta.serie}</td>
+                            <td id="${this.id_td_correlativo}">${boleta.correlativo} </td>
+                            <td id="${this.id_td_fecha_venta}">${boleta.fecha_venta} </td>
+                            <td id="${this.id_td_nombre_cliente}">${boleta.nombre_cliente} </td>
                             <td id="${this.id_td_estado}" class="text-center" > <label class="card" style="background-color:${this.estado.color};padding:2px;color:white;opacity:1;" > ${this.desc_estado_comprobante}</label> </td>
                             <td id="${this.id_td_mensaje}" id="" >${this.mensaje_sunat} </td>
                             <td id="${this.id_td_visualizar}" class="text-center"> <a href="#" class="card" style="background-color:#247BA0;padding:2px;color:white;opacity:1;">Ver </label></td>
-                            <td id="${this.id_td_accion}" class="text-center"> ${this.estado.accion_a_tomar} </td>
                         `;
+                        // <td id="${this.id_td_accion}" class="text-center"> ${this.estado.accion_a_tomar} </td>
         
-        facturas_html += ` 
+        boletas_html += ` 
                         </tr>
                         `;
-        $('#table-factura-comprobante tbody').append(facturas_html);
+        $('#table-boleta-comprobante tbody').append(boletas_html);
 
-        $('#'+this.id_btn_baja).on('click',function(){
+        // $('#'+this.id_btn_baja).on('click',function(){
            
-        });
-        $('#'+this.id_btn_enviar_sunat).on('click',function(){
-            $self.enviarSunat();
-        });
-        $('#'+this.id_btn_estado).on('click',function(){
+        // });
+        // $('#'+this.id_btn_enviar_sunat).on('click',function(){
+        //     $self.enviarSunat();
+        // });
+        // $('#'+this.id_btn_estado).on('click',function(){
             
-        });
-        $('#'+this.id_btn_baja).on('click',function(){
+        // });
+        // $('#'+this.id_btn_baja).on('click',function(){
             
-        });
+        // });
 
     }
 
@@ -80,6 +81,7 @@ class factura {
             }
             case '2' || '5' : {
                 estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}"  class="card" style="background-color:#1FBDB7;padding:2px;color:white;opacity:1;"> Enviar  </a>`;
+                
                 estado.color = '#10A51F';
                 break;
             }
@@ -126,22 +128,22 @@ class factura {
         $('#'+this.id_td_mensaje).append(newMensaje);
     }
 
-    actualizarFacturaDOM(){
+    actualizarboletaDOM(){
         
     }
 
-    actualizarCamposPorFact(fact){
-        this.id_estado_comprobante = fact.id_estado_comprobante;
-        this.desc_estado_comprobante = fact.desc_estado_comprobante;
-        this.mensaje_sunat = fact.mensaje_sunat?fact.mensaje_sunat:'';
-        this.id_venta = fact.id_venta;
+    actualizarCamposPorboleta(boleta){
+        this.id_estado_comprobante = boleta.id_estado_comprobante;
+        this.desc_estado_comprobante = boleta.desc_estado_comprobante;
+        this.mensaje_sunat = boleta.mensaje_sunat?boleta.mensaje_sunat:'';
+        this.id_venta = boleta.id_venta;
         this.estado = this.determinarEstado();
     }
 
     estadoCargando()
     {
-        var tr_fact =  $('#'+this.id_tr_fact);
-        tr_fact.css({position:'relative'});
+        var tr_boleta =  $('#'+this.id_tr_boleta);
+        tr_boleta.css({position:'relative'});
         
         this.overlay_div = $('<div>');
         this.overlay_div.toggleClass('div_overlay');
@@ -151,9 +153,9 @@ class factura {
         this.loader_div.css('margin-top','22px');
 
         this.overlay_div.append(this.loader_div);
-        this.overlay_div.css({position:'absolute',left:tr_fact.position().left,top:tr_fact.position().top,height:tr_fact.height()});
+        this.overlay_div.css({position:'absolute',left:tr_boleta.position().left,top:tr_boleta.position().top,height:tr_boleta.height()});
 
-        $('#'+this.id_tr_fact).append(this.overlay_div);
+        $('#'+this.id_tr_boleta).append(this.overlay_div);
     }
 
     detenerCargando()
@@ -162,48 +164,6 @@ class factura {
         this.loader_div.remove();
     }
 
-    darBajaSunat(){
-        
-        $.ajax({
-            type:'POST',
-            dataType: 'JSON',
-            url:'',
-            data:{},
-            headers:{},
-            success:function(){
-
-            }
-        });
-
-    }
-
-    enviarSunat(){
-        let $self = this;
-
-        $self.estadoCargando();
-       
-        $.ajax({
-            type:'POST',
-            dataType :'JSON',
-            url:'factura/EnviarFactura',
-            data:{id_venta:$self.id_venta},
-            headers:{
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(fact){
-                // $self.td_serie.text('cambio y funciona esta pta mierda');
-                //Actualizar la factura DOM
-                console.log(fact);
-                
-                $self.actualizarCamposPorFact(fact);
-                $self.actualizarAccion();
-                $self.actualizarEstado();
-                $self.actualizarMensaje();
-
-                $self.detenerCargando();
-            }
-        });
-    }
 
     firmar(){
 
@@ -212,7 +172,7 @@ class factura {
 
 }
 
-// var factuas = [];
+// var boleta = [];
 $(function(){
     //Aqui empieza todo 
 
@@ -270,15 +230,14 @@ $("#cliente_nombre").autocomplete({
             $('#cliente_id').val()="";
         console.log($("#cliente_nombre").val());
     }
-})
-.autocomplete( "instance" )._renderItem = function( ul, item ) {
+}).autocomplete( "instance" )._renderItem = function( ul, item ) {
     return $( "<li>" )
       .append(item.nombres)
       .appendTo( ul );
   };
 
 
-$('#frm-buscar-facturas').on('submit',function(e){
+$('#frm-buscar-boletas').on('submit',function(e){
 
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -287,33 +246,29 @@ $('#frm-buscar-facturas').on('submit',function(e){
     let parametros = form.serializeArray();
     console.log(parametros);
    
-    obtenerFacturas(parametros);
+    obtenerBoletas(parametros);
 
 
 });
-$('#btn_enviar').on('click',function(){
-    alert('entra pero no funca los metodos');
-  
-});
 
-function obtenerFacturas(obj_param)
+function obtenerBoletas(obj_param)
 {
 
     $.ajax({
         type : 'POST',
         dataType: 'JSON',
-        url: 'factura/BuscarFacturas',
+        url: 'boleta/BuscarBoletas',
         data: obj_param,
         headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        success: function(facturas){
+        success: function(boletas){
 
-            let facturas_html = ``;
-            // console.log(facturas);
-            $('#table-factura-comprobante tbody').empty();
+            let boletas_html = ``;
+            // console.log(boletas);
+            $('#table-boleta-comprobante tbody').empty();
             let cont = 0;
-            facturas.forEach(fact => {
+            boletas.forEach(bol => {
                 cont++;
-                facturas.push(new factura(cont,fact));
+                boletas.push(new boleta(cont,bol));
 
             });
         
