@@ -82,8 +82,18 @@ var listarMesas = function(cod_sal,desc_sal){
                 } 
             }},
             {"data":null,"render": function ( data, type, row) {
-                return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\','+data.id_catg+');"> <i class="fa fa-edit"></i> Editar </button>'
-                +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-trash"></i> Eliminar </button></div>';
+                if(data.plan_id == 1){
+                    if(data.plan_estado == 'f') {
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\','+data.id_catg+');"> <i class="fa fa-edit"></i> Editar </button>'
+                            +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-trash"></i> Eliminar </button></div>';
+                    }else {
+                        return '<div class="text-right"></div>';
+                    }
+                }
+                if(data.plan_id == 2){
+                    return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\','+data.id_catg+');"> <i class="fa fa-edit"></i> Editar </button>'
+                        +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-trash"></i> Eliminar </button></div>';
+                }
             }}
         ]
     });

@@ -36,19 +36,19 @@ class SucursalController extends Controller
     }
     public function ListaSucursales()
     {
-        $id_usu = \Auth::user()->id_usu;
         /*Sucursales*/
-        $sucursales = DB::table('empresa')
-            ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
-            ->select('sucursal.id','sucursal.id_empresa','sucursal.nombre_sucursal','sucursal.id_usu','sucursal.direccion','sucursal.estado','sucursal.moneda','sucursal.telefono')
-            ->where('empresa.id',session('id_empresa'))
+        $sucursales = DB::table('v_sucursal')
+            ->where('id_empresa',session('id_empresa'))
             ->get();
+
         echo json_encode($sucursales);
     }
     public function CrudSucursal(Request $request)
     {
         $id_usu = \Auth::user()->id_usu;
         $id_empresa = \Auth::user()->id_empresa;
+        $planId_admin = \Auth::user()->plan_id;
+
         $post = $request->all();
         $response = new \stdClass();
         $cod = $post['cod_sucursal'];
@@ -77,6 +77,12 @@ class SucursalController extends Controller
         }else {
            //Create
 
+            if($planId_admin == 1) {
+                $plan_estado = 'f';
+            }else {
+                $plan_estado = 'b';
+            }
+
             $new_sucursal = Sucursal::create([
                 'id_empresa' => $id_empresa,
                 'id_usu' => $id_usu,
@@ -85,6 +91,7 @@ class SucursalController extends Controller
                 'telefono' => $post['telefono_sucursal'],
                 'moneda' => $post['moneda_sucursal'],
                 'estado' => $post['estado_sucursal'],
+                'plan_estado' => $plan_estado,
             ]);
 
             if(!empty($new_sucursal)) {

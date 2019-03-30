@@ -35,7 +35,10 @@ class TmMesa extends Eloquent
 	protected $fillable = [
 		'id_catg',
 		'nro_mesa',
-		'estado'
+		'estado',
+		'plan_estado',
+		'id_empresa',
+		'id_usu'
 	];
 
 	public function tm_salon()

@@ -24,9 +24,10 @@ class UsuarioController extends Controller
     }
     public function index()
     {
-        $user_plan = \Auth::user()->plan_id;
         $user = \Auth::user()->parent_id;
         $id_usu = \Auth::user()->id_usu;
+        $plan_id = \Auth::user()->plan_id;
+
         $usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
         $sesion_plan = session('plan_actual');
         $viewData = [];
@@ -37,6 +38,7 @@ class UsuarioController extends Controller
             $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
                 array(':idParent' => $id_usu));
             $viewData['users'] = $subUsers;
+            $viewData['plan_id'] = $plan_id;
             $viewData['breadcrumb'] = '';
             
             $data = [
@@ -190,6 +192,13 @@ class UsuarioController extends Controller
                 return redirect()->route('config.Usuarios')->with($notification);
             }
             else {
+
+                if($planId_admin == 1) {
+                    $plan_estado = 'f';
+                }else {
+                    $plan_estado = 'b';
+                }
+
                 $user = TmUsuario::create([
                     'id_areap' => $cod_area,
                     'id_rol' => $id_rol,
@@ -207,7 +216,8 @@ class UsuarioController extends Controller
                     'id_sucursal' => session('id_sucursal'),
                     'id_empresa' => $userEmpresa,
                     'status'=> 1,
-                    'pin' => $pin
+                    'pin' => $pin,
+                    'plan_estado' => $plan_estado,
                 ]);
 
                 if($user) {
@@ -268,7 +278,8 @@ class UsuarioController extends Controller
                 $viewdata['email']= $r->email;
                 $viewdata['usuario']= $r->usuario;
                 $viewdata['contrasena']= $r->contrasena;
-                $viewdata['estado']= $r->estado;    
+                $viewdata['estado']= $r->estado;
+                $viewdata['plan_estado']= $r->plan_estado;
                 $viewdata['imagen']= $r->imagen;
                 $viewdata['desc_r']= $r->desc_r;
                 $viewdata['desc_ap']= $r->desc_ap;

@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'afterRegister' => \App\Http\Middleware\Register\RegisterMiddleware::class,
         'userRol' => \App\Http\Middleware\UsuarioRol\UsuarioRolMiddleware::class,
+        'BasicFree' => \App\Http\Middleware\CambioDePlan\BasicFreeMiddleware::class,
     ];
 }

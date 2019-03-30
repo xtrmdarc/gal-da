@@ -16,7 +16,7 @@ use App\Mail\FeedbackSent;
 
 class AppController extends Controller
 {
-    public static $home= "/home";
+    public static $home= "/";
     public static $galdaMail = "dreyesc@gal-da.com";
 
     public static function LoginAuthenticated(Request $request, $user){
