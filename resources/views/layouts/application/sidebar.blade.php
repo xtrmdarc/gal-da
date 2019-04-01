@@ -64,7 +64,8 @@ $viewdata['nventas'] = $testnVentas;
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="/comprobantes/factura">Facturas</a></li>
                                     <li><a href="/comprobantes/boleta">Boletas </a></li>
-                                    <li><a href="/comprobantes/nota">Notas</a></li>
+                                    <li><a href="/comprobantes/nota/credito">Notas crédito</a></li>
+                                    <li><a href="/comprobantes/nota/debito">Notas débito</a></li>
                                     <li><a href="/comprobantes/resumen">Resumen diario</a></li>
                                 </ul>
                             </li>
@@ -148,7 +149,8 @@ $viewdata['nventas'] = $testnVentas;
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="/comprobantes/factura">Facturas</a></li>
                                         <li><a href="/comprobantes/boleta">Boletas </a></li>
-                                        <li><a href="/comprobantes/nota">Notas</a></li>
+                                        <li><a href="/comprobantes/nota/credito">Notas crédito</a></li>
+                                        <li><a href="/comprobantes/nota/debito">Notas débito</a></li>
                                         <li><a href="/comprobantes/resumen">Resumen diario</a></li>
                                     </ul>
                                 </li>

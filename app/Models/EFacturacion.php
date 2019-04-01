@@ -10,6 +10,7 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
 use Illuminate\Support\Facades\DB;
@@ -120,7 +121,7 @@ class EFacturacion
             ->setMtoBaseIgv($detalle->mto_base_igv) //falta guardar
             ->setPorcentajeIgv($detalle->porcentaje_igv) //falta guardar
             ->setIgv($detalle->igv) //falta guardar
-            ->setTipAfeIgv($detalle->tip_afe_igv) //falta guardar
+            ->setTipAfeIgv('10') //falta guardar
             ->setTotalImpuestos($detalle->total_impuestos) //falta guardar
             ->setMtoPrecioUnitario($detalle->mto_precio_unitario) //falta guardar
             ;
@@ -481,6 +482,174 @@ class EFacturacion
         $response = self::consultarEstadoResumen($ticket,$resumen_db->IdResumenDiario,$sum);
         return $response;
    
+    }
+
+
+    public static function generarNotaCredito($nota)
+    {
+        //Falta handlear la serie y el correlativo
+
+        $util = Util::getInstance();
+        $see = $util->getSee(SunatEndpoints::FE_BETA);
+    
+        $detalles_nota = $nota->detalles;
+        $response = new \stdClass();
+        //Obtener el modelo
+        $note = new Note();
+        $note
+            ->setUblVersion('2.1')
+            ->setTipDocAfectado($nota->doc_afectado->tipo_doc_codigo)
+            ->setNumDocfectado($nota->doc_afectado->folio)
+            ->setCodMotivo($nota->codigo_motivo)
+            ->setDesMotivo('POR AHORA')
+            ->setTipoDoc('07') 
+            ->setSerie('FF01') // Falta
+            ->setFechaEmision(new \DateTime()) 
+            ->setCorrelativo('123') // Falta
+            ->setTipoMoneda('PEN') // Siempre soles por ahora
+            // ->setGuias([
+            //     (new Document())
+            //     ->setTipoDoc('09')
+            //     ->setNroDoc('001-213')
+            // ])
+            ->setClient(self::obtenerCliente($nota->doc_afectado->id_cliente)) 
+            ->setMtoOperGravadas($nota->valor_venta)
+            // ->setMtoOperExoneradas(0)
+            // ->setMtoOperInafectas(0)
+            ->setMtoIGV($nota->igv)
+            ->setTotalImpuestos($nota->igv)
+            ->setMtoImpVenta($nota->precio_venta)
+            ->setCompany(self::obtenerCompany());
+        
+        foreach($detalles_nota as $detalle)
+        {
+            $item = new SaleDetail();
+            $item->setCodProducto($detalle->cod_producto) 
+            ->setUnidad($detalle->unidad)
+            ->setDescripcion($detalle->descripcion)
+            ->setCantidad($detalle->cantidad)
+            ->setMtoValorUnitario($detalle->mto_valor_unitario) 
+            ->setMtoValorVenta((double)$detalle->mto_valor_venta)
+            ->setMtoBaseIgv((double)$detalle->mto_base_igv) 
+            ->setPorcentajeIgv((double)$detalle->porcentaje_igv) 
+            ->setIgv($detalle->igv) 
+            ->setTipAfeIgv($detalle->tip_afe_igv) 
+            ->setTotalImpuestos($detalle->total_impuestos) 
+            ->setMtoPrecioUnitario($detalle->mto_precio_unitario) 
+            ;
+            // dd($item);
+            $detalles[] = $item;
+        }
+
+        $legend = new Legend();
+        $legend->setCode('1000')
+                ->setValue($util->numtoletras($note->getMtoImpVenta()));
+        $note->setDetails($detalles)
+                ->setLegends([$legend]);
+        
+        
+        //Generar el xml
+        $signedNotaCredXml = $see->getXmlSigned($note);
+
+        if($nota->doc_afectado->tipo_doc_codigo == '01')
+        {
+            $response->tipo_comprobante = 1;
+            // Envio a SUNAT
+            // $see = $util->getSee(SunatEndpoints::FE_BETA);
+            $res = $see->sendXml(get_class($note),$note->getName(), $signedNotaCredXml);
+            
+            if ($res->isSuccess()) {
+                /**@var $res \Greenter\Model\Response\BillResult*/
+                $cdr = $res->getCdrResponse();
+                $util->writeCdr($note, $res->getCdrZip(),'S3');
+               
+                if($cdr->getCode() == '0')
+                {
+                    $path = $util->writeXml($note, $signedNotaCredXml,'S3'); 
+                    DB::table('nota')->where('id_venta',$nota->id_comprobante)
+                                        ->insert([
+                                            'IdTipoDocAfectado' => $note->getTipDocAfectado(),
+                                            'NumDocAfectado' => $note->getNumDocfectado(),
+                                            'IdMotivoNotaCredito' =>  $nota->id_motivo,
+                                            'DesMotivo' =>$note->getDesMotivo(),
+                                            'TipoDoc' => $note->getTipoDoc(),
+                                            'Serie' => $note->getSerie(),
+                                            'Correlativo' => $note->getCorrelativo(),
+                                            'TipoMoneda' => $note->getTipoMoneda(),
+                                            'IdCliente' => $nota->doc_afectado->id_cliente,
+                                            'Total' => $note->getMtoImpVenta(),
+                                            'MtoOperGravadas' => $note->getMtoOperGravadas(),
+                                            'MtoIgv'=> $note->getMtoIGV(),
+                                            'IdVenta' => $nota->id_comprobante,
+                                            'IdTipoDoc' =>7,
+                                            'IdTipoDocRelacionado' => $nota->doc_afectado->id_tipo_doc,
+                                            'FechaEmision' => $note->getFechaEmision(),
+                                            'IdEstadoDocResumen' => 2,
+                                            'PathFileXml'  => $path,
+                                            'NameFileXml' => $note->getName(),
+                                            'MensajeSunat'=>$cdr->getDescription(),
+                                            'CodigoSunat'=>$cdr->getCode(),
+                                            'IdEstadoComprobante'=> 4
+                                        ]
+                                        );
+
+                    $response->code = 1;
+                    $response->mensaje = $cdr->getDescription();
+                }
+                else
+                {
+                    // DB::table('tm_venta')->where('id_venta',$id_venta)
+                    // ->update(['mensaje_sunat'=>$cdr->getDescription(),
+                    //         'codigo_sunat'=>$cdr->getCode()]);
+
+                    $response->code = $cdr->getCode();
+                    $response->mensaje = $cdr->getDescription();
+                }    
+
+              
+                // $util->showResponse($invoice, $cdr);
+            } else {
+                echo $util->getErrorResponse($res->getError());
+                $response->code =0;
+                $response->mensaje = $res->getError();
+            }
+        }
+        else
+        {
+            $response->code = 1;
+            $response->mensaje = 'La nota de crédito ha sido creada';
+            $response->tipo_comprobante = 2;
+            $path = $util->writeXml($note, $signedNotaCredXml,'S3'); 
+            DB::table('nota')->where('id_venta',$id_venta)
+                                ->update([
+                                    'IdTipoDocAfectado' => $note->getTipDocAfectado(),
+                                    'NumDocAfectado' => $note->getNumDocfectado(),
+                                    'IdTipoNotaCredito' =>  $nota->IdTipoNotaCredito,
+                                    'DesMotivo' =>$note->getDesMotivo(),
+                                    'TipoDoc' => $note->getTipoDoc(),
+                                    'Serie' => $note->getSerie(),
+                                    'Correlativo' => $note->getCorrelativo(),
+                                    'TipoMoneda' => $note->getTipoMoneda(),
+                                    'IdCliente' => $nota->id_cliente,
+                                    'Total' => $note->getMtoImpVenta(),
+                                    'MtoOperGravadas' => $note->getMtoOperGravadas(),
+                                    'MtoIgv'=> $note->getMtoIGV(),
+                                    'IdVenta' => $nota->id_venta,
+                                    'IdTipoDoc' => $nota->id_tipo_doc,
+                                    'IdTipoDocRelacionado' => $nota->doc_afectado->id_tipo_doc,
+                                    'FechaEmsision' => $note->getFechaEmision(),
+                                    'IdEstadoDocResumen' => 2,
+                                    'IdTipoNotaCredito' => $nota->id_tipo_nota_credito,
+                                    'PathFileXml'  => $path,
+                                    'NameFileXml' => $note->getName(),
+                                    'MensajeSunat'=>$cdr->getDescription(),
+                                    'CodigoSunat'=>$cdr->getCode(),
+                                    'IdEstadoComprobante'=> 4
+                                ]
+                                );
+        }
+
+        return $response;
     }
 
 

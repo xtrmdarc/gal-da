@@ -569,16 +569,17 @@ class InicioController extends Controller
                         $fecha, //fecha vencimiento
                         $comprobante->tipo_doc_codigo, //tipo doc = Factura
                         'PEN', //moneda
-                        $data['total_pedido']/(1+$igv), //MtoOperGravadas
+                        number_format($data['total_pedido']/(1+$igv), 2,".", ""), //MtoOperGravadas
                         0, // MtoOperExoneradas
-                        $data['total_pedido']/(1+$igv) *$igv,//  MtoIGV
-                        $data['total_pedido']/(1+$igv) *$igv, //  TotalImpuestos
-                        $data['total_pedido']/(1+$igv), // MtoVenta
-                        $data['total_pedido'], // total //falta guardar MtoImpVenta
+                        number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""),//  MtoIGV
+                        number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""), //  TotalImpuestos
+                        number_format($data['total_pedido']/(1+$igv), 2, ".", ""), // MtoVenta
+                        number_format($data['total_pedido'],2, ".", ""), // total //falta guardar MtoImpVenta
                         session('id_empresa'), //
                         $comprobante->electronico //factura electronicamente
                     );
-
+                
+            
                 
                 
                 $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
@@ -1073,6 +1074,8 @@ class InicioController extends Controller
 
     public function EscogerApc(Request $request)
     {
-        session(['id_apc'=>$request->id_apc]);
+        $data = $request->all();
+        session(['id_apc'=>$data['id_apc']]);
+        return 1 ;
     }
 }

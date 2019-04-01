@@ -16,13 +16,26 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('boleta')->group(function(){
             Route::get('/','Application\Comprobantes\BoletasController@index')->name('comprobantes.boleta');
             Route::post('/BuscarBoletas','Application\Comprobantes\BoletasController@buscarBoletas');
+            
             // Las boletas se envian en resumen diario
             // Route::post('/EnviarFactura','Application\Comprobantes\FacturasController@enviarFacturaSunat');
             // Route::post('/ObtenerFacturaXID','Application\Comprobantes\FacturasController@getFacturaInvoiceXID');
         });
         // Rutas para notas 
         Route::prefix('nota')->group(function(){
-            Route::get('/','Application\Comprobantes\NotasController@index')->name('comprobantes.nota');
+            //Funciones que pueden compartir
+            Route::post('ObtenerComprobanteYDetalles','Application\Comprobantes\NotasController@obtenerComprobanteYDetalles');
+            
+            // Nota de credito 
+            Route::prefix('credito')->group(function(){
+                Route::get('/','Application\Comprobantes\NotasController@indexCredito')->name('comprobantes.nota_cred');
+                Route::post('RegistrarNotaCredito','Application\Comprobantes\NotasController@registrarNotaCredito');
+            });
+            // Nota de debito
+            
+            Route::prefix('debito')->group(function(){
+                Route::get('/','Application\Comprobantes\NotasController@indexDebito')->name('comprobantes.nota_deb');
+            });
         });
         // Rutas para resumen
         Route::prefix('resumen')->group(function(){

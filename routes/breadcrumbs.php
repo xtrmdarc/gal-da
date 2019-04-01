@@ -192,9 +192,14 @@
         $breadcrumbs->push('Boletas',route('comprobantes.boleta'));
     });
 
-    Breadcrumbs::register('comprobantes.nota', function ($breadcrumbs) {
+    Breadcrumbs::register('comprobantes.nota_cred', function ($breadcrumbs) {
         $breadcrumbs->parent('inicio');
-        $breadcrumbs->push('Notas',route('comprobantes.nota'));
+        $breadcrumbs->push('Notas de crédito',route('comprobantes.nota_cred'));
+    });
+
+    Breadcrumbs::register('comprobantes.nota_deb', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Notas de débito',route('comprobantes.nota_deb'));
     });
 
     Breadcrumbs::register('comprobantes.resumen', function ($breadcrumbs) {
