@@ -147,7 +147,16 @@ var listarAlmacenes = function(){
 	      }
 	    }},
       {"data":null,"render": function ( data, type, row) {
-         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_alm('+data.id_alm+',\''+data.nombre+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+          if(data.plan_id == 1){
+              if(data.plan_estado == 'f') {
+                  return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_alm('+data.id_alm+',\''+data.nombre+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+              }else {
+                  return '<div class="text-right"></div>';
+              }
+          }
+          if(data.plan_id == 2){
+              return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_alm('+data.id_alm+',\''+data.nombre+'\',\''+data.id_sucursal+'\',\''+data.estado+'\');"><i class="fa fa-edit"></i>Editar</button>';
+          }
       }}
 	  ]
 	});
@@ -183,7 +192,16 @@ var listarAreaProd = function(){
 	      }
 	    }},
       {"data":null,"render": function ( data, type, row) {
-         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_area('+data.id_areap+','+data.id_alm+');"><i class="fa fa-edit"></i>Editar</button>';
+          if(data.plan_id == 1){
+              if(data.plan_estado == 'f') {
+                  return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_area('+data.id_areap+','+data.id_alm+');"><i class="fa fa-edit"></i>Editar</button>';
+              }else {
+                  return '<div class="text-right"></div>';
+              }
+          }
+          if(data.plan_id == 2){
+              return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editar_area('+data.id_areap+','+data.id_alm+');"><i class="fa fa-edit"></i>Editar</button>';
+          }
       }}
 	  ]
 	});

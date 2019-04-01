@@ -56,7 +56,8 @@ class TmUsuario extends Authenticatable
         'card_last_four',
         'trial_ends_at',
         'pin',
-        'free_feedback_sent'
+        'free_feedback_sent',
+        'plan_estado'
     ];
 
     protected $hidden = [

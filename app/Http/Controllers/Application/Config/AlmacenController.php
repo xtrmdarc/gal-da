@@ -54,12 +54,8 @@ class AlmacenController extends Controller
     }
     public function ListaAlmacenes()
     {
-        $id_usu = \Auth::user()->id_usu;
-
-        $data = DB::table('tm_almacen')
-            ->join('sucursal', 'tm_almacen.id_sucursal', '=', 'sucursal.id')
-            ->where('tm_almacen.id_sucursal',session('id_sucursal'))
-            ->select('tm_almacen.*', 'sucursal.id_usu', 'sucursal.nombre_sucursal')
+        $data = DB::table('v_almacen')
+            ->where('id_sucursal',session('id_sucursal'))
             ->get();
 
         echo json_encode($data);
@@ -70,6 +66,14 @@ class AlmacenController extends Controller
         $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
         $cod = $post['cod_alm'];
+        $planId_admin = \Auth::user()->plan_id;
+
+        if($planId_admin == 1) {
+            $plan_estado = 'f';
+        }else {
+            $plan_estado = 'b';
+        }
+
         $idSucursal = session('id_sucursal');
         if($cod != ''){
             //Update
@@ -78,8 +82,8 @@ class AlmacenController extends Controller
             $estado = $post['estado_alm'];
             $idAlmacen = $post['cod_alm'];
 
-            $consulta_update = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, :idAlm, :idUsu, :_idSucursal)',
-                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idAlm' =>$idAlmacen,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $consulta_update = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, :idAlm, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)',
+                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idAlm' =>$idAlmacen,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_update as $k)
             {
@@ -91,8 +95,8 @@ class AlmacenController extends Controller
             $nombre = $post['nomb_alm'];
             $estado = $post['estado_alm'];
 
-            $consulta_create = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)',
-                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $consulta_create = DB::select('call usp_configAlmacenes_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)',
+                array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_create as $k)
             {
@@ -103,11 +107,13 @@ class AlmacenController extends Controller
 
     public function ListaAreasP(Request $request)
     {
-        $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
-
         $cod = $post['codigo'];
-        $stm = DB::select("SELECT * FROM tm_area_prod WHERE id_areap like ? and id_usu = ? and id_sucursal = ?",[($cod),$id_usu,session('id_sucursal')]);
+
+        $stm = DB::table('v_areaproduccion')
+            ->where('id_areap','like',$cod)
+            ->where('id_sucursal',session('id_sucursal'))
+            ->get();
 
         foreach($stm as $k => $v){
             $stm[$k]->Almacen = DB::select("SELECT id_alm,nombre,id_sucursal FROM tm_almacen WHERE id_alm = ".$v->id_alm)[0];
@@ -118,11 +124,18 @@ class AlmacenController extends Controller
 
     public function CrudAreaP(Request $request)
     {
+        $post = $request->all();
         $id_usu = \Auth::user()->id_usu;
         $idSucursal = \Auth::user()->id_sucursal; //CORREGIR ESTO
-
-        $post = $request->all();
+        $planId_admin = \Auth::user()->plan_id;
         $cod = $post['cod_area'];
+
+        if($planId_admin == 1) {
+            $plan_estado = 'f';
+        }else {
+            $plan_estado = 'b';
+        }
+
         if($cod != ''){
             //Update
             $flag = 2;
@@ -131,8 +144,8 @@ class AlmacenController extends Controller
             $estado = $post['estado_area'];
             $idArea = $post['cod_area'];
 
-            $consulta_update = DB::Select("call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, :idArea, :idUsu, :_idSucursal);",
-                array(':flag' => $flag,':idAlm' =>$idAlm,':nombre' =>$nombre,':estado' =>$estado,':idArea' =>$idArea,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $consulta_update = DB::Select("call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, :idArea, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa);",
+                array(':flag' => $flag,':idAlm' =>$idAlm,':nombre' =>$nombre,':estado' =>$estado,':idArea' =>$idArea,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_update as $k)
             {
@@ -150,8 +163,8 @@ class AlmacenController extends Controller
                 $id_sucursal_alm_d = $k->id_sucursal;
             }
 
-            $consulta_create = DB::select('call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, @a, :idUsu, :_idSucursal)',
-                array(':flag' => $flag,':idAlm' =>$id_Alm, ':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $id_sucursal_alm_d));
+            $consulta_create = DB::select('call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, @a, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)',
+                array(':flag' => $flag,':idAlm' =>$id_Alm, ':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $id_sucursal_alm_d,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
 
             $array = [];
             foreach($consulta_create as $k)

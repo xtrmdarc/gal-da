@@ -24,9 +24,10 @@ class UsuarioController extends Controller
     }
     public function index()
     {
-        $user_plan = \Auth::user()->plan_id;
         $user = \Auth::user()->parent_id;
         $id_usu = \Auth::user()->id_usu;
+        $plan_id = \Auth::user()->plan_id;
+
         $usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
         $sesion_plan = session('plan_actual');
         $viewData = [];
@@ -37,6 +38,7 @@ class UsuarioController extends Controller
             $subUsers = DB::select("call usp_Subsuarios_wp( :idParent);",
                 array(':idParent' => $id_usu));
             $viewData['users'] = $subUsers;
+            $viewData['plan_id'] = $plan_id;
             $viewData['breadcrumb'] = '';
             
             $data = [
@@ -154,7 +156,10 @@ class UsuarioController extends Controller
             if($id_rol != '3'){
                 $cod_area = 0;
             }
-            
+
+            if((($contrasena == '' || !isset($contrasena)))) {
+                $contrasena = ' ';
+            }
             $sql = DB::update("UPDATE tm_usuario SET
 						id_rol  = ?,
 						id_areap   = ?,
@@ -163,9 +168,7 @@ class UsuarioController extends Controller
                         ape_materno = ?,
                         nombres = ?,
                         email = ?, 
-                        ".
-                        (($contrasena != '' || !isset($contrasena))?'':'password = ?,' )
-                        ."
+                        password = ?,
                         imagen = ?,
                         pin = ?
                     WHERE id_usu = ?",[$id_rol,$cod_area,$dni,$ape_paterno,$ape_materno,$nombres,$email,bcrypt($contrasena),$imagen,$pin,$id_usu]);
@@ -189,6 +192,13 @@ class UsuarioController extends Controller
                 return redirect()->route('config.Usuarios')->with($notification);
             }
             else {
+
+                if($planId_admin == 1) {
+                    $plan_estado = 'f';
+                }else {
+                    $plan_estado = 'b';
+                }
+
                 $user = TmUsuario::create([
                     'id_areap' => $cod_area,
                     'id_rol' => $id_rol,
@@ -203,10 +213,11 @@ class UsuarioController extends Controller
                     'password' => bcrypt($contrasena),
                     'usuario' => $usuario,
                     'verifyToken' => null,
-                    'id_sucursal' => $post['id_sucursal'],
+                    'id_sucursal' => session('id_sucursal'),
                     'id_empresa' => $userEmpresa,
                     'status'=> 1,
-                    'pin' => $pin
+                    'pin' => $pin,
+                    'plan_estado' => $plan_estado,
                 ]);
 
                 if($user) {
@@ -267,7 +278,8 @@ class UsuarioController extends Controller
                 $viewdata['email']= $r->email;
                 $viewdata['usuario']= $r->usuario;
                 $viewdata['contrasena']= $r->contrasena;
-                $viewdata['estado']= $r->estado;    
+                $viewdata['estado']= $r->estado;
+                $viewdata['plan_estado']= $r->plan_estado;
                 $viewdata['imagen']= $r->imagen;
                 $viewdata['desc_r']= $r->desc_r;
                 $viewdata['desc_ap']= $r->desc_ap;

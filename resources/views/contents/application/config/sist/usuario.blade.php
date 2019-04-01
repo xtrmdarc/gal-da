@@ -35,10 +35,13 @@
                             <table class="table table-hover table-condensed table-striped" id="table" width="100%">
                                 <thead>
                                 <tr>
+                                    <th>Sucursal</th>
                                     <th>Nombres</th>
                                     <th>Ape.Paterno</th>
                                     <th>Ape.Materno</th>
+                                    <th style="text-align: center">Usuario</th>
                                     <th style="text-align: center">Cargo</th>
+                                    <th>Pin</th>
                                     <th style="text-align: center">Estado</th>
                                     <th style="text-align: center;display:none;">Verificado</th>
                                     <th style="text-align: center">Acciones</th>
@@ -47,9 +50,11 @@
                                 <tbody>
                                 @foreach($users as $user)
                                 <tr>
+                                    <td>{{$user->nombre_sucursal}}</td>
                                     <td>{{$user->nombres}}</td>
                                     <td>{{$user->ape_paterno}}</td>
                                     <td>{{$user->ape_materno}}</td>
+                                    <td>{{$user->usuario}}</td>
                                     <td style="text-align: center">
                                         @if($user->id_rol == 1)
                                             <span class="label label-danger">{{$user->desc_r}}</span>
@@ -63,6 +68,14 @@
                                             <span class="label label-success">{{$user->desc_r}}</span>
                                         @endif
                                     </td>
+                                    <td>
+                                        @if($user->pin == '0' || $user->pin == ' ' || $user->pin == '')
+                                            No tiene
+                                        @else
+                                            {{$user->pin}}
+                                        @endif
+
+                                    </td>
                                     <td style="text-align: center">
                                         @if($user->estado == 'a')
                                             <a onclick="{{'estadoUsuario('.$user->id_usu.',\'a\');' }}"> <span class="label label-primary">ACTIVO</span></a>
@@ -74,9 +87,12 @@
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
                                     <td style="text-align: right">
-                                        <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
-                                        <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
-                                        <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
+                                        @if($plan_id == 1 && $user->plan_estado == 'b')
+                                        @else
+                                            <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

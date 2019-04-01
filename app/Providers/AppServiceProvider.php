@@ -21,10 +21,9 @@ class AppServiceProvider extends ServiceProvider
         \View::composer('layouts/application/head', function( $view )
         {
             $sucursales =  AppController::GetSucursales();
-            $lista_sucursales = DB::table('empresa')
-                ->leftjoin('sucursal', 'empresa.id', '=', 'sucursal.id_empresa')
-                ->select('sucursal.id','sucursal.id_empresa','sucursal.nombre_sucursal','sucursal.id_usu','sucursal.direccion','sucursal.estado','sucursal.moneda','sucursal.telefono')
-                ->where('empresa.id',session('id_empresa'))
+            $lista_sucursales = DB::table('v_sucursal')
+                ->where('id_empresa',session('id_empresa'))
+                ->where('estado','a')
                 ->get();
             $data= [
                 'sucursales' => $sucursales,

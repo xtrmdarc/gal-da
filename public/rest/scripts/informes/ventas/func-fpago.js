@@ -4,13 +4,13 @@ $(function() {
 	listar();
 
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
@@ -29,12 +29,17 @@ $('#tipo_p').change( function() {
 	listar();
 });
 
+$('#sucu_filter').change( function() {
+    listar();
+});
+
 var listar = function(){
 
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
     tpag = $("#tipo_p").selectpicker('val');
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
     var vtotal = 0;
 
@@ -44,7 +49,8 @@ var listar = function(){
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
-            tpag: tpag
+            tpag: tpag,
+            sucu_filter: sucu_filter
         },
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -73,7 +79,8 @@ var listar = function(){
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
-                tpag: tpag
+                tpag: tpag,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -102,7 +109,7 @@ var listar = function(){
                         break;
                         case '3':
                             return '<p class="text-right"><strong>Efectivo('+moneda+'):</strong> '+data.pago_efe+'<br>'
-                            +'<strong>Tarjeta(₡):</strong> '+data.pago_tar+'</p>';
+                            +'<strong>Tarjeta(<i class="fa fa-credit-card"></i>):</strong> '+data.pago_tar+'</p>';
                         break;
                     }
                 }

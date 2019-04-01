@@ -37,7 +37,9 @@ class TmAreaProd extends Eloquent
 		'nombre',
 		'estado',
 		'id_sucursal',
-		'id_usu'
+		'id_usu',
+		'plan_estado',
+		'id_empresa'
 	];
 
 	public function tm_almacen()

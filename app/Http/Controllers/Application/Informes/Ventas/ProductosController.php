@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Application\Informes\Ventas;
 
 use Illuminate\Http\Request;
+use App\Models\Sucursal;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class ProductosController extends Controller
 {
     //
@@ -20,16 +22,22 @@ class ProductosController extends Controller
             'breadcrumb'=>'inf_productos',
             'titulo_vista' => 'Informe Productos'
         ];
-        return view('contents.application.informes.ventas.inf_productos')->with($data);
+
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
+        return view('contents.application.informes.ventas.inf_productos',$viewdata)->with($data);
     }
 
     public function Datos(Request $request)
     {
         $post = $request->all();
 
-        $ifecha = date('Y-m-d H:i:s',strtotime($post['ifecha']));
-        $ffecha = date('Y-m-d H:i:s',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
+        $ifecha = date('Y-m-d',strtotime($post['ifecha']));
+        $ffecha = date('Y-m-d',strtotime($post['ffecha']));
+        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total
+                           FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
             array($ifecha,$ffecha));
 
         foreach($stm as $k => $d)
@@ -40,5 +48,27 @@ class ProductosController extends Controller
         $json = json_encode($data);
         echo $json;
     }
+    public function ExportExcel(Request $request)
+    {
+        try{
 
+            $start = date('Y-m-d',strtotime($request->input('start')));
+            $end = date('Y-m-d',strtotime($request->input('end')));
+
+            $_SESSION["min-1"] = $_REQUEST['start'];
+            $_SESSION["max-1"] = $_REQUEST['end'];
+
+            $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
+                array($start,$end));
+
+            ob_end_clean();
+            ob_start();
+
+            return Excel::download(new ExportFromArray($stm),'inf-ventas-por-producto-'.$start.'.xlsx');
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }

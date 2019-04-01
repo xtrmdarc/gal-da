@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application\Informes\Finanzas;
 
+use App\Models\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,12 @@ class AperCajaController extends Controller
             'breadcrumb'=>'inf_apercaja',
             'titulo_vista' => 'Informe de cajas'
         ];
-        return view('contents.application.informes.finanzas.inf_cajas')->with($data);
+
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
+        return view('contents.application.informes.finanzas.inf_cajas',$viewdata)->with($data);
     }
 
     public function Datos(Request $request)
@@ -30,8 +36,10 @@ class AperCajaController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
-            array($ifecha,$ffecha,session('id_sucursal')));
+        $sucu_filter = $post['sucu_filter'];
+
+        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal like ? and id_empresa = ?",
+            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
 
         $data = array("data" => $stm);
         $json = json_encode($data);
@@ -65,12 +73,13 @@ class AperCajaController extends Controller
 
             $start = date('Y-m-d',strtotime($request->input('start')));
             $end = date('Y-m-d',strtotime($request->input('end')));
+            $sucu_filter = $request->input('sucu_filter');
 
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,fecha_c as Fecha_cierre,monto_a as Monto_aperturado,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Nombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
-                array($start,$end,session('id_sucursal')));
+            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,fecha_c as Fecha_cierre,monto_a as Monto_aperturado,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Nombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal like ? and id_empresa = ?",
+                array($start,$end,$sucu_filter,session('id_empresa')));
 
             ob_end_clean();
             ob_start();

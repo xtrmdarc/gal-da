@@ -84,6 +84,7 @@ class AuthController extends Controller
                 'id_empresa' => $empresa_id,
                 'id_usu' => $user_id,
                 'nombre_sucursal' => $post['name_business'],
+                'plan_estado' => 'f',
             ]);
 
             $almacen = TmAlmacen::create([
@@ -91,6 +92,8 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresa_id,
             ]);
 
             $statement = DB::select("SHOW TABLE STATUS LIKE 'tm_almacen'");
@@ -103,6 +106,8 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresa_id,
             ]);
                 
             $caja = TmCaja::create([
@@ -110,33 +115,13 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresa_id,
             ]);
 
             //4 Tipos de Documentos
-            $tipo_doc_boleta = TmTipoDoc::create([
-                'descripcion' => 'BOLETA',
-                'serie' => '001',
-                'numero' => '0000001',
-                'id_sucursal' => $sucursal_id,
-            ]);
-            $tipo_doc_factura = TmTipoDoc::create([
-                'descripcion' => 'FACTURA',
-                'serie' => '001',
-                'numero' => '0000001',
-                'id_sucursal' => $sucursal_id,
-            ]);
-            $tipo_doc_ticket = TmTipoDoc::create([
-                'descripcion' => 'TICKET',
-                'serie' => '001',
-                'numero' => '0000001',
-                'id_sucursal' => $sucursal_id,
-            ]);
-            $tipo_doc_otros = TmTipoDoc::create([
-                'descripcion' => 'OTROS',
-                'serie' => '001',
-                'numero' => '0000001',
-                'id_sucursal' => $sucursal_id,
-            ]);
+            $documenots = DB::select('call usp_configTipoDoc(:_idEmpresa)',array(':_idEmpresa' => $empresa_id));
+
             //Turnos
             $primer_turno = TmTurno::create([
                 'descripcion' => 'PRIMER T.',
@@ -339,7 +324,8 @@ class AuthController extends Controller
                 'id_sucursal' => $sucursalId,
                 'id_empresa' => $empresaId,
                 'status'=> 1,
-                'pin' => '1234'
+                'pin' => '1234',
+                'plan_estado' => 'f',
             ]);
             //Crear Cajero
             TmUsuario::create([
@@ -360,6 +346,7 @@ class AuthController extends Controller
                 'id_empresa' => $empresaId,
                 'status'=> 1,
                 //'pin' => '1234'
+                'plan_estado' => 'f',
             ]);
             /*
             //Crear Produccion
@@ -389,7 +376,9 @@ class AuthController extends Controller
                 'descripcion' => 'Patio principal',
                 'estado' => 'a',
                 'id_sucursal' =>$sucursalId,
-                'id_usu' => $idUsu
+                'id_usu' => $idUsu,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresaId
             ]);
 
             //Crear 2 mesas
@@ -397,14 +386,20 @@ class AuthController extends Controller
                 'id_catg'=>$id_salon,
                 'nro_mesa' => 'M01',
                 'estado' => 'a',
-                'id_sucursal' => $sucursalId
+                'id_sucursal' => $sucursalId,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresaId,
+                'id_usu' => $idUsu
             ]);
 
             DB::table('tm_mesa')->insert([
                 'id_catg'=>$id_salon,
                 'nro_mesa' => 'M02',
                 'estado' => 'a',
-                'id_sucursal' => $sucursalId
+                'id_sucursal' => $sucursalId,
+                'plan_estado' => 'f',
+                'id_empresa' => $empresaId,
+                'id_usu' => $idUsu
             ]);
 
             //return redirect()->route('tableroF');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Application\Informes\Ventas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sucursal;
+use App\Models\TmCaja;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Application\ExcelExports\ExportFromArray;
 class VentasController extends Controller
@@ -32,10 +34,14 @@ class VentasController extends Controller
         //Comprobantes
         $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
 
+        //Sucursales Filtro
+        $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
+
         $viewdata['TipoPedido'] = $stm;
         $viewdata['Clientes'] = $stm_clientes;
         $viewdata['Cajas'] = $stm_cajas;
         $viewdata['Comprobantes'] = $stm_comprobantes;
+        $viewdata['sucursales_filtro'] = $sucursales_filtro;
 
         return view('contents.application.informes.ventas.inf_ventas',$viewdata)->with($data);
     }
@@ -44,10 +50,13 @@ class VentasController extends Controller
     {
         $post = $request->all();
 
-        $ifecha = date('Y-m-d H:i:s',strtotime($post['ifecha']));
-        $ffecha = date('Y-m-d H:i:s',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT v.id_ven,v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.total AS stotal,v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_apc = c.id_apc WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND v.id_tped like ? AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_cli like ? and v.id_sucursal = ? GROUP BY v.id_ven",
-            array($ifecha,$ffecha,$post['tped'],$post['tdoc'],$post['icaja'],$post['cliente'],session('id_sucursal')));
+        $ifecha = date('Y-m-d',strtotime($post['ifecha']));
+        $ffecha = date('Y-m-d',strtotime($post['ffecha']));
+        $sucu_filter = $request->input('sucu_filter');
+
+        $stm = DB::Select("SELECT v.id_ven,v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.total AS stotal,v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja
+                           FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_apc = c.id_apc WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND v.id_tped like ? AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_cli like ? and v.id_sucursal like ? and v.id_empresa = ? GROUP BY v.id_ven",
+            array($ifecha,$ffecha,$post['tped'],$post['tdoc'],$post['icaja'],$post['cliente'],$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
         {
@@ -66,6 +75,7 @@ class VentasController extends Controller
             $end = date('Y-m-d',strtotime($request->input('end')));
             $cod_cajas = $request->input('cod_cajas');
             $tipo_doc = $request->input('tipo_doc');
+            $sucu_filter = $request->input('sucu_filter');
 
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
@@ -98,5 +108,31 @@ class VentasController extends Controller
             $stm[$k]->Producto = DB::Select("SELECT nombre_prod,pres_prod FROM v_productos WHERE id_pres = ".$d->id_prod)[0];
         }
         return $stm;
+    }
+    public function lista_caja_x_sucursal(Request $request)
+    {
+        $post = $request->all();
+        $id_sucu = $post['id_sucursal_d'];
+        $lista_cajas = TmCaja::where('id_sucursal',$id_sucu)->get();
+
+        return $lista_cajas;
+        /*try
+        {
+            $post = $request->all();
+            $id_sucu = $post['id_sucursal_d'];
+            //$lista_cajas = DB::Select("SELECT * FROM tm_caja where id_sucursal = ?",[$id_sucu]);
+            $lista_cajas = TmCaja::where('id_sucursal',$id_sucu)->get();
+
+            echo '<select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">';
+            echo '<option value="%">Todas</option>';
+            foreach($lista_cajas as $v){
+                echo '<option value="'.$v['id_caja'].'">'.$v['descripcion'].'</option>';
+            }
+            echo " </select>";
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }*/
     }
 }

@@ -23,6 +23,10 @@ $(function() {
         $('#start').data("DateTimePicker").maxDate(e.date);
         listar();
     });
+
+    $('#sucu_filter').change( function() {
+        listar();
+    });
 });
 
 var listar = function(){
@@ -30,6 +34,7 @@ var listar = function(){
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
+    sucu_filter = $("#sucu_filter").selectpicker('val');
 
 	var	table =	$('#table')
 	.DataTable({
@@ -42,7 +47,8 @@ var listar = function(){
 			"url": "/informesDatosCajas",
 			"data": {
                 ifecha: ifecha,
-                ffecha: ffecha
+                ffecha: ffecha,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -111,6 +117,7 @@ var detalle = function(cod_apc,fecha_ape){
             $("#d_cajero").html(data.Datos.desc_per);
             $("#d_caja").html(data.Datos.desc_caja);
             $("#d_turno").html(data.Datos.desc_turno);
+            $("#d_sucursal").html(data.Datos.desc_turno);
             $("#d_fecha_a").html(fechaApertura);
             $("#d_fecha_c").html(fechaCierre);
             var monto_e = ((parseFloat(data.Datos.monto_a) + parseFloat(data.total_i)) + parseFloat(data.Ingresos.total_i) - parseFloat(data.Gastos.total_g)).toFixed(2);

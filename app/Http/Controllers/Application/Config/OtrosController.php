@@ -93,7 +93,12 @@ class OtrosController extends Controller
 
     public function ListarTD()
     {
-        $stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
+        //$stm = DB::Select("SELECT * FROM tipo_doc_empresa where id_empresa = ".session('id_empresa'));
+
+        $stm = DB::table('v_tipo_docs')
+            ->where('id_empresa',session('id_empresa'))
+            ->get();
+
         echo json_encode($stm);
     }
 
@@ -105,7 +110,11 @@ class OtrosController extends Controller
         $numero = $post['numero'];
 
         if($cod_td != '' and $serie != '' and $numero != ''){
-            $sql = DB::update("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
+            //$sql = DB::update("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
+
+            $sql = DB::update("UPDATE tipo_doc_empresa SET serie = ?,correlativo = ? WHERE id_tipo_doc = ? and id_empresa = ?"
+                              ,array($serie,$numero,$cod_td,session('id_empresa')));
+
             return $array['cod'] = 1;
         }
     }

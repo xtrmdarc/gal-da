@@ -4,13 +4,13 @@ $(function() {
 	listar();
     
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
@@ -29,12 +29,20 @@ $('#mozo').change( function() {
 	listar();
 });
 
+$('#sucu_filter').change( function() {
+    listar();
+});
+
 var listar = function(){
 
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
     cmozo = $("#mozo").selectpicker('val');
+    sucu_filter = $("#sucu_filter").selectpicker('val');
+
+    var cantidad_mozo = 0,
+        total_mozo = 0;
 
     $.ajax({
         type: "POST",
@@ -42,15 +50,26 @@ var listar = function(){
         data: {
             ifecha: ifecha,
             ffecha: ffecha,
-            cmozo: cmozo
+            cmozo: cmozo,
+            sucu_filter: sucu_filter
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(item){
-            $('#cant_v').text(item['dato'].cantidad);
-            $('#total_v').text(moneda+' '+item['dato'].total);
+
+            if (item.dato.length != 0) {
+                $.each(item.dato, function (i, campo) {
+                    cantidad_mozo = campo.cantidad;
+                    total_mozo = campo.total;
+
+
+                });
+            }
+
+            $('#cant_v').text(cantidad_mozo);
+            $('#total_v').text(total_mozo);
         }
     });
 
@@ -65,7 +84,8 @@ var listar = function(){
 			"data": {
                 ifecha: ifecha,
                 ffecha: ffecha,
-                cmozo: cmozo
+                cmozo: cmozo,
+                sucu_filter: sucu_filter
             },
             "headers": {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

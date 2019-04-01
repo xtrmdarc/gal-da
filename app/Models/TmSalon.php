@@ -28,7 +28,10 @@ class TmSalon extends Eloquent
 
 	protected $fillable = [
 		'descripcion',
-		'estado'
+		'estado',
+		'id_usu',
+		'plan_estado',
+		'id_empresa'
 	];
 
 	public function tm_mesas()
