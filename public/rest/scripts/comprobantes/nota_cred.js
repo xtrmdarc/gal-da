@@ -8,34 +8,32 @@ class NotaDetalle{
         this.codigo_manejado = codigo_manejado;
         this.nota = nota;
         this.id = id;
-        if(codigo_manejado == 1)
-        {
-            
-            this.descripcion = detalle.descripcion;
-            this.cantidad = parseInt(detalle.cantidad);
-            this.precio_unitario = parseFloat(detalle.mto_precio_unitario).toFixed(2);
-            this.precio_total = parseFloat((this.cantidad * this.precio_unitario)/1.00).toFixed(2);
-            this.mto_valor_unitario = parseFloat(detalle.mto_valor_unitario).toFixed(2);
-            this.mto_valor_venta = parseFloat(detalle.mto_valor_venta).toFixed(2);
-            this.mto_base_igv = parseFloat(detalle.mto_base_igv).toFixed(2);
-            this.table = tabla;
-            this.cod_producto = detalle.cod_producto;
-            this.porcentaje_igv = detalle.porcentaje_igv;
-            this.igv = detalle.igv;
-            this.tip_afe_igv = detalle.tip_afe_igv;
-            this.total_impuestos = detalle.total_impuestos;
-            this.igv = detalle.igv;
-            // Es producto o servicio, NIU para productos, ZZ para servicios.
-            this.tipo_producto  = detalle.tipo_producto;
-            if(this.tipo_producto == 1) this.unidad = 'NIU'; else this.unidad = 'ZZ';
-        }
-        else
-        {
 
-        }
+        this.descripcion = detalle.descripcion;
+        this.cantidad = parseInt(detalle.cantidad);
+        this.precio_unitario = parseFloat(detalle.mto_precio_unitario).toFixed(2);
+        this.precio_total = parseFloat((this.cantidad * this.precio_unitario)/1.00).toFixed(2);
+        this.mto_valor_unitario = parseFloat(detalle.mto_valor_unitario).toFixed(2);
+        this.mto_valor_venta = parseFloat(detalle.mto_valor_venta).toFixed(2);
+        this.mto_base_igv = parseFloat(detalle.mto_base_igv).toFixed(2);
+        this.table = tabla;
+        this.cod_producto = detalle.cod_producto;
+        this.porcentaje_igv = detalle.porcentaje_igv;
+        this.igv = detalle.igv;
+        this.tip_afe_igv = detalle.tip_afe_igv;
+        this.total_impuestos = detalle.total_impuestos;
+        this.igv = detalle.igv;
+        // Es producto o servicio, NIU para productos, ZZ para servicios.
+        this.tipo_producto  = detalle.tipo_producto;
+        if(this.tipo_producto == 1) this.unidad = 'NIU'; else this.unidad = 'ZZ';
 
         this.id_tr_nota_detalle = ''+this.id+'_tr_nota_detalle';
         this.id_icon_remove = ''+this.id+'_icon_remove';
+
+        this.id_txt_descripcion = ''+this.id+'_txt_descripcion';
+        this.id_txt_cantidad = ''+this.id+'_txt_cantidad';
+        this.id_txt_precio_unitario = ''+this.id+'_txt_punitario';
+        this.id_td_precio_total = ''+this.id+'_td_ptotal';
     }
 
     bindComponents()
@@ -44,7 +42,54 @@ class NotaDetalle{
         $('#'+this.id_icon_remove).on('click',function(){
             $self.eliminar();
         });
+
+        $('#'+this.id_txt_descripcion).on('click',function(){
+            
+        });
+
+        $('#'+this.id_txt_cantidad).keyup(function(e){
+            
+            let cantidad = 0;
+
+            cantidad = parseInt($('#'+$self.id_txt_cantidad).val())?parseInt($('#'+$self.id_txt_cantidad).val()):0.00;
+
+            $self.cantidad = cantidad
+            $self.actualizarMontos();
+        });
+
+        $('#'+this.id_txt_precio_unitario).keyup(function(){
+            console.log('entra qui');
+            let precio_unitario = 0.00;
+
+            precio_unitario = parseInt($('#'+$self.id_txt_precio_unitario).val())?parseInt($('#'+$self.id_txt_precio_unitario).val()):0.00;
+
+            $self.precio_unitario = precio_unitario
+            $self.actualizarMontos();
+        });
     }
+
+    actualizarMontos()
+    {
+        // this.cantidad = parseInt(detalle.cantidad);
+        // this.precio_unitario = parseFloat(detalle.mto_precio_unitario).toFixed(2);
+        this.precio_total = parseFloat((this.cantidad * this.precio_unitario)/1.00).toFixed(2);
+        this.mto_valor_unitario = parseFloat(this.precio_unitario/(1+(this.porcentaje_igv/100))).toFixed(2);
+        this.mto_valor_venta = parseFloat(this.mto_valor_unitario * this.cantidad).toFixed(2);
+        this.mto_base_igv = parseFloat(this.precio_total/(1+(this.porcentaje_igv/100))).toFixed(2);
+        // this.porcentaje_igv = detalle.porcentaje_igv;
+        this.igv = this.mto_valor_venta* (this.porcentaje_igv/100);
+        this.total_impuestos = this.igv;
+
+        this.actualizarMontosUI();
+
+        this.nota.actualizarMontos();
+    }
+
+    actualizarMontosUI()
+    {
+        $('#'+this.id_td_precio_total).text(this.precio_total);
+    }
+
 
     obtenerHTML()
     {
@@ -52,17 +97,16 @@ class NotaDetalle{
         let select_html = ``;
         let manejado_disabled = ``;
         if(this.codigo_manejado == 1) manejado_disabled += 'disabled = true'
-        select_html += `<option value="" >Seleccionar</option>`;
         select_html += `<option value="1" ${this.tipo_producto==1?'selected':''} >Producto</option>`;
         select_html += `<option value="2" ${this.tipo_producto==2?'selected':''} >Servicio</option>`;
         
         nota_detalle_html+= `
                         <tr id="${this.id_tr_nota_detalle}">
                             <td><select ${manejado_disabled}> `+select_html+` </select></td>
-                            <td>${this.descripcion}</td>
-                            <td class="text-center">${this.cantidad}</td>
-                            <td class="text-right">${this.precio_unitario}</td>
-                            <td class="text-right">${this.precio_total}</td>
+                            <td><input id="${this.id_txt_descripcion}" ${manejado_disabled} value="${this.descripcion}" style="width:100%"> </td>
+                            <td class="text-center" ><input id="${this.id_txt_cantidad}"  value="${this.cantidad}" style="width:50%" class="text-right">  </td>
+                            <td class="text-center" ><input id="${this.id_txt_precio_unitario}"  value="${this.precio_unitario}" style="width:60%" class="text-right"></td>
+                            <td class="text-right" id="${this.id_td_precio_total}" >${this.precio_total}</td>
                             <td class="text-center"><i id="${this.id_icon_remove}"  class="fa fa-trash" style="color:red;cursor:pointer" role="button"></i> </td>
                         </tr>
                     `;
@@ -74,7 +118,6 @@ class NotaDetalle{
         $('#'+this.id_tr_nota_detalle).remove();
         this.nota.eliminarNotaDetalle(this);
     }
-
     toJSON()
     {
         let this_json = {
@@ -113,18 +156,26 @@ class Nota {
         this.formulario_buscar = $('#frm-buscar-comprobante');
         this.documento_input = $('#documento');
         this.btn_crear_nota = $('#btn_enviar_nota');
-        this.select_motivo_nota = $('#motivo_nota');
-        this.sustento_txt = $('#sustento');
 
+        this.select_motivo_nota = $('#motivo_nota');
+        this.select_motivo_nota.val('');
+
+        this.sustento_txt = $('#sustento');
+        this.sustento_txt.val('');
+        
         this.div_datos_comprobante = $('#div_datos_comprobante');
         this.div_datos_comprobante = $('#div_datos_comprobante').css('display','none');
-
+        
+        this.btn_nueva_fila = $('#btn_nueva_fila');
 
         this.div_mensaje_respuesta = $('#div_mensaje_respuesta');
         this.div_mensaje_respuesta.find('.loader').remove();
         this.div_mensaje_respuesta.find('#estado_resumen').empty();
         this.div_mensaje_respuesta.find('#mensaje_sunat').empty();
         this.div_mensaje_respuesta.css('display','none');
+
+        this.div_busqueda_mensaje = $('#div_busqueda_mensaje');
+        this.div_busqueda_mensaje.css('display','none');
 
         this.valor_venta = parseFloat(0.00).toFixed(2);
         this.igv = parseFloat(0.00).toFixed(2);
@@ -146,6 +197,62 @@ class Nota {
         this.select_motivo_nota.on('change',function(){
             $self.id_motivo = this.value;
         });
+
+        this.documento_input.autocomplete({
+            delay: 1,
+            autoFocus: true,
+            source: function (request, response) {
+                $.ajax({
+                    url: 'ListarFolios',
+                    type: "post",
+                    dataType: "json",
+                    dataSrc:'',   
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        criterio: request.term
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        response($.map(data, function (item) {
+                            return {
+                                id: item.id_venta,
+                                folio: item.folio
+                            }
+                        }))
+                    }
+                })
+            },
+            select: function (e, ui) {
+        
+                /* Validar si cumple años el cliente */
+                e.preventDefault();
+                // var cumple = moment(ui.item.fecha_n).format('D MMMM');
+                // $("#cliente_id").val(ui.item.id);
+                $self.documento_input.val(ui.item.folio);
+               
+            },
+            change: function() {
+                //$("#cliente_nombre").val('');
+                $self.documento_input.focus();
+                if($self.documento_input.val()=='')
+                    $self.documento_input.val()="";
+                // console.log($("#cliente_nombre").val());
+            }
+        })
+        .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            ul.css('z-index','10000');
+            return $( "<li>" )
+              .append(item.folio)
+              .appendTo( ul );
+        };
+
+        this.btn_nueva_fila.on('click',function(e){
+            e.preventDefault();
+            $self.añadirNuevoDetalleFila();
+        });
+        
 
     }
 
@@ -188,14 +295,13 @@ class Nota {
     buscarComprobante() 
     {   
         var $self = this;
+        this.div_busqueda_mensaje.css('display','none');
         this.btn_buscar.prop('disabled',true);
         this.btn_buscar.val('Buscando..');
         this.table.find('tbody').empty();
         this.div_datos_comprobante = $('#div_datos_comprobante').css('display','none');
         this.detalles= [];
         this.actualizarMontos();
-
-        
         $.ajax({
             type: 'POST',
             dataType: 'JSON',
@@ -204,26 +310,70 @@ class Nota {
                 folio: this.documento_input.val()
             },
             headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success:function(comprobante)
+            success:function(respuesta)
             {
-                console.log(comprobante);
+                $self.table.find('tbody').empty();
+                    
                 $self.btn_buscar.prop('disabled',false);
                 $self.btn_buscar.val('Buscar');
-                $self.actualizarDatosComprobante(comprobante);
-                let cont = 0;
-                comprobante.detalles.forEach(detalle => {
-                    cont++;
-                    detalle.tipo_producto = 1;
-                    $self.detalles.push( new NotaDetalle(cont,detalle,$self.table,1,$self));
-                });
-                
-                $self.detalles.forEach(nota => {
-                    $self.table.find('tbody').append(nota.obtenerHTML());
-                    nota.bindComponents();
-                });
+
+                if(respuesta.code == 1)
+                {
+                    let comprobante = respuesta.comprobante;
+                   
+                    $self.actualizarDatosComprobante(comprobante);
+                    let cont = 0;
+                    comprobante.detalles.forEach(detalle => {
+                        cont++;
+                        detalle.tipo_producto = 1;
+                        $self.detalles.push( new NotaDetalle(cont,detalle,$self.table,1,$self));
+                    });
+                    
+                    $self.detalles.forEach(nota => {
+                        $self.table.find('tbody').append(nota.obtenerHTML());
+                        nota.bindComponents();
+                    });
+                }
+                else if(respuesta.code == 0)
+                {
+                    $self.div_busqueda_mensaje.css('display','block');
+                    $self.div_busqueda_mensaje.find('#label_error').text(respuesta.label_error);
+                    $self.div_busqueda_mensaje.find('#mensaje_error').text(respuesta.mensaje_error);
+
+                }
+
+              
 
             }
         });
+    }
+
+    añadirNuevoDetalleFila()
+    {
+        let $self = this;
+        let detalle_nuevo = {
+            descripcion : 'Nueva linea',
+            cantidad : parseInt(1),
+            mto_precio_unitario : parseFloat(0.00).toFixed(2),
+            // this.precio_total : parseFloat((this.cantidad * this.precio_unitario)/1.00).toFixed(2),
+            mto_valor_unitario : parseFloat(0.00).toFixed(2),
+            mto_valor_venta : parseFloat(0.00).toFixed(2),
+            mto_base_igv : parseFloat(0.00).toFixed(2),
+            cod_producto : 'NDC'+'_'+$self.detalles.length,
+            porcentaje_igv : parseFloat($('#igv_txt').val()).toFixed(2) ,
+            igv : 0.00,
+            tip_afe_igv : '10',
+            total_impuestos : 0.00,
+            // Es producto o servicio, NIU para productos, ZZ para servicios.
+            tipo_producto  : 1,
+            // if(this.tipo_producto :: 1) this.unidad : 'NIU', else this.unidad : 'ZZ',
+        }
+
+        let nota_detalle = new NotaDetalle(this.detalles.length+1,detalle_nuevo,$self.table,2,$self);
+        this.detalles.push(nota_detalle);
+
+        this.table.find('tbody').append(nota_detalle.obtenerHTML());
+        nota_detalle.bindComponents()
     }
     
     toJSON()
@@ -259,6 +409,7 @@ class Nota {
 
     actualizarMontos()
     {
+        console.log('entra actualizarMontos ');
         let sum_total = 0.00;
         let sum_igv = 0.00;
         let sum_subtotal = 0.00;
@@ -266,9 +417,9 @@ class Nota {
         if(this.detalles)
         {
             this.detalles.forEach(detalle => {
-                sum_total+= detalle.precio_total;
-                sum_igv += detalle.igv;
-                sum_subtotal += detalle.mto_valor_venta;
+                sum_total+= parseFloat(detalle.precio_total);
+                sum_igv += parseFloat(detalle.igv);
+                sum_subtotal += parseFloat(detalle.mto_valor_venta);
             });    
         }
 

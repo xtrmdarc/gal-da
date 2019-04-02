@@ -2,7 +2,7 @@
 @section('content')
 
 
-<input type="hidden" id="igv" value="{{number_format(session('igv'),2)}}"/>
+<input type="hidden" id="igv" value="{{number_format(session('igv_session'),2)}}"/>
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
 
 

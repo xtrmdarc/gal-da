@@ -87,7 +87,7 @@ class ResumenesController extends Controller
         else
         {
             $id_boletas = isset($data['id_boletas'])?$data['id_boletas']:$id_boletas;
-            $id_notas = isset($data['id_notas'])?$data['id_notaas']:$id_notas;
+            $id_notas = isset($data['id_notas'])?$data['id_notas']:$id_notas;
         }
         
         return EFacturacion::enviarResumenSunat($id_boletas,$id_notas);
@@ -104,7 +104,7 @@ class ResumenesController extends Controller
         
         $comprobantes_enviar = DB::table('v_docs_resumen')->where('id_empresa',session('id_empresa'))
                                                         ->whereNotIn('id_estado_comprobante',array(1,3))
-                                                        ->where('id_estado_doc_resumen','<>',1)
+                                                        ->where('id_estado_doc_resumen','<>',0)
                                                         ->exists();
         return json_encode($comprobantes_enviar);
     }
@@ -116,7 +116,7 @@ class ResumenesController extends Controller
         
         $docs = DB::table('v_docs_resumen')->where('id_empresa',session('id_empresa'))
                                             ->whereNotIn('id_estado_comprobante',array(1,3))
-                                            ->where('id_estado_doc_resumen','<>',1)
+                                            ->where('id_estado_doc_resumen','<>',0)
                                             ->where(DB::raw('date(fecha_emision)'),$fecha)
                                             ->get();
         

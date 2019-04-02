@@ -365,7 +365,6 @@ function obtenerResumenes(obj_param)
         data: obj_param,
         headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(resumenes){
-
             // let boletas_html = ``;
             // console.log(boletas);
             $('#table-resumen-comprobante tbody').empty();
@@ -382,7 +381,8 @@ function obtenerResumenes(obj_param)
 
 function obtenerDocsResumen(obj_param)
 {
-    
+    $('#btn_buscar_docs').prop('disabled',true);
+    $('#btn_buscar_docs').val('BUSCANDO...');
     $.ajax({
         type:'POST',
         dataType:'JSON',
@@ -391,6 +391,8 @@ function obtenerDocsResumen(obj_param)
         headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success:function(docs)
         {
+            $('#btn_buscar_docs').prop('disabled',false);
+            $('#btn_buscar_docs').val('BUSCAR'); 
             let docs_html = ``;
             let cont = 0;
             $('#table_docs_resumen tbody').empty();
@@ -419,8 +421,8 @@ function enviarResumen()
     // console.log(docs_resumen.find(p=>p.id_tipo_doc == '5'));
 
     var id_boletas = (docs_resumen.filter(p=>p.id_tipo_doc == '5' && p.incluido == true)).map(a=> a.identificador);
-    var id_notas = (docs_resumen.filter(p=> p.id_tipo_doc in [7,8]  && p.incluido == true)).map(a=>a.identificador);
-    console.log(id_boletas);
+    var id_notas = (docs_resumen.filter(p=> (p.id_tipo_doc == '7' || p.id_tipo_doc == '8')  && p.incluido == true)).map(a=>a.identificador);
+    console.log(id_boletas,id_notas,docs_resumen);
     // if(id_boletas.length < 1 && id_notas.length < 1) 
     // {
     //     $('#mensaje_sunat').text('Resumen vacío');

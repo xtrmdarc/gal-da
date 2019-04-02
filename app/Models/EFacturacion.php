@@ -16,12 +16,13 @@ use Greenter\Model\Summary\SummaryDetail;
 use Illuminate\Support\Facades\DB;
 use Greenter\Ws\Services\SunatEndpoints;
 use App\Http\Controllers\Application\AppController;
+use Greenter\Model\Sale\Document;
 
 class EFacturacion
 {
     
     public static function obtenerCompany(){
-        
+
         // Direccion provisional
         $address = new Address();
         $address->setUbigueo('150101')
@@ -237,7 +238,7 @@ class EFacturacion
         $resumen_item->setTipoDoc($boleta->tipo_doc)
                 // ->setSerieNro($boleta->serie_doc.'-0'.$cont)
                 ->setSerieNro($boleta->serie_doc.'-'.$boleta->nro_doc)
-                ->setEstado('3') // 1 adicionar | 2 modificar | 3 anulado
+                ->setEstado($boleta->id_estado_doc_resumen) // 1 adicionar | 2 modificar | 3 anulado
                 ->setClienteTipo($cliente->getTipoDoc())
                 ->setClienteNro($cliente->getNumDoc())
                 ->setTotal($boleta->mto_imp_venta)
@@ -253,22 +254,23 @@ class EFacturacion
     public static function getResumenItemNota($nota)
     {
         //Falta implementar
-        $cliente = self::obtenerCliente($boleta->id_cliente);
+        $doc_afectado = DB::table('v_comprobante')->where('id_venta',$nota->IdVenta)->first();
+        $cliente = self::obtenerCliente($nota->IdCliente);
         $resumen_item = new SummaryDetail();
-        $resumen_item->setTipoDoc('07')
-                ->setSerieNro('B001-4')
+        $resumen_item->setTipoDoc($nota->TipoDoc)
+                ->setSerieNro($nota->Serie.'-'.$nota->Correlativo)
                 ->setDocReferencia((new Document())
-                    ->setTipoDoc('03')
-                    ->setNroDoc('0001-122'))
-                ->setEstado('1')
-                ->setClienteTipo('1')
-                ->setClienteNro('00000000')
-                ->setTotal(200)
-                ->setMtoOperGravadas(40)
-                ->setMtoOperExoneradas(30)
-                ->setMtoOperInafectas(120)
-                ->setMtoIGV(7.2)
-                ->setMtoISC(2.8);
+                    ->setTipoDoc($nota->CodigoTipoDocAfectado)
+                    ->setNroDoc($nota->NumDocAfectado))
+                ->setEstado($nota->IdEstadoDocResumen)
+                ->setClienteTipo($cliente->getTipoDoc())
+                ->setClienteNro($cliente->getNumDoc())
+                ->setTotal($nota->Total)
+                ->setMtoOperGravadas($nota->MtoOperGravadas)
+                // ->setMtoOperExoneradas(30)
+                // ->setMtoOperInafectas(120)
+                ->setMtoIGV($nota->MtoIgv);
+                // ->setMtoISC(2.8);
 
         return $resumen_item;
 
@@ -423,13 +425,13 @@ class EFacturacion
         DB::table('tm_venta')->where('id_ultimo_resumen',$resumen_id_db)
                             ->update([
                                 'id_estado_comprobante' =>4,
-                                'id_estado_doc_resumen'=> 1
+                                'id_estado_doc_resumen'=> 0
                             ]);
         
         DB::table('nota')->where('IdUltimoResumen',$resumen_id_db)
                         ->update([
                             'IdEstadoComprobante'=>4,
-                            'IdEstadoDocResumen' => 1
+                            'IdEstadoDocResumen' => 0
                         ]);
         $response->cod = 1;
         $response->mensaje = $cdr->getDescription();
@@ -566,9 +568,8 @@ class EFacturacion
                 if($cdr->getCode() == '0')
                 {
                     $path = $util->writeXml($note, $signedNotaCredXml,'S3'); 
-                    DB::table('nota')->where('id_venta',$nota->id_comprobante)
-                                        ->insert([
-                                            'IdTipoDocAfectado' => $note->getTipDocAfectado(),
+                    DB::table('nota')->insert([
+                                            'CodigoTipoDocAfectado' => $note->getTipDocAfectado(),
                                             'NumDocAfectado' => $note->getNumDocfectado(),
                                             'IdMotivoNotaCredito' =>  $nota->id_motivo,
                                             'DesMotivo' =>$note->getDesMotivo(),
@@ -584,7 +585,8 @@ class EFacturacion
                                             'IdTipoDoc' =>7,
                                             'IdTipoDocRelacionado' => $nota->doc_afectado->id_tipo_doc,
                                             'FechaEmision' => $note->getFechaEmision(),
-                                            'IdEstadoDocResumen' => 2,
+                                            'IdEmpresa' => session('id_empresa'),
+                                            'IdEstadoDocResumen' => 1,
                                             'PathFileXml'  => $path,
                                             'NameFileXml' => $note->getName(),
                                             'MensajeSunat'=>$cdr->getDescription(),
@@ -620,32 +622,31 @@ class EFacturacion
             $response->mensaje = 'La nota de crédito ha sido creada';
             $response->tipo_comprobante = 2;
             $path = $util->writeXml($note, $signedNotaCredXml,'S3'); 
-            DB::table('nota')->where('id_venta',$id_venta)
-                                ->update([
-                                    'IdTipoDocAfectado' => $note->getTipDocAfectado(),
+            DB::table('nota')->insert([
+                                    'CodigoTipoDocAfectado' => $note->getTipDocAfectado(),
                                     'NumDocAfectado' => $note->getNumDocfectado(),
-                                    'IdTipoNotaCredito' =>  $nota->IdTipoNotaCredito,
+                                    'IdMotivoNotaCredito' =>  $nota->id_motivo,
                                     'DesMotivo' =>$note->getDesMotivo(),
                                     'TipoDoc' => $note->getTipoDoc(),
                                     'Serie' => $note->getSerie(),
                                     'Correlativo' => $note->getCorrelativo(),
                                     'TipoMoneda' => $note->getTipoMoneda(),
-                                    'IdCliente' => $nota->id_cliente,
+                                    'IdCliente' => $nota->doc_afectado->id_cliente,
                                     'Total' => $note->getMtoImpVenta(),
                                     'MtoOperGravadas' => $note->getMtoOperGravadas(),
                                     'MtoIgv'=> $note->getMtoIGV(),
-                                    'IdVenta' => $nota->id_venta,
-                                    'IdTipoDoc' => $nota->id_tipo_doc,
+                                    'IdVenta' => $nota->id_comprobante,
+                                    'IdTipoDoc' => 7,
                                     'IdTipoDocRelacionado' => $nota->doc_afectado->id_tipo_doc,
-                                    'FechaEmsision' => $note->getFechaEmision(),
-                                    'IdEstadoDocResumen' => 2,
-                                    'IdTipoNotaCredito' => $nota->id_tipo_nota_credito,
+                                    'FechaEmision' => $note->getFechaEmision(),
+                                    'IdEstadoDocResumen' => 1,
                                     'PathFileXml'  => $path,
                                     'NameFileXml' => $note->getName(),
-                                    'MensajeSunat'=>$cdr->getDescription(),
-                                    'CodigoSunat'=>$cdr->getCode(),
+                                    'IdEmpresa' => session('id_empresa'),
+                                    // 'MensajeSunat'=>$cdr->getDescription(),
+                                    // 'CodigoSunat'=>$cdr->getCode(),
                                     'IdEstadoComprobante'=> 4
-                                ]
+                                    ]
                                 );
         }
 

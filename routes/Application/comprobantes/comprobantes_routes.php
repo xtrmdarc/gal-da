@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('nota')->group(function(){
             //Funciones que pueden compartir
             Route::post('ObtenerComprobanteYDetalles','Application\Comprobantes\NotasController@obtenerComprobanteYDetalles');
+            Route::post('ListarFolios','Application\Comprobantes\NotasController@listarFolios');
             
             // Nota de credito 
             Route::prefix('credito')->group(function(){

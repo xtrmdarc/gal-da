@@ -1,6 +1,7 @@
 @extends('layouts.application.master')
 
 @section('content')
+<input type="hidden" name="igv" id="igv_txt" value="{{number_format(session('igv_session')*100,2)}} " >
 <div class="wrapper wrapper-content animated shake">
     <div class="ibox">
         <div class="ibox-title">
@@ -144,6 +145,19 @@
                         </div>
                     </div>
                 </div>
+                
+                <div id="div_busqueda_mensaje" class="px-0 py-3 " style="display:none;">
+                    <div  class="container p-2 border border-warning bg-light rounded mb-3 " >
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label id="label_error" ></label>
+                            </div>
+                            <div class="col-sm-6">
+                                <p id="mensaje_error"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="div_datos_comprobante" class="container-fluid px-0 border-top pt-3 pb-1" >
                     <div class="row">
@@ -161,17 +175,24 @@
                         </div>
                     </div>
                 </div>
+                <div id="div_datos_comprobante" class="container-fluid px-0 border-top pt-1 pb-0" >
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button id="btn_nueva_fila" class="btn btn-info btn-block" >Añadir nueva fila</button>
+                        </div>
+                    </div>
+                </div>
                 {{-- Tabla docs --}}
                 <div class="table-responsive">
                     <table id="table-detalle-comprobante" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Tipo</th>
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>P. unitario</th>
-                                <th>P. Total</th>
-                                <th></th>
+                                <th width="40%">Descripcion</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">P. Unitario</th>
+                                <th class="text-center" width="10%" >P. Total</th>
+                                <th ></th>
                             </tr>
                         </thead>
                         <tbody>

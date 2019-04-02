@@ -143,7 +143,7 @@
                             <div class="col-sm-6">
                                 <div class="row justify-content-end">
                                     <div class="col-sm-8 float-right">
-                                        <input type="submit" class="btn btn-success btn-block"  value="BUSCAR">    
+                                        <input id="btn_buscar_docs" type="submit" class="btn btn-success btn-block"  value="BUSCAR">    
                                     </div>
                                 </div>
                             </div>
