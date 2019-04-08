@@ -1,7 +1,52 @@
 @php
-$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
-$testnVentas = $nventas;
-$viewdata['nventas'] = $testnVentas;
+//$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+
+$fecha_anio = date("Y");
+$fecha_mes = date("m");
+$monthName = '';
+
+switch ($fecha_mes) {
+    case "01":
+        $monthName = 'ENERO';
+    break;
+    case "02":
+        $monthName = 'FEBRERO';
+    break;
+    case "03":
+        $monthName = 'MARZO';
+    break;
+    case "04":
+        $monthName = 'ABRIL';
+    break;
+    case "05":
+        $monthName = 'MAYO';
+    break;
+    case "06":
+        $monthName = 'JUNIO';
+    break;
+    case "07":
+        $monthName = 'JULIO';
+    break;
+    case "08":
+        $monthName = 'AGOSTO';
+    break;
+    case "09":
+        $monthName = 'SEPTIEMBRE';
+    break;
+    case "10":
+        $monthName = 'OCTUBRE';
+    break;
+    case "11":
+        $monthName = 'NOVIEMBRE';
+    break;
+    case "12":
+        $monthName = 'DICIEMBRE';
+    break;
+}
+
+$nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
+and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
+
 @endphp
  <!-- Left Sidebar  -->
 <div class="left-sidebar">
@@ -15,7 +60,7 @@ $viewdata['nventas'] = $testnVentas;
                     {{--/*PLAN FREE*/--}}
 
                         <li class="nav-devider"></li>
-                        <li class="nav-label"> <b>Plan Free</b><span style="float: right;"><b>{{ $nventas  }} </b>/ 1000</span></li>
+                        <li class="nav-label"> <b>Plan Free - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ 1000</span></li>
                         @if(Auth::user()->id_rol == '1')
                             <li class="nav-label"> Rol : ADMINISTRADOR </li>
                         @endif
@@ -94,7 +139,7 @@ $viewdata['nventas'] = $testnVentas;
                           @if(Auth::user()->plan_id == '2')
                               {{--/*PLAN BASIC*/--}}
                             <li class="nav-devider"></li>
-                            <li class="nav-label"> <b>Plan Basic</b><span style="float: right;"><b>{{ $nventas  }} </b>/ ∞</span></li>
+                            <li class="nav-label"> <b>Plan Basic - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ ∞</span></li>
                             @if(Auth::user()->id_rol == '1')
                                 <li class="nav-label"> Rol : ADMINISTRADOR </li>
                             @endif
@@ -157,7 +202,7 @@ $viewdata['nventas'] = $testnVentas;
                             @if(Auth::user()->plan_id == '3')
                                 {{--/*PLAN PRO*/--}}
                                 <li class="nav-devider"></li>
-                                <li class="nav-label"> <b>Plan Pro</b><span style="float: right;"><b>{{ $nventas  }} / ∞</b></span></li>
+                                <li class="nav-label"> <b>Plan Pro - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} / ∞</b></span></li>
                                 <li class="nav-devider"></li>
                                 <li class="nav-label"> Produccion </li>
                                 @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2' || Auth::user()->id_rol == '4')

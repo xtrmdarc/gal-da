@@ -33,8 +33,14 @@ class UsuarioController extends Controller
         $viewdata['id_usu'] = $idUsu;
         $viewdata['cod_telefonos'] = $listar_telefonos_paises;
 
-        $nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
-        $testnVentas = $nventas;
+        $fecha_anio = date("Y");
+        $fecha_mes = date("m");
+
+        //$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+        $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
+        and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
+
+        $testnVentas = $nventas_mensual;
         $viewdata['nventas'] = $testnVentas;
 
         $usuario_perfil = DB::select("SELECT * FROM tm_usuario WHERE id_usu = ?",[($idUsu)]);
