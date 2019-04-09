@@ -528,8 +528,8 @@
                         </div>
                         <div class="col-sm-12">
                             <p >
-                                Haz alcanzado tu límite de ventas mensuales del plan <b>free</b>.  Espera
-                                hasta el xx/xx/xx o <b>incrementa tu plan !</b>
+                                Haz alcanzado tu límite de ventas mensuales del Plan <b>Free</b>.  Espera
+                                hasta el <b>1ero</b>del siguiente mes o <b>incrementa tu plan !</b>
                             </p>
                         </div>
                     </div>
