@@ -135,6 +135,10 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
                         <li id="sb_centroayuda" class="text-center"><a class="btn btn-primary" style="margin:8px;" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
                     </li>
 
+                    <li class="text-center v-sw" style="position: absolute; bottom: 0; text-align: center; width: 100%;">
+                        <p style="">v 1.0.0.8419</p>
+                    </li>
+
                       @else
                           @if(Auth::user()->plan_id == '2')
                               {{--/*PLAN BASIC*/--}}

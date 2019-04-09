@@ -7657,10 +7657,13 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
     #div_cont_slc_sucursal_hdr{
       width:50%;
     }
+    .v-sw {
+      position: relative!important;
+    }
 }
 
 @media only screen and (min-width: 800px) {
     #sidebar_header_mobile{
       display: none;
-  } 
+  }
 }
