@@ -81,7 +81,7 @@
                 <div class="card-pricing col-sm-4 col-md-4">
                         <div class="single-price price-one">
                             <div class="table-heading">
-                                <p class="plan-name-ll">Lite</p>
+                                <p class="plan-name-ll">Pro</p>
                                 <div class="section-plan-who clearfix">
                                     <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para grandes cadenas de restaurantes</span></p>
                                 </div>

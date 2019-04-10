@@ -83,7 +83,7 @@ var listarMesas = function(cod_sal,desc_sal){
             }},
             {"data":null,"render": function ( data, type, row) {
                 if(data.plan_id == 1){
-                    if(data.plan_estado == 'f') {
+                    if(data.plan_estado == '1') {
                         return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarMesa('+data.id_mesa+',\''+data.nro_mesa+'\','+data.id_catg+');"> <i class="fa fa-edit"></i> Editar </button>'
                             +'&nbsp;<button class="btn btn-danger btn-xs" onclick="eliminarMesa('+data.id_mesa+',\''+data.nro_mesa+'\');"> <i class="fa fa-trash"></i> Eliminar </button></div>';
                     }else {

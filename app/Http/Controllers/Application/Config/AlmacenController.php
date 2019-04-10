@@ -69,9 +69,9 @@ class AlmacenController extends Controller
         $planId_admin = \Auth::user()->plan_id;
 
         if($planId_admin == 1) {
-            $plan_estado = 'f';
+            $plan_estado = '1';
         }else {
-            $plan_estado = 'b';
+            $plan_estado = '2';
         }
 
         $idSucursal = session('id_sucursal');
@@ -131,9 +131,9 @@ class AlmacenController extends Controller
         $cod = $post['cod_area'];
 
         if($planId_admin == 1) {
-            $plan_estado = 'f';
+            $plan_estado = '1';
         }else {
-            $plan_estado = 'b';
+            $plan_estado = '2';
         }
 
         if($cod != ''){

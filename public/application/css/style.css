@@ -7666,6 +7666,9 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
     #sidebar_header_mobile{
       display: none;
     }
+    .v-sw {
+      position: relative!important;
+    }
 }
 
 .form-modern p{

@@ -84,7 +84,7 @@ class AuthController extends Controller
                 'id_empresa' => $empresa_id,
                 'id_usu' => $user_id,
                 'nombre_sucursal' => $post['name_business'],
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
             ]);
 
             $almacen = TmAlmacen::create([
@@ -92,7 +92,7 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresa_id,
             ]);
 
@@ -106,7 +106,7 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresa_id,
             ]);
                 
@@ -115,7 +115,7 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' => $sucursal_id,
                 'id_usu' => $user_id,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresa_id,
             ]);
 
@@ -351,7 +351,7 @@ class AuthController extends Controller
                 'id_empresa' => $empresaId,
                 'status'=> 1,
                 'pin' => '1234',
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
             ]);
             //Crear Cajero
             TmUsuario::create([
@@ -372,7 +372,7 @@ class AuthController extends Controller
                 'id_empresa' => $empresaId,
                 'status'=> 1,
                 //'pin' => '1234'
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
             ]);
             /*
             //Crear Produccion
@@ -403,7 +403,7 @@ class AuthController extends Controller
                 'estado' => 'a',
                 'id_sucursal' =>$sucursalId,
                 'id_usu' => $idUsu,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresaId
             ]);
 
@@ -413,7 +413,7 @@ class AuthController extends Controller
                 'nro_mesa' => 'M01',
                 'estado' => 'a',
                 'id_sucursal' => $sucursalId,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresaId,
                 'id_usu' => $idUsu
             ]);
@@ -423,7 +423,7 @@ class AuthController extends Controller
                 'nro_mesa' => 'M02',
                 'estado' => 'a',
                 'id_sucursal' => $sucursalId,
-                'plan_estado' => 'f',
+                'plan_estado' => '1',
                 'id_empresa' => $empresaId,
                 'id_usu' => $idUsu
             ]);

@@ -78,9 +78,9 @@ class SucursalController extends Controller
            //Create
 
             if($planId_admin == 1) {
-                $plan_estado = 'f';
+                $plan_estado = '1';
             }else {
-                $plan_estado = 'b';
+                $plan_estado = '2';
             }
 
             $new_sucursal = Sucursal::create([
