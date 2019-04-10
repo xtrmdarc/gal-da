@@ -104,7 +104,16 @@ var listarSucursales = function(){
                     }
                 }},
                 {"data":null,"render": function ( data, type, row) {
-                    return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                    if(data.plan_id == 1){
+                        if(data.plan_estado == 'f') {
+                            return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                        }else {
+                            return '<div class="text-right"></div>';
+                        }
+                    }
+                    if(data.plan_id == 2){
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                    }
                 }}
             ]
         });

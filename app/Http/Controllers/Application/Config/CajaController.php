@@ -20,7 +20,7 @@ class CajaController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
-                                   ->where('id', session('id_sucursal'))->get();
+                                 ->where('estado', 'a')->get();
         $viewdata['user_sucursal'] = $user_sucursal;
         $data = [
             'breadcrumb'=> 'config.Cajas',
@@ -38,10 +38,7 @@ class CajaController extends Controller
         //Admin
         if(is_null($id_parent)){
             $data = DB::table('v_cajas_g')
-                ->where('id_rol','=','1')
-                ->where('id_usu',$id_usu)
                 ->where('id_sucursal',session('id_sucursal'))
-                ->orWhere('id_rol','=','2')
                 ->get();
 
             foreach($data as $k => $v){
@@ -52,8 +49,8 @@ class CajaController extends Controller
             $data = DB::table('v_cajas_g')
                 ->where('id_rol','=','1')
                 ->where('id_usu',$id_usu)
-                ->where('id_sucursal',session('id_sucursal'))
                 ->orWhere('id_rol','=','2')
+                ->where('id_sucursal',session('id_sucursal'))
                 ->get();
             foreach($data as $k => $v){
                 $data[$k]->id_rol_v = $id_rol;
@@ -67,8 +64,15 @@ class CajaController extends Controller
     {
         $id_usu = \Auth::user()->id_usu;
         $post = $request->all();
-
+        $planId_admin = \Auth::user()->plan_id;
         $cod = $post['cod_caja'];
+
+        if($planId_admin == 1) {
+            $plan_estado = 'f';
+        }else {
+            $plan_estado = 'b';
+        }
+
         if($cod != ''){
             //Update
             $flag = 2;
@@ -82,8 +86,8 @@ class CajaController extends Controller
                     return $array['cod'] = 4;
                 }
             }
-            $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu, :_idSucursal)'
-                ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idCaja' => $idCaja,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $consulta_update = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, :idCaja, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)'
+                ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idCaja' => $idCaja,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_update as $k)
             {
@@ -96,8 +100,10 @@ class CajaController extends Controller
             $estado = $post['estado_caja'];
             $idSucursal = $post['id_sucursal'];
 
-            $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal)'
-                ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+
+
+            $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)'
+                ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_create as $k)
             {

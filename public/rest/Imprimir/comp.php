@@ -4,7 +4,7 @@ require_once (public_path().'/rest/assets/pdf/cellfit.php');
 
 $de = session('datosempresa');
 
-$texto = 'Guarda tu voucher. Es el sustento para validar tu compra. No se aceptan devoluciones de dinero.';
+$texto = 'Autorizado Mediante Resolucion Nro. 0180050002841/SUNAT Representacion Impresa del Documento de Venta Electronica';
 
 class FPDF_CellFiti extends FPDF_CellFit
 {
@@ -47,35 +47,38 @@ $pdf->SetFont('LucidaConsole','',9);
 	$pdf->CellFitScale(64, 3,'Telf: '.utf8_decode($de->telefono), 0, 1, 'C');
 	$pdf->SetFont('LucidaConsole','',9);
 	$pdf->SetXY(5, 19);//modificar solo esto
-	$pdf->CellFitScale(64, 3,utf8_decode($data->desc_td).' DE VENTA: '.utf8_decode($data->ser_doc).'-'.utf8_decode($data->nro_doc), 0, 1, 'C');
-	$pdf->SetXY(2, 23);//modificar solo esto
+	$pdf->CellFitScale(64, 3,utf8_decode($data->desc_td).' DE VENTA', 0, 1, 'C');
+	$pdf->SetXY(5, 22);//modificar solo esto
+	$pdf->CellFitScale(64, 3,utf8_decode($data->ser_doc).'-'.utf8_decode($data->nro_doc), 0, 1, 'C');
+	
+	$pdf->SetXY(2, 27);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'FECHA DE EMISION: '.date('d-m-Y h:i A',strtotime($data->fec_ven)), 0, 1, 'L');
-	$pdf->SetXY(2, 25);//modificar solo esto
+	$pdf->SetXY(2, 29);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 
-	$pdf->SetXY(2, 27);//modificar solo esto
+	$pdf->SetXY(2, 31);//modificar solo esto
 	$pdf->CellFitScale(15, 3,'CLIENTE: ', 0, 1, 'L');
-	$pdf->SetXY(17, 27);//modificar solo esto
+	$pdf->SetXY(17, 31);//modificar solo esto
 	$pdf->CellFitScale(55, 3,utf8_decode($data->Cliente->nombre), 0, 1, 'L');
-	$pdf->SetXY(2, 30);//modificar solo esto
+	$pdf->SetXY(2, 34);//modificar solo esto
 	$pdf->CellFitScale(15, 3,'DNI/RUC: ', 0, 1, 'L');
-	$pdf->SetXY(17, 30);//modificar solo esto
+	$pdf->SetXY(17, 34);//modificar solo esto
 	$pdf->CellFitScale(55, 3,$data->Cliente->dni.''.$data->Cliente->ruc, 0, 1, 'L');
 
-	$pdf->SetXY(2, 32);//modificar solo esto
-	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
-	$pdf->SetFont('LucidaConsole','',9);
-  $pdf->SetXY(2, 34);//modificar solo esto
-	$pdf->CellFitScale(40, 3,'PRODUCTO', 0, 1, 'L');
-	$pdf->SetXY(42, 34);//modificar solo esto
-	$pdf->CellFitScale(8, 3,'CANT', 0, 1, 'L');
-	$pdf->SetXY(50, 34);//modificar solo esto
-	$pdf->CellFitScale(11, 3,'P.UN.', 0, 1, 'L');
-	$pdf->SetXY(61, 34);//modificar solo esto
-	$pdf->CellFitScale(11, 3,'IMP.', 0, 1, 'R');
 	$pdf->SetXY(2, 36);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
-	$y = 39;
+	$pdf->SetFont('LucidaConsole','',9);
+  	$pdf->SetXY(2, 39);//modificar solo esto
+	$pdf->CellFitScale(40, 3,'PRODUCTO', 0, 1, 'L');
+	$pdf->SetXY(42, 39);//modificar solo esto
+	$pdf->CellFitScale(8, 3,'CANT', 0, 1, 'L');
+	$pdf->SetXY(50, 39);//modificar solo esto
+	$pdf->CellFitScale(11, 3,'P.UN.', 0, 1, 'L');
+	$pdf->SetXY(61, 39);//modificar solo esto
+	$pdf->CellFitScale(11, 3,'IMP.', 0, 1, 'R');
+	$pdf->SetXY(2, 41);//modificar solo esto
+	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
+	$y = 44;
 	foreach($data->Detalle as $d){
 		$pdf->SetXY(2, $y);//modificar solo esto
 		$pdf->CellFitScale(40, 3,utf8_decode($d->Producto->nombre_prod).' '.utf8_decode($d->Producto->pres_prod), 0, 1, 'L');
@@ -134,11 +137,23 @@ $pdf->SetFont('LucidaConsole','',9);
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+6+$z+$a+9);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'SON: '.numtoletras($data->total - $data->descu), 0, 1, 'L');
-	$pdf->SetXY(2, $y+6+$z+$a+15);//modificar solo esto
-	$pdf->MultiCell(70, 3,'Gracias por su preferencia',0,'C',0,15);
-	$pdf->SetFont('LucidaConsole','',8);
-	$pdf->SetXY(2, $y+6+$z+$a+20);//modificar solo esto
-	$pdf->MultiCell(70, 3,$texto,0,'J',0,15);
+	$b = 15;
+	if($data->electronico == 1)
+	{
+		$pdf->SetXY(6, $y+6+$z+$a+15);//modificar solo esto
+		$pdf->CellFitScale(60, 3,'Hash: '.$data->hash_xml_file, 0, 0, 'R');
+		$pdf->SetXY(3, $y+6+$z+$a+25);//modificar solo esto
+		$pdf->MultiCell(67, 4,$texto,0,'C',0,15);
+		$b = 41;
+	}
+	$pdf->SetXY(2, $y+6+$z+$a+$b);//modificar solo esto
+	$pdf->MultiCell(70, 4,'Gracias por su preferencia',0,'C',0,15);
+	$pdf->SetXY(2, $y+6+$z+$a+$b+4);//modificar solo esto
+	$pdf->MultiCell(70, 3,'Lo esperamos pronto.',0,'C',0,15);
+	// $pdf->SetFont('LucidaConsole','',8);
+	
+
+
 
 $pdf->AutoPrint(true);
 $pdf->Output();

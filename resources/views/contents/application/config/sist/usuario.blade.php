@@ -87,9 +87,12 @@
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
                                     <td style="text-align: right">
-                                        <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
-                                        <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
-                                        <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
+                                        @if($plan_id == 1 && $user->plan_estado == 'b')
+                                        @else
+                                            <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
+                                                <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="eliminarUsuario(<?php echo $user->id_usu.',\''. $user->nombres.' '.$user->ape_paterno.' '.$user->ape_materno.'\''; ?>);"><i class="fa fa-trash-o"></i></button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

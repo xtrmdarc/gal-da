@@ -44,3 +44,26 @@
 .p-help-center-justify {
     text-align: justify;
 }
+
+/*CPE*/
+
+.text-lowecase {
+    text-transform: none!important;
+}
+.min-w {
+    min-width: 60%!important;
+}
+.max-w {
+    min-width: 100%!important;
+}
+.c-logo {
+    text-align: center;
+}
+.s-col {
+    padding-bottom: 3px;
+}
+.b_c {
+    background-color: #eee;
+    color: black;
+}
+

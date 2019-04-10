@@ -25,6 +25,7 @@ function numtoletras($xcifra)
     $xpos_punto = strpos($xcifra, ".");
     $xaux_int = $xcifra;
     $xdecimales = "00";
+    $desc_moneda = session('desc_moneda');
     if (!($xpos_punto === false)) {
         if ($xpos_punto == 0) {
             $xcifra = "0" . $xcifra;
@@ -133,13 +134,13 @@ function numtoletras($xcifra)
                     break;
                 case 2:
                     if ($xcifra < 1) {
-                        $xcadena = "CERO Y $xdecimales/100 soles";
+                        $xcadena = "CERO CON $xdecimales/100 $desc_moneda";
                     }
                     if ($xcifra >= 1 && $xcifra < 2) {
-                        $xcadena = "UN Y $xdecimales/100 soles ";
+                        $xcadena = "UN CON $xdecimales/100 $desc_moneda ";
                     }
                     if ($xcifra >= 2) {
-                        $xcadena.= " Y $xdecimales/100 soles "; //
+                        $xcadena.= " CON $xdecimales/100 $desc_moneda "; //
                     }
                     break;
             } // endswitch ($xz)

@@ -44,6 +44,7 @@ class OtrosController extends Controller
             $viewdata['logo']= $r->logo;
             $viewdata['igv']= $r->igv;
             $viewdata['moneda']= $r->moneda;
+            $viewdata['desc_moneda']= $r->desc_moneda;
             $viewdata['paisEmpresa']= $r->id_pais;
         }
 
@@ -92,7 +93,12 @@ class OtrosController extends Controller
 
     public function ListarTD()
     {
-        $stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
+        //$stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
+        //$stm = DB::Select("SELECT * FROM tipo_doc_empresa where id_empresa = ".session('id_empresa'));
+        $stm = DB::table('v_tipo_docs')
+            ->where('id_empresa',session('id_empresa'))
+            ->get();
+
         echo json_encode($stm);
     }
 
@@ -104,7 +110,11 @@ class OtrosController extends Controller
         $numero = $post['numero'];
 
         if($cod_td != '' and $serie != '' and $numero != ''){
-            $sql = DB::update("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
+            //$sql = DB::update("UPDATE tm_tipo_doc SET serie = ?,numero = ? WHERE id_tipo_doc = ?",array($serie,$numero,$cod_td));
+
+            $sql = DB::update("UPDATE tipo_doc_empresa SET serie = ?,correlativo = ? WHERE id_tipo_doc = ? and id_empresa = ?"
+                              ,array($serie,$numero,$cod_td,session('id_empresa')));
+
             return $array['cod'] = 1;
         }
     }
@@ -117,6 +127,7 @@ class OtrosController extends Controller
         $abrev_rs = $post['abrev_rs'];
         $ruc = $post['ruc'];
         $moneda = $post['moneda'];
+        $desc_moneda = $post['desc_moneda'];
         $telefono = $post['telefono'];
         $direccion = $post['direccion'];
         $logo = $post['logo'];
@@ -164,6 +175,7 @@ class OtrosController extends Controller
                 'igv' => $igv,
                 'logo' =>$filenametostore,
                 'moneda' =>$moneda,
+                'desc_moneda' =>$desc_moneda,
                 'id_pais' =>$id_pais
             ]);
             //dd(DB::getQueryLog());
@@ -172,6 +184,7 @@ class OtrosController extends Controller
             session(['datosempresa'=> json_decode(json_encode($datos_empresa,true))]);
             session(['moneda_session'=>$moneda]);
             session(['moneda'=>$moneda]);
+            session(['desc_moneda'=>$desc_moneda]);
             session(['igv_session'=>$datos_empresa->igv]);
 
             return redirect('/ajustesDatosEmpresa');

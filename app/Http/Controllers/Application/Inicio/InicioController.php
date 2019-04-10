@@ -16,6 +16,7 @@ use App\Models\Empresa;
 use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
 use App\Events\VentaEfectuada;
+use App\Models\EFacturacion;
 
 
 class InicioController extends Controller
@@ -195,6 +196,9 @@ class InicioController extends Controller
                                             and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
             //$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
             if($nventas_mensual >= $venta_max) {
+
+            //$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
+            //if($nventas >= 1000) {
                 $response->tipo =0;
                 return json_encode($response);
             }
@@ -345,7 +349,7 @@ class InicioController extends Controller
         
         $val = self::ValidarEstadoP($cod);
         //Comprobantes
-        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
         $data = [
             'cod'=> $cod,
             'breadcrumb'=> '' ,
@@ -541,11 +545,13 @@ class InicioController extends Controller
             return $respuesta_validado;
         }
         $data = $request->all();
+        // SETEAR SI ESTA ACTIVADO LA FACTURACION ELECTRONICA. LE QUEDAN CPE's ? 
+
         if($data['cod_pedido'] != ''){
            
             try
             {
-                date_default_timezone_set('America/Lima');
+                date_default_timezone_set('America/Lima');  
                 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
                 $fecha = date("Y-m-d H:i:s");
 
@@ -558,36 +564,70 @@ class InicioController extends Controller
                 //dd(session('id_apc'));
                 $igv = session('igv_session');
                 if($data['m_desc'] == null ) $data['m_desc'] = '0.00'; 
+                
+                
+                $comprobante = DB::table('tm_tipo_doc')->where('id_tipo_doc',$data['tipo_doc'])->first(); 
+                
                 $arrayParam = array(
-                    1,
-                    $data['tipo_pedido'],
-                    $data['tipoEmision'],
-                    $data['cod_pedido'],
-                    $data['cliente_id'],
-                    $data['tipo_pago'],
-                    $data['tipo_doc'],
-                    $id_usu,
-                    $id_apc,//Apc
-                    $data['pago_t'],
-                    $data['m_desc'],
-                    $igv,
-                    $data['total_pedido'],
-                    $fecha
+                        1,//flag
+                        $data['tipo_pedido'], //tipo pedido
+                        $data['tipoEmision'], //tipo emision
+                        $data['cod_pedido'], //id pedido
+                        $data['cliente_id'], //id cliente
+                        $data['tipo_pago'], //tipo pago
+                        $data['tipo_doc'], //tipo doc
+                        $id_usu, //id _usu
+                        $id_apc,//Apc
+                        $data['pago_t'], // monto pago
+                        $data['m_desc'],//monto descuento
+                        $igv, //igv 
+                        $data['total_pedido'], //total monto
+                        $fecha, //fecha emision
+                        //---
+                        '0101', //tipo operacion (tipo factura = venta interna)
+                        $fecha, //fecha vencimiento
+                        $comprobante->tipo_doc_codigo, //tipo doc = Factura
+                        'PEN', //moneda
+                        number_format($data['total_pedido']/(1+$igv), 2,".", ""), //MtoOperGravadas
+                        0, // MtoOperExoneradas
+                        number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""),//  MtoIGV
+                        number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""), //  TotalImpuestos
+                        number_format($data['total_pedido']/(1+$igv), 2, ".", ""), // MtoVenta
+                        number_format($data['total_pedido'],2, ".", ""), // total //falta guardar MtoImpVenta
+                        session('id_empresa'), //
+                        $comprobante->electronico //factura electronicamente
                     );
-                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
+                
+            
+                
+                
+                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
 
+                //Cod es el id de la venta realizada.
                 foreach($st as $s){
                     $cod = $s->cod;
                 }
+
+
+                
+                
 
                 $a = $data['idProd'];
                 $b = $data['cantProd'];
                 $c = $data['precProd'];
     
+
                 for($x=0; $x < sizeof($a); ++$x){
                     if ($b[$x] > 0){
-                        $params = array($cod,$a[$x],$b[$x],$c[$x]);
-                        DB::insert("INSERT INTO tm_detalle_venta (id_venta,id_prod,cantidad,precio) VALUES (?,?,?,?)",$params);
+                        $params = array($cod,
+                                        $a[$x], //id producto
+                                        $b[$x], //cantidad
+                                        $c[$x], //precio
+                                        'NIU', //unidad 
+                                        $igv , //porcentaje igv 0.18
+                                        '10' //tipo afe igv
+                                    );
+                        DB::insert("INSERT INTO tm_detalle_venta (id_venta,id_prod,cantidad,precio,unidad,porcentaje_igv,tip_afe_igv) VALUES (?,?,?,?,?,?,?)",$params);
                     }
                 }
 
@@ -598,6 +638,11 @@ class InicioController extends Controller
                     $fecha.''
                 );
                 DB::statement('call usp_restEmitirVentaDet( ?, ?, ?, ?)',$arrayParam2);
+
+                if($comprobante->electronico==1)
+                {
+                    EFacturacion::generarInvoice($cod);
+                }
 
                 //el usuario superadminsitrador ha hecho mas de 1 venta
                 $id_user_super = \Auth::user()->parent_id?\Auth::user()->parent_id : \Auth::user()->id_usu;
@@ -701,8 +746,8 @@ class InicioController extends Controller
         try
         {   
             $criterio = ($request->all())['criterio'];
-            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%') AND id_sucursal = ?  ORDER BY dni LIMIT 1",[session('id_sucursal')]);
-
+            $stm = DB::select("SELECT * FROM v_clientes WHERE estado <> 'i' AND (dni LIKE '%$criterio%' OR ruc LIKE '%$criterio%' OR nombre LIKE '%$criterio%') AND (id_empresa = ? OR id_empresa is null)  ORDER BY dni LIMIT 5",[session('id_empresa')]);
+            // dd($stm);
             return json_encode($stm);
 
         }
@@ -717,9 +762,11 @@ class InicioController extends Controller
     {
         try
         {
+            $response = new \stdClass();
+            
             $data = $request->all();
-            //$fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
-            $fecha_nac = '';
+            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            //$fecha_nac = '';
 
             $arrayParam =  array(
                 ':flag' => 1,
@@ -736,11 +783,39 @@ class InicioController extends Controller
                 ':idSucursal' =>session('id_sucursal'),
                 ':idEmpresa' =>session('id_empresa')
             );
-            $consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
-
-            foreach($consulta as $row){
-                return json_encode($row->dup);
+            $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
+            $response->dup = $result->duplicado;
+            if($response->dup >0 )
+            {
+                return json_encode($response);
             }
+            $id_cliente = DB::table('tm_cliente')->insertGetId([
+                                                    'dni'=> $data['dni'],
+                                                    'ruc' => $data['ruc'],
+                                                    'ape_paterno'=> $data['ape_paterno'],
+                                                    'ape_materno'=> $data['ape_materno'],
+                                                    'nombres'=> $data['nombres'],
+                                                    'razon_social'=> $data['razon_social'],
+                                                    'telefono'=> $data['telefono'],
+                                                    'fecha_nac'=> $fecha_nac,
+                                                    'correo'=> $data['correo'],
+                                                    'direccion'=> $data['direccion'],
+                                                    'id_sucursal'=> session('id_sucursal'),
+                                                    'id_empresa'=> session('id_empresa'),
+                                                    'es_empresa' => $data['tipoCliente']==1?0:1
+                                                ]);
+                        
+            $response->id_cliente = $id_cliente;
+            $response->nombres = $data['nombres'];
+            $response->ape_materno = $data['ape_paterno'];
+            $response->ape_paterno = $data['ape_materno'];
+            $response->razon_social = $data['razon_social'];
+
+            //$consulta = DB::select("call usp_restRegCliente_g( :flag, :dni, :ruc, :apeP, :apeM, :nomb, :razS, :telf, :fecN, :correo, :direc, @a,:idSucursal,:idEmpresa)",$arrayParam);
+            return json_encode($response);
+            // foreach($consulta as $row){
+            //     return json_encode($row->dup);
+            // }
         } 
         catch (Exception $e) 
         {
@@ -948,6 +1023,7 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
             }
+            
             require_once (public_path().'/rest/Imprimir/comp.php');
             return json_encode(1);
         }
@@ -1017,6 +1093,8 @@ class InicioController extends Controller
 
     public function EscogerApc(Request $request)
     {
-        session(['id_apc'=>$request->id_apc]);
+        $data = $request->all();
+        session(['id_apc'=>$data['id_apc']]);
+        return 1 ;
     }
 }

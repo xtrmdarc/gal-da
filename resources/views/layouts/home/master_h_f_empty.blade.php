@@ -27,6 +27,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::to('home/images/ico/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ URL::to('home/images/ico/apple-touch-icon-57-precomposed.png') }}">
 
+    <link href="{{ URL::to('rest/css/plugins/datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('rest/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+
     <script type="text/javascript" src="{{ URL::to('home/js/jquery.js') }}"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Nunito:700,100,200,300">
@@ -52,10 +55,12 @@
             src="https://www.facebook.com/tr?id=2056800597741705&ev=PageView&noscript=1"
           /></noscript>
       <!-- End Facebook Pixel Code -->
+    <!-- tart reCAPTCHA code -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- End reCAPTCHA code -->
 </head><!--/head-->
 
-<body>
-
+<body style="background-color: #eee;">
     @yield('content')
 </body>
 
@@ -64,5 +69,17 @@
 <script type="text/javascript" src="{{ URL::to('home/js/wow.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::to('home/js/main.js') }}"></script>
 <script type="text/javascript" src="{{ URL::to('home/js/register/register-step.js') }}"></script>
+<!-- DatePicker -->
+<script src="{{ URL::to('rest/js/plugins/datepicker/bootstrap-datepicker.min.js') }}"></script>
+<!-- Toastr script -->
+<script src="{{ URL::to('rest/js/plugins/toastr/toastr.min.js') }}"></script>
+<!-- Moment script -->
+<script src="{{ URL::to('rest/js/plugins/moment/moment.js') }}"></script>
+<script src="{{ URL::to('rest/js/plugins/moment/moment-with-locales.js') }}"></script>
+<!-- DataTimePicker -->
+<script src="{{ URL::to('rest/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ URL::to('rest/js/bootstrap-clockpicker.min.js') }}"></script>
+<script src="{{ URL::to('rest/scripts/footer.js') }}"></script>
+<script src="{{ URL::to('application/js/driver.min.js') }}"></script>
       @yield('scripts')
 </html>

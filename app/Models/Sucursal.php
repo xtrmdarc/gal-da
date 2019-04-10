@@ -18,5 +18,6 @@ class Sucursal extends Model
         'telefono',
         'moneda',
         'id_sucursal',
+        'plan_estado',
     ];
 }

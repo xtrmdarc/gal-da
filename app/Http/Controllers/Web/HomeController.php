@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\TmTipoDoc;
 
 class HomeController extends Controller
 {
@@ -48,5 +49,15 @@ class HomeController extends Controller
     public function helpCenter()
     {
         return view('contents.home.helpCenter');
+    }
+
+    public function cpe()
+    {
+        $viewdata = [];
+
+        $comprobantes = TmTipoDoc::all();
+
+        $viewdata['comprobantes'] = $comprobantes;
+        return view('contents.home.cpe.index',$viewdata);
     }
 }

@@ -42,6 +42,7 @@
             <form id="form" action="/cliente_e/RUCliente" method="post" enctype="multipart/form-data">
                 @csrf
             <input type="hidden" name="id_cliente" value="{{isset($cliente)?$cliente->id_cliente:''}}" />
+            <input type="hidden" name="tipo_cliente" id="tipo_cliente" value="1" >
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
@@ -51,7 +52,7 @@
                                     <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{isset($cliente)?$cliente->ruc:''}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" id="d_dni">
                                 <div class="form-group">
                                     <label>DNI</label>
                                     <input type="text" name="dni" id="dni" data-mask="99999999" value="{{isset($cliente)?$cliente->dni:''}}" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>

@@ -104,6 +104,17 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
                         @if(Auth::user()->id_rol == '1')
                             <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                         @endif
+                        @if(Auth::user()->id_rol == '1')
+                            <li id="sb_comprobantes_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Comprobantes</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="/comprobantes/factura">Facturas</a></li>
+                                    <li><a href="/comprobantes/boleta">Boletas </a></li>
+                                    <li><a href="/comprobantes/nota/credito">Notas crédito</a></li>
+                                    <li><a href="/comprobantes/nota/debito">Notas débito</a></li>
+                                    <li><a href="/comprobantes/resumen">Resumen diario</a></li>
+                                </ul>
+                            </li>
+                        @endif
                         @if(Auth::user()->id_rol == '1' )
                             <li ><a id="sb_configuracion" class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
                                 <ul id="sb_collapse_configuracion" aria-expanded="false" class="collapse">
@@ -181,6 +192,17 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
                             <li><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
                             @if(Auth::user()->id_rol == '1')
                                 <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
+                            @endif
+                            @if(Auth::user()->id_rol == '1')
+                                <li id="sb_comprobantes_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Comprobantes</span></a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="/comprobantes/factura">Facturas</a></li>
+                                        <li><a href="/comprobantes/boleta">Boletas </a></li>
+                                        <li><a href="/comprobantes/nota/credito">Notas crédito</a></li>
+                                        <li><a href="/comprobantes/nota/debito">Notas débito</a></li>
+                                        <li><a href="/comprobantes/resumen">Resumen diario</a></li>
+                                    </ul>
+                                </li>
                             @endif
                             @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>

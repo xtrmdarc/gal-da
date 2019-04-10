@@ -350,13 +350,13 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-lg-6" id="d_ruc" style="display: none;">
+                                <div  id="div_ruc" class="col-lg-6" id="d_ruc" style="display: none;">
                                     <div class="form-group">
                                         <label>RUC</label>
                                         <input type="text" name="ruc" id="ruc" data-mask="99999999999" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div id="div_dni" class="col-lg-6" style="display:none">
                                     <div class="form-group">
                                         <label>DNI</label>
                                         <input type="text" name="dni" id="dni" data-mask="99999999" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
