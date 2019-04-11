@@ -23,9 +23,13 @@ $(function() {
 var nuevoCliente = function(){
     $('#mdl-facturar').modal('hide');
     $('#mdl-nuevo-cliente').modal('show');
+    $('#div_dni').css('display','block');
+    $('#div_ruc').css('display','none');
 }
 
 $('input:radio[id=td_dni]').on('ifChecked', function(event){
+    $('#div_dni').css('display','block');
+    $('#div_ruc').css('display','none');
     $("#f_dni").css("display","block");
     $("#f_ruc").css("display","none");
     $("#d_ruc").css("display","none");
@@ -42,6 +46,8 @@ $('input:radio[id=td_dni]').on('ifChecked', function(event){
 });
 
 $('input:radio[id=td_ruc]').on('ifChecked', function(event){
+    $('#div_dni').css('display','none');
+    $('#div_ruc').css('display','block');
     $("#f_dni").css("display","none");
     $("#f_ruc").css("display","block");
     $("#d_ruc").css("display","block");
@@ -138,7 +144,7 @@ $('#RegistrarCliente').on('click', function(){
 			});
 		}else{
 			toastr.warning('Advertencia, Ingresar datos.');
-      return false;
+            return false;
 		}
 });
 
