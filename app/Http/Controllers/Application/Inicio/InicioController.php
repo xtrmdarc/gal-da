@@ -765,7 +765,7 @@ class InicioController extends Controller
             $response = new \stdClass();
             
             $data = $request->all();
-            $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
+            // $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
             //$fecha_nac = '';
 
             $arrayParam =  array(
@@ -777,7 +777,7 @@ class InicioController extends Controller
                 ':nomb' => $data['nombres'],
                 ':razS' => $data['razon_social'],
                 ':telf' => $data['telefono'],
-                ':fecN' => $fecha_nac,
+                // ':fecN' => $fecha_nac,
                 ':correo' => $data['correo'],
                 ':direc' => $data['direccion'],
                 ':idSucursal' =>session('id_sucursal'),
@@ -797,7 +797,7 @@ class InicioController extends Controller
                                                     'nombres'=> $data['nombres'],
                                                     'razon_social'=> $data['razon_social'],
                                                     'telefono'=> $data['telefono'],
-                                                    'fecha_nac'=> $fecha_nac,
+                                                    // 'fecha_nac'=> $fecha_nac,
                                                     'correo'=> $data['correo'],
                                                     'direccion'=> $data['direccion'],
                                                     'id_sucursal'=> session('id_sucursal'),

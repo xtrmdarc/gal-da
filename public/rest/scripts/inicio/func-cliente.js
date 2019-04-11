@@ -15,6 +15,8 @@ $(function() {
         "outlook.com"
         ]
     });
+    // $("#d_fecha").css("display","none");
+    // $("#d_fecha").prop('disabled',true);
 });
 
 /* Nuevo Cliente */
@@ -31,7 +33,10 @@ $('input:radio[id=td_dni]').on('ifChecked', function(event){
     $("#d_nombres").css("display","block");
     $("#d_apep").css("display","block");
     $("#d_apem").css("display","block");
-    $("#d_fecha").css("display","block");
+
+    // $("#d_fecha").css("display","none");
+    // $("#d_fecha").prop('disabled',true);
+
     $("#d_telefono").css("display","block");
     $("#d_correo").css("display","block");
 });
@@ -44,7 +49,10 @@ $('input:radio[id=td_ruc]').on('ifChecked', function(event){
     $("#d_nombres").css("display","none");
     $("#d_apep").css("display","none");
     $("#d_apem").css("display","none");
-    $("#d_fecha").css("display","none");
+
+    // $("#d_fecha").css("display","none");
+    // $("#d_fecha").prop('disabled',true);
+
     $("#d_telefono").css("display","none");
     $("#d_correo").css("display","none");
 });
