@@ -17,7 +17,7 @@
                         <div class="ibox-content">
                             <div class="file-manager">
                                 <h2 class="ich"><i class="fa fa-tasks"></i> Categor&iacute;as</h2>
-                                <a onclick="listarProductos('%')" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Todos</a>
+                                <a onclick="listarProductos('%')" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Todos los Productos</a>
                                 <div class="hr-line-dashed"></div>
                                 <div id="boton-catg" style="display: block">
                                     <button class="btn btn-primary btn-block btn-catg"><i class="fa fa-plus-circle"></i> A&ntilde;adir nueva categor&iacute;a</button>
@@ -41,19 +41,11 @@
                                                     <div class="input-group">
                                                         {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                                         <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >
-                                                            @if($id_usu != null)
-                                                                <option value="">
-
-                                                                </option>
-                                                            @else
-                                                                echo '<option value="" selected>Seleccionar</option>';
-                                                                echo '<optgroup label="Seleccionar">';
-                                                                    @endif
-                                                                    <optgroup label="Seleccionar">
-                                                                        @foreach($user_sucursal as $r)
-                                                                            <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
-                                                                        @endforeach
-                                                                    </optgroup>
+                                                            <optgroup label="Seleccionar">
+                                                                @foreach($user_sucursal as $r)
+                                                                    <option {{ $r->id == session('id_sucursal') ? 'selected=selected' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                                                @endforeach
+                                                            </optgroup>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -132,7 +124,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="col-md-6 bg-gray-l1 b-t-gray-l1" style="padding: 15px;">
+                        <div class="col-md-6 bg-gray-l1 b-t-gray-l1">
                             <div id="head-p"></div><div id="body-c"></div><div id="body-p"></div>
                         </div>
                     </div>
@@ -192,9 +184,11 @@
                             <div class="form-group">
                                 <label class="control-label">Sucursal</label>
                                 <select name="id_sucursal_d" id="id_sucursal_d" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" title="Seleccionar" data-size="5">
-                                    @foreach($user_sucursal as $r)
-                                        <option {{ $r->id == session('id_sucursal') ? 'selected=selected' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
-                                    @endforeach
+                                    <optgroup label="Seleccionar">
+                                        @foreach($user_sucursal as $r)
+                                            <option {{ $r->id == session('id_sucursal') ? 'selected=selected' : '' }} value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                                        @endforeach
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>

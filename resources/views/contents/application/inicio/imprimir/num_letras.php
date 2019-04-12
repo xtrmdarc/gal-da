@@ -11,6 +11,8 @@
 //------            uramos@gmail.com           ---------------
 //------    10 de junio de 2009. México, D.F.  ---------------
 //------    PHP Version 4.3.1 o mayores (aunque podría funcionar en versiones anteriores, tendrías que probar)
+$desc_moneda = $de->desc_moneda;
+
 function numtoletras($xcifra)
 {
     $xarray = array(0 => "Cero",
@@ -133,13 +135,13 @@ function numtoletras($xcifra)
                     break;
                 case 2:
                     if ($xcifra < 1) {
-                        $xcadena = "CERO Y $xdecimales/100 soles";
+                        $xcadena = "CERO Y $xdecimales/100 $desc_moneda";
                     }
                     if ($xcifra >= 1 && $xcifra < 2) {
-                        $xcadena = "UN Y $xdecimales/100 soles ";
+                        $xcadena = "UN Y $xdecimales/100 $desc_moneda ";
                     }
                     if ($xcifra >= 2) {
-                        $xcadena.= " Y $xdecimales/100 soles "; //
+                        $xcadena.= " Y $xdecimales/100 $desc_moneda "; //
                     }
                     break;
             } // endswitch ($xz)

@@ -130,13 +130,13 @@ $pdf->SetFont('LucidaConsole','',9);
 	$pdf->SetXY(2, $y+6+$z+$a);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+6+$z+$a+3);//modificar solo esto
-	$pdf->CellFitScale(55, 3,'TOTAL A PAGAR: '.session('moneda'), 0, 1, 'R');
+	$pdf->CellFitScale(55, 3,'TOTAL A PAGAR: '.(session('moneda')), 0, 1, 'R');
 	$pdf->SetXY(57, $y+6+$z+$a+3);//modificar solo esto
 	$pdf->CellFitScale(15, 3,number_format(($data->total - $data->descu),2), 0, 1, 'R');
 	$pdf->SetXY(2, $y+6+$z+$a+6);//modificar solo esto
 	$pdf->CellFitScale(70, 3,'----------------------------------------------', 0, 1, 'L');
 	$pdf->SetXY(2, $y+6+$z+$a+9);//modificar solo esto
-	$pdf->CellFitScale(70, 3,'SON: '.numtoletras($data->total - $data->descu), 0, 1, 'L');
+	$pdf->CellFitScale(70, 3,'SON: '.numtoletras($data->total - $data->descu,$desc_moneda), 0, 1, 'L');
 	$b = 15;
 	if($data->electronico == 1)
 	{

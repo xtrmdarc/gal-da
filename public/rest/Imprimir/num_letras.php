@@ -11,7 +11,8 @@
 //------            uramos@gmail.com           ---------------
 //------    10 de junio de 2009. México, D.F.  ---------------
 //------    PHP Version 4.3.1 o mayores (aunque podría funcionar en versiones anteriores, tendrías que probar)
-function numtoletras($xcifra)
+$desc_moneda = $de->desc_moneda;
+function numtoletras($xcifra,$desc_moneda)
 {
     $xarray = array(0 => "Cero",
         1 => "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
@@ -25,7 +26,6 @@ function numtoletras($xcifra)
     $xpos_punto = strpos($xcifra, ".");
     $xaux_int = $xcifra;
     $xdecimales = "00";
-    $desc_moneda = session('desc_moneda');
     if (!($xpos_punto === false)) {
         if ($xpos_punto == 0) {
             $xcifra = "0" . $xcifra;

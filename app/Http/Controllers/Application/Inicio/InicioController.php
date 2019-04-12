@@ -17,7 +17,7 @@ use App\Events\PedidoRegistrado;
 use App\Events\PedidoCancelado;
 use App\Events\VentaEfectuada;
 use App\Models\EFacturacion;
-
+use App\Http\Controllers\Application\AppController;
 
 class InicioController extends Controller
 {
@@ -1012,6 +1012,8 @@ class InicioController extends Controller
 
     public function Imprimir($index){
 
+        $id_empresa = session('id_empresa');
+
         try{
             $cod = (DB::table('tm_pedido')->where('index_por_cuenta',$index)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_pedido;
             $data = DB::table('v_ventas_con')->where('id_ped',$cod)->first();
@@ -1023,7 +1025,8 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::select("SELECT nombre_prod, pres_prod FROM v_productos WHERE id_pres = ?",[$d->id_prod])[0];
             }
-            
+            $de = AppController::DatosEmpresa($id_empresa);
+
             require_once (public_path().'/rest/Imprimir/comp.php');
             return json_encode(1);
         }

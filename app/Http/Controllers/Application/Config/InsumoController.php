@@ -104,8 +104,8 @@ class InsumoController extends Controller
             $idCatg = $post['cod_catg'];
             $flag = 2;
 
-            $consulta = DB::Select("call usp_configInsumoCatgs( :flag, :descC, :idCatg,:idSucursal,:idUsu);"
-            ,array(':flag' => $flag,':descC'=> $descC,':idCatg'=>$idCatg,':idSucursal' => $idSucursal,':idUsu' => $id_usu));
+            $consulta = DB::Select("call usp_configInsumoCatgs_g( :flag, :descC, :idCatg,:idSucursal);"
+            ,array(':flag' => $flag,':descC'=> $descC,':idCatg'=>$idCatg,':idSucursal' => $idSucursal));
             
             return json_encode($consulta[0]->cod);
 
