@@ -65,6 +65,7 @@ class ClienteController extends Controller
 
         try{
             
+            $response = new \stdClass();
             $idUsu = \Auth::user()->id_usu;
             $idRol = \Auth::user()->id_rol;
             
@@ -108,24 +109,29 @@ class ClienteController extends Controller
                         'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
                         'alert-type' => 'error'
                     ];
-                    return redirect('/cliente')->with($notification);
+                    $response->code = 0;
+                    $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
+                    $response->alert_type = 'error';
+                    return  json_encode($response);
+                    // return redirect('/cliente')->with($notification);
+
                 }
                 // if($idRol == 1) {
                     
-                        $nuevo_cliente = TmCliente::create([
-                            'dni' => $post['dni'],
-                            'ruc' => $post['ruc'],
-                            'ape_paterno' => $post['ape_paterno'],
-                            'ape_materno' => $post['ape_materno'],
-                            'nombres' => $post['nombres'],
-                            'razon_social' => $post['razon_social'],
-                            'telefono' => $post['telefono'],
-                            'fecha_nac' => $fecha_nac,
-                            'correo' => $post['correo'],
-                            'direccion' => $post['direccion'],
-                            'id_usu' => $idUsu,
-                            'id_empresa' => $idEmpresa,
-                        ]);
+                $nuevo_cliente = TmCliente::create([
+                    'dni' => $post['dni'],
+                    'ruc' => $post['ruc'],
+                    'ape_paterno' => $post['ape_paterno'],
+                    'ape_materno' => $post['ape_materno'],
+                    'nombres' => $post['nombres'],
+                    'razon_social' => $post['razon_social'],
+                    'telefono' => $post['telefono'],
+                    'fecha_nac' => $fecha_nac,
+                    'correo' => $post['correo'],
+                    'direccion' => $post['direccion'],
+                    'id_usu' => $idUsu,
+                    'id_empresa' => $idEmpresa,
+                ]);
                 // }else if($idRol == 2){
                    
                 //         $nuevo_cliente = TmCliente::create([
@@ -148,7 +154,11 @@ class ClienteController extends Controller
                     'message' =>'Cliente registrado, correctamente.',
                     'alert-type' => 'success'
                 ];
-                return redirect('/cliente')->with($notification);
+                $response->code = 1;
+                $response->message = 'Cliente registrado, correctamente';
+                $response->alert_type = 'success';
+                return json_encode($response);
+                // return redirect('/cliente')->with($notification);
             }
         }
         catch (Exception $e) 

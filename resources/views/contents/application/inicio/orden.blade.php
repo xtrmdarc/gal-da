@@ -323,6 +323,7 @@
                                 <input name="tipo_docc" type="radio" value="2" id="td_ruc" class="flat-red"> RUC
                             </div>
                         </div>
+                        @if(session('datosempresa')->id_pais == 'PE')
                         <div class="col-lg-6" id="f_dni" style="display: block;">
                             <form method="post" id="form_consultadni">
                                 <div class="form-group">
@@ -345,6 +346,7 @@
                                 </div>
                             </form>
                         </div>
+                        @endif
                     </div>
                     <form method="post" id="form_c">
                     <div class="row">
@@ -353,13 +355,13 @@
                                 <div  id="div_ruc" class="col-lg-6" id="d_ruc" style="display: none;">
                                     <div class="form-group">
                                         <label>RUC</label>
-                                        <input type="text" name="ruc" id="ruc" data-mask="99999999999" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
+                                        <input type="text" name="ruc" id="ruc"  maxlength="20" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                     </div>
                                 </div>
                                 <div id="div_dni" class="col-lg-6" style="display:none">
                                     <div class="form-group">
                                         <label>DNI</label>
-                                        <input type="text" name="dni" id="dni" data-mask="99999999" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
+                                        <input type="text" name="dni" id="dni" maxlength="15" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" id="d_nombres" style="display: block;">

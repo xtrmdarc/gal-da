@@ -1,4 +1,10 @@
 $(function() {
+    $('#dni').prop('required',true);
+    $('#nombres').prop('required',true);
+    //$('#dni').prop('required',true);
+
+    $('#ruc').removeAttr('required');
+    $('#razon_social').removeAttr('required');
     $('input:radio[id=td_dni]').on('ifChecked', function(event){
         $("#f_dni").css("display","block");
         $("#d_dni").css("display","block");
@@ -12,6 +18,14 @@ $(function() {
         $("#d_telefono").css("display","block");
         $("#d_correo").css("display","block");
         $('#tipo_cliente').val(1);
+        
+        $('#dni').prop('required',true);
+        $('#nombres').prop('required',true);
+        //$('#dni').prop('required',true);
+
+        $('#ruc').removeAttr('required');
+        $('#razon_social').removeAttr('required');
+        
     });
 
     $('input:radio[id=td_ruc]').on('ifChecked', function(event){
@@ -27,6 +41,14 @@ $(function() {
         $("#d_telefono").css("display","none");
         $("#d_correo").css("display","none");
         $('#tipo_cliente').val(2);
+
+        $('#ruc').prop('required',true);
+        $('#razon_social').prop('required',true);
+
+        $('#dni').removeAttr('required');
+        $('#nombres').removeAttr('required');
+
+        
     });
 
     /* Consultar dni del nuevo cliente */
@@ -46,16 +68,24 @@ $(function() {
 
     /* Consultar ruc del nuevo cliente */
     $("#frm-consulta-ruc").submit(function(event) {
+        
         event.preventDefault();
-        $.getJSON("https://py-devs.com/api/ruc/" + $("#ruc_numero").val(), {
+        let id_pais = $('#id_pais').val();
+        console.log(id_pais);   
+        // if(id_pais == 'PE')
+        // {
+            $.getJSON("https://api.sunat.cloud/ruc/" + $("#ruc_numero").val(), {
                 format: "json"
             })
             .done(function(data) {
+                console.log(data);
                 $("#dni").val(data.numero_documento);
                 $("#ruc").val(data.ruc);
                 $("#razon_social").val(data.nombre);
                 $("#direccion").val(data.domicilio_fiscal);
             });
+        // }
+       
     });
     
     $('.DatePicker')
@@ -103,5 +133,37 @@ $('input[name=tipo_doc]').on('change',function(e){
     }
 
    
+
+});
+
+
+$('#form-guardar-cliente').on('submit',function(e){
+
+    e.preventDefault();
+    let form = $(e.target);
+    let btn = $('#btn-guardar-cliente');
+    btn.prop('disabled',true);
+    $.ajax({
+        type:'POST',
+        dataType: 'JSON',
+        url: form.attr('action'),
+        data:form.serialize(),
+        "headers":{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success:function(response)
+        {
+            btn.prop('disabled',false);
+            if(response.code == 0)
+            {
+                toastr.warning(response.message);
+            }
+            else if(response.code == 1 )
+            {
+                window.location.replace('/cliente');
+                toastr.success(response.message);                
+            }
+        }
+    });
 
 });

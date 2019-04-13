@@ -40,9 +40,13 @@ $('input:radio[id=td_dni]').on('ifChecked', function(event){
 
     // $("#d_fecha").css("display","none");
     // $("#d_fecha").prop('disabled',true);
+    $('#dni').prop('required',true);
+    $('#nombres').prop('required',true);
+    //$('#dni').prop('required',true);
 
-    $("#d_telefono").css("display","block");
-    $("#d_correo").css("display","block");
+    $('#ruc').removeAttr('required');
+    $('#razon_social').removeAttr('required');
+
 });
 
 $('input:radio[id=td_ruc]').on('ifChecked', function(event){
@@ -58,6 +62,12 @@ $('input:radio[id=td_ruc]').on('ifChecked', function(event){
 
     // $("#d_fecha").css("display","none");
     // $("#d_fecha").prop('disabled',true);
+
+    $('#ruc').removeAttr('required');
+    $('#razon_social').removeAttr('required');
+
+    $("#d_telefono").css("display","block");
+    $("#d_correo").css("display","block");
 
     $("#d_telefono").css("display","none");
     $("#d_correo").css("display","none");
@@ -103,7 +113,11 @@ $('#RegistrarCliente').on('click', function(){
 		var direccion = $('#direccion').val();
         var tipoCliente = $('input:radio[name=tipo_docc]:checked').val();
 
-		if(dni.length == 8 || ruc.length == 11){
+        
+		if(dni.length <= 15 || ruc.length <= 20){
+                    
+            let btn_guardar = $('#RegistrarCliente');
+            btn_guardar.prop('disabled',true);
 			$.ajax({
 				type: 'POST',
 				dataType: 'json',
@@ -126,6 +140,8 @@ $('#RegistrarCliente').on('click', function(){
                 },
 				url: '/inicio/NuevoCliente',
 				success: function(respuesta){
+                    btn_guardar.prop('disabled',false);
+
 					if(respuesta.dup > 0){
 						toastr.warning('Advertencia, Clientes duplicados.');
 					}else {
@@ -143,7 +159,7 @@ $('#RegistrarCliente').on('click', function(){
 				}
 			});
 		}else{
-			toastr.warning('Advertencia, Ingresar datos.');
+			toastr.warning('Advertencia, Ingresar datos válidos');
             return false;
 		}
 });

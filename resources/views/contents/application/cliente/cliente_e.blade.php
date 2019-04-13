@@ -1,6 +1,6 @@
 @extends('layouts.application.master')
 @section('content')
-
+<input id="id_pais" type="hidden" value="{{session('datosempresa')->id_pais}} ">
 
 <div class="wrapper wrapper-content animated shake">
     <div class="row">
@@ -17,6 +17,7 @@
                 </div>
             </div>
             <div class="ibox-content">
+            @if(session('datosempresa')->id_pais=='PE')
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-6" id="f_dni" style="display: block;">
                 <form method="post" id="frm-consulta-dni">
@@ -39,7 +40,8 @@
                 </form>
                 </div>
             </div>
-            <form id="form" action="/cliente_e/RUCliente" method="post" enctype="multipart/form-data">
+            @endif
+            <form id="form-guardar-cliente" action="/cliente_e/RUCliente" method="post" enctype="multipart/form-data">
                 @csrf
             <input type="hidden" name="id_cliente" value="{{isset($cliente)?$cliente->id_cliente:''}}" />
             <input type="hidden" name="tipo_cliente" id="tipo_cliente" value="1" >
@@ -49,13 +51,13 @@
                             <div class="col-lg-6" id="d_ruc" style="display: none;">
                                 <div class="form-group">
                                     <label>RUC</label>
-                                    <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{isset($cliente)?$cliente->ruc:''}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
+                                    <input type="text" name="ruc" id="ruc" value="{{isset($cliente)?$cliente->ruc:''}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" required maxlength="20" />
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_dni">
                                 <div class="form-group">
                                     <label>DNI</label>
-                                    <input type="text" name="dni" id="dni" data-mask="99999999" value="{{isset($cliente)?$cliente->dni:''}}" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
+                                    <input type="text" name="dni" id="dni" value="{{isset($cliente)?$cliente->dni:''}}" class="form-control" placeholder="Ingrese dni" autocomplete="off" maxlength="15"/>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="d_nombres" style="display: block;">
@@ -87,7 +89,7 @@
                             <div class="col-lg-6" id="d_telefono" style="display: block;">
                                 <div class="form-group">
                                     <label>Tel&eacute;fono</label>
-                                    <input type="text" name="telefono" id="telefono" data-mask="999999999" value="{{isset($cliente)?$cliente->telefono:''}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
+                                    <input type="text" name="telefono" id="telefono" data-mask="999999999" value="{{isset($cliente)?$cliente->telefono:''}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off"   />
                                 </div>
                             </div>
                             <div class="col-lg-12" id="d_correo" style="display: block;">
@@ -119,7 +121,7 @@
             <div class="ibox-footer">
                 <div class="text-right">
                     <a href="/cliente" class="btn btn-white"> Cancelar</a>
-                    <button class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
+                    <button id="btn-guardar-cliente" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
                 </div>
             </div>
             </form>
