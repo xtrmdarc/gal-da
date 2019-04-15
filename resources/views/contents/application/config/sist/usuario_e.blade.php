@@ -61,8 +61,12 @@
 
                                     <div class="col-lg-6 sides_padding15 " id="dni_div">
                                         <div class="form-group">
-                                            <label class="control-label">Dni</label>
-                                            <input type="text" name="dni" id="dni" value="{{is_null($id_usu) ? '' : $dni}}" class="form-control validanumericos" placeholder="Ingrese dni" maxlength="8" autocomplete="off" required="required" />
+                                            <label class="control-label">DNI
+                                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                    <span class="tooltiptext-g">Documento de Identidad</span>
+                                                </div>
+                                            </label>
+                                            <input type="text" name="dni" id="dni" value="{{is_null($id_usu) ? '' : $dni}}" class="form-control validanumericos" placeholder="Ingrese dni" maxlength="15" autocomplete="off" required="required" />
                                         </div>
                                     </div>
                                 
@@ -97,7 +101,11 @@
                                         
                                     <div class="col-lg-6 sides_padding15" id="usr_div">
                                         <div class="form-group">
-                                            <label class="control-label">Usuario</label>
+                                            <label class="control-label">Usuario
+                                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                    <span class="tooltiptext-g">Este será el Usuario con el que accederá al sistema.</span>
+                                                </div>
+                                            </label>
                                             <div class="row ">
                                                 <div class="input-group  col-sm-6">
                                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -118,7 +126,11 @@
                                     
                                     <div class="col-lg-6 sides_padding15"  id="pass_div">
                                         <div class="form-group">
-                                            <label class="control-label">Contraseña</label>
+                                            <label class="control-label">Contraseña
+                                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                    <span class="tooltiptext-g">Por su seguridad no mostramos la contraseña, puede ingresar otra contraseña si desea cambiarla.</span>
+                                                </div>
+                                            </label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
                                                 <input type="password" name="contrasena" id="contrasena_show" value="{{is_null($id_usu) ? '' : ''}}" class="form-control" placeholder="Ingrese contrase&ntilde;a" autocomplete="off" />
@@ -129,7 +141,11 @@
 
                                     <div class="col-lg-6  sides_padding15" id="pin_div" >
                                         <div class="form-group">
-                                            <label class="control-label">PIN</label>
+                                            <label class="control-label">PIN
+                                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                    <span class="tooltiptext-g">Es un código secreto para que el Mozo realice un pedido en la Vista de Multimozo.</span>
+                                                </div>
+                                            </label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-certificate"></i></span>    
                                                 <input type="password" name="pin" id="pin_field_e" value="{{$pin}}" class="form-control validanumericos" placeholder="Ingrese 4 digitos" minlength="4" maxlength="4" autocomplete="off" required="required" />

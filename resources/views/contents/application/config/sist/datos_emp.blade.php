@@ -65,18 +65,18 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">MONEDA</label>
-                                            <input type="text" name="moneda" value="{{$moneda}}" class="form-control" placeholder="$ ó S/." autocomplete="off" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
                                             <label class="control-label">NOMBRE MONEDA
                                                 <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
                                                     <span class="tooltiptext-g">Es el nombre en Plural de la Moneda que aparecerá en su Comprobante de Pago.</span>
                                                 </div>
                                             </label>
                                             <input type="text" name="desc_moneda" value="{{$desc_moneda}}" class="form-control" placeholder="Ej. Soles" maxlength="13" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">MONEDA</label>
+                                            <input type="text" name="moneda" value="{{$moneda}}" class="form-control" placeholder="$ ó S/." autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>

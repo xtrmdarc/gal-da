@@ -7721,12 +7721,12 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 
 .tooltip-g .tooltiptext-g {
   visibility: hidden;
-  width: 120px;
+  width: 250px;
   background-color: #555;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 6px;
   position: absolute;
   z-index: 1;
   bottom: 125%;
@@ -7734,11 +7734,12 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
+  font-weight: 100;
 }
 
 .tooltip-g .tooltiptext-g::after {
   content: "";
-  position: absolute;
+  /*position: absolute;*/
   top: 100%;
   left: 50%;
   margin-left: -5px;
