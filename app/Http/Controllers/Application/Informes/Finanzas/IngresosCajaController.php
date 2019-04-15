@@ -38,7 +38,8 @@ class IngresosCajaController extends Controller
         $ffecha = date('Y-m-d',strtotime($_POST['ffecha']));
         $sucu_filter = $post['sucu_filter'];
 
-        $stm = DB::Select("SELECT * FROM tm_ingresos_adm WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal = ?",
+        $stm = DB::Select("SELECT s.nombre_sucursal,tig.fecha_reg,tig.motivo,tig.estado,tig.importe,tig.id_apc,tig.id_usu FROM tm_ingresos_adm as tig
+                           left join sucursal as s on tig.id_sucursal = s.id WHERE DATE(fecha_reg) >= ? AND DATE(fecha_reg) <= ? and id_sucursal = ?",
             array($ifecha,$ffecha,session('id_sucursal')));
 
         foreach($stm as $k => $d)
