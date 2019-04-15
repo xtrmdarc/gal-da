@@ -349,7 +349,7 @@ class InicioController extends Controller
         
         $val = self::ValidarEstadoP($cod);
         //Comprobantes
-        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ? and td.es_comprobante_pago = 1 and td.electronico in (0,?) ",[session('id_empresa'),session('datosempresa')->factura_e]);
         $data = [
             'cod'=> $cod,
             'breadcrumb'=> '' ,

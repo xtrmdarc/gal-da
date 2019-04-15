@@ -55,7 +55,7 @@
                         <div class="descriptive-icon text-left">
                             <span class="icon"><i class="fa fa-money fa-2x"></i></span>
                             <div class="text">
-                                <span id="totalPagar"></span><span>por pagar</span>
+                                <span id="totalPagar"></span><span> por pagar</span>
                             </div>
                         </div>
                     </div>
