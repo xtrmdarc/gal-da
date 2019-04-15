@@ -59,18 +59,30 @@ class SucursalController extends Controller
             $telefono = $post['telefono_sucursal'];
             $estado = $post['estado_sucursal'];
 
-            $sql = DB::update("UPDATE sucursal SET
+            $plan_estados = Sucursal::where('id',$cod)
+                                    ->select('plan_estado')
+                                    ->get();
+            foreach($plan_estados as $r){
+                $plan_estado = $r->plan_estado;
+            }
+
+            if($plan_estado == 1 && $estado == 'i'){
+                $response->cod = 3;
+            }
+            else {
+                $sql = DB::update("UPDATE sucursal SET
                     nombre_sucursal  = ?,
                     direccion   = ?,
                     telefono   = ?,
                     estado = ?
                 WHERE id = ? and id_empresa = ?",
-                [$nombre_sucursal,$direccion,$telefono,$estado,$cod,$id_empresa]);
-            if(empty($new_sucursal)) {
-                $response->cod = 2;
-                
-            }else {
-                $response->cod = 0;
+                    [$nombre_sucursal,$direccion,$telefono,$estado,$cod,$id_empresa]);
+                if(empty($new_sucursal)) {
+                    $response->cod = 2;
+
+                }else {
+                    $response->cod = 0;
+                }
             }
         }else {
            //Create

@@ -135,13 +135,13 @@ function numtoletras($xcifra,$desc_moneda)
                     break;
                 case 2:
                     if ($xcifra < 1) {
-                        $xcadena = "CERO CON $xdecimales/100 $desc_moneda";
+                        $xcadena = "CERO CON $xdecimales/100 ".mb_strtoupper($desc_moneda);
                     }
                     if ($xcifra >= 1 && $xcifra < 2) {
-                        $xcadena = "UN CON $xdecimales/100 $desc_moneda ";
+                        $xcadena = "UN CON $xdecimales/100 ".mb_strtoupper($desc_moneda);
                     }
                     if ($xcifra >= 2) {
-                        $xcadena.= " CON $xdecimales/100 $desc_moneda "; //
+                        $xcadena.= " CON $xdecimales/100 ".mb_strtoupper($desc_moneda); //
                     }
                     break;
             } // endswitch ($xz)

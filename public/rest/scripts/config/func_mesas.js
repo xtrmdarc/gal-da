@@ -385,11 +385,11 @@ $("#frm-eliminar-salon").submit(function(){
                 $('#lizq-s').css("display","block");
                 $('#lizq-i').css("display","none");
                 toastr.success('Datos eliminados, correctamente.');
-                location.href = "/ajustesSalonyMesas";
+                listarSalones();
             } else if(cod == 0){
                 $('#mdl-eliminar-salon').modal('hide');
                 toastr.warning('Advertencia, El salon no puede ser eliminado.');
-                location.href = "/ajustesSalonyMesas";
+                listarSalones();
                 return false;
             }
         },

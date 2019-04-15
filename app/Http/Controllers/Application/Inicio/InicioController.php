@@ -1038,6 +1038,8 @@ class InicioController extends Controller
 
     public function ImprimirPC($index){
 
+        $id_empresa = session('id_empresa');
+
         try
         {        
             $cod = (DB::table('tm_pedido')->where('index_por_cuenta',$index)->where('id_empresa',\Auth::user()->id_empresa)->first())->id_pedido;
@@ -1049,6 +1051,8 @@ class InicioController extends Controller
             {
                 $data->Detalle[$k]->Producto = DB::table('v_productos')->where('id_pres',$d->id_prod)->first();
             }
+            $de = AppController::DatosEmpresa($id_empresa);
+
             require_once (public_path().'/rest/Imprimir/comp_pc.php');
             return json_encode(1);
         }

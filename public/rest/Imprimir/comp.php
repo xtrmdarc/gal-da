@@ -38,7 +38,7 @@ $pdf->SetFont('LucidaConsole','',9);
 //DETALLE DE LA EMPRESA
 
 	$pdf->SetXY(5, 5);//modificar solo esto
-	$pdf->CellFitScale(64, 3,utf8_decode($de->razon_social), 0, 1, 'C');
+	$pdf->CellFitScale(64, 3,mb_strtoupper(utf8_decode($de->razon_social)), 0, 1, 'C');
 	$pdf->SetXY(5, 8);//modificar solo esto
 	$pdf->CellFitScale(64, 3,'RUC : '.utf8_decode($de->ruc), 0, 1, 'C');
 	$pdf->SetXY(5, 11);//modificar solo esto

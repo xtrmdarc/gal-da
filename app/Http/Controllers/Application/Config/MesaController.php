@@ -192,8 +192,8 @@ class MesaController extends Controller
             $idCatg = $post['cod_salae'];
             $idSucursal = $post['id_sucursal'];
 
-            $consulta = DB::Select("call usp_configSalones_g( :flag, @a, @b, :idCatg,:idUsu, :_idSucursal);",
-                array(':flag' => $flag,':idCatg' => $idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal));
+            $consulta = DB::Select("call usp_configSalones_g( :flag, @a, @b, :idCatg,:idUsu, :_idSucursal, :_planEstado, :_idEmpresa);",
+                array(':flag' => $flag,':idCatg' => $idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => '1',':_idEmpresa' => session('id_empresa')));
 
             foreach($consulta as $k)
             {
@@ -221,8 +221,8 @@ class MesaController extends Controller
             $id_catg_sucursal = $r->id_sucursal;
         }
 
-        $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal);",
-            array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal));
+        $consulta = DB::Select("call usp_configMesas_g( :flag, @a, @b, :idMesa,:_idSucursal, :_planEstado, :_idEmpresa, :_idUsu);",
+            array(':flag' => $flag,':idMesa' => $idMesa,':_idSucursal' => $id_catg_sucursal,':_planEstado' => '1',':_idEmpresa' => session('id_empresa'),':_idUsu' => '1'));
 
         foreach($consulta as $k)
         {

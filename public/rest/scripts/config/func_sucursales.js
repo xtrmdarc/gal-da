@@ -58,6 +58,10 @@ $(function() {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
                         toastr.success('Datos modificados, correctamente.');
+                    } else if(data.cod == 3) {
+                        listarSucursales();
+                        $('#mdl-sucursal').modal('hide');
+                        toastr.warning('No puedes deshabilitar la Sucursal Principal.');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown){
