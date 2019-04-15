@@ -5,8 +5,8 @@
 <?php
 date_default_timezone_set('America/Lima');
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
-$fecha = date("d-m-Y");
-$fechaa = date("m-Y");
+$fecha = date("d-m-Y h:i A");
+$fechaa = date("-m-Y h:i A");
 ?>
 
 <input type="hidden" id="moneda" value="{{session('moneda_session')}}"/>
@@ -28,7 +28,7 @@ $fechaa = date("m-Y");
                         <div class="form-group">
                             <label >Escoge un periodo</label>
                             <div class="input-group">
-                                <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="true" value="'01-'.{{$fechaa}}"/>
+                                <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="true" value="{{'01'.$fechaa}}"/>
                                 <span class="input-group-addon">al</span>
                                 <input style="text-align: center;" type="text" name="end" id="end" class="form-control DatePicker" autocomplete="off" readonly="true" value="{{$fecha}}"/>
                             </div>

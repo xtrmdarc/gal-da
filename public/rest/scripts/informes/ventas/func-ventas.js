@@ -139,6 +139,9 @@ var listar = function(){
             {"data":"desc_caja","render": function ( data, type, row ) {
                 return '<p class="mayus">'+data+'</p>';
             }},
+            {"data":"descripcion","render": function ( data, type, row ) {
+                return '<p class="mayus">'+data+'</p>';
+            }},
             {"data":"Cliente.nombre","render": function ( data, type, row ) {
                 return '<p class="mayus">'+data+'</p>';
             }},

@@ -6,7 +6,7 @@
 date_default_timezone_set('America/Lima');
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 $fecha = date("d-m-Y h:i A");
-$fechaa = date("m-Y h:i: A");
+$fechaa = date("-m-Y h:i A");
 ?>
 <style>
 .bootstrap-datetimepicker-widget{
@@ -36,7 +36,7 @@ $fechaa = date("m-Y h:i: A");
                                     <label >Escoge un periodo</label>
                                     <div class="input-group">
                                         <!--<input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>-->
-                                        <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="false" value="'01-'.{{$fechaa}}"/>
+                                        <input style="text-align: center;" type="text" name="start" id="start" class="form-control DatePicker" autocomplete="off" readonly="false" value="{{'01'.$fechaa}}"/>
                                         <span class="input-group-addon">al</span>
                                         <input style="text-align: center;" type="text" name="end" id="end" class="form-control DatePicker" autocomplete="off" readonly="false" value="{{$fecha}}"/>
                                         <!--<input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />-->
@@ -133,6 +133,7 @@ $fechaa = date("m-Y h:i: A");
                 <tr>
                     <th width="10%">Fecha</th>
                     <th>Caja</th>
+                    <th>Tipo de Pedido</th>
                     <th width="20%">Cliente</th>
                     <th>Documento</th>
                     <th class="text-right" width="15%">Pagos</th>

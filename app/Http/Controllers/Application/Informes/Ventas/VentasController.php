@@ -32,8 +32,7 @@ class VentasController extends Controller
         $stm_cajas = DB::Select("SELECT * FROM tm_caja where id_sucursal = ?",[session('id_sucursal')]);
 
         //Comprobantes
-        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ?",[session('id_sucursal')]);
-
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
         //Sucursales Filtro
         $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
 
@@ -54,7 +53,7 @@ class VentasController extends Controller
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
         $sucu_filter = $request->input('sucu_filter');
 
-        $stm = DB::Select("SELECT v.id_ven,v.id_ped,v.id_tpag,v.pago_efe,v.pago_tar,v.descu,v.total AS stotal,v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_apc = c.id_apc WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND v.id_tped like ? AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_cli like ? and v.id_sucursal = ? GROUP BY v.id_ven",
+        $stm = DB::Select("SELECT v.id_ven,v.id_ped,v.id_tpag,tp.descripcion,v.pago_efe,v.pago_tar,v.descu,v.total AS stotal,v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,v.igv,v.id_usu,c.desc_caja FROM v_ventas_con AS v INNER JOIN v_caja_aper AS c ON v.id_apc = c.id_apc left join tm_tipo_pedido as tp on v.id_tped = tp.id_tipo_pedido WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND v.id_tped like ? AND v.id_tdoc like ? AND c.id_caja like ? AND v.id_cli like ? and v.id_sucursal = ? GROUP BY v.id_ven",
             array($ifecha,$ffecha,$post['tped'],$post['tdoc'],$post['icaja'],$post['cliente'],session('id_sucursal')));
 
         foreach($stm as $k => $d)

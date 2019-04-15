@@ -73,12 +73,12 @@ var listarMesas = function(cod_sal,desc_sal){
             {"data":"Salon.descripcion"},
             {"data":null,"render": function ( data, type, row) {
                 if(data.estado == 'a'){
-                  return '<a onclick="estadoMesa('+data.id_mesa+','+data.estado+');"><span class="label label-primary">ACTIVA</span></a>';
+                  return '<a onclick="estadoMesa('+data.id_mesa+',\''+data.estado+'\');"><span class="label label-primary">ACTIVA</span></a>';
                 } else if (data.estado == 'i' || data.estado == 'p'){
                   return '<span class="label label-warning">OCUPADA</span>'
                 }
                 else if (data.estado == 'm'){
-                  return '<a onclick="estadoMesa('+data.id_mesa+','+data.estado+');"><span class="label label-danger">INACTIVA</span></a>'
+                  return '<a onclick="estadoMesa('+data.id_mesa+',\''+data.estado+'\');"><span class="label label-danger">INACTIVA</span></a>'
                 } 
             }},
             {"data":null,"render": function ( data, type, row) {
@@ -152,8 +152,8 @@ var eliminarMesa = function(cod,nomb){
 
 /*  Modificar estado de la mesa para mostrar o no mostrar en el modulo restaurante */
 var estadoMesa = function(cod,estado){
-  $('#codi_mesa').val(cod);  
-  $('#est_mesa').val(estado);  
+  $('#codi_mesa').val(cod);
+  $('#est_mesa').selectpicker('val',estado);
   $("#mdl-estado-mesa").modal('show');
 }
 
@@ -465,5 +465,5 @@ $('#mdl-mesa').on('hidden.bs.modal', function() {
 $('#mdl-estado-mesa').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-estado-mesa').formValidation('resetForm', true);
-    $('#est_mesa').selectpicker('val', '');
+    $('#est_mesa').selectpicker('val', 'a');
 });
