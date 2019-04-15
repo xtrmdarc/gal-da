@@ -46,9 +46,9 @@ $(function() {
                         message: 'Solo se permite números'
                     },
                     stringLength: {
-                        min: 11,
-                        max: 11,
-                        message: 'El máximo permitido son 11 caracteres'
+                        min: 1,
+                        max: 20,
+                        message: 'El máximo permitido son 20 caracteres'
                     }
                 }
             },

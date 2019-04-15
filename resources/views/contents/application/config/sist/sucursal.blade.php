@@ -21,7 +21,6 @@
                                 <th>Nombre</th>
                                 <th>Direccion</th>
                                 <th>Telefono</th>
-                                <th>Moneda</th>
                                 <th>Estado</th>
                                 <th class="text-right">Acciones</th>
                             </tr>
@@ -84,14 +83,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label class="control-label">Moneda</label>
-                                    <input type="text" name="moneda_sucursal" id="moneda_sucursal" class="form-control" placeholder="Ingrese moneda" autocomplete="off" required="required"/>
+                        {{--/*
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Moneda</label>
+                                        <input type="text" name="moneda_sucursal" id="moneda_sucursal" class="form-control" placeholder="Ingrese moneda" autocomplete="off" required="required"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        */--}}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

@@ -95,7 +95,6 @@ var listarSucursales = function(){
                 {"data":"nombre_sucursal"},
                 {"data":"direccion"},
                 {"data":"telefono"},
-                {"data":"moneda"},
                 {"data":null,"render": function ( data, type, row) {
                     if(data.estado == 'a'){
                         return '<span class="label label-primary">ACTIVA</span>';
@@ -106,13 +105,13 @@ var listarSucursales = function(){
                 {"data":null,"render": function ( data, type, row) {
                     if(data.plan_id == 1){
                         if(data.plan_estado == '1') {
-                            return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                            return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id_sucursal+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
                         }else {
                             return '<div class="text-right"></div>';
                         }
                     }
                     if(data.plan_id == 2){
-                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
+                        return '<div class="text-right"><button class="btn btn-success btn-xs" onclick="editarSucursal('+data.id_sucursal+',\''+(data.nombre_sucursal?data.nombre_sucursal:'')+'\',\''+(data.direccion?data.direccion:'')+'\',\''+(data.telefono?data.telefono:'')+'\',\''+(data.moneda?data.moneda:'')+'\',\''+(data.estado?data.estado:'')+'\');"><i class="fa fa-edit"></i>Editar</button>';
                     }
                 }}
             ]
