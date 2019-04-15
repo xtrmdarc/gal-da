@@ -714,7 +714,7 @@ var actualizarVLPedidos = function(pedidos){
 	vl_pedidos.splice(0,vl_pedidos.length);
 	
 	var vl_pedidosHtml = '';
-	
+	console.log(pedidos);
 	for(var j = 0 ; j< pedidos.length;j++)
 	{	//console.log(pedidos[j]);
 		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod ,pedidos[j].pres_prod, pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
