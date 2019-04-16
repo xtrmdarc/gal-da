@@ -45,7 +45,8 @@ class Egr_CajaController extends Controller
                                 ->Where('id_usu',session('id_usu'))
                                 ->get();
         //$TDocumentos = TmTipoDoc::where('id_sucursal',session('id_sucursal'))->get();
-        $TDocumentos = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
+        //$TDocumentos = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
+          $TDocumentos = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ? and td.es_comprobante_pago = 1 and td.electronico in (0,?) ",[session('id_empresa'),session('datosempresa')->factura_e]);
 
         $personal = TmUsuario::where('id_sucursal',session('id_sucursal'))->get();
         $data = [
