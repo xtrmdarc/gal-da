@@ -25,7 +25,6 @@ $(function() {
     });
 
     $('#sucu_filter').change( function() {
-        cajas_x_sucursal();
         listar();
     });
 });
@@ -224,55 +223,59 @@ var detalle = function(cod,doc,num){
     });
 };
 
-var cajas_x_sucursal = function (){
-    $('select[name="sucu_filter"]').on('change', function() {
-        var sucursalId = $(this).val();
 
-        $.ajax({
-            type: "POST",
-            url: "/informesDatosVentasLcajas",
-            data: {
-                id_sucursal_d : sucursalId
-            },
-            dataType: "json",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                $('#cod_cajas').empty();
-                for(var i = 0 ; i< response.length; i++){
-                    $('#cod_cajas').append(
-                    `<option value="${response[i].id_caja}"> ${response[i].descripcion} </option>`
-                );
-                }
-                $('#cod_cajas').selectpicker('refresh');
+$('select[name="sucu_filter"]').on('change', function() {
+    var sucursalId = $(this).val();
 
-            },
-            error: function () {
-                $('#cod_cajas').html('There was an error!');
+    $.ajax({
+        type: "POST",
+        url: "/informesDatosVentasLcajas",
+        data: {
+            id_sucursal_d : sucursalId
+        },
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            $('#cod_cajas').empty();
+            if(sucursalId === '%' || !(sucursalId == '')){
+                $('#cod_cajas').append(
+                `<option value="%">Todas</option>`);
             }
-        });
-        /*
-         $.ajax({
-         type: "POST",
-         url: "/ajustesCrudProd",
-         data: {
-         id_sucursal_d : sucursalId
-         },
-         dataType: "json",
-         headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         success: function (data) {
-         //console.log(data);
-         //remove disabled from province and change the options
-         $('select[name="cod_area"]').prop("disabled", false);
-         $('select[name="cod_area"]').html(data.response);
-         }
-         });
-         */
+            for(var i = 0 ; i< response.length; i++){
+                $('#cod_cajas').append(
+                `<option value="${response[i].id_caja}"> ${response[i].descripcion} </option>`
+            );
+            }
+            $('#cod_cajas').selectpicker('refresh');
+
+        },
+        error: function () {
+            $('#cod_cajas').html('There was an error!');
+        }
     });
-}
+    /*
+     $.ajax({
+     type: "POST",
+     url: "/ajustesCrudProd",
+     data: {
+     id_sucursal_d : sucursalId
+     },
+     dataType: "json",
+     headers: {
+     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     },
+     success: function (data) {
+     //console.log(data);
+     //remove disabled from province and change the options
+     $('select[name="cod_area"]').prop("disabled", false);
+     $('select[name="cod_area"]').html(data.response);
+     }
+     });
+     */
+});
+
 /*s
 
 $('#frm-excel-informe').on('submit',function(e){

@@ -32,7 +32,8 @@ class VentasController extends Controller
         $stm_cajas = DB::Select("SELECT * FROM tm_caja where id_sucursal = ?",[session('id_sucursal')]);
 
         //Comprobantes
-        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
+        //$stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ?",[session('id_empresa')]);
+        $stm_comprobantes = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ? and td.es_comprobante_pago = 1 and td.electronico in (0,?) ",[session('id_empresa'),session('datosempresa')->factura_e]);
         //Sucursales Filtro
         $sucursales_filtro = Sucursal::where('id_empresa',session('id_empresa'))->get();
 
@@ -111,7 +112,9 @@ class VentasController extends Controller
     {
         $post = $request->all();
         $id_sucu = $post['id_sucursal_d'];
-        $lista_cajas = TmCaja::where('id_sucursal',$id_sucu)->get();
+        $lista_cajas = TmCaja::where('id_sucursal','like',$id_sucu)
+                             ->where('id_empresa',session('id_empresa'))
+                             ->get();
 
         return $lista_cajas;
         /*try

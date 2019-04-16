@@ -61,6 +61,9 @@ $fechaa = date("-m-Y h:i A");
                             <label for="">Cajas</label>
                             <select name="cod_cajas" id="cod_cajas" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
                                 <option value="%">Todas</option>
+                                @foreach($Cajas as $r)
+                                    <option value="{{$r->id_caja}}">{{$r->descripcion}}</option>
+                                @endforeach
                                 {{--/*
                                   @foreach($Cajas as $r)
                                     <option value="{{$r->id_caja}}">{{$r->descripcion}}</option>
