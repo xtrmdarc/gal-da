@@ -185,7 +185,7 @@ class Aper_CajaController extends Controller
 
     public function montoSisDet(Request $request){
     
-        //date_default_timezone_set('America/Lima');
+        date_default_timezone_set('America/Lima');
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 
         $data = $request->all();

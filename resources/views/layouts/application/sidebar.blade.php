@@ -104,7 +104,7 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
                         @if(Auth::user()->id_rol == '1')
                             <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                         @endif
-                        @if(Auth::user()->id_rol == '1')
+                        @if(Auth::user()->id_rol == '1' && session('datosempresa')->factura_e == 1)
                             <li id="sb_comprobantes_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Comprobantes</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="/comprobantes/factura">Facturas</a></li>
@@ -193,7 +193,7 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
                             @if(Auth::user()->id_rol == '1')
                                 <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                             @endif
-                            @if(Auth::user()->id_rol == '1')
+                            @if(Auth::user()->id_rol == '1' && session('datosempresa')->factura_e == 1)
                                 <li id="sb_comprobantes_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Comprobantes</span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="/comprobantes/factura">Facturas</a></li>
