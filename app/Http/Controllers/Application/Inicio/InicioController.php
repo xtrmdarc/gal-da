@@ -105,7 +105,7 @@ class InicioController extends Controller
                 
                 $response->nro_pedido = $this->RegistrarMesa($request)->cod;
                 $response->status = 'ok';
-                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$row->cod)->first())->index_por_cuenta;
+                $response->index_por_cuenta = (DB::table('tm_pedido')->where('id_pedido',$response->nro_pedido)->first())->index_por_cuenta;
             }
             else 
             {
@@ -181,11 +181,17 @@ class InicioController extends Controller
 
             $fecha_anio = date("Y");
             $fecha_mes = date("m");
+            $id_usu_subs = \Auth::user()->id_usu;
+            
+            if(\Auth::user()->parent_id == !'' || isset(\Auth::user()->parent_id ))
+            {   
+                $id_usu_subs = \Auth::user()->parent_id;
+            }
 
             $subscription = DB::table('subscription')
                 ->select('planes.venta_max')
                 ->leftJoin('planes','subscription.plan_id','planes.id')
-                ->where('id_usu',\Auth::user()->id_usu)
+                ->where('id_usu',$id_usu_subs)
                 ->get();
 
             foreach($subscription as $r) {

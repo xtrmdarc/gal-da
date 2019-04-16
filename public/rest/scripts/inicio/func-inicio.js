@@ -392,7 +392,7 @@ $('.digito').click(function(event){
         if( $('#secret_screen').val().length == 4 ){
 
             var estadoM = $('#estadoM').val();
-            
+            console.log('entra qui');
             $.ajax({
                 dataType:"JSON",
                 type: "POST",
