@@ -101,6 +101,45 @@ var listarTurnos = function(){
         });
 }
 
+$("#frm-eliminar-turno").submit(function(){
+
+    var form = $(this);
+
+    var turno = {
+        cod_turno_e: 0
+    }
+
+    turno.cod_turno_e = $('#cod_turno_e').val();
+
+    $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: form.attr('action'),
+        data: turno,
+        dataSrc : "",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+            if(data.cod == 1){
+                listarTurnos();
+                $('#mdl-eliminar-turno').modal('hide');
+                toastr.success('Datos elimianados correctamente');
+            } else if(data.cod == 0){
+                listarTurnos();
+                $('#mdl-eliminar-turno').modal('hide');
+                toastr.warning('Advertencia, El turno no puede ser eliminado.');
+                return false;
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown + ' ' + textStatus);
+        }
+    });
+
+    return false;
+});
+
 /* Eliminar Turno */
 var eliminarTurno = function(cod,nomb,sucur){
     $('#cod_turno_e').val(cod);
