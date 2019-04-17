@@ -23,7 +23,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="u_perfil" role="tabpanel">
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div {{ \Auth::user()->id_rol == 1 ? 'class=col-lg-6' : 'class=col-lg-12' }} ">
                                                 <div class="card-body" style="padding-top: 20px;">
                                                     <form class="form-horizontal form-material" method="post" enctype="multipart/form-data" action="/perfil">
                                                         @csrf
@@ -105,7 +105,8 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            @if(\Auth::user()->id_rol == 1 )
+                                                <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
                                                     <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
                                                     <span>Modifica tu contraseña</span>
@@ -152,6 +153,7 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="tab-pane  p-20" id="u_pago" role="tabpanel">
@@ -261,15 +263,16 @@
                                                 <div class="card-body" style="padding-top: 20px;">
                                                     <form class="form-horizontal form-material" method="post" action="/upgrade">
                                                         @csrf
-                                                        <h4><i class="fa fa-list mid-icon"></i><b> Plan Actual</b></h4>
-                                                        <span>Administra tu actual suscripcion, actualiza tu plan.</span>
+                                                        @if(\Auth::user()->parent_id == '')
+                                                            <h4><i class="fa fa-list mid-icon"></i><b> Plan Actual</b></h4>
+                                                            <span>Administra tu actual suscripcion, actualiza tu plan.</span>
 
-                                                        <input type="hidden" name="plan_id" value="1">
-                                                        <h5 class="m-t-30"><b>Plan {{$subscription->nombre }} </b> - {{$subscription->precio}} USD {{$subscription->es_mensual==0?'anual':'mensual'}} </h5>
-                                                        <h5 class="m-t-30">Nro de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
-                                                        </div>
+                                                            <input type="hidden" name="plan_id" value="1">
+                                                            <h5 class="m-t-30"><b>Plan {{$subscription->nombre }} </b> - {{$subscription->precio}} USD {{$subscription->es_mensual==0?'anual':'mensual'}} </h5>
+                                                            <h5 class="m-t-30">Nro de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                                            </div>
 
                                                         {{--/*
                                                         <div class="form-group">

@@ -241,10 +241,10 @@ class MesaController extends Controller
 
         try
         {
-            $mesa_ocupada = DB::table('tm_mesa')->where('estado','!=','a')->where('id_mesa',$idMesa)->exists();
-            if($mesa_ocupada== true){
-                return -1;
-            }
+            //$mesa_ocupada = DB::table('tm_mesa')->where('estado','!=','a')->where('id_mesa',$idMesa)->exists();
+            //if($mesa_ocupada== true){
+            //    return -1;
+            //}
             $sql =  DB::update("UPDATE tm_mesa SET estado = ? WHERE id_mesa = ? and id_sucursal = ?",
                 [$estado,$idMesa,$idSucursal]);
             return 1;

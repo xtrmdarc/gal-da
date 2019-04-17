@@ -499,7 +499,7 @@
     <div class="modal inmodal fade" id="mdl-desocupar-mesa" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content animated bounceInRight">
-            <form method="post" enctype="multipart/form-data" action="/inicio/Desocupar">
+            <form method="post" class="unif_modal" enctype="multipart/form-data" action="/inicio/Desocupar">
                 @csrf
                 <input type="hidden" name="cod_pede" id="cod_pede">
                 <input type="hidden" name="cod_tipe" value="{{session('cod_tipe')}}"/>

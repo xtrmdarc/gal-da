@@ -507,7 +507,7 @@
                             <p>Escoge la caja con la que quieres trabajar.</p>
                             <select id="cb_apc_escoger" class="form-control" style="margin-bottom:10px">
                                 @foreach($aperturas as $apc)
-                                    <option value="{{$apc->id_apc}}"> {{$apc->desc_caja }}</option>
+                                    <option value="{{$apc->id_apc}}"> {{$apc->desc_caja }} - {{$apc->desc_turno}}</option>
                                 @endforeach 
                             </select>
                             <a id="btn_escoger_apertura" class="btn btn-primary" style="width:100%;margin-bottom:20px" >Escoger</a>

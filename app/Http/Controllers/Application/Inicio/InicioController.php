@@ -43,7 +43,7 @@ class InicioController extends Controller
                                 ->get();
 
         $aperturas = DB::table('v_caja_aper')
-                                ->select('id_apc','id_usu','id_caja','estado','desc_caja')
+                                ->select('id_apc','id_usu','id_caja','estado','desc_caja','desc_turno')
                                 ->where('id_sucursal',session('id_sucursal'))
                                 ->where('estado','a')
                                 ->get();
