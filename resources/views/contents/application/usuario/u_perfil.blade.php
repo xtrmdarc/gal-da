@@ -65,9 +65,13 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="col-md-6">Dni</label>
+                                                            <label class="col-md-6">Dni
+                                                                    <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                                        <span class="tooltiptext-g">Documento de Identidad</span>
+                                                                    </div>
+                                                            </label>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line validanumericos" maxlength="8" value="{{$dni}}">
+                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line validanumericos" maxlength="20" value="{{$dni}}">
                                                             </div>
                                                         </div>
 

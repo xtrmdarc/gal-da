@@ -360,7 +360,12 @@
                                 </div>
                                 <div id="div_dni" class="col-lg-6" style="display:none">
                                     <div class="form-group">
-                                        <label>DNI</label>
+                                        <label>DNI
+                                            <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                                <span class="tooltiptext-g">Documento de Identidad</span>
+                                            </div>
+                                            
+                                        </label>
                                         <input type="text" name="dni" id="dni" maxlength="15" class="form-control" placeholder="Ingrese dni" autocomplete="off"/>
                                     </div>
                                 </div>

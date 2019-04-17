@@ -165,7 +165,7 @@
                             <select name="id_per" id="id_per" class="selectpicker show-tick form-control" data-live-search-style="begins" data-live-search="true" title="Seleccionar Personal" autocomplete="off">
                             <optgroup label="Seleccionar Personal">
                                 @foreach($personal as $r)
-                                    <option value="{{$r->id_usu}}">{{ $r->ape_paterno.' '.$r->ape_materno.' '.$r->nombres}}</option>
+                                    <option value="{{$r->id_usu}}">{{ $r->ape_paterno.' '.$r->ape_materno.' '.$r->nombres.' - '.$r->desc_r}}</option>
                                 @endforeach
                             </optgroup>
                             </select>

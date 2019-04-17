@@ -95,11 +95,9 @@ class OtrosController extends Controller
     {
         //$stm = DB::Select("SELECT * FROM tm_tipo_doc where id_sucursal = ".session('id_sucursal'));
         //$stm = DB::Select("SELECT * FROM tipo_doc_empresa where id_empresa = ".session('id_empresa'));
-        $stm = DB::table('v_tipo_docs')
-            ->where('id_empresa',session('id_empresa'))
-            ->get();
+        $TDocumentos = DB::Select("SELECT * FROM tm_tipo_doc td  LEFT JOIN tipo_doc_empresa te ON te.id_tipo_doc =  td.id_tipo_doc where te.id_empresa = ? and td.electronico in (0,?) ",[session('id_empresa'),session('datosempresa')->factura_e]);
 
-        echo json_encode($stm);
+        echo json_encode($TDocumentos);
     }
 
     public function GuardarTD(Request $request)

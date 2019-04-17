@@ -42,7 +42,9 @@
                                                                 </div>
                                                                 <div class="media-body media-text-right">
                                                                         <h2 id="totalVentasI">{{$total_venta}}</h2>
-                                                                        <p class="m-b-0">Total Ingresos</p>
+                                                                        <p class="m-b-0">Monto Ventas 
+                                                                                <br> Sin descuento
+                                                                        </p>
                                                                 </div>
                                                         </div>
                                                 </div>

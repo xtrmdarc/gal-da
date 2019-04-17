@@ -311,7 +311,7 @@ class UsuarioController extends Controller
                 $response->cod = 1;
                 
             }else {
-                dd("error");//Revisar
+                $response->cod = 0; return json_encode($response);
             }
             $response->usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
             return json_encode($response);

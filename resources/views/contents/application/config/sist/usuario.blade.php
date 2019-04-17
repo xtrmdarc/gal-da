@@ -13,7 +13,11 @@
                         @if(Auth::user()->plan_id == '1')
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}</h5>
                         @else
-                            <h5><i class="fa fa-newspaper-o"></i> Usuarios </h5>
+                            <h5><i class="fa fa-newspaper-o"></i> Usuarios 
+                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                    <span class="tooltiptext-g">El usuario propietario también es considerado como usuario del sistema</span>
+                                </div>
+                            </h5>
                         @endif
                         
                         <div class="pull-right">
@@ -76,6 +80,8 @@
                                         @endif
 
                                     </td>
+                                    @php
+                                    /*
                                     <td style="text-align: center">
                                         @if($user->estado == 'a')
                                             <a onclick="{{'estadoUsuario('.$user->id_usu.',\'a\');' }}"> <span class="label label-primary">ACTIVO</span></a>
@@ -83,6 +89,8 @@
                                             <a onclick="{{'estadoUsuario('.$user->id_usu.',\'i\');'}} "> <span class="label label-danger">INACTIVO</span></a>
                                         @endif
                                     </td>
+                                    */
+                                    @endphp
                                     <td style="text-align: center;display:none;">
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
