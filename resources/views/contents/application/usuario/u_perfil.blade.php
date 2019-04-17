@@ -71,7 +71,7 @@
                                                                     </div>
                                                             </label>
                                                             <div class="col-md-6">
-                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line validanumericos" maxlength="20" value="{{$dni}}">
+                                                                <input type="text" id="dni_p" name="dni_p" placeholder="Ingrese su Dni" class="form-control form-control-line " maxlength="20" value="{{$dni}}">
                                                             </div>
                                                         </div>
 

@@ -66,7 +66,7 @@
                                                     <span class="tooltiptext-g">Documento de Identidad</span>
                                                 </div>
                                             </label>
-                                            <input type="text" name="dni" id="dni" value="{{is_null($id_usu) ? '' : $dni}}" class="form-control validanumericos" placeholder="Ingrese dni" maxlength="15" autocomplete="off" required="required" />
+                                            <input type="text" name="dni" id="dni" value="{{is_null($id_usu) ? '' : $dni}}" class="form-control " placeholder="Ingrese dni" maxlength="20" autocomplete="off" required="required" />
                                         </div>
                                     </div>
                                 

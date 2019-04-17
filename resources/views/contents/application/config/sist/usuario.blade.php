@@ -11,7 +11,11 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         @if(Auth::user()->plan_id == '1')
-                            <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}</h5>
+                            <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}
+                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                    <span class="tooltiptext-g">El usuario propietario también es considerado como usuario del sistema</span>
+                                </div>
+                            </h5>
                         @else
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios 
                                 <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
@@ -46,7 +50,7 @@
                                     <th style="text-align: center">Usuario</th>
                                     <th style="text-align: center">Cargo</th>
                                     <th>Pin</th>
-                                    <th style="text-align: center">Estado</th>
+                                    {{-- <th style="text-align: center">Estado</th> --}}
                                     <th style="text-align: center;display:none;">Verificado</th>
                                     <th style="text-align: center">Acciones</th>
                                 </tr>
