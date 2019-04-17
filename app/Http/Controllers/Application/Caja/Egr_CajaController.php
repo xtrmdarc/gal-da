@@ -30,7 +30,7 @@ class Egr_CajaController extends Controller
         }
         else{
             $cajasAbiertas = DB::table('tm_aper_cierre')
-                            ->select('tm_aper_cierre.id_apc','tm_caja.descripcion')
+                            ->select('tm_aper_cierre.id_apc','tm_caja.descripcion','tm_turno.descripcion as t_des')
                             ->Join('tm_caja','tm_caja.id_caja','=','tm_aper_cierre.id_caja')
                             ->Join('tm_usuario','tm_usuario.id_usu','=','tm_aper_cierre.id_usu')
                             ->where('tm_usuario.id_usu',\Auth::user()->id_usu)
