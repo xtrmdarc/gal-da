@@ -228,7 +228,7 @@ $("#frm-categoria").submit(function(e){
 });
 $('#id_sucursal_d').on('change',function(){
 
-    //ActualizarCategoriaAreap(null,null);
+    ActualizarCategoriaAreap(null,null);
 });
 var ActualizarCategoriaAreap = function(cod_area,cod_catg){
     //console.log(cod_area,cod_catg,'entro');
