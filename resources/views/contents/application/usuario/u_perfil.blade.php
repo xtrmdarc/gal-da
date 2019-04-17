@@ -273,7 +273,7 @@
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                             </div>
-
+                                                        @endif
                                                         {{--/*
                                                         <div class="form-group">
                                                             <div class="col-sm-6">
