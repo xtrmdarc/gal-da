@@ -143,7 +143,7 @@
                                                 </label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i  class="fa fa-certificate"></i></span>
-                                                    <input type="password" name="pin" id="pin_field" value="" class="form-control validanumericos" placeholder="Ingrese 4 digitos" maxlength="4" autocomplete="off" required="required" />
+                                                    <input type="password" name="pin" id="pin_field" value="" class="form-control validanumericos" placeholder="Ingrese 4 digitos" maxlength="4" minlength="4" autocomplete="off" required="required" />
                                                     <span toggle="#pin_field" class="fa input-group-addon  fa-eye field-icon toggle-password"></span>
                                                 </div>
                                             </div>

@@ -12,9 +12,9 @@
                     <div class="ibox-title">
                         @if(Auth::user()->plan_id == '1')
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}
-                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                {{-- <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
                                     <span class="tooltiptext-g">El usuario propietario también es considerado como usuario del sistema</span>
-                                </div>
+                                </div> --}}
                             </h5>
                         @else
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios 
