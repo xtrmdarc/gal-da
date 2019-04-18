@@ -127,7 +127,7 @@
         <div class="modal inmodal fade" id="mdl-eliminar-turno" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content animated bounceInRight">
-                    <form id="frm-eliminar-turno" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesEliminarCaja">
+                    <form id="frm-eliminar-turno" class="unif_modal" method="post" enctype="multipart/form-data" action="/ajustesEliminarTurno">
                         @csrf
                         <input type="hidden" name="cod_turno_e" id="cod_turno_e">
                         <div class="modal-header mh-p">

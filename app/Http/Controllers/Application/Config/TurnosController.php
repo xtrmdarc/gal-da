@@ -83,9 +83,17 @@ class TurnosController extends Controller
     public function EliminarTurno(Request $request)
     {
         $post = $request->all();
+        $response = new \stdClass();
+        $flag = 3;
         $cod_turno_e = $post['cod_turno_e'];
 
-        $consulta_eliminar = DB::delete("DELETE FROM tm_turno WHERE id_turno = ?",[($cod_turno_e)]);
-        return back();
+        $consulta = DB::Select("call usp_configTurnos_g( :flag, :idTurno );",
+            array(':flag' => $flag,':idTurno' => $cod_turno_e));
+        
+        foreach($consulta as $k)
+        {
+            $response->cod  = $k->cod;
+        }
+        return json_encode($response);
     }
 }

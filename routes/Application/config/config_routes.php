@@ -92,5 +92,5 @@
     Route::get('/ajustesTurnos', 'Application\Config\TurnosController@index')->name('config.Turnos');
     Route::post('ajustesListaTurnos', 'Application\Config\TurnosController@ListarTurnos')->name('config.ListaTurnos');
     Route::post('ajustesCrudTurnos', 'Application\Config\TurnosController@GuardarTurnos')->name('config.CrudTurnos');
-    Route::post('ajustesEliminarCaja', 'Application\Config\TurnosController@EliminarTurno')->name('config.EliminarTurno');
+    Route::post('ajustesEliminarTurno', 'Application\Config\TurnosController@EliminarTurno')->name('config.EliminarTurno');
 ?>
