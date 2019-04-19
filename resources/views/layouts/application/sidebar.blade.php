@@ -48,7 +48,7 @@ $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta
 and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
 
 $id_empresa = \Auth::user()->id_empresa;
-$empresa = Empresa::where('id',$id_empresa)->first();
+$empresa = DB::table('empresa')->where('id', $id_empresa)->first();
 $version_empresa = $empresa->id_version_app;
 
 if($version_empresa == 0) {
