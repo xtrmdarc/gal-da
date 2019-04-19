@@ -51,6 +51,8 @@ $id_empresa = \Auth::user()->id_empresa;
 $empresa = DB::table('empresa')->where('id', $id_empresa)->first();
 $version_empresa = $empresa->id_version_app;
 
+$facturacion_e = $empresa->factura_e;
+
 if($version_empresa == 0) {
     $mi_version = "1.0.0.8419";
 } else {
@@ -114,7 +116,7 @@ if($version_empresa == 0) {
                         @if(Auth::user()->id_rol == '1')
                             <li><a href="/informes"> <i class="fa fa-table"></i><span class="hide-menu"> Informes </span></a></li>
                         @endif
-                        @if(Auth::user()->id_rol == '1' && session('datosempresa')->factura_e == 1)
+                        @if(Auth::user()->id_rol == '1' && $facturacion_e == 1)
                             <li id="sb_comprobantes_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Comprobantes</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="/comprobantes/factura">Facturas</a></li>
