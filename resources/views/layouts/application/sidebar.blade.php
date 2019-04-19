@@ -47,7 +47,9 @@ switch ($fecha_mes) {
 $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
 and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
 
-$version_empresa = session('datosempresa')->id_version_app;
+$id_empresa = \Auth::user()->id_empresa;
+$empresa = Empresa::where('id',$id_empresa)->first();
+$version_empresa = $empresa->id_version_app;
 
 if($version_empresa == 0) {
     $mi_version = "1.0.0.8419";
