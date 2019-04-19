@@ -18,8 +18,11 @@ class ActualizacionMiddleware
     {
         $id_empresa = \Auth::user()->id_empresa;
 
+        $empresa = Empresa::where('id',$id_empresa)
+                            ->first();
+        dd($empresa->id_version_app);
         $version_empresa = session('datosempresa')->id_version_app;
-        dd($version_empresa);
+
         $version_app = DB::table('app_version')->orderBy('id_app_version', 'desc')->first();
 
         $v_actual = $version_app->id_app_version;
