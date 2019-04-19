@@ -12,6 +12,13 @@ use function GuzzleHttp\json_decode;
 class NotasController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('afterRegister');
+        $this->middleware('userRol');
+        $this->middleware('vActualizacion');
+    }
     public function indexCredito()
     {
         

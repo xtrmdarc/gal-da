@@ -15,6 +15,7 @@ class FPagoController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('vActualizacion');
     }
     public function index()
     {

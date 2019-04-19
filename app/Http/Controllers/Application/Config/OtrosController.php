@@ -16,6 +16,7 @@ class OtrosController extends Controller
         $this->middleware('auth');
         $this->middleware('afterRegister');
         $this->middleware('userRol');
+        $this->middleware('vActualizacion');
     }
     public function index()
     {   

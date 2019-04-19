@@ -16,6 +16,7 @@ class TableroController extends Controller
         $this->middleware('afterRegister');
         $this->middleware('userRol');
         $this->middleware('BasicFree');
+        $this->middleware('vActualizacion');
     }
 
     public function index(){

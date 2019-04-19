@@ -15,6 +15,12 @@ class SubscriptionController extends Controller
 {
     private $SECRET_KEY = "sk_test_asQalOKDq7la1gKr";
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('afterRegister');
+        $this->middleware('vActualizacion');
+    }
     public function upgradeShow(){
         return view('auth.subscription');
     }

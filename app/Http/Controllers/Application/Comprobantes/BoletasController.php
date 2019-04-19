@@ -10,6 +10,13 @@ use App\Models\EFacturacion;
 class BoletasController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('afterRegister');
+        $this->middleware('userRol');
+        $this->middleware('vActualizacion');
+    }
     public function index(){
         
         $tipos_doc = DB::table('tm_tipo_doc')
