@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\TmVentum;
+use App\Http\Controllers\Application\AppController;
 
 class TableroFController extends Controller
 {
@@ -15,6 +16,7 @@ class TableroFController extends Controller
         $this->middleware('afterRegister');
         $this->middleware('userRol');
         $this->middleware('BasicFree');
+        $this->middleware('vActualizacion');
     }
     public function index(){
 

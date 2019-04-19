@@ -16,7 +16,8 @@ class Empresa extends Model
         'telefono',
         'moneda',
         'igv',
-        'id_pais'
+        'id_pais',
+        'id_version_app'
     ];
 
     public function users()

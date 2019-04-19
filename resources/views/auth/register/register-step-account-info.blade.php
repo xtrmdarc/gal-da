@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Dni</label>
-                                    <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }} validanumericos" name="dni" value="{{ old('dni') }}"  maxlength="8" required autofocus placeholder="Dni">
+                                    <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ old('dni') }}"  maxlength="15" required autofocus placeholder="Dni">
 
                                     @if ($errors->has('dni'))
                                         <span class="invalid-feedback">

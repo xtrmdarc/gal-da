@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'afterRegister' => \App\Http\Middleware\Register\RegisterMiddleware::class,
         'userRol' => \App\Http\Middleware\UsuarioRol\UsuarioRolMiddleware::class,
         'BasicFree' => \App\Http\Middleware\CambioDePlan\BasicFreeMiddleware::class,
+        'vActualizacion' => \App\Http\Middleware\Versiones\ActualizacionMiddleware::class,
     ];
 }

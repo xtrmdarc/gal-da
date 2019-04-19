@@ -50,8 +50,12 @@ class AuthController extends Controller
                 return view('auth.register.register-step-account');
             }
         }else {
+            $version_app = DB::table('app_version')->orderBy('id_app_version', 'desc')->first();
+            $v_actual = $version_app->id_app_version;
+
             $empresa = Empresa::create([
-                'nombre_empresa' => $post['name_business']
+                'nombre_empresa' => $post['name_business'],
+                'id_version_app' => $v_actual
             ]);
 
             $statement = DB::select("SHOW TABLE STATUS LIKE 'empresa'");
@@ -74,6 +78,7 @@ class AuthController extends Controller
                 'verifyToken' => Str::random(40),
                 'id_sucursal' => $sucursal_id,
                 'id_empresa' => $empresa_id,
+                'plan_estado' => '1',
             ]);
 
             $statement = DB::select("SHOW TABLE STATUS LIKE 'tm_usuario'");
