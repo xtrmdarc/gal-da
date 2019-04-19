@@ -16,7 +16,7 @@ class ActualizacionMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $id_empresa = session('datosempresa')->id;
+        $id_empresa = \Auth::user()->id_empresa;
 
         $version_empresa = session('datosempresa')->id_version_app;
         $version_app = DB::table('app_version')->orderBy('id_app_version', 'desc')->first();
