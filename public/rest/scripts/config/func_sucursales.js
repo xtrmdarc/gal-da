@@ -45,6 +45,7 @@ $(function() {
                     if(data.cant_sucursal >= limite_sucursal){
                         $('#limite_sucursales_txt').css('display','block');
                         $('#btn-nueva-sucursal').css('display','none');
+                        
                     }
                     if(data.cod == 0){
                         toastr.warning('Advertencia, Datos duplicados.');
@@ -53,7 +54,7 @@ $(function() {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
                         toastr.success('Datos registrados, correctamente.');
-                        $('#limite_sucursales_txt').text(data.cant_sucursal);   
+                        $('#sucursales_count').text(data.cant_sucursal) ;
                     } else if(data.cod == 2) {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
