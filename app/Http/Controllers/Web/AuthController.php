@@ -27,7 +27,6 @@ class AuthController extends Controller
     public function __construct()     {         
         $this->middleware('afterRegister');
         $this->middleware('auth', ['only' => ['show_account_info_v', 'store_account_info','show_account_business_v','store_account_business','verifyEmailFirst']]);
-        $this->middleware('vActualizacion');
     }
 
     public function show_account_v($email=null) {
