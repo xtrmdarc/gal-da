@@ -15,7 +15,7 @@ class TurnosController extends Controller
         $this->middleware('auth');
         $this->middleware('afterRegister');
         $this->middleware('userRol');
-        $this->middleware('vActualizacion');s
+        $this->middleware('vActualizacion');
     }
     public function index(){
 
