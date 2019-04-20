@@ -18,9 +18,9 @@
                             </h5>
                         @else
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios 
-                                <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
+                                {{-- <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
                                     <span class="tooltiptext-g">El usuario propietario también es considerado como usuario del sistema</span>
-                                </div>
+                                </div> --}}
                             </h5>
                         @endif
                         

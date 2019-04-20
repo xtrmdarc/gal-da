@@ -100,7 +100,6 @@ class SucursalController extends Controller
                 'nombre_sucursal' => $post['nomb_sucursal'],
                 'direccion' => $post['direccion_sucursal'],
                 'telefono' => $post['telefono_sucursal'],
-                'moneda' => $post['moneda_sucursal'],
                 'estado' => $post['estado_sucursal'],
                 'plan_estado' => $plan_estado,
             ]);
