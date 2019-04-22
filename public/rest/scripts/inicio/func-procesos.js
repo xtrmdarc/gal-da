@@ -813,8 +813,9 @@ $("#frm-facturar").submit(function(){
 
         var cod = $('#cod_pedido').val();
         var index_por_cuenta = $('#index').val();
+        var peticion_error = 0;
         $.ajax({
-            //dataType: 'JSON',
+            dataType: 'JSON',
             type: 'POST',
             url: '/inicio/RegistrarVenta',
             dataSrc:'',   
@@ -824,11 +825,22 @@ $("#frm-facturar").submit(function(){
             data: venta,
             success: function (r) {
                 //console.log(r);
+
+                
+                console.log(r.tipo);
                 if(r.tipo != undefined ){
                     //console.log('entro hasta aqui tipo '+ r.tipo);
                     $('#mdl-validar-limite-venta').modal('show'); return;
                 }
                 else {
+                    // console.log('entro aqui antes del if cod');
+                    if(r.cod == 0)
+                    {
+                        toastr.warning(r.mensaje);
+                        peticion_error = 1;
+                        return;
+                    }
+
                     if(1 == $('#tipoEmision').val()){
                         //console.log('entro hasta aqui');
                         if(r) var ini = window.location.replace('/inicio');
@@ -851,7 +863,9 @@ $("#frm-facturar").submit(function(){
                 console.log(errorThrown + ' ' + textStatus);
             }   
         }).done(function(){
+            if(peticion_error == 0)
             var ini = window.open('/inicio/Imprimir/'+   index_por_cuenta,'_blank');
+            peticion_error = 0;
         });
         return false;
     }

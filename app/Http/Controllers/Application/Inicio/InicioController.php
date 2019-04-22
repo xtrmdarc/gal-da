@@ -551,7 +551,22 @@ class InicioController extends Controller
         if($respuesta_validado != null){
             return $respuesta_validado;
         }
+
         $data = $request->all();
+
+        // validar si cliente es empresarial
+        
+        if($data['tipo_doc'] == 2)
+        {
+            if(!self::EsClienteEmpresarial($data['cliente_id']))
+            {
+                $response->cod = 0;
+                $response->mensaje = 'Debe elegir un cliente empresa para emitir una factura';
+                return json_encode($response);
+            }
+        }
+        
+        
         // SETEAR SI ESTA ACTIVADO LA FACTURACION ELECTRONICA. LE QUEDAN CPE's ? 
 
         if($data['cod_pedido'] != ''){
@@ -660,6 +675,10 @@ class InicioController extends Controller
                 //Broadcastear venta de pedido
                 $ordenVendida = TmPedido::find($data['cod_pedido']);
                 event(new VentaEfectuada($ordenVendida));
+
+                $response->cod = 1;
+                // $response->mensaje = 'Debe elegir un cliente empresa para emitir una factura';
+                return json_encode($response);
 
             } catch (Exception $e) 
             {
@@ -1110,5 +1129,11 @@ class InicioController extends Controller
         $data = $request->all();
         session(['id_apc'=>$data['id_apc']]);
         return 1 ;
+    }
+
+    public function EsClienteEmpresarial($id_cliente)
+    {
+        $cliente = DB::table('tm_cliente')->where('id_cliente',$id_cliente)->first();
+        return $cliente->es_empresa;
     }
 }
