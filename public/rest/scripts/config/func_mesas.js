@@ -279,7 +279,7 @@ $(function() {
                     listarSalones();
                     listarMesas(mesas.id_catg);
                     toastr.success('Datos registrados, correctamente.');
-                    $('#mesas_count').text(data.cant_mesas);   
+                    $('#mesas_count').text(data.cant_mesas);
                 } else if(data.cod == 2) {
                     $('#mdl-mesa').modal('hide');
                     listarSalones();

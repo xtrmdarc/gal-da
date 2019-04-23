@@ -175,10 +175,9 @@ class MesaController extends Controller
             foreach($consulta as $k)
             {
                 $response->cod = $k->cod;
-
             }
         }
-        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesa;
+        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesa;
         return json_encode($response);
     }
 
@@ -230,7 +229,7 @@ class MesaController extends Controller
         {
             $response->cod  = $k->cod;
         }
-        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesa;
+        $response->cant_mesas = (DB::select('SELECT count(*) as cant_mesa FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesa;
         return json_encode($response);
     }
 
