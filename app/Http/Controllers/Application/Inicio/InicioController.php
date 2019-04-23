@@ -617,13 +617,14 @@ class InicioController extends Controller
                         number_format($data['total_pedido']/(1+$igv), 2, ".", ""), // MtoVenta
                         number_format($data['total_pedido'],2, ".", ""), // total //falta guardar MtoImpVenta
                         session('id_empresa'), //
-                        $comprobante->electronico //factura electronicamente
+                        $comprobante->electronico, //factura electronicamente
+                        session('id_sucursal')
                     );
                 
             
                 
                 
-                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
+                $st = DB::select('call usp_restEmitirVenta( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$arrayParam);
 
                 //Cod es el id de la venta realizada.
                 foreach($st as $s){
