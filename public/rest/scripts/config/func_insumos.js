@@ -5,7 +5,7 @@ $(function() {
     listarSucursales();
     comboCategoria();
     mensaje();
-    ActualizarCategoriaAreap(null,null);
+    //ActualizarCategoriaAreap(null,null);
 });
 
 /* Mostrar datos en la lista categorias */

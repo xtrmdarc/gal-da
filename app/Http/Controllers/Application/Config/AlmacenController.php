@@ -31,7 +31,9 @@ class AlmacenController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
-                                   ->where('id', session('id_sucursal'))->get();
+                                   ->where('id', session('id_sucursal'))
+                                   ->where('estado', 'a')->get();
+
         $user_sucursal_free = Sucursal::where('id_empresa', $user_AdminSucursal)->first();
         $user_sucursal_plan = Sucursal::where('id_empresa', $user_AdminSucursal)
                                       ->where('id', session('id_sucursal'))->first();

@@ -77,7 +77,10 @@
                                 <div class="form-group">
                                     <label class="control-label">Sucursal</label>
                                     <div class="input-group">
-                                        <input type="text" id="nombre_sucursal" class="form-control" style="display:none" readonly />
+                                        @foreach($user_sucursal as $r)
+                                            <input type="text" id="id_sucursal" class="form-control" value="{{$r->nombre_sucursal}}" readonly />
+                                        @endforeach
+                                        {{--/*
                                         <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
                                             @if(Auth::user()->id_usu != null)
                                                 <option value="">
@@ -93,6 +96,7 @@
                                                         @endforeach
                                                     </optgroup>
                                         </select>
+                                        */--}}
                                     </div>
                                 </div>
                             </div>

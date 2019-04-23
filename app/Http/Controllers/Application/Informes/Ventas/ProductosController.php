@@ -37,9 +37,11 @@ class ProductosController extends Controller
 
         $ifecha = date('Y-m-d',strtotime($post['ifecha']));
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
-        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total
-                           FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? GROUP BY dp.id_prod",
-            array($ifecha,$ffecha));
+        $sucu_filter = $request->input('sucu_filter');
+
+        $stm = DB::Select("SELECT dp.id_prod,SUM(dp.cantidad) AS cantidad,dp.precio,IFNULL((SUM(dp.cantidad)*precio),0) AS total,s.id as id_sucursal,s.nombre_sucursal as nombre_sucursal
+                           FROM tm_detalle_venta AS dp INNER JOIN tm_venta AS v ON dp.id_venta = v.id_venta left join sucursal as s on v.id_usu = s.id_usu WHERE v.fecha_venta >= ? AND v.fecha_venta <= ? AND s.id like ? and v.id_empresa = ? GROUP BY dp.id_prod",
+            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
         {

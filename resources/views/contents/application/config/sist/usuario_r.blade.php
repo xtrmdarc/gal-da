@@ -92,10 +92,21 @@
                                         </div>
                                         
                                         
-                                        <div class="col-lg-12  sides_padding15" id="email_div">
+                                        <div class="col-lg-6  sides_padding15" id="email_div">
                                             <div class="form-group">
                                                 <label class="control-label">Email</label>
                                                 <input type="email" name="email" id="email" value="" class="form-control" placeholder="Ingrese email" autocomplete="off" required="required" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6  sides_padding15">
+                                            <div class="form-group">
+                                                <label class="control-label">Sucursal</label>
+                                                <div class="input-group">
+                                                    @foreach($user_sucursal as $r)
+                                                        <input type="text" class="form-control" value="{{$r->nombre_sucursal}}" readonly />
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                         

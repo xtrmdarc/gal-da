@@ -95,21 +95,9 @@
                                     <div class="form-group">
                                         <label class="control-label">Sucursal</label>
                                         <div class="input-group">
-                                            <select name="id_sucursal" id="id_sucursal" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required>
-                                                @if(Auth::user()->id_usu != null)
-                                                    <option value="">
-                                                        Seleccionar
-                                                    </option>
-                                                @else
-                                                    echo '<option value="" selected>Seleccionar</option>';
-                                                    echo '<optgroup label="Seleccionar">';
-                                                        @endif
-                                                        <optgroup label="Seleccionar">
-                                                            @foreach($user_sucursal as $r)
-                                                                <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
-                                                            @endforeach
-                                                        </optgroup>
-                                            </select>
+                                            @foreach($user_sucursal as $r)
+                                                <input type="text" class="form-control" value="{{$r->nombre_sucursal}}" readonly />
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

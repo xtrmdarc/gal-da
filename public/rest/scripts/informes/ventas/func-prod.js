@@ -22,6 +22,10 @@ $(function() {
         $('#start').data("DateTimePicker").maxDate(e.date);
         listar();
     });
+
+    $('#sucu_filter').change( function() {
+        listar();
+    });
 });
 
 var listar = function(){
@@ -29,7 +33,8 @@ var listar = function(){
     var moneda = $("#moneda").val();
 	ifecha = $("#start").val();
     ffecha = $("#end").val();
-
+    sucu_filter = $("#sucu_filter").selectpicker('val');
+    
     function filterGlobal () {
     $('#table').DataTable().search( 
         $('#global_filter').val()
@@ -73,7 +78,8 @@ var listar = function(){
 			"url": "/informesDatosProductos",
 			"data": {
                 ifecha: ifecha,
-                ffecha: ffecha
+                ffecha: ffecha,
+                sucu_filter: sucu_filter
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

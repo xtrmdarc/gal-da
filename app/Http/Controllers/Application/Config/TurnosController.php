@@ -22,7 +22,8 @@ class TurnosController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
-                                 ->where('id', session('id_sucursal'))->get();
+                                 ->where('id', session('id_sucursal'))
+                                 ->where('estado', 'a')->get();
         $viewdata['user_sucursal'] = $user_sucursal;
 
         $data = [
@@ -55,7 +56,7 @@ class TurnosController extends Controller
             $h_inicio = $post['h_inicio_t'];
             $h_fin = $post['h_fin_t'];
             $idTurno = $cod;
-            $idSucursal = $post['id_sucursal'];
+            $idSucursal = session('id_sucursal');
 
             $sql = DB::update("UPDATE tm_turno SET
 						descripcion  = ?,
@@ -69,7 +70,7 @@ class TurnosController extends Controller
             $nombre = $post['nomb_turno'];
             $h_inicio = $post['h_inicio_t'];
             $h_fin = $post['h_fin_t'];
-            $idSucursal = $post['id_sucursal'];
+            $idSucursal = session('id_sucursal');
 
             $consulta_create = TmTurno::create([
                 'descripcion' => $nombre,

@@ -83,7 +83,9 @@ class UsuarioController extends Controller
 
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
-        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)->get();
+        $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                 ->where('id', session('id_sucursal'))
+                                 ->where('estado', 'a')->get();
 
         $area_produccion = TmAreaProd::where('id_usu',$id_usu)->get();
         $empresa = Empresa::find($user_AdminSucursal);
@@ -258,7 +260,9 @@ class UsuarioController extends Controller
             $viewdata['user_areaProd'] = $area_produccion;
             $viewdata['user_rol']= $user_rol;
 
-            $user_sucursal = Sucursal::where('id_empresa', \Auth::user()->id_empresa)->get();
+            $user_sucursal = Sucursal::where('id_empresa', \Auth::user()->id_empresa)
+                                     ->where('id', session('id_sucursal'))
+                                     ->where('estado', 'a')->get();
             $viewdata['user_sucursal']= $user_sucursal;
 
             foreach($area_produccion as $a) {

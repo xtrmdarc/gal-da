@@ -27,6 +27,7 @@ class MesaController extends Controller
         //$cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_sucursal = ?',[session('id_sucursal')])[0])->cant_mesas;
 
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                 ->where('id', session('id_sucursal'))
                                  ->where('estado', 'a')->get();
         $cant_mesas_actual = (DB::select('SELECT count(*) as cant_mesas FROM tm_mesa WHERE id_empresa = ?',[session('id_empresa')])[0])->cant_mesas;
 
@@ -93,7 +94,7 @@ class MesaController extends Controller
             $desc = $post['desc_sala'];
             $est = $post['est_salon'];
             $idCatg = $post['cod_sala'];
-            $idSucursal = $post['sucursal_sala'];
+            $idSucursal = session('id_sucursal');
 
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est, :idCatg,:idUsu, :_idSucursal, :_planEstado, :_idEmpresa);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idCatg' =>$idCatg,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
@@ -107,7 +108,7 @@ class MesaController extends Controller
             $flag = 1;
             $desc = $post['desc_sala'];
             $est = $post['est_salon'];
-            $idSucursal = $post['sucursal_sala'];
+            $idSucursal = session('id_sucursal');
 
             $consulta = DB::Select("call usp_configSalones_g( :flag, :desc, :est,@a, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa);"
                 ,array(':flag' => $flag,':desc' => $desc,':est' => $est,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));

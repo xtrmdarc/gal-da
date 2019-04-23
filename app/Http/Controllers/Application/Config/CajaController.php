@@ -21,6 +21,7 @@ class CajaController extends Controller
         $viewdata = [];
         $user_AdminSucursal = auth()->user()->id_empresa;
         $user_sucursal = Sucursal::where('id_empresa', $user_AdminSucursal)
+                                 ->where('id', session('id_sucursal'))
                                  ->where('estado', 'a')->get();
         $viewdata['user_sucursal'] = $user_sucursal;
         $data = [
@@ -80,7 +81,7 @@ class CajaController extends Controller
             $nombre = $post['nomb_caja'];
             $estado = $post['estado_caja'];
             $idCaja = $post['cod_caja'];
-            $idSucursal = $post['id_sucursal'];
+            $idSucursal = session('id_sucursal');
             if($estado =='i'){
                 $caja_ocupada = DB::table('tm_aper_cierre')->where('id_caja',$idCaja)->whereNull('fecha_cierre')->exists();
                 if($caja_ocupada == true){
@@ -99,9 +100,7 @@ class CajaController extends Controller
             $flag = 1;
             $nombre = $post['nomb_caja'];
             $estado = $post['estado_caja'];
-            $idSucursal = $post['id_sucursal'];
-
-
+            $idSucursal = session('id_sucursal');
 
             $consulta_create = DB::select('call usp_configCajas_g( :flag, :nombre, :estado, @a, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa)'
                 ,array(':flag' => $flag,':nombre' => $nombre,':estado' => $estado,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
