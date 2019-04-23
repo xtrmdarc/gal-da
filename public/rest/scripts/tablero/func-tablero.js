@@ -5,13 +5,13 @@ $(function() {
     $('#tablero').addClass("active");
 
     $('#start').datetimepicker({
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
     $('#end').datetimepicker({
         useCurrent: false,
-        format: 'DD-MM-YYYY LT',
+        format: 'DD-MM-YYYY',
         locale: 'es-do'
     });
 
@@ -65,7 +65,7 @@ $.ajax({
         if(item['data6'][0].total_v != '0.00'){
         var totalVentasMesas = (parseFloat(item['data6'][0].total_v) / parseFloat(item['data5'][0].total));
         } else { var totalVentasMesas = 0; var totalVentasMostrador = 0; }
-        if(item['data7'][0].total_v != '0.00'){
+        if(item['data7'][0].total_v != '0.00' || parseFloat(item['data8'][0].total) != 0){
         var totalVentasMostrador = (parseFloat(item['data7'][0].total_v) / parseFloat(item['data8'][0].total));
         } else { var totalVentasMostrador = 0; }
         $('.efe').text(moneda+" "+item['data1'][0].efe);

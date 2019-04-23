@@ -828,7 +828,8 @@ class InicioController extends Controller
                                                     'direccion'=> $data['direccion'],
                                                     'id_sucursal'=> session('id_sucursal'),
                                                     'id_empresa'=> session('id_empresa'),
-                                                    'es_empresa' => $data['tipoCliente']==1?0:1
+                                                    'es_empresa' => $data['tipoCliente']==1?0:1,
+                                                    'id_usu' => \Auth::user()->id_usu
                                                 ]);
                         
             $response->id_cliente = $id_cliente;

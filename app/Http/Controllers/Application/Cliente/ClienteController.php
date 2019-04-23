@@ -92,14 +92,17 @@ class ClienteController extends Controller
                     'direccion' => $data['direccion'],
                     'es_empresa' => $data['tipo_cliente']==1?0:1
                 );
-                TmCliente::where('id_cliente',$data['id_cliente'])
+                DB::table('tm_cliente')->where('id_cliente',$data['id_cliente'])
                         ->update($arrayParam);
 
-                $notification = [ 
-                    'message' =>'Datos modificados, correctamente.',
-                    'alert-type' => 'success'
-                ];
-               return redirect('/cliente')->with($notification);
+                // $notification = [ 
+                //     'message' =>'Cliente registrado, correctamente.',
+                //     'alert-type' => 'success'
+                // ];
+                $response->code = 1;
+                $response->message = 'Cliente modificado, correctamente';
+                $response->alert_type = 'success';
+                return json_encode($response);
             } else {
 
                 $post = $request->all();
@@ -119,7 +122,7 @@ class ClienteController extends Controller
                 }
                 // if($idRol == 1) {
                     
-                $nuevo_cliente = TmCliente::create([
+                $nuevo_cliente = DB::table('tm_cliente')->insertGetId([
                     'dni' => $post['dni'],
                     'ruc' => $post['ruc'],
                     'ape_paterno' => $post['ape_paterno'],
@@ -132,6 +135,7 @@ class ClienteController extends Controller
                     'direccion' => $post['direccion'],
                     'id_usu' => $idUsu,
                     'id_empresa' => $idEmpresa,
+                    'es_empresa' => $data['tipo_cliente']==1?0:1
                 ]);
                 // }else if($idRol == 2){
                    

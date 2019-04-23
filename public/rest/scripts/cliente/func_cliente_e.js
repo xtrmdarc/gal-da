@@ -143,12 +143,14 @@ $('#form-guardar-cliente').on('submit',function(e){
     let form = $(e.target);
     let btn = $('#btn-guardar-cliente');
     btn.prop('disabled',true);
+
+
     $.ajax({
         type:'POST',
         dataType: 'JSON',
         url: form.attr('action'),
-        data:form.serialize(),
-        "headers":{
+        data: form.serialize(),
+        headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success:function(response)

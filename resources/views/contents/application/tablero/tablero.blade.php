@@ -4,8 +4,8 @@
 @php
     date_default_timezone_set('America/Lima');
     setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
-    $fecha = date("d-m-Y h:i A");
-    $fechaa = date("d-m-Y 07:00");
+    $fecha = date("d-m-Y");
+    $fechaa = date("d-m-Y");
 @endphp
 
 <input type="hidden" id="moneda" value="{{session('moneda')}}"/>
@@ -24,9 +24,9 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-r" name="start" id="start" value="<?php echo $fechaa,' AM'; ?>"/>
+                                    <input type="text" class="form-control bg-r DatePicker text-center" style="cursor:pointer" name="start" id="start" value="{{$fechaa}} "/>
                                     <span class="input-group-addon">al</span>
-                                    <input type="text" class="form-control bg-r" name="end" id="end" value="<?php echo $fecha; ?>" />
+                                    <input type="text" class="form-control bg-r DatePicker text-center" style="cursor:pointer" name="end" id="end" value="{{$fecha}} " />
                                 </div>
                             </div>
                         </div>
@@ -263,7 +263,7 @@
                 <div class="ibox-content">
                     <h1 class="no-margins t_most"></h1>
                     <div class="stat-percent font-bold text-success">100% <i class="fa fa-bolt"></i></div>
-                    <small>Pedidos(s) atendido(s)</small>
+                    <small>Pedidos(s) atendido(s) mostrador</small>
                 </div>
             </div>
         </div>

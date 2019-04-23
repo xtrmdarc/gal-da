@@ -37,8 +37,8 @@ class TableroController extends Controller
     {
         $_POST = $request->all();
 
-        $ifecha = date('Y-m-d H:i:s',strtotime($_POST['ifecha']));
-        $ffecha = date('Y-m-d H:i:s',strtotime($_POST['ffecha']));
+        $ifecha = date('Y-m-d',strtotime($_POST['ifecha']));
+        $ffecha = date('Y-m-d',strtotime($_POST['ffecha']));
 
         $fechas = array($ifecha,$ffecha,session('id_sucursal'));
         // v_ventas_con
@@ -50,43 +50,43 @@ class TableroController extends Controller
         // tm_pedido
         // tm_ingresos_adm
         
-        $vt = DB::select("SELECT IFNULL(SUM(pago_efe),0) AS efe, IFNULL(SUM(pago_tar),0) AS tar, IFNULL(SUM(descu),0) AS des, IFNULL(SUM(total),0) AS total_v FROM v_ventas_con WHERE (fec_ven >= ? AND fec_ven <= ?) AND id_sucursal = ? ",$fechas);
+        $vt = DB::select("SELECT IFNULL(SUM(pago_efe),0) AS efe, IFNULL(SUM(pago_tar),0) AS tar, IFNULL(SUM(descu),0) AS des, IFNULL(SUM(total),0) AS total_v FROM v_ventas_con WHERE (date(fec_ven) >= ? AND date(fec_ven) <= ?) AND id_sucursal = ? ",$fechas);
        
         
-        $g =  DB::select("SELECT IFNULL(SUM(importe),0) AS tgas FROM v_gastosadm WHERE (fecha_re >= ? AND fecha_re <= ?) AND estado = 'a' AND id_sucursal =?",$fechas);
-     //   $g = $g[0];
+        $g =  DB::select("SELECT IFNULL(SUM(importe),0) AS tgas FROM v_gastosadm WHERE (date(fecha_re) >= ? AND date(fecha_re) <= ?) AND estado = 'a' AND id_sucursal =?",$fechas);
+        //   $g = $g[0];
 
-        $m =  DB::select("SELECT IFNULL(COUNT(dp.id_pedido),0) AS tped,u.nombres,u.ape_paterno,u.ape_materno FROM tm_detalle_pedido AS dp INNER JOIN tm_pedido_mesa AS pm ON dp.id_pedido = pm.id_pedido INNER JOIN tm_pedido AS p ON dp.id_pedido = p.id_pedido INNER JOIN tm_usuario AS u ON pm.id_mozo = u.id_usu WHERE dp.estado <> 'i' AND p.estado = 'c' AND (p.fecha_pedido >= ? AND p.fecha_pedido <= ?) AND p.id_sucursal = ? GROUP BY pm.id_mozo ORDER BY tped DESC LIMIT 1",$fechas);
-       // $m = $m[0];
+        $m =  DB::select("SELECT IFNULL(COUNT(dp.id_pedido),0) AS tped,u.nombres,u.ape_paterno,u.ape_materno FROM tm_detalle_pedido AS dp INNER JOIN tm_pedido_mesa AS pm ON dp.id_pedido = pm.id_pedido INNER JOIN tm_pedido AS p ON dp.id_pedido = p.id_pedido INNER JOIN tm_usuario AS u ON pm.id_mozo = u.id_usu WHERE dp.estado <> 'i' AND p.estado = 'c' AND (date(p.fecha_pedido) >= ? AND date(p.fecha_pedido) <= ?) AND p.id_sucursal = ? GROUP BY pm.id_mozo ORDER BY tped DESC LIMIT 1",$fechas);
+        // $m = $m[0];
        
-        $tp = DB::select("SELECT IFNULL(COUNT(dp.id_pedido),0) AS toped FROM tm_detalle_pedido AS dp INNER JOIN tm_pedido AS p ON dp.id_pedido = p.id_pedido WHERE dp.estado <> 'i' AND p.estado = 'c' AND (p.fecha_pedido >= ? AND p.fecha_pedido <= ?) AND p.id_sucursal = ?",$fechas);
+        $tp = DB::select("SELECT IFNULL(COUNT(dp.id_pedido),0) AS toped FROM tm_detalle_pedido AS dp INNER JOIN tm_pedido AS p ON dp.id_pedido = p.id_pedido WHERE dp.estado <> 'i' AND p.estado = 'c' AND (date(p.fecha_pedido) >= ? AND date(p.fecha_pedido) <= ?) AND p.id_sucursal = ?",$fechas);
 
         
-        $me = DB::select("SELECT IFNULL(COUNT(pm.id_pedido),0) AS total FROM tm_pedido_mesa AS pm INNER JOIN tm_pedido as p ON pm.id_pedido = p.id_pedido WHERE p.estado = 'c' AND (p.fecha_pedido >= ? AND p.fecha_pedido <= ?) AND p.id_sucursal = ?",$fechas);
+        $me = DB::select("SELECT IFNULL(COUNT(pm.id_pedido),0) AS total FROM tm_pedido_mesa AS pm INNER JOIN tm_pedido as p ON pm.id_pedido = p.id_pedido WHERE p.estado = 'c' AND (date(p.fecha_pedido) >= ? AND date(p.fecha_pedido) <= ?) AND p.id_sucursal = ?",$fechas);
 
 
-        $vm = DB::select("SELECT IFNULL(SUM(v.total - v.descu),0) AS total_v FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND id_sucursal = ?",$fechas);
+        $vm = DB::select("SELECT IFNULL(SUM(v.total - v.descu),0) AS total_v FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (date(v.fec_ven) >= ? AND date(v.fec_ven) <= ?) AND id_sucursal = ?",$fechas);
 
 
-        $vmo = DB::select("SELECT IFNULL(SUM(v.total - v.descu),0) AS total_v FROM v_ventas_con AS v INNER JOIN tm_pedido_llevar AS pm ON v.id_ped = pm.id_pedido WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND id_sucursal = ?",$fechas);
+        $vmo = DB::select("SELECT IFNULL(SUM(v.total - v.descu),0) AS total_v FROM v_ventas_con AS v INNER JOIN tm_pedido_llevar AS pm ON v.id_ped = pm.id_pedido WHERE (date(v.fec_ven) >= ? AND date(v.fec_ven) <= ?) AND id_sucursal = ?",$fechas);
 
 
-        $mo = DB::select("SELECT IFNULL(COUNT(pm.id_pedido),0) AS total FROM tm_pedido_llevar AS pm INNER JOIN tm_pedido as p ON pm.id_pedido = p.id_pedido WHERE p.estado = 'c' AND (p.fecha_pedido >= ? AND p.fecha_pedido <= ?) AND p.id_sucursal = ?",$fechas);
+        $mo = DB::select("SELECT IFNULL(COUNT(pm.id_pedido),0) AS total FROM tm_pedido_llevar AS pm INNER JOIN tm_pedido as p ON pm.id_pedido = p.id_pedido WHERE p.estado = 'c' AND (date(p.fecha_pedido) >= ? AND date(p.fecha_pedido) <= ?) AND p.id_sucursal = ?",$fechas);
 
 
-        $pp = DB::select("SELECT vp.nombre_prod,vp.pres_prod,dv.precio,SUM(dv.cantidad) AS cantidad,COUNT(dv.id_venta) AS total FROM tm_detalle_venta AS dv INNER JOIN tm_venta AS v ON dv.id_venta = v.id_venta  INNER JOIN v_productos AS vp ON dv.id_prod = vp.id_pres INNER JOIN tm_pedido p ON v.id_pedido = p.id_pedido WHERE vp.id_tipo = 1 AND (v.fecha_venta >= ? AND v.fecha_venta <= ?) AND p.id_sucursal = ? GROUP BY dv.id_prod ORDER BY total DESC LIMIT 10",$fechas);
+        $pp = DB::select("SELECT vp.nombre_prod,vp.pres_prod,dv.precio,SUM(dv.cantidad) AS cantidad,COUNT(dv.id_venta) AS total FROM tm_detalle_venta AS dv INNER JOIN tm_venta AS v ON dv.id_venta = v.id_venta  INNER JOIN v_productos AS vp ON dv.id_prod = vp.id_pres INNER JOIN tm_pedido p ON v.id_pedido = p.id_pedido WHERE vp.id_tipo = 1 AND (date(v.fecha_venta) >= ? AND date(v.fecha_venta) <= ?) AND p.id_sucursal = ? GROUP BY dv.id_prod ORDER BY total DESC LIMIT 10",$fechas);
 
 
-        $ppp = DB::select("SELECT vp.nombre_prod,vp.pres_prod,dv.precio,SUM(dv.cantidad) AS cantidad,COUNT(dv.id_venta) AS total FROM tm_detalle_venta AS dv INNER JOIN tm_venta AS v ON dv.id_venta = v.id_venta INNER JOIN v_productos AS vp ON dv.id_prod = vp.id_pres INNER JOIN tm_pedido p ON v.id_pedido = p.id_pedido WHERE (v.fecha_venta >= ? AND v.fecha_venta <= ?) AND p.id_sucursal = ? GROUP BY dv.id_prod ORDER BY total DESC LIMIT 10",$fechas);
+        $ppp = DB::select("SELECT vp.nombre_prod,vp.pres_prod,dv.precio,SUM(dv.cantidad) AS cantidad,COUNT(dv.id_venta) AS total FROM tm_detalle_venta AS dv INNER JOIN tm_venta AS v ON dv.id_venta = v.id_venta INNER JOIN v_productos AS vp ON dv.id_prod = vp.id_pres INNER JOIN tm_pedido p ON v.id_pedido = p.id_pedido WHERE (date(v.fecha_venta) >= ? AND date(v.fecha_venta) <= ?) AND p.id_sucursal = ? GROUP BY dv.id_prod ORDER BY total DESC LIMIT 10",$fechas);
 
 
-        $ma = DB::select("SELECT COUNT(id_pedido) as total FROM tm_pedido WHERE (fecha_pedido >= ? AND fecha_pedido <= ?) AND id_tipo_pedido = 1 AND estado ='i' AND id_sucursal = ?",$fechas);
+        $ma = DB::select("SELECT COUNT(id_pedido) as total FROM tm_pedido WHERE (date(fecha_pedido) >= ? AND date(fecha_pedido) <= ?) AND id_tipo_pedido = 1 AND estado ='i' AND id_sucursal = ?",$fechas);
 
 
-        $moa = DB::select("SELECT COUNT(id_pedido) as total FROM tm_pedido WHERE (fecha_pedido >= ? AND fecha_pedido <= ?) AND id_tipo_pedido = 2 AND estado ='i' AND id_sucursal = ?",$fechas);
+        $moa = DB::select("SELECT COUNT(id_pedido) as total FROM tm_pedido WHERE (date(fecha_pedido) >= ? AND date(fecha_pedido) <= ?) AND id_tipo_pedido = 2 AND estado ='i' AND id_sucursal = ?",$fechas);
 
 
-        $i = DB::select("SELECT IFNULL(SUM(importe),0) AS ting FROM tm_ingresos_adm WHERE (fecha_reg >= ? AND fecha_reg <= ?) AND estado = 'a' AND id_sucursal = ?",$fechas);
+        $i = DB::select("SELECT IFNULL(SUM(importe),0) AS ting FROM tm_ingresos_adm WHERE (date(fecha_reg) >= ? AND date(fecha_reg) <= ?) AND estado = 'a' AND id_sucursal = ?",$fechas);
 
 
 
