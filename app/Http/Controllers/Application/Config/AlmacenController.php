@@ -147,8 +147,13 @@ class AlmacenController extends Controller
             $estado = $post['estado_area'];
             $idArea = $post['cod_area'];
 
+            $id_sucursal_alm = DB::select("SELECT id_sucursal FROM tm_almacen WHERE id_alm = ? and id_sucursal = ?",array($idAlm,session('id_sucursal')));
+            foreach($id_sucursal_alm as $k){
+                $id_sucursal_alm_d = $k->id_sucursal;
+            }
+
             $consulta_update = DB::Select("call usp_configAreasProd_g( :flag, :idAlm, :nombre, :estado, :idArea, :idUsu, :_idSucursal, :_planEstado, :_idEmpresa);",
-                array(':flag' => $flag,':idAlm' =>$idAlm,':nombre' =>$nombre,':estado' =>$estado,':idArea' =>$idArea,':idUsu' => $id_usu,':_idSucursal' => $idSucursal,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
+                array(':flag' => $flag,':idAlm' =>$idAlm,':nombre' =>$nombre,':estado' =>$estado,':idArea' =>$idArea,':idUsu' => $id_usu,':_idSucursal' => $id_sucursal_alm_d,':_planEstado' => $plan_estado,':_idEmpresa' => session('id_empresa')));
             $array = [];
             foreach($consulta_update as $k)
             {
