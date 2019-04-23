@@ -41,7 +41,7 @@ class FPagoController extends Controller
 
         $tpag = $post['tpag'];
         $stm = DB::Select("SELECT id_ped,id_tpag,pago_efe,pago_tar,fec_ven,desc_td,CONCAT(ser_doc,'-',nro_doc) AS numero,IFNULL(SUM(pago_efe+pago_tar),0) AS total,id_cli
-                           FROM v_ventas_con WHERE (fec_ven >= ? AND fec_ven <= ?) AND id_tpag like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY id_ven",
+                           FROM v_ventas_con WHERE (date(fec_ven) >= ? AND date(fec_ven) <= ?) AND id_tpag like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY id_ven",
             array($ifecha,$ffecha,$tpag,$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
@@ -67,7 +67,7 @@ class FPagoController extends Controller
             $tpag = $request->input('tipo_p');
 
             $stm = DB::Select("SELECT fec_ven as Fecha_de_Venta,desc_td as Documento,CONCAT(ser_doc,'-',nro_doc) AS Num_doc,id_tpag as Tipo_de_pago,pago_efe as Pago_efectivo,pago_tar as Pago_tarjeta,IFNULL(SUM(pago_efe+pago_tar),0) AS Total_Venta
-                               FROM v_ventas_con WHERE (fec_ven >= ? AND fec_ven <= ?) AND id_tpag like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY id_ven",
+                               FROM v_ventas_con WHERE (date(fec_ven) >= ? AND date(fec_ven) <= ?) AND id_tpag like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY id_ven",
                 array($start,$end,$tpag,$sucu_filter,session('id_empresa')));
 
             ob_end_clean();

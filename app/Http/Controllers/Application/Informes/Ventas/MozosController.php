@@ -45,7 +45,7 @@ class MozosController extends Controller
         $cmozo = $post['cmozo'];
 
         $stm = DB::Select("SELECT v.fec_ven,v.desc_td,CONCAT(v.ser_doc,'-',v.nro_doc) AS numero,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total,v.id_cli,pm.id_mozo
-                           FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY v.id_ven",
+                           FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (date(v.fec_ven) >= ? AND date(v.fec_ven) <= ?) AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY v.id_ven",
             array($ifecha,$ffecha,$cmozo,$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
@@ -55,7 +55,7 @@ class MozosController extends Controller
             $stm[$k]->Cliente = DB::Select("SELECT nombre FROM v_clientes WHERE id_cliente = ".$d->id_cli)[0];
         }
         $stmm = DB::Select("SELECT COUNT(v.id_ven) AS cantidad, IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS total
-                            FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE v.fec_ven >= ? AND v.fec_ven <= ? AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ?",
+                            FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE date(v.fec_ven) >= ? AND date(v.fec_ven) <= ? AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ?",
             array($ifecha,$ffecha,$cmozo,$sucu_filter,session('id_empresa')));
 
         $data = array("dato" => $stmm,"data" => $stm);
@@ -77,7 +77,7 @@ class MozosController extends Controller
             $cmozo = $request->input('mozo');
 
             $stm = DB::Select("SELECT v.fec_ven as Fecha_Venta,v.desc_td as Documento,CONCAT(v.ser_doc,'-',v.nro_doc) AS Numero_Documento,IFNULL(SUM(v.pago_efe+v.pago_tar),0) AS Monto_total
-                               FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (v.fec_ven >= ? AND v.fec_ven <= ?) AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY v.id_ven",
+                               FROM v_ventas_con AS v INNER JOIN tm_pedido_mesa AS pm ON v.id_ped = pm.id_pedido WHERE (date(v.fec_ven) >= ? AND date(v.fec_ven) <= ?) AND pm.id_mozo like ? AND id_sucursal like ? AND id_empresa = ? GROUP BY v.id_ven",
                 array($start,$end,$cmozo,$sucu_filter,session('id_empresa')));
             /*
                 foreach($stm as $k => $d)
