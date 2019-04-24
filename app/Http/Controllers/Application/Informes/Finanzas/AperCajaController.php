@@ -39,8 +39,8 @@ class AperCajaController extends Controller
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
         $sucu_filter = $post['sucu_filter'];
 
-        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
-            array($ifecha,$ffecha,session('id_sucursal')));
+        $stm = DB::Select("SELECT * FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal like ? and id_empresa = ?",
+            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
 
         $data = array("data" => $stm);
         $json = json_encode($data);
@@ -79,8 +79,8 @@ class AperCajaController extends Controller
             $_SESSION["min-1"] = $_REQUEST['start'];
             $_SESSION["max-1"] = $_REQUEST['end'];
 
-            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,fecha_c as Fecha_cierre,monto_a as Monto_aperturado,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Nombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal = ?",
-                array($start,$end,session('id_sucursal')));
+            $stm = DB::Select("SELECT fecha_a as Fecha_Apertura,fecha_c as Fecha_cierre,monto_a as Monto_aperturado,monto_c as Monto_estimado,monto_s as Monto_real,estado as Estado,desc_per as Nombre_Cajero,desc_caja as Nombre_Caja,desc_turno as Turno FROM v_caja_aper WHERE DATE(fecha_a) >= ? AND DATE(fecha_a) <= ? and id_sucursal like ? and id_empresa = ?",
+                array($start,$end,$sucu_filter,session('id_empresa')));
 
             ob_end_clean();
             ob_start();
