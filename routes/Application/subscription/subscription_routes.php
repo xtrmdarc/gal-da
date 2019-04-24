@@ -7,7 +7,7 @@ Route::post('checkout', 'Application\Subscripcion\SubscriptionController@checkou
 Route::post('agregar_tarjeta', 'Application\Subscripcion\SubscriptionController@agregar_tarjeta')->name('app.subscription.agregar_tarjeta');
 Route::post('pagar_subscripcion', 'Application\Subscripcion\SubscriptionController@pagar_subscripcion')->name('app.subscription.pagar_subscripcion');
 
-Route::post('ConfirmarInfoFact','Application\Subscripcion\SubscriptionController@confirmar_informacion_facturacion')
-
+Route::post('ConfirmarInfoFact','Application\Subscripcion\SubscriptionController@confirmar_informacion_facturacion');
+Route::get('payment_completed/{id_plan}','Application\Subscripcion\SubscriptionController@paymentCompleted');
 
 ?>

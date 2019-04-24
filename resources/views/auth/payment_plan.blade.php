@@ -476,7 +476,7 @@
 <script src="{{URL::to('/home/js/checkout/checkout.js')}} "></script>
 <script src="https://checkout.culqi.com/v2"></script>
 <script>
-
+    console.log({!! json_encode($culqi_planes) !!});
     GetPlanInfo({!! json_encode($culqi_planes) !!});
 
     Culqi.publicKey = 'pk_test_xwCI0lmt8MrIT9N1';

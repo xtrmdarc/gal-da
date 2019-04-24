@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Culqi;
 use App\Http\Controllers\Application\AppController;
 
+
 class SubscriptionController extends Controller
 {
     private $SECRET_KEY = "sk_test_asQalOKDq7la1gKr";
@@ -230,49 +231,91 @@ class SubscriptionController extends Controller
         return json_encode($card);
     }
 
-    public function pagar_subscripcion(Request $request){
-    /*
-            \Stripe\Stripe::setApiKey("sk_test_30MMhfgvhxA7ySEVyoQN6nf9");
+    public function pagar_subscripcion(Request $request)
+    {
+        /*
+                \Stripe\Stripe::setApiKey("sk_test_30MMhfgvhxA7ySEVyoQN6nf9");
 
-            $charge = \Stripe\Charge::create([
-                'amount' => 53,
-                'currency' => 'usd',
-                'description' => 'Test Book',
-                'source' => $request->stripeToken
-            ]);
-    */
-    /*
-        try {
-            $stripe = Stripe::make('sk_test_30MMhfgvhxA7ySEVyoQN6nf9');
-            $charge = $stripe->charges()->create([
-                'amount' => 20,
-                'currency' => 'CAD',
-                'source' => $request->stripeToken,
-                'description' => 'Description goes here',
-            ]);
-            dd($charge);
-        } catch (Exception $e) {
-            dd("ERROR");
+                $charge = \Stripe\Charge::create([
+                    'amount' => 53,
+                    'currency' => 'usd',
+                    'description' => 'Test Book',
+                    'source' => $request->stripeToken
+                ]);
+        
+            try {
+                $stripe = Stripe::make('sk_test_30MMhfgvhxA7ySEVyoQN6nf9');
+                $charge = $stripe->charges()->create([
+                    'amount' => 20,
+                    'currency' => 'CAD',
+                    'source' => $request->stripeToken,
+                    'description' => 'Description goes here',
+                ]);
+                dd($charge);
+            } catch (Exception $e) {
+                dd("ERROR");
+            }
+        */  
+
+        $response = new \stdClass();
+        try 
+        {
+            $data = $request->all();
+        
+            
+            //customer id  = cus_test_dqaMxKOaPF75WgOr
+            //card id = crd_test_MKpgmnUlcktnhQro
+            //plan id = 
+            
+            $billing_info = DB::table('info_fact')->where('IdInfoFact',\Auth::user()->info_fact_id)->first();
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+            // Creando Suscriptor a un plan
+            $subscription_culqi = $culqi->Subscriptions->create(
+                array(
+                "card_id" => $billing_info->CardId,
+                "plan_id" => $data['plan_id']//"pln_test_I1uj8UpurYGhzpeN"
+                )
+            );
+            //Periodicidad 
+            //1 - mensual
+            //2 - anual
+            $plan_culqi = DB::table('culqi_plan')->where('culqi_key',$data['plan_id'])->first();
+
+            $subscription_id = DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->first()->id;
+
+            DB::table('subscription')->where('id',$subscription_id)
+                                    ->update([
+                                        'culqi_id' => $subscription_culqi->id,
+                                        'culqi_plan'  => $data['plan_id'],
+                                        'plan_id'=> $plan_culqi->id_plan,
+                                        'id_periodicidad' =>$plan_culqi->id_periodicidad,
+                                        'ends_at' => date("Y-m-d H:i:s", $subscription_culqi->next_billing_date/1000)
+                                    ]);
+            
+            DB::table('tm_usuario')->where('id_empresa',\Auth::user()->id_empresa)
+                                   ->update([
+                                        'plan_id'=>$plan_culqi->id_plan
+                                   ]);
+            // dd($subscription_culqi,$subscription_culqi->next_billing_date,date("Y-m-d H:i:s ", $subscription_culqi->next_billing_date/1000));
+            $response->cod = 1;
+            $response->plan_id = $plan_culqi->id_plan;
+            return json_encode($response);
         }
-    */  $data = $request->all();
-        
-        
-        //customer id  = cus_test_dqaMxKOaPF75WgOr
-        //card id = crd_test_MKpgmnUlcktnhQro
-        //plan id = 
-        
-        $billing_info = DB::table('info_fact')->where('IdInfoFact',\Auth::user()->info_fact_id)->first();
-        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+        catch(\Exception $e)
+        {
+            $response->cod = 0;
+            return json_encode($response);
+        }
+    }
 
-        // Creando Suscriptor a un plan
-        $subscription = $culqi->Subscriptions->create(
-            array(
-            "card_id" => $billing_info->CardId,
-            "plan_id" => $data['plan_id']//"pln_test_I1uj8UpurYGhzpeN"
-            )
-        );
-        
-        //Respuesta
-        dd($subscription);
+    public function paymentCompleted($id_plan)
+    {   
+        $plan = DB::table('planes')->where('id',$id_plan);
+        auth()->logout();
+        $data = [
+            'plan' =>$plan
+        ];
+        return view('components.payment.completed_basic')->with($data);
     }
 }

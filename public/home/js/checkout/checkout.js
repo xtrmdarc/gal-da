@@ -28,10 +28,15 @@ $('#btn-pagar').click(function(){
         data:{
             plan_id: $('#plan-id').val()
         },
-        success: function(){
-            alert('se creo la subscripción exitosamente');
+        success: function(response){
+            
+            // alert('se creo la subscripción exitosamente');
             $('#btn-pagar').button('reset');
-
+            if(response.cod == 1)
+            {
+                window.location.replace('/payment_completed/'+response.plan_id);
+            }
+            else alert('Error. Contáctese con el administrador.');
         },
         error:function(e){
             console.log(e);
@@ -98,7 +103,7 @@ $('.btn-plan-periodo').click(function(e){
 function SePuedePagar(){
     
     if(billing_page.tarjeta_added == true && billing_page.info_added == true)
-{
+    {
         $('#btn-pagar').prop('disabled',false);
         $('#wrapper-btn-pagar').popover('dispose');
     }

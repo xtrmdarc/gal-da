@@ -86,7 +86,7 @@
                                             <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
                                             <td>
                                                 <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
-                                                    Surco, Lima, Perú <br>
+                                                    Surco, Lima, Perï¿½ <br>
                                                     Website: <a href="http://www.gal-da.com" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.gal-da.com</a>
                                                 </p>
                                                 <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">@ Gal-Da 2019. Todos los derechos reservados.</p>
