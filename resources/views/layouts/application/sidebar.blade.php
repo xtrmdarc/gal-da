@@ -318,6 +318,14 @@ if($version_empresa == 0) {
                                 @endif
                                 <li class="nav-devider"></li>
                             @endif
+                          
+                              <li class="text-center ">
+                              <li id="sb_centroayuda" class="text-center"><a class="btn btn-primary" style="margin:8px;" href="{{route('primerosPasos')}}"> <span class="hide-menu"><b>Centro de Ayuda</b></span></a></li>
+                              </li>
+
+                              <li class="text-center v-sw" style="position: absolute; bottom: 0; text-align: center; width: 100%;">
+                                  <p style="">v {{ $mi_version }}</p>
+                              </li>
                 @endif
 
                 {{--/*
