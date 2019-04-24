@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label class="control-label">Serie/Nro.</label>
                             <div class="input-group display-flex">
-                                <input type="text" name="serie_doc" id="serie_doc" class="form-control text-right validanumericos" placeholder="Serie" autocomplete="off" />
+                                <input type="text" name="serie_doc" id="serie_doc" class="form-control text-right" placeholder="Serie" maxlength="10" autocomplete="off" />
                                 <span class="input-group-addon">-</span>
                                 <input type="text" name="num_doc" id="num_doc" class="form-control validanumericos" placeholder="N&uacute;mero" autocomplete="off" />
                             </div>
@@ -149,7 +149,7 @@
                         <div class="form-group">
                             <label class="control-label">Fecha del Comprobante</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <input type="text" name="fecha_comp" id="fecha_comp" class="form-control DatePicker" placeholder="Fecha Comprobante" autocomplete="off" readonly="true"/>
                             </div>
                         </div>

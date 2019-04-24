@@ -39,8 +39,8 @@ class EgresosCajaController extends Controller
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
         $sucu_filter = $post['sucu_filter'];
 
-        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal = ?",
-            array($ifecha,$ffecha,session('id_sucursal')));
+        $stm = DB::Select("SELECT * FROM v_gastosadm WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and id_sucursal like ? and id_empresa = ?",
+            array($ifecha,$ffecha,$sucu_filter,session('id_empresa')));
 
         foreach($stm as $k => $d)
         {
@@ -62,12 +62,15 @@ class EgresosCajaController extends Controller
             $_SESSION["max-1"] = $_REQUEST['end'];
 
             $stm = DB::Select("SELECT fecha_re as Fecha_de_Registro,desc_usu as Nombre_usuario,importe as Importe,motivo as Motivo,desc_per as Personal,
-                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,serie_doc as Serie_Doc, num_doc as Numero_Doc,v_gastosadm.estado as Estado, tm_caja.descripcion as Caja, sucursal.nombre_sucursal as Nombre_de_Sucursal
+                des_td as Tipo_Documento,des_tg as Tipo_de_Gasto,
+                serie_doc as Serie_Doc,
+                num_doc as Numero_Doc,
+                v_gastosadm.estado as Estado,
+                nombre_sucursal as Nombre_de_Sucursal
                 FROM v_gastosadm
-                left JOIN tm_caja on v_gastosadm.id_usu = tm_caja.id_usu
-                left join sucursal on v_gastosadm.id_usu = sucursal.id_usu
-                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ? and v_gastosadm.id_sucursal = ?",
-                array($start,$end,session('id_sucursal')));
+                WHERE DATE(fecha_re) >= ? AND DATE(fecha_re) <= ?
+                and v_gastosadm.id_sucursal like ? and id_empresa = ?;",
+                array($start,$end,$sucu_filter,session('id_empresa')));
 
             ob_end_clean();
             ob_start();

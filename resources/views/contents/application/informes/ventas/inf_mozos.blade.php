@@ -44,22 +44,22 @@ $fechaa = date("m-Y");
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="sucu_filter">Mozos</label>
-                            <select name="mozo" id="mozo" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%" active>Todos los mozos</option>
-                                @foreach($Mozos as $r)
-                                <option value="{{$r->id_usu}}">{{$r->nombre}}</option>
+                            <label for="sucu_filter">Sucursal</label>
+                            <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%" active>Todas las Sucursales</option>
+                                @foreach($sucursales_filtro as $r)
+                                    <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="sucu_filter">Sucursal</label>
-                            <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
-                                <option value="%" active>Todas las Sucursales</option>
-                                @foreach($sucursales_filtro as $r)
-                                    <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
+                            <label for="sucu_filter">Mozos</label>
+                            <select name="mozo" id="mozo" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
+                                <option value="%" active>Todos los mozos</option>
+                                @foreach($Mozos as $r)
+                                    <option value="{{$r->id_usu}}">{{$r->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -44,23 +44,23 @@ $fechaa = date("m-Y");
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="sucu_filter">Tipos de Pago</label>
-                            <select name="tipo_p" id="tipo_p" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
-                                <option value="%" active>Todos los tipos de pago</option>
-                                <option value="1">EFECTIVO</option>
-                                <option value="2">TARJETA</option>
-                                <option value="3">AMBOS</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
                             <label for="sucu_filter">Sucursal</label>
                             <select name="sucu_filter" id="sucu_filter" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" data-size="5">
                                 <option value="%" active>Todas las Sucursales</option>
                                 @foreach($sucursales_filtro as $r)
                                     <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="sucu_filter">Tipos de Pago</label>
+                            <select name="tipo_p" id="tipo_p" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
+                                <option value="%" active>Todos los tipos de pago</option>
+                                <option value="1">EFECTIVO</option>
+                                <option value="2">TARJETA</option>
+                                <option value="3">AMBOS</option>
                             </select>
                         </div>
                     </div>
