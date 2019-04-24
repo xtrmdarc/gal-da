@@ -25,12 +25,19 @@ class ActualizacionMiddleware
         $version_app = DB::table('app_version')->orderBy('id_app_version', 'desc')->first();
 
         $v_actual = $version_app->id_app_version;
+        $cerrar_sesion = $version_app->cerrar_sesion;
 
-        if(!($version_empresa == $v_actual)) {
+        if($cerrar_sesion) {
+            if(!($version_empresa == $v_actual)) {
+                Empresa::where('id',$id_empresa)
+                    ->update(['id_version_app'=>$v_actual]);
+                auth()->logout();
+                return redirect('/');
+            }
+        } else {
             Empresa::where('id',$id_empresa)
                 ->update(['id_version_app'=>$v_actual]);
-            auth()->logout();
-            return redirect('/');
+            return $next($request);
         }
         return $next($request);
     }
