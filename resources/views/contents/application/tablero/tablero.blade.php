@@ -365,6 +365,11 @@
         //console.log('10 + ');
     });
 
+    $(function(){
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('4i42nk6d6zuw'); 
+    });
+
 </script>
 
 @endsection

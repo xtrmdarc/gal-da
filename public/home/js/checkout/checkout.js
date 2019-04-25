@@ -217,7 +217,7 @@ $('#btn-confirmar-billing-info').on('click',function(){
 
     var $this = $(this);
 
-    $this.button('loading');
+    
 
     // setTimeout(function() {
     //      $this.button('reset');
@@ -238,6 +238,18 @@ $('#btn-confirmar-billing-info').on('click',function(){
     es_empresarial = $('#ul_empresarial li.active').attr('empr');
     if(es_empresarial ==1)
     {
+        let empresa_inputs = [$('#emp_dir'),$('#emp_ciudad'),$('#emp_pais'),$('#emp_email')
+                                ,$('#emp_nomb'),$('#emp_apell'),$('#emp_telef'),$('#razon_social')
+                                ,$('#ruc')
+                            ];
+
+        empresa_inputs.forEach(input => {
+            if(!input.val())
+            {
+                input.after('<p style="color:red;"> Este campo es obligatorio </p>');
+                return;
+            }
+        });
         direccion = $('#emp_dir').val();
         ciudad = $('#emp_ciudad').val();
         pais = $('#emp_pais').val();
@@ -251,6 +263,19 @@ $('#btn-confirmar-billing-info').on('click',function(){
     }
     else
     {
+        let empresa_inputs = [$('#prop_dir'),$('#prop_ciudad'),$('#prop_pais'),$('#prop_email')
+                                ,$('#prop_nomb'),$('#prop_apell'),$('#prop_telef')
+                            ];
+
+        empresa_inputs.forEach(input => {
+            if(!input.val())
+            {
+                input.after('<p style="color:red"> Este campo es obligatorio </p>');
+                return;
+            }
+        });
+
+        
         direccion = $('#prop_dir').val();
         ciudad = $('#prop_ciudad').val();
         pais = $('#prop_pais').val();
@@ -259,10 +284,20 @@ $('#btn-confirmar-billing-info').on('click',function(){
         apellido = $('#prop_apell').val();
         telefono = $('#prop_telef').val();
 
+        if(/\d/.test(nombre))
+        {
+            $('#prop_nomb').after('<p style="color:red"> Este campo no puede contener números.</p>');
+            return ;
+        }
+        else if(/\d/.test(apellido))
+        {
+            $('#prop_apell').after('<p style="color:red"> Este campo no puede contener números.</p>');
+            return;
+        }
     }
 
     $('#ul_empresarial')
-
+    $this.button('loading');
     $.ajax({
         url:'/ConfirmarInfoFact',
         type:'POST',
