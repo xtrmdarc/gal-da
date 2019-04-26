@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Culqi;
 
 class UsuarioController extends Controller
 {
+    private $SECRET_KEY = "sk_test_asQalOKDq7la1gKr";
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,13 +22,17 @@ class UsuarioController extends Controller
     }
     public function i_perfil(){
 
+        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
         $idUsu = \Auth::user()->id_usu;
+        $idInfoFac_user = \Auth::user()->info_fact_id;
+        $plan_id_user = \Auth::user()->plan_id;
         $viewdata = [];
 
         $listar_telefonos_paises = Pais::all();
 
         $subscription = DB::table('subscription')
-                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad')
+                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at')
                         ->leftJoin('planes','subscription.plan_id','planes.id')
                         ->where('id_usu',\Auth::user()->id_usu)
                         ->first();
@@ -37,7 +44,6 @@ class UsuarioController extends Controller
         $fecha_anio = date("Y");
         $fecha_mes = date("m");
 
-        //$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
         $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
         and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
 
@@ -66,6 +72,47 @@ class UsuarioController extends Controller
             $viewdata['imagen_g']= $url;
         }
 
+        if($plan_id_user == 2) {
+
+            $response = new \stdClass();
+            try
+            {
+                $f_renovacion = date('d/m/Y',strtotime($subscription->ends_at));
+                $viewdata['f_renovacio'] = $f_renovacion;
+
+                //Traer Tarjeta
+                $infoFact = DB::table('info_fact')->where('IdInfoFact', $idInfoFac_user)->first();
+                $cardID = $infoFact->CardId;
+
+                $culqui_card = $culqi->Cards->get("$cardID");
+
+                $card_obj = json_encode($culqui_card);
+
+                $source = $culqui_card->source;
+                $iin = $source->iin;
+
+                $card_number = $source->card_number;
+                $card_brand = $iin->card_brand;
+
+                $respuesta = $response->cod = 1;
+
+                $viewdata['card_brand']= $card_brand;
+                $viewdata['card_number']= $card_number;
+                $viewdata['r_cod']= $respuesta;
+                $viewdata['info_fact']= $infoFact;
+            }
+            catch(\Exception $e)
+            {
+                $respuesta = $response->cod = 0;
+
+                $viewdata['r_cod']= $respuesta;
+                $viewdata['card_brand']= 'Ingresa';
+                $viewdata['card_number']= 'una tarjeta';
+                $viewdata['info_fact']= $infoFact;
+
+                return view('contents.application.usuario.u_perfil',$viewdata);
+            }
+        }
         return view('contents.application.usuario.u_perfil',$viewdata);
     }
 
@@ -165,6 +212,51 @@ class UsuarioController extends Controller
 
             \Auth::user()->save();
             return redirect()->route('ajustes.i_perfil');
+        }
+    }
+
+    public function actualizarTarjeta(Request $request){
+
+        $data = $request->all();
+
+        $response = new \stdClass();
+        try
+        {
+            $usuario = \Auth::user();
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+            $idInfoFac_user = \Auth::user()->info_fact_id;
+
+            //Traer Tarjeta
+            $infoFact = DB::table('info_fact')->where('IdInfoFact', $idInfoFac_user)->first();
+            $cardID = $infoFact->CardId;
+
+            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
+                ->update([
+                    'CardId'=> '1'
+                ]);
+
+            if($cardID == 1) {
+                $eliminar = $culqi->Cards->delete("$cardID");
+            }
+
+            $card = $culqi->Cards->create(
+                array(
+                    "customer_id" => $usuario->culqi_id,
+                    "token_id" => $data['token']
+                )
+            );
+
+            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
+                ->update([
+                    'CardId'=> $card->id
+                ]);
+            $response->cod = 1;
+            return back();
+        }
+        catch(\Exception $e)
+        {
+            $response->cod = 0;
+            dd("ERROR");
         }
     }
 }
