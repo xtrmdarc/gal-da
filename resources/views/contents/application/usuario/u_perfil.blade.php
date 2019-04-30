@@ -156,7 +156,7 @@
                                         @if(\Auth::user()->parent_id == '' && \Auth::user()->plan_id == '2' )
                                             <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="card-body">
+                                                <div class="card-body" style="padding-bottom: 20px;">
                                                     <h4><i class="fa fa-user mid-icon"></i><b> Tipo de Pago</b></h4>
                                                     <span>Ingrese su método de pago preferido</span>
 
@@ -171,7 +171,7 @@
                                                                                 @if($r_cod == 0)
                                                                                     <input type="tel" value="{{$card_brand}} {{$card_number}}" class="form-control form-control-line" disabled>
                                                                                 @else
-                                                                                    <input type="tel" value="{{$card_brand}} | {{$card_number}}" class="form-control form-control-line" disabled>
+                                                                                    <input type="tel" value="{{$card_brand}} ****{{$card_number}}" class="form-control form-control-line" disabled>
                                                                                 @endif
                                                                             </div>
                                                                         </div>
@@ -191,8 +191,25 @@
                                                                                 <label for="card[number]">Número de tarjeta</label>
                                                                                 <input class="form-control credit-card" type="tel" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" size="20" data-culqi="card[number]" id="card[number]" maxlength="20" style="letter-spacing:3px;word-spacing:20px;">
                                                                             </div>
-                                                                        </div>
+                                                                            <div class="col-sm-5 col-md-4 form-group" >
+                                                                                <label>F. Venc. (MM/YYYY)</label>
+                                                                                <div class="row ">
+                                                                                    <div class="col-xs-6">
+                                                                                        <input class="form-control text-center" size="2" data-culqi="card[exp_month]" id="card[exp_month]" type="text"   placeholder="MM" maxlength="2" minlength="2">
+                                                                                    </div>
 
+                                                                                    <div class="col-xs-6" style="padding-left :0px;">
+                                                                                        <input class="form-control text-center" size="4" data-culqi="card[exp_year]" id="card[exp_year]" type="text" placeholder="YYYY" maxlength="4" minlength="4">
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-md-2" style="float:right;">
+                                                                                <label for="card[cvv]">CVV</label>
+                                                                                <input class="form-control text-center" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" placeholder="___"maxlength="4" minlength="3" >
+                                                                            </div>
+                                                                        </div>
+                                                                        {{--/*
                                                                         <div class="row">
                                                                             <div class="col-sm-5 col-md-4 form-group" >
                                                                                 <label>F. Venc. (MM/YYYY)</label>
@@ -215,7 +232,16 @@
 
                                                                         <div class="row">
                                                                             <div class="col-sm-2">
-                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-brand-color" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
+                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                <button id="cambiar_tarjeta_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                        */--}}
+                                                                        <div class="row">
+                                                                            <div class="col-sm-2">
+                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
                                                                             </div>
                                                                             <div class="col-sm">
                                                                                 <button id="cambiar_tarjeta_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
@@ -230,10 +256,9 @@
                                             </div>
                                         </div>
                                         @endif
-                                        <hr>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="card-body" style="padding-top: 20px;">
+                                                <div class="card-body">
                                                     <form class="form-horizontal form-material">
                                                         <h4><i class="fa fa-list mid-icon"></i><b> Recibos</b></h4>
                                                         <span>Revisa tus recibos mensuales.</span>
@@ -303,7 +328,7 @@
                                                         </div>
                                                         @if(\Auth::user()->plan_id == 2)
                                                             <div class="col-sm" style="margin-top: 10px;">
-                                                                <a style="text-decoration-line: underline!important;color: #4680ff;" href="">Cancelar Plan</a>
+                                                                <a id="cancelar_plan" style="text-decoration-line: underline!important;color: #4680ff;">Cancelar Plan</a>
                                                             </div>
                                                         @endif
                                                     </div>
@@ -320,7 +345,39 @@
                 </div>
             </div>
         </div>
-    
+
+        <div class="modal inmodal fade" id="mdl-cancelar-plan" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+            <div class="modal-dialog modal-m">
+                <div class="modal-content animated bounceInRight">
+                    <form id="frm-cancelar-plan" class="unif_modal" method="post" enctype="multipart/form-data" action="/cancelar_subscripcion">
+                        @csrf
+                        <input type="hidden" name="cod_subs" id="cod_subs" value="{{$subscription->culqi_id }}">
+                        <div class="modal-header mh-p" style="border: none;">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                            <i class="fa fa-exclamation-circle modal-icon"></i>
+                        </div>
+                        <div class="modal-body" style="background: none; padding: 10px 30px 80px 30px;">
+                            <h2 style="text-align: center;">¿Estas seguro de cancelar tu Plan?</h2>
+                            <h5 style="text-align: center;">Siempre podras adquirir nuevamente el plan o cancelarlo</h5>
+                            <center>
+                                <a style="text-decoration-line: underline!important;color: #4680ff;" href="/upgrade">Administrar Plan</a>
+                            </center>
+                        </div>
+                        <div class="modal-footer" style="background: #f8fafb;">
+                            <div class="row" style="width: 100%;">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-check-square-o"></i> Sí cancelo mi plan</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">No, no cancelo mi plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     <script src="{{URL::to('rest/scripts/usuario/usuario_perfil.js' )}}"></script>
     <script src="https://checkout.culqi.com/v2"></script>
 
@@ -368,7 +425,7 @@
 
             if($('#card\\[email\\]').val()=='') return;
 
-            $('#btn-agregar-tarjeta').button('loading');
+            $('#btn-agregar-tarjeta').prop('disabled',true);
             Culqi.createToken();
             e.preventDefault();
 
@@ -392,23 +449,21 @@
                     },
                     dataType: "json",
                     success: function(response){
-                        console.log(response);
-                        $('#add-card').css('display','none');
-                        $('#numero-tarjeta').text('*********'+response.source.last_four);
-                        $('#fecha-creacion').text(new Date(response.source.creation_date));
-                        $('#card-stored').css('display','block');
-
-                        $('#btn-agregar-tarjeta').button('reset');
-
-                        billing_page.tarjeta_added = true;
-                        SePuedePagar();
-                        console.log();
+                        if(response.cod === 1) {
+                            toastr.success('Se ha actualizado correctamente su tarjeta!');
+                            window.location = "/perfil";
+                        } else {
+                            $('#btn-agregar-tarjeta').button('reset');
+                            $('#btn-agregar-tarjeta').prop('disabled',false);
+                            toastr.error('Tienes errores en la tarjeta');
+                        }
                     }
                 });
             } else { // ¡Hubo algún problema!
                 // Mostramos JSON de objeto error en consola
                 console.log(Culqi.error);
                 alert(Culqi.error.user_message);
+                $('#btn-agregar-tarjeta').button('reset');
             }
         };
     </script>

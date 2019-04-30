@@ -24,15 +24,15 @@ class UsuarioController extends Controller
 
         $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
 
+        $usuario = \Auth::user();
         $idUsu = \Auth::user()->id_usu;
-        $idInfoFac_user = \Auth::user()->info_fact_id;
         $plan_id_user = \Auth::user()->plan_id;
         $viewdata = [];
 
         $listar_telefonos_paises = Pais::all();
 
         $subscription = DB::table('subscription')
-                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at')
+                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id')
                         ->leftJoin('planes','subscription.plan_id','planes.id')
                         ->where('id_usu',\Auth::user()->id_usu)
                         ->first();
@@ -81,23 +81,13 @@ class UsuarioController extends Controller
                 $viewdata['f_renovacio'] = $f_renovacion;
 
                 //Traer Tarjeta
-                $infoFact = DB::table('info_fact')->where('IdInfoFact', $idInfoFac_user)->first();
-                $cardID = $infoFact->CardId;
-
-                $culqui_card = $culqi->Cards->get("$cardID");
-
-                $card_obj = json_encode($culqui_card);
-
-                $source = $culqui_card->source;
-                $iin = $source->iin;
-
-                $card_number = $source->card_number;
-                $card_brand = $iin->card_brand;
+                $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+                $u_card = DB::table('u_card')->where('id_card', $usuario->id_card)->first();
 
                 $respuesta = $response->cod = 1;
 
-                $viewdata['card_brand']= $card_brand;
-                $viewdata['card_number']= $card_number;
+                $viewdata['card_brand']= $u_card->card_brand;
+                $viewdata['card_number']= $u_card->card_last_four;
                 $viewdata['r_cod']= $respuesta;
                 $viewdata['info_fact']= $infoFact;
             }
@@ -224,39 +214,48 @@ class UsuarioController extends Controller
         {
             $usuario = \Auth::user();
             $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
-            $idInfoFac_user = \Auth::user()->info_fact_id;
 
-            //Traer Tarjeta
-            $infoFact = DB::table('info_fact')->where('IdInfoFact', $idInfoFac_user)->first();
-            $cardID = $infoFact->CardId;
+            if($usuario->id_card != ''){
+                $card = $culqi->Cards->create(
+                    array(
+                        "customer_id" => $usuario->culqi_id,
+                        "token_id" => $data['token']
+                    )
+                );
 
-            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
-                ->update([
-                    'CardId'=> '1'
-                ]);
+                DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
+                    ->update([
+                        'CardId'=> $card->id
+                    ]);
 
-            if($cardID == 1) {
-                $eliminar = $culqi->Cards->delete("$cardID");
+                //Traer Tarjeta
+                $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+                $cardID = $infoFact->CardId;
+
+                $culqui_card = $culqi->Cards->get("$cardID");
+
+                $card_obj = json_encode($culqui_card);
+
+                $source = $culqui_card->source;
+                $iin = $source->iin;
+
+                $last_four = $source->last_four;
+                $card_brand = $iin->card_brand;
+
+                DB::table('u_card')->where('id_card',$usuario->id_card)
+                    ->update([
+                        'CardId'=> $cardID,
+                        'card_brand'=> $card_brand,
+                        'card_last_four'=> $last_four
+                    ]);
+                $response->cod = 1;
+                return json_encode($response);
             }
-
-            $card = $culqi->Cards->create(
-                array(
-                    "customer_id" => $usuario->culqi_id,
-                    "token_id" => $data['token']
-                )
-            );
-
-            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
-                ->update([
-                    'CardId'=> $card->id
-                ]);
-            $response->cod = 1;
-            return back();
         }
         catch(\Exception $e)
         {
             $response->cod = 0;
-            dd("ERROR");
+            return json_encode($response);
         }
     }
 }

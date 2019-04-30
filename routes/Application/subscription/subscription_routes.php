@@ -10,4 +10,5 @@ Route::post('pagar_subscripcion', 'Application\Subscripcion\SubscriptionControll
 Route::post('ConfirmarInfoFact','Application\Subscripcion\SubscriptionController@confirmar_informacion_facturacion');
 Route::get('payment_completed/{id_plan}','Application\Subscripcion\SubscriptionController@paymentCompleted');
 
+Route::post('cancelar_subscripcion', 'Application\Subscripcion\SubscriptionController@cancelar_subs')->name('app.subscription.cancelar_subscripcion');
 ?>

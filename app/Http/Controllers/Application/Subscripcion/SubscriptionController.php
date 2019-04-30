@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Application\Subscripcion;
 
 use App\Models\TmUsuario;
+use App\Models\Sucursal;
+use App\Models\TmAlmacen;
+use App\Models\TmAreaProd;
+use App\Models\TmCaja;
+use App\Models\TmMesa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cartalyst\Stripe\Stripe;
@@ -213,7 +218,6 @@ class SubscriptionController extends Controller
 
         if(!isset($usuario->culqi_id)) return;
 
-
         $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
        // dd('pasa la instanciacion de cuqli');
         $card = $culqi->Cards->create(
@@ -228,6 +232,45 @@ class SubscriptionController extends Controller
                                 'CardId'=> $card->id
                             ]);
 
+        //Traer Tarjeta
+        $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+        $cardID = $infoFact->CardId;
+
+        $culqui_card = $culqi->Cards->get("$cardID");
+
+        $card_obj = json_encode($culqui_card);
+
+        $source = $culqui_card->source;
+        $iin = $source->iin;
+
+        $last_four = $source->last_four;
+        $card_brand = $iin->card_brand;
+
+        $params = array(
+            $cardID,
+            $card_brand,
+            $last_four
+        );
+
+        if($usuario->id_card == '') {
+
+            DB::insert("INSERT INTO u_card (CardId,card_brand,card_last_four) VALUES (?,?,?)",$params);
+
+            $statement = DB::select("SHOW TABLE STATUS LIKE 'u_card'");
+            $u_card_id = $statement[0]->Auto_increment - 1;
+
+            DB::table('tm_usuario')->where('id_usu',$usuario->id_usu)
+                ->update([
+                    'id_card'=> $u_card_id
+                ]);
+        } else {
+            DB::table('u_card')->where('id_card',$usuario->id_card)
+                ->update([
+                    'CardId'=> $cardID,
+                    'card_brand'=> $card_brand,
+                    'card_last_four'=> $last_four
+                ]);
+        }
         return json_encode($card);
     }
 
@@ -317,5 +360,77 @@ class SubscriptionController extends Controller
             'plan' =>$plan
         ];
         return view('components.payment.completed_basic')->with($data);
+    }
+
+    public function cancelar_subs(Request $request){
+
+        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+        $post = $request->all();
+        $usuario = \Auth::user();
+        $sub_id = $post['cod_subs'];
+
+        $culqi->Subscriptions->delete("$sub_id");
+
+        DB::table('subscription')->where('id_usu',$usuario->id_usu)
+            ->update([
+                'culqi_id'=> 'Cancelado',
+                'ends_at'=> 'Cancelado',
+            ]);
+
+        $this->Basic_a_Free();
+        return redirect('/');
+    }
+
+    public function Basic_a_Free(){
+        $usuario = \Auth::user();
+
+        if($usuario->plan_id == 2){
+            DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
+
+            //MODULO DE CAJAS
+            //Actualizar a Inactivo las Cajas - Basic a Free
+            $apc = DB::table('tm_caja')
+                ->where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->get();
+
+            foreach($apc as $r){
+                $id_caja = $r->id_caja;
+                $caja_ocupada = DB::table('tm_aper_cierre')->where('id_caja',$id_caja)->whereNull('fecha_cierre')->exists();
+
+                if(!($caja_ocupada)) {
+                    TmCaja::where('id_empresa',session('id_empresa'))
+                        ->where('id_caja',$id_caja)
+                        ->where('plan_estado','2')
+                        ->update(['estado'=>'i']);
+                }
+            }
+
+            //MODULO DE USUARIOS
+            TmUsuario::where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->update(['estado'=>'i']);
+
+            //MODULO DE SUCURSALES
+            Sucursal::where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->update(['estado'=>'i']);
+
+            //MODULO DE ALMACEN Y AREAS DE PRODUCCION
+            TmAlmacen::where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->update(['estado'=>'i']);
+
+            TmAreaProd::where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->update(['estado'=>'i']);
+
+            //MODULO DE MESAS
+            TmMesa::where('id_empresa','=',session('id_empresa'))
+                ->where('plan_estado','2')
+                ->update(['estado'=>'i']);
+
+            auth()->logout();
+        }
     }
 }

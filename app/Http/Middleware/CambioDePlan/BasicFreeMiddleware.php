@@ -45,7 +45,7 @@ class BasicFreeMiddleware
                 //Actualizar a Inactivo las Cajas - Basic a Free
                 $apc = DB::table('tm_caja')
                     ->where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->get();
 
                 foreach($apc as $r){
@@ -55,33 +55,33 @@ class BasicFreeMiddleware
                     if(!($caja_ocupada)) {
                         TmCaja::where('id_empresa',session('id_empresa'))
                             ->where('id_caja',$id_caja)
-                            ->where('plan_estado','b')
+                            ->where('plan_estado','2')
                             ->update(['estado'=>'i']);
                     }
                 }
 
                 //MODULO DE USUARIOS
                 TmUsuario::where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->update(['estado'=>'i']);
 
                 //MODULO DE SUCURSALES
                 Sucursal::where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->update(['estado'=>'i']);
 
                 //MODULO DE ALMACEN Y AREAS DE PRODUCCION
                 TmAlmacen::where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->update(['estado'=>'i']);
 
                 TmAreaProd::where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->update(['estado'=>'i']);
 
                 //MODULO DE MESAS
                 TmMesa::where('id_empresa','=',session('id_empresa'))
-                    ->where('plan_estado','b')
+                    ->where('plan_estado','2')
                     ->update(['estado'=>'i']);
 
                 auth()->logout();
