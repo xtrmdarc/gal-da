@@ -15,7 +15,13 @@ use Mockery\CountValidator\Exception;
 use Illuminate\Support\Facades\DB;
 use Culqi;
 use App\Http\Controllers\Application\AppController;
-
+use App\Models\Util;
+use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Address;
+use Greenter\Model\Company\Company;
+use Greenter\Model\Sale\SaleDetail;
+use Greenter\Model\Sale\Legend;
 
 class SubscriptionController extends Controller
 {
@@ -325,9 +331,9 @@ class SubscriptionController extends Controller
             //2 - anual
             $plan_culqi = DB::table('culqi_plan')->where('culqi_key',$data['plan_id'])->first();
 
-            $subscription_id = DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->first()->id;
+            $subscription_galda = DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->first();
 
-            DB::table('subscription')->where('id',$subscription_id)
+            DB::table('subscription')->where('id',$subscription_galda->id)
                                     ->update([
                                         'culqi_id' => $subscription_culqi->id,
                                         'culqi_plan'  => $data['plan_id'],
@@ -432,5 +438,283 @@ class SubscriptionController extends Controller
 
             auth()->logout();
         }
+    }
+
+    public function registrarVentaGalda($billing_info,$plan_culqi)
+    {
+        date_default_timezone_set('America/Lima');
+        setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+
+        $datos_galda = DB::table('galda_info')->where('id',1)->first();
+        $igv = $datos_gal_da->igv;
+
+        $arrayParam = array(
+            1,//flag
+            $data['tipo_pedido'], //tipo pedido
+            $data['tipoEmision'], //tipo emision
+            $data['cod_pedido'], //id pedido
+            $data['cliente_id'], //id cliente
+            $data['tipo_pago'], //tipo pago
+            $data['tipo_doc'], //tipo doc
+            $id_usu, //id _usu
+            $id_apc,//Apc
+            $data['pago_t'], // monto pago
+            $data['m_desc'],//monto descuento
+            $igv, //igv
+            $data['total_pedido'], //total monto
+            $fecha, //fecha emision
+            //---
+            '0101', //tipo operacion (tipo factura = venta interna)
+            $fecha, //fecha vencimiento
+            $comprobante->tipo_doc_codigo, //tipo doc = Factura
+            'PEN', //moneda
+            number_format($data['total_pedido']/(1+$igv), 2,".", ""), //MtoOperGravadas
+            0, // MtoOperExoneradas
+            number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""),//  MtoIGV
+            number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", ""), //  TotalImpuestos
+            number_format($data['total_pedido']/(1+$igv), 2, ".", ""), // MtoVenta
+            number_format($data['total_pedido'],2, ".", ""), // total //falta guardar MtoImpVenta
+            session('id_empresa'), //
+            $comprobante->electronico, //factura electronicamente
+            session('id_sucursal')
+        );
+
+        $ahora = new \DateTime();
+        $narray_comprobante = [
+            'id_cliente_empresa' => \Auth::user()->id_empresa,
+            'id_tipo_doc' , // Depende de si es factura o boleta, depende si es inter o naci
+            'id_usu' => \Auth::user()->id_usu,
+            'serie_doc' , // hacer el query para sacar el correlativo
+            'nro_doc', // hacer el query para sacar el correlativo
+            //'descuento', // No hay
+            'igv' => $igv, // de $datos_galda
+            'total' => $plan_culqi->precio, // del plan culqi
+            'fecha_venta'=> $ahora , // fecha
+            'estado' => 'prueba', // 'p' pagado
+            // 'observacion',
+            'tipo_operacion',// Depende de si internacional o nacional. SI es nacional 0101, si es inter 0200
+            'fecha_vencimiento'=> $ahora , // fecha date(Y-m-d H:i:s) \DateTime::createFromFormat('Y-m-d H:i:s','2019-04-27 22:10:10')
+            'tipo_doc' ,// Depende de si internacional entonces 01.  SI es nacional factura 01, boleta 03
+            'tipo_moneda' => $plan_culqi->codigo_moneda, // USD debería sacarse de culqi plan
+            'mto_oper_gravadas' , // Depende si es inter o nacional
+            'mto_oper_exportacion', // 0.00
+            'mto_oper_exoneradas', // 0.00
+            'mto_igv', // number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", "")
+            'total_impuestos', // number_format($data['total_pedido']/(1+$igv) *$igv, 2, ".", "")
+            'valor_venta',// number_format($data['total_pedido']/(1+$igv), 2, ".", "")
+            'mto_imp_venta', // total
+            // 'id_empresa',
+            'electronico'=>1, // 1
+            // 'name_xml_file', // cuando se cree el xml
+            // 'path_xml_file', // cuando se cree el xml
+            // 'hash_xml_file', // cuando se cree el xml
+            'id_estado_comprobante' => 1, // 1
+            // 'mensaje_sunat',   // Cuando se cree el xml
+            // 'nombre_cliente', // billing info depende si es para empresa o boleta
+            // 'codigo_sunat', // Cuando se cree el xml y se obtenga la respuesta
+            'id_estado_doc_resumen', // 1
+            // 'id_ultimo_resumen', //
+            // 'id_sucursal',
+            'id_tipo_cliente' => $billing_info->EsEmpresarial,// Billing info
+            'es_nacional' , // Billing info 1  si es PE,sino 0
+            'id_galda_info' => $billing_info->id_galda_info // del billing info
+        ];
+
+
+
+
+        if($billing_info->codigo_pais == 'PE')
+        {
+
+            // ES NACIONAL
+            $narray_comprobante['tipo_operacion']  = '0101';
+
+            $narray_comprobante['mto_oper_gravadas'] =number_format( $plan_culqi->precio/(1+$igv), 2, ".", "");
+            $narray_comprobante['mto_oper_exportacion'] = 0.00;
+            $narray_comprobante['mto_oper_exoneradas'] = 0.00;
+            $narray_comprobante['mto_igv'] = number_format( ($plan_culqi->precio/(1+$igv))*$igv, 2, ".", "");
+            $narray_comprobante['total_impuestos'] = number_format( ($plan_culqi->precio/(1+$igv))*$igv, 2, ".", "");
+            $narray_comprobante['valor_venta'] = number_format( $plan_culqi->precio/(1+$igv), 2, ".", "");
+            $narray_comprobante['mto_imp_venta'] = number_format( $plan_culqi->precio, 2, ".", "");
+
+            $narray_comprobante['es_nacional'] = 1;
+            if($billing_info->EsEmpresarial == 1)
+            {
+                // ES EMPRESA
+                $narray_comprobante['id_tipo_doc' ] = 6; // 6 factura e
+                $narray_comprobante['tipo_doc'] = '01';
+
+
+
+            }
+            else
+            {
+                // NO ES EMPRESA
+                $narray_comprobante['id_tipo_doc' ] = 6; // 5 boleta e
+                $narray_comprobante['tipo_doc'] = '03';
+            }
+        }
+        else
+        {
+            $igv = 0.00;
+            //ES INTERNACIONAL
+            $narray_comprobante['tipo_doc'] = '01';
+            $narray_comprobante['tipo_operacion']  = '0200';
+            $narray_comprobante['id_tipo_doc' ] = 6;
+
+            $narray_comprobante['mto_oper_gravadas'] = 0.00;
+            $narray_comprobante['mto_oper_exportacion'] = number_format( $plan_culqi->precio, 2, ".", "");
+            $narray_comprobante['mto_oper_exoneradas'] = 0.00;
+            $narray_comprobante['mto_igv'] = number_format( ($plan_culqi->precio/(1+$igv))*$igv, 2, ".", "");
+            $narray_comprobante['total_impuestos'] = number_format( ($plan_culqi->precio/(1+$igv))*$igv, 2, ".", "");
+            $narray_comprobante['valor_venta'] = number_format( $plan_culqi->precio, 2, ".", "");
+            $narray_comprobante['mto_imp_venta'] = number_format( $plan_culqi->precio, 2, ".", "");
+
+            $narray_comprobante['es_nacional'] = 0;
+
+            if($billing_info->EsEmpresarial == 1)
+            {
+                // ES EMPRESA
+            }
+            else
+            {
+                // NO ES EMPRESA
+
+            }
+        }
+        // Hacer la serie y correlativo  solo los del estado prueba
+        $query = DB::table('galda_venta')->select(DB::raw("LPAD(count(*)+galda_tipo_doc.correlativo,8,'0') correlativo,galda_tipo_doc.serie serie"))
+            ->leftJoin('galda_tipo_doc','galda_venta.id_tipo_doc','galda_tipo_doc.id_tipo_doc')
+            ->where('galda_venta.estado','prueba')
+            ->where('galda_venta.id_tipo_doc',$narray_comprobante['id_tipo_doc'])
+            ->get()[0];
+
+        $narray_comprobante['nro_doc'] = $query->correlativo;
+        $narray_comprobante['serie_doc'] =$query->serie;
+
+        // insertar en la bd
+        DB::table('galda_venta')->insert($narray_comprobante);
+
+        // Crear table en la bd para la empresa LIMATON CORP (Ya esta )
+
+        // GALDA INFOMRACION------------------------------------------------------------
+        $address_galda = new Address();
+        $address_galda->setUbigueo($datos_galda->ubigeo)
+            ->setDepartamento($datos_galda->departamento)
+            ->setProvincia($datos_gal_da->provincia)
+            ->setDistrito($datos_galda->distrito)
+            ->setUrbanizacion($datos_galda->urbanizacion)
+            ->setDireccion($datos_galda->direccion);
+        // Obtener los datos de la empresa LIMATON de la table creada en la BD ( Ya esta )
+        $company = new Company();
+        $company->setRuc($datos_galda->ruc);
+        $company->setRazonSocial($datos_galda->razon_social);
+        $company->setNombreComercial($datos_galda->nombre_galda);//opcional
+        $company->setAddress($address_galda);
+
+        // ---------------------------------------------------------------------------
+
+        // Cliente informacion ------------------------------------------------------------
+        // Set empresa
+        $address_cliente = new Address();
+        $address_cliente->setUbigueo($datos_galda->ubigeo)
+            ->setDepartamento($datos_galda->departamento)
+            ->setProvincia($datos_gal_da->provincia)
+            ->setDistrito($datos_galda->distrito)
+            ->setUrbanizacion($datos_galda->urbanizacion)
+            ->setDireccion($datos_galda->direccion);
+
+        $cliente = new Client();
+        $cliente->setTipoDoc('6');
+        $cliente->setNumDoc('20602832831');
+        $cliente->setRznSocial('LIMATON CORP SAC');
+        $cliente->setAddress($address_galda);
+
+
+
+        // ----------------------------------------------------------------------------------
+
+        // Crear una tabla venta para las ventas de limaton
+        // $venta = DB::table('galda_venta')->where('')
+        $invoice = new Invoice();
+        $invoice
+            ->setUblVersion('2.1')
+            ->setFecVencimiento(new \DateTime())
+
+
+            ->setFechaEmision( \DateTime::createFromFormat('Y-m-d H:i:s','2019-04-27 22:10:10') )
+            ->setTipoMoneda('USD')
+            ->setClient($cliente)
+            ->setMtoOperGravadas(33.81) //total  / (1+igv)
+            ->setMtoOperInafectas(0.00)
+            //->setMtoOperExoneradas(100)
+            ->setMtoIGV(6.09) // (total  / (1+igv)) * 0.18
+
+            ->setTotalImpuestos(6.09) // (total  / (1+igv)) * 0.18
+            ->setValorVenta(33.81) // total  / (1+igv)
+            ->setMtoImpVenta(39.90) // total
+            ->setCompany($company);
+
+        // Si es que es expportacion
+        // la operacion en 0200
+        // Si no es 0101 venta interna
+        // ->setTipoOperacion('0101')
+
+        // Si es venta nacional
+        // luego, si es para natural, boleta
+        // y setear sus series
+        // ->setTipoDoc('03')
+        // ->setSerie('F001')
+        // ->setCorrelativo('000000001')
+
+        // Si no, factura
+        // ->setTipoDoc('01')
+
+        // Si es venta internacional
+        // factura
+
+
+        // Crear una tabla detalle venta para los detalles de las ventas de limaton
+        // $venta = DB::table('galda_detalle_venta')->where('')
+        $detail = new SaleDetail();
+        $detail->setCodProducto('LMCPBM')
+            // ->setUnidad('ZZ')
+            ->setDescripcion('Plan Basic mensual')
+            ->setCantidad(1)
+            ->setMtoValorUnitario(33.81) // Si es exportacion
+            ->setMtoValorVenta(33.81) // Si es exportacion
+            ->setMtoBaseIgv(33.81) // Si es exportacion
+            ->setPorcentajeIgv(18) // Si es exportacion
+            ->setIgv(6.09) // Si es exportacion
+            // ->setTipAfeIgv('10')
+            ->setTotalImpuestos(6.09) // Si es exportacion
+            ->setMtoPrecioUnitario(39.90); // Si es exportacion
+
+        // Si es exportacion
+        // ->setTipAfeIgv('40')
+        // Si no, gravado venta onerosa
+        // ->setTipAfeIgv('10')
+
+        // $invoice->setDetails([$item])
+
+        $invoice->setDetails([$detail])
+            ->setLegends([
+                (new Legend())
+                    ->setCode('1000')
+                    ->setValue('SON TREINTA Y NUEVE CON 9O/100 DOLARES')
+            ]);
+        //Get pdf S3 or DISK
+        $util = Util::getInstance();
+        $pdf = $util->testPdf();
+
+        $util->showPdf($pdf,'filename.pdf');
+    }
+
+    public function testFacturaPdf()
+    {
+        $util = Util::getInstance();
+        $pdf = $util->testPdf();
+
+        $util->showPdf($pdf,'filename.pdf');
     }
 }
