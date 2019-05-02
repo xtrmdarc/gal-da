@@ -27,12 +27,12 @@
             <!-- Message and button !-->
             <div class="row section_landing">
                 <div class=" col-sm-12 "   >
-                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">¡Felicidades!</h2>
-                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">Ya estas suscrito al Plan Basic</h2>
+                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">Â¡Felicidades!</h2>
+                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">Ya estÃ¡s suscrito al Plan Basic</h2>
                 </div>
 
                 <div class=" col-sm-12  "   >
-                    <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;"><a href="#" class="brand-color" >Inicia sesión</a>en tu Plan Basic.</h3>
+                    <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;"><a href="#" class="brand-color" >Inicia sesiÃ³n</a> en tu Plan Basic.</h3>
                 </div>
             </div>
         </div>

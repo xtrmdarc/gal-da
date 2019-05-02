@@ -11,6 +11,7 @@
         "fideloper/proxy": "~4.0",
         "google/recaptcha": "~1.1",
         "greenter/greenter": "^3.0",
+        "greenter/htmltopdf": "^2.1",
         "greenter/report": "^2.1",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",

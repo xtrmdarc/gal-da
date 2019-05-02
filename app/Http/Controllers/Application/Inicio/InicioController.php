@@ -633,7 +633,7 @@ class InicioController extends Controller
 
 
                 
-                
+
 
                 $a = $data['idProd'];
                 $b = $data['cantProd'];
