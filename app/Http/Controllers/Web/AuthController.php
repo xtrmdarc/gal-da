@@ -175,7 +175,7 @@ class AuthController extends Controller
             
             $subscription_id = DB::table('subscription')->insertGetId([
                 'id_usu' => $user_id,
-                'es_mensual' => 1,
+                'id_periodicidad' => 1,
                 'estado' => 1,
                 'plan_id' => 1
             ]);
