@@ -68,7 +68,7 @@ if($version_empresa == 0) {
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                     <li id="sidebar_header_mobile" class="nav-label text-center" >  <b><img  src="{{ !empty($logo_g) ? $logo_g : '/application/images/tu_logo.png' }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" /></b></li>
-                    <a href="/test_factura_pdf" target="_blank"> Test invoice </a>                   
+                    {{-- <a href="/test_factura_pdf" target="_blank"> Test invoice </a>                    --}}
                 @if(Auth::user()->plan_id == '1')
                     {{--/*PLAN FREE*/--}}
 
