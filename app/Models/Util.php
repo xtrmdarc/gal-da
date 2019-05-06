@@ -356,7 +356,7 @@ HTML;
             exit();
         }
         // Write html
-        $this->writeFile($document->getName().'.html', $render->getHtml());
+        // $this->writeFile($document->getName().'.html', $render->getHtml());
         return $pdf;
     }
     public function getGenerator($type)
