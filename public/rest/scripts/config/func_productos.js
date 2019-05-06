@@ -192,7 +192,7 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
         url: "/AreasProdXSucursal",
         data: {
             id_sucursal: id_sucursal,
-            
+
         },
         dataType: "json",
         headers: {
@@ -233,9 +233,9 @@ var ActualizarCategoriaAreap = function(cod_area,cod_catg){
             if(cod_catg!=null) $('#cod_catg').selectpicker('val',cod_catg);
         }
     });
-    
-    
-  
+
+
+
 }
 
 var ActualizarCategoriaAreap2 = function(cod_area,cod_catg,id_sucursal){
@@ -497,7 +497,7 @@ $(function() {
             e.preventDefault();
             var $form = $(e.target),
             fv = $form.data('formValidation');
-            
+
             var form = $(this);
 
             var producto = {
@@ -546,7 +546,7 @@ $(function() {
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(errorThrown + ' ' + textStatus);
-                }   
+                }
             });
 
             return false;
@@ -567,7 +567,7 @@ $(function() {
         e.preventDefault();
         var $form = $(e.target),
         fv = $form.data('formValidation');
-          
+
         var form = $(this);
 
         var presentacion = {
@@ -614,7 +614,7 @@ $(function() {
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown + ' ' + textStatus);
-            }   
+            }
         });
 
         return false;
@@ -651,7 +651,7 @@ $("#frm-categoria").submit(function(e){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (cod) {
-                
+
                 if(cod == 0){
                     toastr.warning('Advertencia, Datos duplicados.');
                     return false;
@@ -662,7 +662,7 @@ $("#frm-categoria").submit(function(e){
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos registrados, correctamente.');
-                    
+
                     return false;
                 } else if(cod == 2) {
                     listarSucursales();
@@ -671,17 +671,17 @@ $("#frm-categoria").submit(function(e){
                     $('#boton-catg').css("display","block");
                     $('#nueva-catg').css("display","none");
                     toastr.success('Datos modificados, correctamente.');
-                    
+
                     return false;
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown + ' ' + textStatus);
-            }   
+            }
         });
-       
+
       }
-      
+
     return false;
 });
 
@@ -832,6 +832,7 @@ $('.btn-ccatg').click( function() {
 $('#mdl-producto').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-producto').formValidation('resetForm', true);
+    $('#id_sucursal_d').selectpicker('val',$('#id_sucursal').val());
     $('#transf').iCheck('update');
     $('#ntransf').iCheck('update');
     $('#estado_catg').selectpicker('val', 'a');
