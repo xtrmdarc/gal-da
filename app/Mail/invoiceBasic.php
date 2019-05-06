@@ -39,6 +39,8 @@ class invoiceBasic extends Mailable
     {
         return $this->subject('Gal-Da | Recibo Plan Basic')
             ->view('email.application.invoiceBasic')
-            ->attach($this->url);
+            // ->attach($this->url)
+            ->attachFromStorageDisk('s3',$this->url,'recibo.pdf');
+            // ->attachData()
     }
 }

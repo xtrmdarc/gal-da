@@ -372,8 +372,8 @@ class SubscriptionController extends Controller
 
         $plan = DB::table('planes')->where('id',$id_plan);
 
-        $this->senEmailPayment($usuario);
-        //dd("SE ENVIO!");
+        $this->sendEmailPayment($usuario);
+        
         auth()->logout();
         $data = [
             'plan' =>$plan
@@ -381,7 +381,7 @@ class SubscriptionController extends Controller
         return view('components.payment.completed_basic')->with($data);
     }
 
-    public function senEmailPayment($thisUser)
+    public function sendEmailPayment($thisUser)
     {
         //Obtener nombre del Recibo
 
@@ -390,10 +390,11 @@ class SubscriptionController extends Controller
         $path = $galda_venta->name_xml_file.'.pdf';
         $exist = Storage::disk('s3')->exists($path);
 
-        $url = Storage::disk('s3')->url($path);
+        // $url = Storage::disk('s3')->url($path);
+        $pdf = Storage::disk('s3')->get($path);
 
         if(($exist)){
-            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$url));
+            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$path ));
         } else {
             dd('NO EXISTE');
         }
