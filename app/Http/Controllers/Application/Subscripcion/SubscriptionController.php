@@ -370,10 +370,13 @@ class SubscriptionController extends Controller
     {
         $usuario = \Auth::user();
 
-        $plan = DB::table('planes')->where('id',$id_plan);
+        $plan = DB::table('planes')->where('id',$id_plan)->first();
+        $suscription = DB::table('subscription')->where('id_usu',$usuario->id_usu)->first();
+        $precio = $plan->precio_mensual;
+        $fecha_c = $suscription->ends_at;
 
-        $this->sendEmailPayment($usuario);
-        
+        $this->sendEmailPayment($usuario,$precio,$fecha_c);
+
         auth()->logout();
         $data = [
             'plan' =>$plan
@@ -381,7 +384,7 @@ class SubscriptionController extends Controller
         return view('components.payment.completed_basic')->with($data);
     }
 
-    public function sendEmailPayment($thisUser)
+    public function sendEmailPayment($thisUser,$precio,$fecha_c)
     {
         //Obtener nombre del Recibo
         $galda_venta = DB::table('galda_venta')->orderBy('id_galda_venta', 'desc')
@@ -395,7 +398,9 @@ class SubscriptionController extends Controller
         // $pdf = Storage::disk('s3')->get($path);
 
         if(($exist)){
-            Mail::to($billing_info->Email)->send(new invoiceBasic($thisUser,$path ));
+
+            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$path,$precio,$fecha_c));
+
         } else {
             dd('NO EXISTE');
         }
