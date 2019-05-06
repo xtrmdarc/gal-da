@@ -343,7 +343,7 @@ class SubscriptionController extends Controller
                                         'culqi_plan'  => $data['plan_id'],
                                         'plan_id'=> $plan_culqi->id_plan,
                                         'id_periodicidad' =>$plan_culqi->id_periodicidad,
-                                        // 'ends_at' => date("Y-m-d H:i:s", $subscription_culqi->next_billing_date/1000)
+                                        'ends_at' => date("Y-m-d H:i:s", $subscription_culqi->next_billing_date/1000)
                                     ]);
             
             DB::table('tm_usuario')->where('id_empresa',\Auth::user()->id_empresa)
@@ -384,17 +384,18 @@ class SubscriptionController extends Controller
     public function sendEmailPayment($thisUser)
     {
         //Obtener nombre del Recibo
-
         $galda_venta = DB::table('galda_venta')->orderBy('id_galda_venta', 'desc')
             ->where('id_usu',$thisUser->id_usu)->first();
         $path = $galda_venta->name_xml_file.'.pdf';
         $exist = Storage::disk('s3')->exists($path);
 
+        $billing_info = DB::table('info_fact')->where('IdInfoFact',$thisUser->info_fact_id)->first();
+
         // $url = Storage::disk('s3')->url($path);
-        $pdf = Storage::disk('s3')->get($path);
+        // $pdf = Storage::disk('s3')->get($path);
 
         if(($exist)){
-            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$path ));
+            Mail::to($billing_info->Email)->send(new invoiceBasic($thisUser,$path ));
         } else {
             dd('NO EXISTE');
         }
