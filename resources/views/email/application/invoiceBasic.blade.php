@@ -25,7 +25,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" style="border:none;border-collapse:collapse;border-spacing:0;width:100%">
                                                         <tbody>
                                                         <tr>
-                                                            <td width="14" style="direction:ltr;text-align:left;padding-left:0;padding-right:0"><img src="" width="14" height="54" style="clear:both;display:block;max-width:100%;outline:none;text-decoration:none" border="0" alt="" class="CToWUd">
+                                                            <td width="14" style="direction:ltr;text-align:left;padding-left:0;padding-right:0"><img src="https://ci3.googleusercontent.com/proxy/tOakfV4njrhAIr0M31pAexgPy9oEDeShOHAk-uZOJvoC9LUQwlyGtBtXeZSMp4blsUr6HvlWOl8kRgt6CYmzrczj8mAcF1P8k07FdraHjCXAOXgryIrpDDA0trIw1uhBT4Q=s0-d-e1-ft#https://s3.amazonaws.com/uber-static/emails/2016/10/halloweenrider/sp_12x12.png" width="14" height="54" style="clear:both;display:block;max-width:100%;outline:none;text-decoration:none" border="0" alt="" class="CToWUd">
                                                             </td>
 
                                                             <td style="direction:ltr;text-align:left;font-size:0">
@@ -203,16 +203,20 @@
                                                                                                                                                                                 <tbody><tr>
                                                                                                                                                                                     <td style="direction:ltr;text-align:left">
                                                                                                                                                                                         <h3 style="Margin:0;color:#000000;font-family:'Montserrat', sans-serif;font-size:34px;font-weight:normal;line-height:40px;padding:0;padding-bottom:7px;padding-top:7px">
-                                                                                                                                                                                            Hola <b>{{ $u_nombre }}</b>,<br> te damos la Bienvenida a tu nuevo <b>Plan Basic</b>.
+                                                                                                                                                                                            Hola <b>{{ $u_nombre }}</b> <b>{{ $u_ap }}</b>,<br> te damos la Bienvenida a tu nuevo <b>Plan Basic</b>.
                                                                                                                                                                                         </h3>
                                                                                                                                                                                     </td>
                                                                                                                                                                                 </tr>
                                                                                                                                                                                 <tr>
                                                                                                                                                                                     <td class="m_4394773307126745137p1" style="direction:ltr;text-align:left;color:#000000;font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px">
+                                                                                                                                                                                        Procesamos correctamente su pago de <b>{{ $precio }} USD</b> el <b>{{ $fecha_c }}</b>.
+                                                                                                                                                                                    </td>
+                                                                                                                                                                                </tr>
+                                                                                                                                                                                <tr>
+                                                                                                                                                                                    <td class="m_4394773307126745137p1" style="direction:ltr;text-align:left;color:#000000;font-family:'Montserrat', sans-serif;font-size:17px;line-height:26px;padding-bottom:7px;padding-top:7px">
                                                                                                                                                                                         Esperamos que tu nueva experiencia rompa tus expectativas.
                                                                                                                                                                                     </td>
                                                                                                                                                                                 </tr>
-
                                                                                                                                                                                 </tbody></table>
                                                                                                                                                                         </td>
                                                                                                                                                                     </tr>
@@ -291,9 +295,8 @@
                                                                                                                                                         </tr>
                                                                                                                                                         <tr>
                                                                                                                                                             <td class="m_4394773307126745137p1 m_4394773307126745137mobf16" style="color:rgb(0,0,0);font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px;direction:ltr;text-align:left">
-                                                                                                                                                                <p>Tambien adjuntamos tu recibo de compra. <br><br>Saludos.<br>Equipo de <b>Gal-Da.</b>
+                                                                                                                                                                <p>Tambien adjuntamos el recibo de tu compra.<br>Gracias por escogernos! <br><br>Saludos.<br>Equipo de <b>Gal-Da.</b>
                                                                                                                                                                 </p>
-
                                                                                                                                                             </td>
                                                                                                                                                         </tr>
                                                                                                                                                         </tbody>

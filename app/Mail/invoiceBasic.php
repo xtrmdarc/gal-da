@@ -20,14 +20,22 @@ class invoiceBasic extends Mailable
 
     public $usuario;
     public $u_nombre;
+    public $u_ap;
     public $url;
 
-    public function __construct(TmUsuario $usuario,$url)
+    public $precio;
+    public $fecha_c;
+
+    public function __construct(TmUsuario $usuario,$url,$precio,$fecha_c)
     {
         //
         $this->usuario = $usuario;
         $this->u_nombre = $usuario->nombres;
+        $this->u_ap = $usuario->ape_paterno;
         $this->url = $url;
+
+        $this->precio = $precio;
+        $this->fecha_c = $fecha_c;
     }
 
     /**
