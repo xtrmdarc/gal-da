@@ -32,7 +32,7 @@
                 </div>
 
                 <div class=" col-sm-12  "   >
-                    <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;"><a href="#" class="brand-color" >Inicia sesión</a> en tu Plan Basic.</h3>
+                    <h3 class="light-shade-color text-center center-block " style="width:40%; font-weight:300;"><a href="/" class="brand-color" >Inicia sesión</a> en tu Plan Basic.</h3>
                 </div>
             </div>
         </div>

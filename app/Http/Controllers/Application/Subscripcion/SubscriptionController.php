@@ -23,6 +23,9 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
 use Greenter\Ws\Services\SunatEndpoints;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\invoiceBasic;
+use Illuminate\Support\Facades\Storage;
 
 class SubscriptionController extends Controller
 {
@@ -364,13 +367,36 @@ class SubscriptionController extends Controller
     }
 
     public function paymentCompleted($id_plan)
-    {   
+    {
+        $usuario = \Auth::user();
+
         $plan = DB::table('planes')->where('id',$id_plan);
+
+        $this->senEmailPayment($usuario);
+        //dd("SE ENVIO!");
         auth()->logout();
         $data = [
             'plan' =>$plan
         ];
         return view('components.payment.completed_basic')->with($data);
+    }
+
+    public function senEmailPayment($thisUser)
+    {
+        //Obtener nombre del Recibo
+
+        $galda_venta = DB::table('galda_venta')->orderBy('id_galda_venta', 'desc')
+            ->where('id_usu',$thisUser->id_usu)->first();
+        $path = $galda_venta->name_xml_file.'.pdf';
+        $exist = Storage::disk('s3')->exists($path);
+
+        $url = Storage::disk('s3')->url($path);
+
+        if(($exist)){
+            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$url));
+        } else {
+            dd('NO EXISTE');
+        }
     }
 
     public function cancelar_subs(Request $request){
