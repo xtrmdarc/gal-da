@@ -18,6 +18,7 @@ class UsuarioController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
     }
     public function i_perfil(){
@@ -32,10 +33,12 @@ class UsuarioController extends Controller
         $listar_telefonos_paises = Pais::all();
 
         $subscription = DB::table('subscription')
-                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id')
+                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id','subscription.estado')
                         ->leftJoin('planes','subscription.plan_id','planes.id')
-                        ->where('id_usu',\Auth::user()->id_usu)
+                        ->where('id_usu',$usuario->id_usu)
+                        ->where('plan_id',$usuario->plan_id)
                         ->first();
+        //dd($subscription);
         $viewdata['subscription'] = $subscription;
 
         $viewdata['id_usu'] = $idUsu;

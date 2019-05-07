@@ -118,7 +118,7 @@
                                                                                 <tbody><tr>
                                                                                     <td style="direction:ltr;text-align:left">
                                                                                         <h1 class="m_4394773307126745137white" style="Margin:0;color:#ffffff;font-family:'Montserrat', sans-serif;font-size:34px;font-weight:normal;line-height:40px;padding:0;padding-bottom:7px;padding-top:7px">
-                                                                                            Gracias Por Tu Suscripcion!
+                                                                                            Gracias oor tu suscripcion!
                                                                                         </h1>
                                                                                     </td>
                                                                                 </tr>
@@ -268,7 +268,7 @@
                                                                                                                                                         </tr>
                                                                                                                                                         <tr>
                                                                                                                                                             <td class="m_4394773307126745137p1 m_4394773307126745137mobf16" style="color:rgb(0,0,0);font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px;direction:ltr;text-align:left">
-                                                                                                                                                                <p>Actualizamos nuestro Blog constantemente para que tengas Tips, Pautas y muchos mas sobre el crecimiento de tu negocio.
+                                                                                                                                                                <p>Actualizamos nuestro Blog constantemente para que tengas <b>tips</b>, <b>pautas</b> y mucho más sobre el <b>crecimiento de tu negocio.</b>
                                                                                                                                                                 </p>
 
                                                                                                                                                             </td>

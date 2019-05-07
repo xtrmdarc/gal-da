@@ -311,13 +311,19 @@
                                                             <div class="col-sm-4">
                                                                 <h5 class="m-t-30"><b style="color: #1fbdb7;">Plan {{$subscription->nombre }} </b> - <b>{{$subscription->precio}} USD {{$subscription->id_periodicidad==1?'mensual':'anual'}}</b> </h5>
                                                             </div>
-                                                            @if(\Auth::user()->plan_id == 2)
+                                                            @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
                                                                 <div class="col-sm">
                                                                     <h5 class="m-t-30" style="float: right;"><b>Plan renovación:</b> {{$f_renovacio}}</h5>
                                                                 </div>
+                                                            @else
+                                                                @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
+                                                                    <div class="col-sm">
+                                                                        <h5 class="m-t-30" style="float: right;"><b>Tu Plan finalizará el:</b> {{$f_renovacio}}</h5>
+                                                                    </div>
+                                                                @endif
                                                             @endif
                                                         </div>
-                                                        <h5 class="m-t-30">Nro de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
+                                                        <h5 class="m-t-30">Nro de Ventas en este mes: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                                         </div>
@@ -326,7 +332,7 @@
                                                         <div class="col-sm-2">
                                                             <a class="btn btn-success" href="/upgrade">Administrar Plan</a>
                                                         </div>
-                                                        @if(\Auth::user()->plan_id == 2)
+                                                        @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
                                                             <div class="col-sm" style="margin-top: 10px;">
                                                                 <a id="cancelar_plan" style="text-decoration-line: underline!important;color: #4680ff;">Cancelar Plan</a>
                                                             </div>
@@ -366,7 +372,7 @@
                         <div class="modal-footer" style="background: #f8fafb;">
                             <div class="row" style="width: 100%;">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-check-square-o"></i> Sí cancelo mi plan</button>
+                                    <button type="submit" class="btn btn-danger">Sí, cancelo mi plan</button>
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="button" class="btn btn-white" data-dismiss="modal">No, no cancelo mi plan</button>

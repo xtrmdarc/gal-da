@@ -35,6 +35,7 @@ class SubscriptionController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
     }
     public function upgradeShow(){
@@ -343,7 +344,8 @@ class SubscriptionController extends Controller
                                         'culqi_plan'  => $data['plan_id'],
                                         'plan_id'=> $plan_culqi->id_plan,
                                         'id_periodicidad' =>$plan_culqi->id_periodicidad,
-                                        'ends_at' => date("Y-m-d H:i:s", $subscription_culqi->next_billing_date/1000)
+                                        'ends_at' => date("Y-m-d H:i:s", $subscription_culqi->next_billing_date/1000),
+                                        'estado' => 1
                                     ]);
             
             DB::table('tm_usuario')->where('id_empresa',\Auth::user()->id_empresa)
@@ -375,7 +377,7 @@ class SubscriptionController extends Controller
         $precio = $plan->precio_mensual;
         $fecha_c = $suscription->ends_at;
 
-        $this->sendEmailPayment($usuario,$precio,$fecha_c);
+        $this->sendEmailPayment($usuario,$precio,date('Y-m-d',strtotime($fecha_c)));
 
         auth()->logout();
         $data = [
@@ -406,30 +408,34 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function cancelar_subs(Request $request){
+    public function cancelar_subs(){
 
-        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
-        $post = $request->all();
-        $usuario = \Auth::user();
-        $sub_id = $post['cod_subs'];
+        //$culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+        //$post = $request->all();
+        //$usuario = \Auth::user();
+        //$sub_id = $post['cod_subs'];
 
-        $culqi->Subscriptions->delete("$sub_id");
+        //$culqi->Subscriptions->delete("$sub_id");
 
-        DB::table('subscription')->where('id_usu',$usuario->id_usu)
+        /*DB::table('subscription')->where('id_usu',$usuario->id_usu)
             ->update([
                 'culqi_id'=> 'Cancelado',
                 'ends_at'=> 'Cancelado',
             ]);
-
+        */
         $this->Basic_a_Free();
-        return redirect('/');
+        return redirect('/perfil');
     }
 
     public function Basic_a_Free(){
         $usuario = \Auth::user();
 
         if($usuario->plan_id == 2){
-            DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
+            //Estado = 2, Plan cancelado
+            DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['estado'=>'2']);
+            /*DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
+
+            DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
 
             //MODULO DE CAJAS
             //Actualizar a Inactivo las Cajas - Basic a Free
@@ -475,6 +481,7 @@ class SubscriptionController extends Controller
                 ->update(['estado'=>'i']);
 
             auth()->logout();
+            */
         }
     }
 

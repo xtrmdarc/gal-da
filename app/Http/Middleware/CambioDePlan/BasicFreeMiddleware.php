@@ -10,6 +10,7 @@ use Closure;
 use App\Models\TmCaja;
 use App\Models\TmUsuario;
 use Illuminate\Support\Facades\DB;
+use Culqi;
 
 class BasicFreeMiddleware
 {
@@ -20,6 +21,8 @@ class BasicFreeMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
+    private $SECRET_KEY = "sk_test_asQalOKDq7la1gKr";
+
     public function handle($request, Closure $next)
     {
         date_default_timezone_set('America/Lima');
@@ -28,18 +31,34 @@ class BasicFreeMiddleware
 
         if(\Auth::user()->plan_id == '2' ) {
 
-            $ends_at = DB::select('SELECT ends_at FROM db_rest.subscription where id_usu = ? and plan_id = ?'
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+            $ends_at = DB::select('SELECT ends_at,estado,culqi_id FROM db_rest.subscription where id_usu = ? and plan_id = ?'
                 ,array(\Auth::user()->id_usu,\Auth::user()->plan_id));
 
             foreach($ends_at as $r) {
                 $f_v = $r->ends_at;
+                $estado_suscription = $r->estado;
+                $sub_id = $r->culqi_id;
             }
 
             $fecha_vencimiento = date('Y-m-d',strtotime($f_v));
 
             if($fecha_vencimiento < $today) {
 
+                if($estado_suscription == 2){
+                    $culqi->Subscriptions->delete("$sub_id");
+
+                    DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)
+                        ->update([
+                            'culqi_id'=> 'Cancelado',
+                            'ends_at'=> 'Cancelado',
+                        ]);
+                }
+
                 DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
+
+                DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
 
                 //MODULO DE CAJAS
                 //Actualizar a Inactivo las Cajas - Basic a Free
