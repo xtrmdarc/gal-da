@@ -33,7 +33,7 @@ class UsuarioController extends Controller
         $listar_telefonos_paises = Pais::all();
 
         $subscription = DB::table('subscription')
-                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id','subscription.estado')
+                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id','subscription.estado','subscription.plan_id')
                         ->leftJoin('planes','subscription.plan_id','planes.id')
                         ->where('id_usu',$usuario->id_usu)
                         ->where('plan_id',$usuario->plan_id)

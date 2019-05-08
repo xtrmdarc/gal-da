@@ -310,10 +310,17 @@
                                                         <div class="row">
                                                             <div class="col-sm-4">
                                                                 <h5 class="m-t-30"><b style="color: #1fbdb7;">Plan {{$subscription->nombre }} </b> - <b>{{$subscription->precio}} USD {{$subscription->id_periodicidad==1?'mensual':'anual'}}</b> </h5>
+                                                                @if($subscription->plan_id == 2 && $subscription->estado == 1)
+                                                                    <h5>Renovación Automática: <b style="color: #1fbdb7;"> <i class="fa fa-check"></i> Activada </b></h5>
+                                                                @else
+                                                                    @if($subscription->plan_id == 2 && $subscription->estado == 2)
+                                                                        <h5>Renovación Automática: <b style="color: #ef5350;"> <i class="fa fa-close"></i> Desactivada </b></h5>
+                                                                    @endif
+                                                                @endif
                                                             </div>
                                                             @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
                                                                 <div class="col-sm">
-                                                                    <h5 class="m-t-30" style="float: right;"><b>Plan renovación:</b> {{$f_renovacio}}</h5>
+                                                                    <h5 class="m-t-30" style="float: right;"><b>Tu Plan se renueva el:</b> {{$f_renovacio}}</h5>
                                                                 </div>
                                                             @else
                                                                 @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
@@ -333,8 +340,8 @@
                                                             <a class="btn btn-success" href="/upgrade">Administrar Plan</a>
                                                         </div>
                                                         @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
-                                                            <div class="col-sm" style="margin-top: 10px;">
-                                                                <a id="cancelar_plan" style="text-decoration-line: underline!important;color: #4680ff;">Cancelar Plan</a>
+                                                            <div class="col-sm">
+                                                                <a id="cancelar_plan" class="btn btn-danger">Cancelar Plan</a>
                                                             </div>
                                                         @endif
                                                     </div>

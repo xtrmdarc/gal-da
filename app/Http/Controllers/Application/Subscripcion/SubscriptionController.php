@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application\Subscripcion;
 
+use App\Mail\cancelPlan;
 use App\Models\TmUsuario;
 use App\Models\Sucursal;
 use App\Models\TmAlmacen;
@@ -400,8 +401,7 @@ class SubscriptionController extends Controller
         // $pdf = Storage::disk('s3')->get($path);
 
         if(($exist)){
-
-            Mail::to($thisUser->email)->send(new invoiceBasic($thisUser,$path,$precio,$fecha_c));
+            Mail::to($billing_info->Email)->send(new invoiceBasic($thisUser,$path,$precio,$fecha_c));
 
         } else {
             dd('NO EXISTE');
@@ -412,7 +412,7 @@ class SubscriptionController extends Controller
 
         //$culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
         //$post = $request->all();
-        //$usuario = \Auth::user();
+        $usuario = \Auth::user();
         //$sub_id = $post['cod_subs'];
 
         //$culqi->Subscriptions->delete("$sub_id");
@@ -423,7 +423,13 @@ class SubscriptionController extends Controller
                 'ends_at'=> 'Cancelado',
             ]);
         */
+
+        $suscription = DB::table('subscription')->where('id_usu',$usuario->id_usu)->first();
+        $fecha_c = date('Y-m-d',strtotime($suscription->ends_at));
+
         $this->Basic_a_Free();
+        Mail::to($usuario->email)->send(new cancelPlan($usuario,$fecha_c));
+
         return redirect('/perfil');
     }
 
