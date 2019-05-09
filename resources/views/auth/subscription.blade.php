@@ -38,7 +38,9 @@
                             Informes de Finanzas <br>
                         </div>
                         <input type="hidden" name="plan_id" value="1" />
-                    <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button>
+                        @if(\Auth::user()->plan_id==1 )
+                        <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
+                        @endif
                     </div>
                 </div>
     

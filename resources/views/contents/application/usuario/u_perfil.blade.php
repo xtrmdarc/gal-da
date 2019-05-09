@@ -106,23 +106,23 @@
                                             @if(\Auth::user()->parent_id == '')
                                                 <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
-                                                    <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
+                                                    <h4><i class="fa fa-list mid-icon"></i><b> Contraseña</b></h4>
                                                     <span>Modifica tu contraseña</span>
 
                                                     <div id="form-change-password" class="form-horizontal form-material">
                                                         <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Password</label>
+                                                            <label class="col-md-12">Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input type="password" value="*************" class="form-control form-control-line" disabled>
                                                             </div>
                                                         </div>
 
-                                                        <button id="cambiar_password_s" type="button" class="btn btn-success">Cambiar Password</button>
+                                                        <button id="cambiar_password_s" type="button" class="btn btn-success">Cambiar contraseña</button>
                                                     </div>
                                                     <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" action="/password">
                                                         @csrf
                                                         <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Actual Password</label>
+                                                            <label class="col-md-12">Contraseña Actual</label>
                                                             <div class="col-md-12">
                                                                 <input id="current-password" type="password" name="data[user][current_password]" class="form-control form-control-line" required>
                                                             </div>
@@ -134,7 +134,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12">Confirmar nuevo Password</label>
+                                                            <label class="col-md-12">Confirmar nueva Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input id="confirm-new-password" type="password" name="data[user][password_confirmation]" class="form-control form-control-line" required>
                                                             </div>
@@ -325,7 +325,7 @@
                                                             @else
                                                                 @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
                                                                     <div class="col-sm">
-                                                                        <h5 class="m-t-30" style="float: right;"><b>Tu Plan finalizará el:</b> {{$f_renovacio}}</h5>
+                                                                        <h5 class="m-t-30" style="float: right;"><b>Tu suscripción finalizará el:</b> {{$f_renovacio}}</h5>
                                                                     </div>
                                                                 @endif
                                                             @endif
@@ -468,7 +468,7 @@
                         } else {
                             $('#btn-agregar-tarjeta').button('reset');
                             $('#btn-agregar-tarjeta').prop('disabled',false);
-                            toastr.error('Tienes errores en la tarjeta');
+                            toastr.error('No hemos podido actualizar tu tarjeta.');
                         }
                     }
                 });
