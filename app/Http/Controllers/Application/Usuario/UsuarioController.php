@@ -180,7 +180,14 @@ class UsuarioController extends Controller
     public function changePassword(Request $request){
         $post = $request->all();
 
+        $current_password = $post['current_pass'];
+        $new_pass = $post['new_pass'];
+        $confirm_pass = $post['confirm_pass'];
+
+        $response = new \stdClass();
+
         $idPassword = \Auth::user()->password;
+        /*
         if (!password_verify($request->input('data.user.current_password'), $idPassword)) {
             dd('Invalid password.');//Verificar
         } else {
@@ -206,6 +213,19 @@ class UsuarioController extends Controller
             \Auth::user()->save();
             return redirect()->route('ajustes.i_perfil');
         }
+        */
+        if (!password_verify($current_password, $idPassword)) {
+            $response->cod = 0;
+        } else {
+            if($new_pass == $confirm_pass) {
+                \Auth::user()->password = bcrypt($new_pass);
+                \Auth::user()->save();
+                $response->cod = 2;
+            }else {
+                $response->cod = 3;
+            }
+        }
+        return json_encode($response);
     }
 
     public function actualizarTarjeta(Request $request){

@@ -119,7 +119,7 @@
 
                                                         <button id="cambiar_password_s" type="button" class="btn btn-success">Cambiar contraseña</button>
                                                     </div>
-                                                    <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" action="/password">
+                                                    <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="form-group" style="padding-top: 20px;">
                                                             <label class="col-md-12">Contraseña Actual</label>
@@ -141,7 +141,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-3">
-                                                                <button type="submit" class="btn btn-success" style="width: 100px;"> Guardar </button>
+                                                                <button id="btn_guardar_pass" type="submit" class="btn btn-success" style="width: 100px;"> Guardar </button>
                                                             </div>
                                                             <div class="col-sm">
                                                                 <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>

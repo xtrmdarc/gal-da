@@ -29,6 +29,58 @@ $(function(){
     btn_cancelar_plan.on("click",function() {
         $('#mdl-cancelar-plan').modal('show');
     });
+
+    /*Change Password*/
+
+    $('#form-change-password-reset')
+        .formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            fields: {
+            }
+        })
+        .on('success.form.fv', function(e) {
+
+            e.preventDefault();
+            var $form = $(e.target),
+                fv = $form.data('formValidation');
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            current_pass = $('#current-password').val();
+            new_pass = $('#new-password').val();
+            confirm_pass = $('#confirm-new-password').val();
+
+            $.ajax({
+                dataType: 'JSON',
+                type: 'POST',
+                url: '/password',
+                data: {
+                    current_pass: current_pass,
+                    new_pass: new_pass,
+                    confirm_pass: confirm_pass,
+                    _token : token
+                },
+                success: function (data) {
+
+                    if(data.cod == 0){
+                        toastr.error('Tu contrase&ntilde;a actual es incorrecta.');
+                        return false;
+                    } else if(data.cod == 2) {
+                        $('#form-change-password-reset').hide();
+                        $('#form-change-password').fadeIn();
+                        toastr.success('Datos modificados, correctamente.');
+                        return false;
+                    } else if(data.cod == 3) {
+                        toastr.error('La contrase&ntilde;a de cofirmaci&oacute;n no coincide.');
+                        return false;
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(errorThrown + ' ' + textStatus);
+                }
+            });
+            return false;
+        });
 });
 
 $('.credit-card').keyup(event,function(){
