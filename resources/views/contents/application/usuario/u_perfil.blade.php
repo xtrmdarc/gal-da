@@ -14,7 +14,7 @@
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
                                     @if(\Auth::user()->parent_id == '' )
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-credit-card"></i></span> <span class="hidden-xs-down">Facturación</span></a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Subscripción</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Suscripción</span></a> </li>
                                     @endif
                                 </ul>
                                 <!-- Tab panes -->
@@ -128,7 +128,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12">Nuevo Password</label>
+                                                            <label class="col-md-12">Nueva Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input id="new-password" type="password" name="data[user][password]" class="form-control form-control-line" required>
                                                             </div>

@@ -102,6 +102,8 @@
                                 Mas de 40 Mesas* <br>
                                 MultiSucursal <br>
                                 Tablero de Control PRO <br>
+                                Gestión de Inventario (Kardex) <br>
+                                Gestión de Recetas <br>
                                 Gestión de Compras <br>
                                 Informes de Gestión <br>
                             </div>
