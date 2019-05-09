@@ -320,7 +320,7 @@
                                                             </div>
                                                             @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
                                                                 <div class="col-sm">
-                                                                    <h5 class="m-t-30" style="float: right;"><b>Tu Plan se renueva el:</b> {{$f_renovacio}}</h5>
+                                                                    <h5 class="m-t-30" style="float: right;"><b>Tu suscripción se renueva el:</b> {{$f_renovacio}}</h5>
                                                                 </div>
                                                             @else
                                                                 @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
@@ -341,7 +341,7 @@
                                                         </div>
                                                         @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
                                                             <div class="col-sm">
-                                                                <a id="cancelar_plan" class="btn btn-danger">Cancelar Plan</a>
+                                                                <a id="cancelar_plan" class="btn btn-danger">Cancelar Renovación</a>
                                                             </div>
                                                         @endif
                                                     </div>
