@@ -59,6 +59,11 @@ $(function() {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');
                         toastr.success('Datos modificados, correctamente.');
+                        if(data.id_sucursal)
+                        {
+                            $('#slc_sucursal').val(data.id_sucursal);
+                            console.log(data.id_sucursal);
+                        }
                     } else if(data.cod == 3) {
                         listarSucursales();
                         $('#mdl-sucursal').modal('hide');

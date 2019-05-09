@@ -6,6 +6,7 @@ use App\Models\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Application\AppController;
 
 class SucursalController extends Controller
 {
@@ -77,25 +78,34 @@ class SucursalController extends Controller
             if($plan_estado == 1 && $estado == 'i'){
                 $response->cod = 3;
             }
-            else {
-                if (Sucursal::where('id_empresa', session('id_empresa'))
-                    ->where('nombre_sucursal',$nombre_sucursal)->exists()) {
-                    $response->cod = 0;
-                }else {
+            
+            else 
+            {
+                $count = Sucursal::where('id_empresa', session('id_empresa'))->where('nombre_sucursal',$nombre_sucursal)
+                    ->where('estado',$estado)->count();
+
+                if($count == 0) {
                     $sql = DB::update("UPDATE sucursal SET
                     nombre_sucursal  = ?,
                     direccion   = ?,
                     telefono   = ?,
                     estado = ?
-                WHERE id = ? and id_empresa = ?",
+                    WHERE id = ? and id_empresa = ?",
                         [$nombre_sucursal,$direccion,$telefono,$estado,$cod,$id_empresa]);
-                    if(empty($new_sucursal)) {
-                        $response->cod = 2;
 
-                    }else {
-                        $response->cod = 0;
+                    if(session('id_sucursal') == $cod && $estado == 'i')
+                    {
+                        // Esta funcion devuelve el id de la sucursal principal activa
+                        $response->id_sucursal = AppController::SetSucursalPrincipalActiva();
+
                     }
+
+                    $response->cod = 2;
+                } else 
+                {
+                    $response->cod = 0;
                 }
+                 
             }
         }else {
            //Create
