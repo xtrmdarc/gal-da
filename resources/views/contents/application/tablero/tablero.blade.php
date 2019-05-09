@@ -359,10 +359,17 @@
 <script src="{{URL::to('rest/scripts/tablero/func-tablero.js')}}"></script>
 <script>   
 //var socket = io('http://localhost:3000');
-    var socket = io.connect('http://192.168.10.10:3000');
-    socket.on("pedido-registrado:App\\Events\\PedidoRegistrado", function(message){
-        // increase the power everytime we load test route
-        //console.log('10 + ');
+
+    // var socket = io.connect('http://192.168.10.10:3000');
+    // socket.on("pedido-registrado:App\\Events\\PedidoRegistrado", function(message){
+    //     // increase the power everytime we load test route
+    //     //console.log('10 + ');
+    // });
+
+
+    $(function(){
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('4i42nk6d6zuw'); 
     });
 
 </script>

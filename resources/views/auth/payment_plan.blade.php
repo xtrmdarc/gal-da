@@ -94,24 +94,24 @@
                                 <div class="row">
                                     <div class="form-group col-sm-6">
                                         <label for="prop_nomb">Nombre</label>
-                                        <input id="prop_nomb" class="form-control" type="text" value="{{$info_fact->Nombre}}">    
+                                        <input id="prop_nomb" class="form-control" type="text" value="{{$info_fact->Nombre}}" required>    
                                     </div>
             
                                     <div class="form-group col-sm-6">
                                         <label for="prop_apell">Apellido</label>
-                                        <input id="prop_apell" class="form-control" type="text" value="{{$info_fact->Apellido}}">
+                                        <input id="prop_apell" class="form-control" type="text" value="{{$info_fact->Apellido}}" required>
                                     </div>
                                 </div>
     
                                 <div class="row">
                                     <div class="form-group col-sm-6">
                                         <label for="prop_email">Email</label>
-                                        <input id="prop_email" class="form-control" type="text" value="{{$info_fact->Email}}">    
+                                        <input id="prop_email" class="form-control" type="text" value="{{$info_fact->Email}}" required>    
                                     </div>
             
                                     <div class="form-group col-sm-6">
                                         <label for="prop_telef">Teléfono</label>
-                                        <input id="prop_telef" class="form-control" type="text" value="{{$info_fact->Telefono}}" >    
+                                        <input id="prop_telef" class="form-control" type="text" value="{{$info_fact->Telefono}}" required>    
                                     </div>
                                 </div>
                                 
@@ -129,13 +129,13 @@
             
                                     <div class="form-group col-sm-6">
                                         <label for="prop_ciudad">Ciudad</label>
-                                        <input id="prop_ciudad" class="form-control" type="text" value="{{$info_fact->Ciudad}}" >    
+                                        <input id="prop_ciudad" class="form-control" type="text" value="{{$info_fact->Ciudad}}" required>    
                                     </div>
                                 </div>
     
                                 <div class="form-group">
                                     <label for="prop_dir">Dirección (se facturará a esta dirección)</label>
-                                    <input id="prop_dir" class="form-control" type="text" value="{{$info_fact->Direccion}}" >    
+                                    <input id="prop_dir" class="form-control" type="text" value="{{$info_fact->Direccion}}" required>    
                                 </div>
     
     
@@ -149,12 +149,12 @@
                                 <h3 class="section-title">Información de empresa</h3>
                                 <div class="form-group">
                                     <label for="razon_social">Nombre o razón social</label>
-                                    <input id="razon_social" name="razon_social" class="form-control" type="text" value="{{$info_fact->RazonSocial}}" >    
+                                    <input id="razon_social" name="razon_social" class="form-control" type="text" value="{{$info_fact->RazonSocial}}" required >    
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="ruc">Identificador fiscal (RUC,NIF,etc)</label>
-                                    <input id="ruc" class="form-control" type="text" value="{{$info_fact->Ruc}}" >    
+                                    <input id="ruc" class="form-control" type="text" value="{{$info_fact->Ruc}}" required>    
                                 </div>
     
                                 <div class="row">
@@ -171,13 +171,13 @@
             
                                     <div class="form-group col-sm-6">
                                         <label for="emp_ciudad">Ciudad</label>
-                                        <input id="emp_ciudad" class="form-control" type="text" value="{{$info_fact->Ciudad}}">    
+                                        <input id="emp_ciudad" class="form-control" type="text" value="{{$info_fact->Ciudad}}" required>    
                                     </div>
                                 </div>
     
                                 <div class="form-group">
                                     <label for="emp_dir">Dirección (se facturará a esta dirección)</label>
-                                    <input id="emp_dir" class="form-control" type="text"  value="{{$info_fact->Direccion}}">    
+                                    <input id="emp_dir" class="form-control" type="text"  value="{{$info_fact->Direccion}}" required>    
                                 </div>
                                 {{-- Información de contacto --}}
                                 <h3 class="section-title">Información de contacto</h3>
@@ -185,24 +185,24 @@
                                 <div class="row">
                                     <div class="form-group col-sm-6">
                                         <label for="emp_nomb">Nombre</label>
-                                        <input id="emp_nomb" class="form-control" type="text" value="{{$info_fact->Nombre}}">    
+                                        <input id="emp_nomb" class="form-control" type="text" value="{{$info_fact->Nombre}}" required>    
                                     </div>
             
                                     <div class="form-group col-sm-6">
                                         <label for="emp_apell">Apellido</label>
-                                        <input id="emp_apell" class="form-control" type="text" value="{{$info_fact->Apellido}}">    
+                                        <input id="emp_apell" class="form-control" type="text" value="{{$info_fact->Apellido}}" required>    
                                     </div>
                                 </div>
     
                                 <div class="row">
                                     <div class="form-group col-sm-6">
                                         <label for="emp_email">Email</label>
-                                        <input id="emp_email" class="form-control" type="text" value="{{$info_fact->Email}}">    
+                                        <input id="emp_email" class="form-control" type="text" value="{{$info_fact->Email}}" required>    
                                     </div>
             
                                     <div class="form-group col-sm-6">
                                         <label for="emp_telef">Teléfono</label>
-                                        <input id="emp_telef" class="form-control" type="text" value="{{$info_fact->Telefono}}">    
+                                        <input id="emp_telef" class="form-control" type="text" value="{{$info_fact->Telefono}}" required>    
                                     </div>
                                 </div>
                                 
@@ -316,8 +316,8 @@
 
                                         <div class="row" style="margin-top:20px;">
                                             <div class="col-sm-12"> 
-                                                <button id="btn-agregar-tarjeta" class="btn btn-brand-color" style="float:right;width:120px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Añadir tarjeta</button>
-                                                <button class="btn  " id="btn-cancelar-editar" style="float:right;display:none ">Cancelar</button>
+                                                <button  type="submit"  id="btn-agregar-tarjeta" class="btn btn-brand-color" style="float:right;width:120px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Añadir tarjeta</button>
+                                                <button  type="button"  class="btn" id="btn-cancelar-editar" style="float:right;display:none ">Cancelar</button>
                                             </div>
                                         </div>
                                         
@@ -490,7 +490,8 @@
             billing_page.tarjeta_added = true;
             $('#add-card').css('display','none');
             $('#numero-tarjeta').text('*********'+ {!! $tarjeta->last_four!!} );
-            $('#fecha-creacion').text( new Date( ({!!  $tarjeta->creation_date !!}) ));
+            $('#fecha-creacion').text( (new Date( ({!!  $tarjeta->creation_date !!}) ).toLocaleDateString('es-ES') ));
+            
             $('#card-stored').css('display','block');
             
         }

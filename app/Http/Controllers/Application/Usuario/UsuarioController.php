@@ -8,27 +8,37 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Culqi;
 
 class UsuarioController extends Controller
 {
+    private $SECRET_KEY = "sk_test_asQalOKDq7la1gKr";
+
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
     }
     public function i_perfil(){
 
+        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+        $usuario = \Auth::user();
         $idUsu = \Auth::user()->id_usu;
+        $plan_id_user = \Auth::user()->plan_id;
         $viewdata = [];
 
         $listar_telefonos_paises = Pais::all();
 
         $subscription = DB::table('subscription')
-                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad')
+                        ->select('planes.nombre',DB::raw('CASE WHEN subscription.id_periodicidad = 0 THEN planes.precio_anual ELSE planes.precio_mensual END AS precio'),'subscription.id_periodicidad','subscription.ends_at','subscription.culqi_id','subscription.estado','subscription.plan_id')
                         ->leftJoin('planes','subscription.plan_id','planes.id')
-                        ->where('id_usu',\Auth::user()->id_usu)
+                        ->where('id_usu',$usuario->id_usu)
+                        ->where('plan_id',$usuario->plan_id)
                         ->first();
+        //dd($subscription);
         $viewdata['subscription'] = $subscription;
 
         $viewdata['id_usu'] = $idUsu;
@@ -37,7 +47,6 @@ class UsuarioController extends Controller
         $fecha_anio = date("Y");
         $fecha_mes = date("m");
 
-        //$nventas =  DB::select('SELECT count(*) as nventas FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?',[\Auth::user()->id_empresa])[0]->nventas;
         $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
         and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
 
@@ -66,6 +75,37 @@ class UsuarioController extends Controller
             $viewdata['imagen_g']= $url;
         }
 
+        if($plan_id_user == 2) {
+
+            $response = new \stdClass();
+            try
+            {
+                $f_renovacion = date('d/m/Y',strtotime($subscription->ends_at));
+                $viewdata['f_renovacio'] = $f_renovacion;
+
+                //Traer Tarjeta
+                $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+                $u_card = DB::table('u_card')->where('id_card', $usuario->id_card)->first();
+
+                $respuesta = $response->cod = 1;
+
+                $viewdata['card_brand']= $u_card->card_brand;
+                $viewdata['card_number']= $u_card->card_last_four;
+                $viewdata['r_cod']= $respuesta;
+                $viewdata['info_fact']= $infoFact;
+            }
+            catch(\Exception $e)
+            {
+                $respuesta = $response->cod = 0;
+
+                $viewdata['r_cod']= $respuesta;
+                $viewdata['card_brand']= 'Ingresa';
+                $viewdata['card_number']= 'una tarjeta';
+                $viewdata['info_fact']= $infoFact;
+
+                return view('contents.application.usuario.u_perfil',$viewdata);
+            }
+        }
         return view('contents.application.usuario.u_perfil',$viewdata);
     }
 
@@ -140,7 +180,14 @@ class UsuarioController extends Controller
     public function changePassword(Request $request){
         $post = $request->all();
 
+        $current_password = $post['current_pass'];
+        $new_pass = $post['new_pass'];
+        $confirm_pass = $post['confirm_pass'];
+
+        $response = new \stdClass();
+
         $idPassword = \Auth::user()->password;
+        /*
         if (!password_verify($request->input('data.user.current_password'), $idPassword)) {
             dd('Invalid password.');//Verificar
         } else {
@@ -165,6 +212,73 @@ class UsuarioController extends Controller
 
             \Auth::user()->save();
             return redirect()->route('ajustes.i_perfil');
+        }
+        */
+        if (!password_verify($current_password, $idPassword)) {
+            $response->cod = 0;
+        } else {
+            if($new_pass == $confirm_pass) {
+                \Auth::user()->password = bcrypt($new_pass);
+                \Auth::user()->save();
+                $response->cod = 2;
+            }else {
+                $response->cod = 3;
+            }
+        }
+        return json_encode($response);
+    }
+
+    public function actualizarTarjeta(Request $request){
+
+        $data = $request->all();
+
+        $response = new \stdClass();
+        try
+        {
+            $usuario = \Auth::user();
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+            if($usuario->id_card != ''){
+                $card = $culqi->Cards->create(
+                    array(
+                        "customer_id" => $usuario->culqi_id,
+                        "token_id" => $data['token']
+                    )
+                );
+
+                DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
+                    ->update([
+                        'CardId'=> $card->id
+                    ]);
+
+                //Traer Tarjeta
+                $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+                $cardID = $infoFact->CardId;
+
+                $culqui_card = $culqi->Cards->get("$cardID");
+
+                $card_obj = json_encode($culqui_card);
+
+                $source = $culqui_card->source;
+                $iin = $source->iin;
+
+                $last_four = $source->last_four;
+                $card_brand = $iin->card_brand;
+
+                DB::table('u_card')->where('id_card',$usuario->id_card)
+                    ->update([
+                        'CardId'=> $cardID,
+                        'card_brand'=> $card_brand,
+                        'card_last_four'=> $last_four
+                    ]);
+                $response->cod = 1;
+                return json_encode($response);
+            }
+        }
+        catch(\Exception $e)
+        {
+            $response->cod = 0;
+            return json_encode($response);
         }
     }
 }

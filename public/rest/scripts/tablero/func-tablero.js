@@ -1,6 +1,6 @@
 $(function() {  
     /* $("#mdl-feedback").modal('show');*/
-    setupSocketio();
+    // setupSocketio();
     datosGenerales();
     $('#tablero').addClass("active");
 

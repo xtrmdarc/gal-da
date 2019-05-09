@@ -9,4 +9,5 @@ Route::get('/suscripcion', 'Application\Usuario\UsuarioController@i_suscripcion'
 
 Route::post('/password', 'Application\Usuario\UsuarioController@changePassword')->name('ajustes.usuario.changepassword');
 
+Route::post('/actualizarTarjeta', 'Application\Usuario\UsuarioController@actualizarTarjeta')->name('app.subscription.actualizar_tarjeta');
 ?>

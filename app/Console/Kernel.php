@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendBoletin;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        SendBoletin::class
     ];
 
     /**
@@ -26,6 +28,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('users:boletin')
+                 ->timezone('America/Lima')
+                 ->monthlyOn(1, '10:00');
     }
 
     /**

@@ -7716,7 +7716,8 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .tooltip-g {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
+  /*border-bottom: 1px dotted black;*/
+  cursor: pointer;
 }
 
 .tooltip-g .tooltiptext-g {

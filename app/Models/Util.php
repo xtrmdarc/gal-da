@@ -14,6 +14,10 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
+use Illuminate\Support\Facades\URL;
+use mikehaertl\wkhtmlto\Pdf;
+
+
 
 class Util
 {
@@ -31,7 +35,7 @@ class Util
     private $rootNs;
     private $xpath;
 
-    public function numtoletras($xcifra)
+    public function numtoletras($xcifra,$codigo_moneda = null)
     {
         $xarray = array(0 => "Cero",
             1 => "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
@@ -153,13 +157,13 @@ class Util
                         break;
                     case 2:
                         if ($xcifra < 1) {
-                            $xcadena = "CERO CON $xdecimales/100 soles";
+                            $xcadena = "CERO CON $xdecimales/100 ".$codigo_moneda?$codigo_moneda:'SOLES';
                         }
                         if ($xcifra >= 1 && $xcifra < 2) {
-                            $xcadena = "UN CON $xdecimales/100 soles ";
+                            $xcadena = "UN CON $xdecimales/100 ".$codigo_moneda?$codigo_moneda:'SOLES';
                         }
                         if ($xcifra >= 2) {
-                            $xcadena.= " CON $xdecimales/100 soles "; //
+                            $xcadena.= " CON $xdecimales/100 ".$codigo_moneda?$codigo_moneda:'SOLES'; //
                         }
                         break;
                 } // endswitch ($xz)
@@ -288,10 +292,38 @@ HTML;
         return $filename;
     }
 
+    public function generarReciboPdfGalda($billing_info,$plan_culqi,$parameters_recibo)
+    {
+        $pdf = new Pdf();
+        $pdf->setOptions([
+            'no-outline',
+            'viewport-size' => '1280x1024',
+            'page-width' => '21cm',
+            'page-height' => '29.7cm',
+            // 'footer-html' => __DIR__.'/../resources/footer.html',
+        ]);
+        //Los datos
+        $data =[ 'billing_info'=> $billing_info, 'plan_culqi'=>$plan_culqi,'param'=>$parameters_recibo];
+        $pdf->addPage(view('contents.application.suscripcion.template_recibo')->with($data)->render());
+        $binPath = self::getPathBin();
+        if (file_exists($binPath)) {
+            $render->setBinPath($binPath);
+        }
+        // $this->writeFile($document->getName().'.html', $render->getHtml());
+        $pdf_content = $pdf->toString();
+        if ($pdf_content === false) {
+            $error = $pdf->getError();
+            
+            echo 'Error: '.$error;
+            exit();
+        }
+        return $pdf_content;
+    }
+
     public function getPdf(DocumentInterface $document)
     {
-        $html = new HtmlReport('', [
-            'cache' => __DIR__ . '/../cache',
+        $html = new HtmlReport('/', [
+            // 'cache' => __DIR__ . '/../cache',
             'strict_variables' => true,
         ]);
         $resolver = new DefaultTemplateResolver();
@@ -303,24 +335,28 @@ HTML;
             'viewport-size' => '1280x1024',
             'page-width' => '21cm',
             'page-height' => '29.7cm',
-            'footer-html' => __DIR__.'/../resources/footer.html',
+            // 'footer-html' => __DIR__.'/../resources/footer.html',
         ]);
         $binPath = self::getPathBin();
         if (file_exists($binPath)) {
             $render->setBinPath($binPath);
         }
         $hash = $this->getHash($document);
+        //Setear nuestros parametros
         $params = self::getParametersPdf();
         $params['system']['hash'] = $hash;
-        $params['user']['footer'] = '<div>consulte en <a href="https://github.com/giansalex/sufel">sufel.com</a></div>';
+        // $params['user']['footer'] = '<div>consulte en <a href="https://github.com/giansalex/sufel">sufel.com</a></div>';
+   
         $pdf = $render->render($document, $params);
+        
         if ($pdf === false) {
             $error = $render->getExporter()->getError();
+            
             echo 'Error: '.$error;
             exit();
         }
         // Write html
-        $this->writeFile($document->getName().'.html', $render->getHtml());
+        // $this->writeFile($document->getName().'.html', $render->getHtml());
         return $pdf;
     }
     public function getGenerator($type)
@@ -348,7 +384,7 @@ HTML;
     }
     public static function getPathBin()
     {
-        $path = __DIR__.'/../vendor/bin/wkhtmltopdf';
+        $path = __DIR__.'wkhtmltopdf';
         if (self::isWindows()) {
             $path .= '.exe';
         }
@@ -397,7 +433,8 @@ HTML;
 
     private static function getParametersPdf()
     {
-        $logo = file_get_contents(__DIR__.'/../resources/logo.png');
+        //Recuerda probar con detalles de factura puestos y logo (o sin logo)
+        $logo = file_get_contents(__DIR__.'/../../public/home/images/logo-1.png');
         return [
             'system' => [
                 'logo' => $logo,
@@ -408,7 +445,7 @@ HTML;
                 'header' => 'Telf: <b>(056) 123375</b>',
                 'extras' => [
                     ['name' => 'CONDICION DE PAGO', 'value' => 'Efectivo'],
-                    ['name' => 'VENDEDOR', 'value' => 'GITHUB SELLER'],
+                    ['name' => 'VENDEDOR', 'value' => 'GAL-DA'],
                 ],
             ]
         ];

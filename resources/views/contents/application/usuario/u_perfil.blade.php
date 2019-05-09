@@ -11,12 +11,10 @@
                                 <h3 style="margin: 18px 0 32px;">Hola <b>{{$nombres}}</b></h3>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs customtab" role="tablist">
-                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
-                                    {{--/*
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Pago</span></a> </li>
-                                    */--}}
-                                    @if(\Auth::user()->id_rol == 1 )
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Subscripción</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
+                                    @if(\Auth::user()->parent_id == '' )
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-credit-card"></i></span> <span class="hidden-xs-down">Facturación</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Suscripción</span></a> </li>
                                     @endif
                                 </ul>
                                 <!-- Tab panes -->
@@ -97,127 +95,170 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group">
+                                                        <div class="row">
                                                             <div class="col-sm-3" style="float: right;">
-                                                                <button type="submit" class="btn btn-success"> Guardar </button>
+                                                                <button type="submit" class="btn btn-success" style="width: 100px;"> Guardar </button>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
-                                            @if(\Auth::user()->id_rol == 1 )
+                                            @if(\Auth::user()->parent_id == '')
                                                 <div class="col-lg-6">
                                                 <div class="card-body" style="padding-top: 20px;">
-                                                    <h4><i class="fa fa-list mid-icon"></i><b> Password</b></h4>
+                                                    <h4><i class="fa fa-list mid-icon"></i><b> Contraseña</b></h4>
                                                     <span>Modifica tu contraseña</span>
 
                                                     <div id="form-change-password" class="form-horizontal form-material">
                                                         <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Password</label>
+                                                            <label class="col-md-12">Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input type="password" value="*************" class="form-control form-control-line" disabled>
                                                             </div>
                                                         </div>
 
-                                                        <button id="cambiar_password_s" type="button" class="btn btn-default btn-outline m-b-10">Cambiar Password</button>
+                                                        <button id="cambiar_password_s" type="button" class="btn btn-success">Cambiar contraseña</button>
                                                     </div>
-                                                    <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" action="/password">
+                                                    <form id="form-change-password-reset" class="form-horizontal form-material" method="post" style="display: none;" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Actual Password</label>
+                                                            <label class="col-md-12">Contraseña Actual</label>
                                                             <div class="col-md-12">
                                                                 <input id="current-password" type="password" name="data[user][current_password]" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Nuevo Password</label>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12">Nueva Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input id="new-password" type="password" name="data[user][password]" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="col-md-12">Confirmar nuevo Password</label>
+                                                            <label class="col-md-12">Confirmar nueva Contraseña</label>
                                                             <div class="col-md-12">
                                                                 <input id="confirm-new-password" type="password" name="data[user][password_confirmation]" class="form-control form-control-line" required>
                                                             </div>
                                                         </div>
-
-                                                        <div class="form-group" style="display: inline-flex;float: right;">
-                                                            <div class="col-sm-6">
-                                                                <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancel</button>
+                                                        <div class="row">
+                                                            <div class="col-sm-3">
+                                                                <button id="btn_guardar_pass" type="submit" class="btn btn-success" style="width: 100px;"> Guardar </button>
                                                             </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="submit" class="btn btn-success"> Guardar </button>
+                                                            <div class="col-sm">
+                                                                <button id="cambiar_password_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane  p-20" id="u_pago" role="tabpanel">
-                                        <div class="row">
+                                        </div></div>
+                                    <div class="tab-pane p-20" id="u_pago" role="tabpanel">
+                                        @if(\Auth::user()->parent_id == '' && \Auth::user()->plan_id == '2' )
+                                            <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="card-body" style="padding-top: 20px;">
-                                                    <form class="form-horizontal form-material">
-                                                        <h4><i class="fa fa-user mid-icon"></i><b> Tipo de Pago</b></h4>
-                                                        <span>Seleccione su metodo de pago preferido</span>
+                                                <div class="card-body" style="padding-bottom: 20px;">
+                                                    <h4><i class="fa fa-user mid-icon"></i><b> Tipo de Pago</b></h4>
+                                                    <span>Ingrese su método de pago preferido</span>
 
-                                                        <div class="form-group" style="padding-top: 20px;">
-                                                            <label class="col-md-12">Nombre</label>
-                                                            <div class="col-md-12">
-                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line" maxlength="30">
-                                                            </div>
-                                                        </div>
+                                                    <div id="add-card" class="row" style="margin-top: 20px;">
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-10">
+                                                                <div id="form-change-card" class="form-horizontal form-material">
+                                                                    <div class="form-group" style="padding-top: 20px;">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6 form-group">
+                                                                                <label for="card[number]">Número de tarjeta</label>
+                                                                                @if($r_cod == 0)
+                                                                                    <input type="tel" value="{{$card_brand}} {{$card_number}}" class="form-control form-control-line" disabled>
+                                                                                @else
+                                                                                    <input type="tel" value="{{$card_brand}} ****{{$card_number}}" class="form-control form-control-line" disabled>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if($r_cod == 0)
+                                                                        <button id="cambiar_tarjeta" type="button" class="btn btn-success">Agregar Tarjeta</button>
+                                                                    @else
+                                                                        <button id="cambiar_tarjeta" type="button" class="btn btn-success">Cambiar Tarjeta</button>
+                                                                    @endif
+                                                                </div>
+                                                                <div id="form-change-card-h" style="display: none;">
+                                                                    <form id="form-agregar-tarjeta" method="POST" action="/actualizarTarjeta">
+                                                                        @csrf
+                                                                        <input type="text" style="display:none;" size="50" data-culqi="card[email]" id="card[email]" value="{{isset(\Auth::user()->info_fact_id)?$info_fact->Email:''}} ">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-6 form-group">
+                                                                                <label for="card[number]">Número de tarjeta</label>
+                                                                                <input class="form-control credit-card" type="tel" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" size="20" data-culqi="card[number]" id="card[number]" maxlength="20" style="letter-spacing:3px;word-spacing:20px;">
+                                                                            </div>
+                                                                            <div class="col-sm-5 col-md-4 form-group" >
+                                                                                <label>F. Venc. (MM/YYYY)</label>
+                                                                                <div class="row ">
+                                                                                    <div class="col-xs-6">
+                                                                                        <input class="form-control text-center" size="2" data-culqi="card[exp_month]" id="card[exp_month]" type="text"   placeholder="MM" maxlength="2" minlength="2">
+                                                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="col-md-12">Apellido</label>
-                                                            <div class="col-md-12">
-                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line" maxlength="30">
-                                                            </div>
-                                                        </div>
+                                                                                    <div class="col-xs-6" style="padding-left :0px;">
+                                                                                        <input class="form-control text-center" size="4" data-culqi="card[exp_year]" id="card[exp_year]" type="text" placeholder="YYYY" maxlength="4" minlength="4">
+                                                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="col-md-12">Numero de Tarjeta</label>
-                                                            <div class="col-md-12">
-                                                                <input type="text" placeholder="John Doe" class="form-control form-control-line">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-4"></label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" placeholder="MM" class="form-control form-control-line">
-                                                            </div>
-                                                        </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-md-2" style="float:right;">
+                                                                                <label for="card[cvv]">CVV</label>
+                                                                                <input class="form-control text-center" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" placeholder="___"maxlength="4" minlength="3" >
+                                                                            </div>
+                                                                        </div>
+                                                                        {{--/*
+                                                                        <div class="row">
+                                                                            <div class="col-sm-5 col-md-4 form-group" >
+                                                                                <label>F. Venc. (MM/YYYY)</label>
+                                                                                <div class="row ">
+                                                                                    <div class="col-xs-6">
+                                                                                        <input class="form-control text-center" size="2" data-culqi="card[exp_month]" id="card[exp_month]" type="text"   placeholder="MM" maxlength="2" minlength="2">
+                                                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label for="example-email" class="col-md-4"></label>
-                                                            <div class="col-md-4">
-                                                                <input type="email" placeholder="YY" class="form-control form-control-line" name="example-email" id="example-email">
-                                                            </div>
-                                                        </div>
+                                                                                    <div class="col-xs-6" style="padding-left :0px;">
+                                                                                        <input class="form-control text-center" size="4" data-culqi="card[exp_year]" id="card[exp_year]" type="text" placeholder="YYYY" maxlength="4" minlength="4">
+                                                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="col-md-4"></label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" placeholder="CVC" class="form-control form-control-line">
-                                                            </div>
-                                                        </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-md-2" style="float:right;">
+                                                                                <label for="card[cvv]">CVV</label>
+                                                                                <input class="form-control text-center" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" placeholder="___"maxlength="4" minlength="3" >
+                                                                            </div>
+                                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <div class="col-sm-12">
-                                                                <button class="btn btn-success"> Guardar </button>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-2">
+                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                <button id="cambiar_tarjeta_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                        */--}}
+                                                                        <div class="row">
+                                                                            <div class="col-sm-2">
+                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                <button id="cambiar_tarjeta_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr>
+                                        @endif
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="card-body" style="padding-top: 20px;">
+                                                <div class="card-body">
                                                     <form class="form-horizontal form-material">
                                                         <h4><i class="fa fa-list mid-icon"></i><b> Recibos</b></h4>
                                                         <span>Revisa tus recibos mensuales.</span>
@@ -260,31 +301,52 @@
                                     <div class="tab-pane p-20" id="u_suscripcion" role="tabpanel">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="card-body" style="padding-top: 20px;">
-                                                    <form class="form-horizontal form-material" method="post" action="/upgrade">
-                                                        @csrf
-                                                        @if(\Auth::user()->parent_id == '')
-                                                            <h4><i class="fa fa-list mid-icon"></i><b> Plan Actual</b></h4>
-                                                            <span>Administra tu actual suscripcion, actualiza tu plan.</span>
+                                                <div class="card-body">
+                                                    @if(\Auth::user()->parent_id == '')
+                                                        <h4><i class="fa fa-list mid-icon"></i><b> Plan Actual</b></h4>
+                                                        <span>Administra tu actual suscripcion, actualiza tu plan.</span>
 
-                                                            <input type="hidden" name="plan_id" value="1">
-                                                            <h5 class="m-t-30"><b>Plan {{$subscription->nombre }} </b> - {{$subscription->precio}} USD {{$subscription->id_periodicidad==1?'mensual':'anual'}} </h5>
-                                                            <h5 class="m-t-30">Nro de Ventas al momento: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                                        <input type="hidden" name="plan_id" value="1">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <h5 class="m-t-30"><b style="color: #1fbdb7;">Plan {{$subscription->nombre }} </b> - <b>{{$subscription->precio}} USD {{$subscription->id_periodicidad==1?'mensual':'anual'}}</b> </h5>
+                                                                @if($subscription->plan_id == 2 && $subscription->estado == 1)
+                                                                    <h5>Renovación Automática: <b style="color: #1fbdb7;"> <i class="fa fa-check"></i> Activada </b></h5>
+                                                                @else
+                                                                    @if($subscription->plan_id == 2 && $subscription->estado == 2)
+                                                                        <h5>Renovación Automática: <b style="color: #ef5350;"> <i class="fa fa-close"></i> Desactivada </b></h5>
+                                                                    @endif
+                                                                @endif
+                                                            </div>
+                                                            @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
+                                                                <div class="col-sm">
+                                                                    <h5 class="m-t-30" style="float: right;"><b>Tu Plan se renueva el:</b> {{$f_renovacio}}</h5>
+                                                                </div>
+                                                            @else
+                                                                @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
+                                                                    <div class="col-sm">
+                                                                        <h5 class="m-t-30" style="float: right;"><b>Tu suscripción finalizará el:</b> {{$f_renovacio}}</h5>
+                                                                    </div>
+                                                                @endif
+                                                            @endif
+                                                        </div>
+                                                        <h5 class="m-t-30">Nro de Ventas en este mes: <span><b>{{ $nventas  }} </b> {{ \Auth::user()->plan_id == 1? 'de 1000' : '' }} </span> <span class="pull-right">{{ $nventas  }}</span></h5>
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ $nventas  }}" aria-valuemin="0" aria-valuemax="1000" style="width:{{ $nventas  }}px; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                                        </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <a class="btn btn-success" href="/upgrade">Administrar Plan</a>
+                                                        </div>
+                                                        @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
+                                                            <div class="col-sm">
+                                                                <a id="cancelar_plan" class="btn btn-danger">Cancelar Plan</a>
                                                             </div>
                                                         @endif
-                                                        {{--/*
-                                                        <div class="form-group">
-                                                            <div class="col-sm-6">
-                                                                <button type="submit" class="btn btn-success"> Upgrade </button>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button class="btn btn-success"> Cancelar </button>
-                                                            </div>
-                                                        </div>
-                                                        */--}}
-                                                    </form>
+                                                    </div>
+
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -296,8 +358,41 @@
                 </div>
             </div>
         </div>
-    
+
+        <div class="modal inmodal fade" id="mdl-cancelar-plan" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+            <div class="modal-dialog modal-m">
+                <div class="modal-content animated bounceInRight">
+                    <form id="frm-cancelar-plan" class="unif_modal" method="post" enctype="multipart/form-data" action="/cancelar_subscripcion">
+                        @csrf
+                        <input type="hidden" name="cod_subs" id="cod_subs" value="{{$subscription->culqi_id }}">
+                        <div class="modal-header mh-p" style="border: none;">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                            <i class="fa fa-exclamation-circle modal-icon"></i>
+                        </div>
+                        <div class="modal-body" style="background: none; padding: 10px 30px 80px 30px;">
+                            <h2 style="text-align: center;">¿Estas seguro de cancelar tu Plan?</h2>
+                            <h5 style="text-align: center;">Siempre podras adquirir nuevamente el plan o cancelarlo</h5>
+                            <center>
+                                <a style="text-decoration-line: underline!important;color: #4680ff;" href="/upgrade">Administrar Plan</a>
+                            </center>
+                        </div>
+                        <div class="modal-footer" style="background: #f8fafb;">
+                            <div class="row" style="width: 100%;">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-danger">Sí, cancelo mi plan</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">No, no cancelo mi plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     <script src="{{URL::to('rest/scripts/usuario/usuario_perfil.js' )}}"></script>
+    <script src="https://checkout.culqi.com/v2"></script>
 
     <script type="text/javascript">
         $('#navbar-c').addClass("white-bg");
@@ -333,5 +428,56 @@
                     });
 
         });
+    </script>
+    <script type="text/javascript">
+
+        Culqi.publicKey = 'pk_test_xwCI0lmt8MrIT9N1';
+        Culqi.init();
+
+        $('#form-agregar-tarjeta').on('submit', function(e) {
+
+            if($('#card\\[email\\]').val()=='') return;
+
+            $('#btn-agregar-tarjeta').prop('disabled',true);
+            Culqi.createToken();
+            e.preventDefault();
+
+            console.log('llego aquí');
+        });
+
+        function culqi() {
+
+            if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+                var token = Culqi.token.id;
+                //alert('Se ha creado un token:' + token);
+                console.log('llego '+token );
+                $.ajax({
+                    type: "POST",
+                    url: '/actualizarTarjeta',
+                    data: {
+                        token: token
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: "json",
+                    success: function(response){
+                        if(response.cod === 1) {
+                            toastr.success('Se ha actualizado correctamente su tarjeta!');
+                            window.location = "/perfil";
+                        } else {
+                            $('#btn-agregar-tarjeta').button('reset');
+                            $('#btn-agregar-tarjeta').prop('disabled',false);
+                            toastr.error('No hemos podido actualizar tu tarjeta.');
+                        }
+                    }
+                });
+            } else { // ¡Hubo algún problema!
+                // Mostramos JSON de objeto error en consola
+                console.log(Culqi.error);
+                alert(Culqi.error.user_message);
+                $('#btn-agregar-tarjeta').button('reset');
+            }
+        };
     </script>
 @endsection

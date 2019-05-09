@@ -386,8 +386,10 @@ $('.btn-ins').click( function() {
 $('#mdl-insumo').on('hidden.bs.modal', function() {
     $(this).find('form')[0].reset();
     $('#frm-insumo').formValidation('resetForm', true);
+    ('#id_sucursal_d').selectpicker('val',$('#id_sucursal').val());
     $('#estado').selectpicker('val', 'a');
     $("#cod_med").val('').selectpicker('refresh');
+    
 });
 
 var mensaje = function(){

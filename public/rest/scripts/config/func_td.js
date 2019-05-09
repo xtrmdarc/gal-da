@@ -32,7 +32,7 @@ $(function() {
                 success: function (datos,cod) {
                     $('#mdl-tipodoc').modal('hide');
                     listarTiposDoc();
-                    toastr.info('Se ha modificado correctamente los datos!');
+                    toastr.success('Se ha modificado correctamente los datos!');
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(errorThrown + ' ' + textStatus);

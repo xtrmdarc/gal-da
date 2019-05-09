@@ -15,6 +15,7 @@ class ClienteController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('afterRegister');
+        $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
     }
     public function index(){
@@ -77,8 +78,27 @@ class ClienteController extends Controller
                 $fecha_nac = date('Y-m-d',strtotime($data['fecha_nac']));
             else $fecha_nac = '';
 
+            $post = $request->all();
+
+            $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
+            
+
+            if ($result->duplicado >0) {
+                $notification = [
+                    'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
+                    'alert-type' => 'error'
+                ];
+                $response->code = 0;
+                $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
+                $response->alert_type = 'error';
+                return  json_encode($response);
+                // return redirect('/cliente')->with($notification);
+
+            }
+            
             if($data['id_cliente'] != ''){
 
+                
                 $arrayParam =  array(
                     'dni' => $data['dni'],
                     'ruc' => $data['ruc'],
@@ -105,21 +125,7 @@ class ClienteController extends Controller
                 return json_encode($response);
             } else {
 
-                $post = $request->all();
-
-                $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
-                if ($result->duplicado >0) {
-                    $notification = [
-                        'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
-                        'alert-type' => 'error'
-                    ];
-                    $response->code = 0;
-                    $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
-                    $response->alert_type = 'error';
-                    return  json_encode($response);
-                    // return redirect('/cliente')->with($notification);
-
-                }
+                
                 // if($idRol == 1) {
                     
                 $nuevo_cliente = DB::table('tm_cliente')->insertGetId([

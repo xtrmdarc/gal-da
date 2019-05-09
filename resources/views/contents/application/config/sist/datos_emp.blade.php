@@ -67,7 +67,7 @@
                                         <div class="form-group">
                                             <label class="control-label">NOMBRE MONEDA
                                                 <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
-                                                    <span class="tooltiptext-g">Es el nombre en Plural de la Moneda que aparecerá en su Comprobante de Pago.</span>
+                                                    <span class="tooltiptext-g">Es el nombre en plural de la moneda que aparecerá en su comprobante de pago.</span>
                                                 </div>
                                             </label>
                                             <input type="text" name="desc_moneda" value="{{$desc_moneda}}" class="form-control" placeholder="Ej. Soles" maxlength="13" autocomplete="off" required>
@@ -93,7 +93,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Pais</label>
+                                    <label>PAÍS</label>
                                     <div class="input-group">
                                         {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
                                         <select name="country" id="country" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off" required="required" >

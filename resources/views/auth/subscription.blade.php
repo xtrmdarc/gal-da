@@ -38,7 +38,9 @@
                             Informes de Finanzas <br>
                         </div>
                         <input type="hidden" name="plan_id" value="1" />
-                    <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button>
+                        @if(\Auth::user()->plan_id==1 )
+                        <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
+                        @endif
                     </div>
                 </div>
     
@@ -72,9 +74,9 @@
                             <input type="hidden" name="plan_id" value="2" />
                             
                             
-                            {{-- <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button> --}}
+                            <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button>
                             
-                            <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button>
+                            {{-- <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button> --}}
                         </div>
                     </div>
     
@@ -100,6 +102,8 @@
                                 Mas de 40 Mesas* <br>
                                 MultiSucursal <br>
                                 Tablero de Control PRO <br>
+                                Gestión de Inventario (Kardex) <br>
+                                Gestión de Recetas <br>
                                 Gestión de Compras <br>
                                 Informes de Gestión <br>
                             </div>

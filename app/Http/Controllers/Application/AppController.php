@@ -201,4 +201,14 @@ class AppController extends Controller
                             ]);
         return json_encode(1);
     }
+
+    public static function SetSucursalPrincipalActiva()
+    {
+        $sucursal_principal =DB::table('sucursal')->where('plan_estado',1)
+                            ->where('id_empresa',session('id_empresa'))->first();
+        session(['id_sucursal'=>$sucursal_principal->id]);
+        return $sucursal_principal->id;
+    }
+
+
 }

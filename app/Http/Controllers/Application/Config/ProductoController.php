@@ -17,6 +17,7 @@ class ProductoController extends Controller
         $this->middleware('auth');
         $this->middleware('afterRegister');
         $this->middleware('userRol');
+        $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
     }
     public function index()
