@@ -28,9 +28,17 @@ class AreaProdController extends Controller
 
         if(\Auth::user()->id_rol == 1)
         {
-            $areas_prod = TmAreaProd::where('id_sucursal',$id_sucursal)->get();
-            
-            $id_areap =  $areas_prod[0]->id_areap;
+            $areas_prod = TmAreaProd::where('id_sucursal',$id_sucursal)
+                ->where('estado','a')->first();
+
+            if(is_null($areas_prod)){
+                $areas_prod = "";
+            }else {
+                $areas_prod = TmAreaProd::where('id_sucursal',$id_sucursal)
+                    ->where('estado','a')->get();
+
+                $id_areap =  $areas_prod[0]->id_areap;
+            }
         }
 
         $ordenes = $this->GetOrdenes($id_sucursal,$id_areap);

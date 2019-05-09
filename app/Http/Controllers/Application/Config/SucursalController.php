@@ -61,6 +61,12 @@ class SucursalController extends Controller
             $telefono = $post['telefono_sucursal'];
             $estado = $post['estado_sucursal'];
 
+            if (Sucursal::where('id_empresa', session('id_empresa'))
+                ->where('nombre_sucursal',$nombre_sucursal)->exists()) {
+
+                $response->cod = 0;
+            }
+
             $plan_estados = Sucursal::where('id',$cod)
                                     ->select('plan_estado')
                                     ->get();
@@ -72,18 +78,23 @@ class SucursalController extends Controller
                 $response->cod = 3;
             }
             else {
-                $sql = DB::update("UPDATE sucursal SET
+                if (Sucursal::where('id_empresa', session('id_empresa'))
+                    ->where('nombre_sucursal',$nombre_sucursal)->exists()) {
+                    $response->cod = 0;
+                }else {
+                    $sql = DB::update("UPDATE sucursal SET
                     nombre_sucursal  = ?,
                     direccion   = ?,
                     telefono   = ?,
                     estado = ?
                 WHERE id = ? and id_empresa = ?",
-                    [$nombre_sucursal,$direccion,$telefono,$estado,$cod,$id_empresa]);
-                if(empty($new_sucursal)) {
-                    $response->cod = 2;
+                        [$nombre_sucursal,$direccion,$telefono,$estado,$cod,$id_empresa]);
+                    if(empty($new_sucursal)) {
+                        $response->cod = 2;
 
-                }else {
-                    $response->cod = 0;
+                    }else {
+                        $response->cod = 0;
+                    }
                 }
             }
         }else {

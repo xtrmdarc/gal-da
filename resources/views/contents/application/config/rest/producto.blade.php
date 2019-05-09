@@ -20,7 +20,7 @@
                                 <a onclick="listarProductos('%')" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Todos los Productos</a>
                                 <div class="hr-line-dashed"></div>
                                 <div id="boton-catg" style="display: block">
-                                    <button class="btn btn-primary btn-block btn-catg"><i class="fa fa-plus-circle"></i> A&ntilde;adir nueva categor&iacute;a</button>
+                                    <button class="btn btn-primary btn-block btn-catg"><i class="fa fa-plus-circle"></i> Nueva categor&iacute;a</button>
                                 </div>
                                 <form id="frm-categoria" method="POST" action="/ajustesCrudCatg">
                                     @csrf

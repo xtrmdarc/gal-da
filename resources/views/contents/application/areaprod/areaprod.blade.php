@@ -20,9 +20,13 @@
                             
                           
                             <select id="area_prod_cb"  class="selectpicker" aria-labelledby="dropdownMenuLink">
-                              @foreach($areas_prod as $a)
-                                <option class="dropdown-item" value="{{$a->id_areap}}" href="#">{{$a->nombre }}</option>
-                              @endforeach
+                                @if($areas_prod == "")
+                                    <option class="dropdown-item" value="" href="#">No hay cocinas</option>
+                                @else
+                                    @foreach($areas_prod as $a)
+                                        <option class="dropdown-item" value="{{$a->id_areap}}" href="#">{{$a->nombre }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div> 
                     </li>
