@@ -74,9 +74,10 @@
                             <input type="hidden" name="plan_id" value="2" />
                             
                             
-                            <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button>
+                            {{-- <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button> --}}
                             
                             {{-- <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':'EMPIEZA AHORA'}}</button> --}}
+                            <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                         </div>
                     </div>
     
