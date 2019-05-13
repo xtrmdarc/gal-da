@@ -67,7 +67,8 @@
                         </div>
                         <input type="hidden" name="plan_id" value="2" />
                         
-                        <button id="basic-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow " style="width: 100%;">EMPIEZA AHORA</button>
+                        {{-- <button id="basic-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow " style="width: 100%;">EMPIEZA AHORA</button> --}}
+                        <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                     </div>
                 </div>
 
