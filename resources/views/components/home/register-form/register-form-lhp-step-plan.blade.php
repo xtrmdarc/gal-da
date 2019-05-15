@@ -4,9 +4,12 @@
     <h1 {!! Route::currentRouteName() == 'prices' ? '' : 'style="display: none;"' !!} class="title_plan">Planes</h1>
 
     <div class="price-table">
-        <div class="row pricing-table">
+        <div class="row pricing-table" style="padding-top: 20px;">
 
-            <div class="card-pricing col-sm-4 col-md-4">
+            <div class="card-pricing col-sm-3 col-md-3">
+                <div class="table-heading">
+                    <p class="plan-name-ll" style="color: transparent;">1</p>
+                </div>
                 <div class="single-price price-one">
                     <div class="table-heading">
                         <p class="plan-name-ll">Free</p>
@@ -21,8 +24,8 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>1000 Ventas Mensuales <br>
-                        Hasta 15 mesas*<br>
+                        <br>Hasta <b>500</b> Ventas Mensuales <br>
+                        Hasta <b>15</b> mesas*<br>
                         Productos Ilimitados <br>
                         1 Área de Producción <br>
                         1 Sucursal <br>
@@ -38,8 +41,46 @@
                 </div>
             </div>
 
-            <div class="card-pricing col-sm-4 col-md-4">
-                    <div class="single-price price-one">
+            <div class="card-pricing col-sm-3 col-md-3">
+                <div class="table-heading">
+                    <p class="plan-name-ll" style="color: transparent;">2</p>
+                </div>
+                <div class="single-price price-one">
+                    <div class="table-heading">
+                        <p class="plan-name-ll">Lite</p>
+                        <div class="section-plan-who clearfix">
+                            <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para pequeños curiosos restaurantes</span></p>
+                        </div>
+                        <div class="section-plan-price clearfix">
+                            <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">USD 9.<span style="font-size:25px;vertical-align:top">90</span></span> <span class="text-month-price" style="">/mes</span></h5>
+                        </div>
+                        <div class="section-price-desc clearfix">
+                            <p style="text-align: center;line-height: 1.5em;min-height: 1.5em"><span class="text-shade-10-0" style="font-weight: bold">o USD 90 /año</span></p>
+                        </div>
+                    </div>
+                    <div class="section-plan-offer">
+                        <br>Hasta <b>1000</b> Ventas Mensuales <br>
+                        Hasta <b>20</b> mesas*<br>
+                        Productos Ilimitados <br>
+                        1 Área de Producción <br>
+                        1 Sucursal <br>
+                        5 Usuarios <br>
+                        1 caja <br>
+                        Tablero de Control <br>
+                        Clientes <br>
+                        1 Informe de Ventas <br>
+                        Informes de Finanzas <br>
+                    </div>
+                    <input type="hidden" name="plan_id" value="1" />
+                    <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                </div>
+            </div>
+
+            <div class="card-pricing col-sm-3 col-md-3">
+                <div class="table-heading" style="border-radius: 5px 5px 0px 0px;border-top: solid;border-left: solid;border-right: solid;height: 40px;border-color: black;;background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a1/Fondo_Negro.jpg);">
+                    <p class="plan-name-ll" style="padding-top: 10px; color: white;">RECOMENDADO</p>
+                </div>
+                    <div class="single-price price-one" style="border-radius: 0px 0px 5px 5px;border: solid;border-color: black;">
                         <div class="table-heading">
                             <p class="plan-name-ll">Basic</p>
                             <div class="section-plan-who clearfix">
@@ -53,10 +94,10 @@
                             </div>
                         </div>
                         <div class="section-plan-offer">
-                            <b> Incluye Plan Free </b><br>
+                            <b> Incluye Plan Lite </b><br>
                             <b> + </b><br>
                             Ventas ilimitadas <br>
-                            Hasta 40 Mesas*<br>
+                            Hasta <b>40</b> Mesas*<br>
                             Insumos ilimitados <br>
                             Múltiples Áreas de producción <br>
                             2 Sucursal <br>
@@ -72,7 +113,10 @@
                     </div>
                 </div>
 
-            <div class="card-pricing col-sm-4 col-md-4">
+            <div class="card-pricing col-sm-3 col-md-3">
+                <div class="table-heading">
+                    <p class="plan-name-ll" style="color: transparent;">4</p>
+                </div>
                     <div class="single-price price-one">
                         <div class="table-heading">
                             <p class="plan-name-ll">Pro</p>
