@@ -64,6 +64,32 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        's3_certificates' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET_CERTIFICATE'),
+            'url' => env('AWS_URL'),
+        ],
+
+        's3_billing_c' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET_BILLING_C'),
+            'url' => env('AWS_URL'),
+        ],
+
+        's3_billing_g' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET_BILLING_G'),
+            'url' => env('AWS_URL'),
+        ],
     ],
 
 ];

@@ -157,6 +157,11 @@
         $breadcrumbs->parent('ajustes');
         $breadcrumbs->push('Tipos de Documento',route('config.TiposdeDocumentos'));
     });
+    //Facturacion
+    Breadcrumbs::register('config.Facturacion', function ($breadcrumbs) {
+        $breadcrumbs->parent('ajustes');
+        $breadcrumbs->push('Facturación',route('config.Facturacion'));
+    });
     //Usuario
     Breadcrumbs::register('config.Usuarios', function ($breadcrumbs) {
         $breadcrumbs->parent('ajustes');

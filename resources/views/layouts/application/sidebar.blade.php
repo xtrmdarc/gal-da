@@ -50,6 +50,7 @@ and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[\Auth::user()->id_empresa
 $id_empresa = \Auth::user()->id_empresa;
 $empresa = DB::table('empresa')->where('id', $id_empresa)->first();
 $version_empresa = $empresa->id_version_app;
+$certificado_digital = $empresa->certificado_digital;
 
 $facturacion_e = $empresa->factura_e;
 
@@ -132,13 +133,13 @@ if($version_empresa == 0) {
                             <li ><a id="sb_configuracion" class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
                                 <ul id="sb_collapse_configuracion" aria-expanded="false" class="collapse">
                                     <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>
-                                    <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
+                                    <li><i class="fa fa-bitbucket"> <b style="font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Restaurante</b></i><span class="hide-menu"></span></li>
                                     <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
                                     <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
-                                    <li><a href="{{route('config.Almacen')}}">Áreas de Produccion</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Áreas de Producción</a></li>
                                     <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
-                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
+                                    <li><i class="fa fa-desktop"> <b style="font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Sistema</b></i><span class="hide-menu"></span></li>
                                     <li id="sb_datos_empresa_cf" ><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
                                     <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                     <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
@@ -221,14 +222,22 @@ if($version_empresa == 0) {
                             <li ><a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu"> Configuración</span></a>
                                 <ul aria-expanded="false" class="collapse">
                                     <li><a href="{{route('ajustes')}}">Todos los Ajustes</a></li>
-                                    <li><i class="fa fa-bitbucket"></i><span class="hide-menu"> <b>Restaurante</b></span></li>
+                                    <li><i class="fa fa-bitbucket"> <b style="font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Restaurante</b></i><span class="hide-menu"></span></li>
                                     <li><a href="{{route('config.Cajas')}}">Cajas </a></li>
                                     <li><a href="{{route('config.Almacen')}}">Almacen</a></li>
-                                    <li><a href="{{route('config.Almacen')}}">Áreas de Produccion</a></li>
+                                    <li><a href="{{route('config.Almacen')}}">Áreas de Producción</a></li>
                                     <li><a href="{{route('config.SalonesMesas')}}">Salon y Mesas </a></li>
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
-                                    <li><i class="fa fa-desktop"></i><span class="hide-menu"> <b>Sistema</b></span></li>
+                                    <li><i class="fa fa-desktop"> <b style="font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Sistema</b></i><span class="hide-menu"></span></li>
                                     <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
+                                    <li><a href="{{route('config.Facturacion')}}">Facturación
+                                            <b>
+                                                @if(empty($certificado_digital))
+                                                    <i class="fa fa-close" style="color: #ef5350!important;"></i>
+                                                @else
+                                                    <i class="fa fa-check" style="color: #1fbdb7!important;"></i>
+                                                @endif
+                                            </b></a></li>
                                     <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                     <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
                                     <li><a href="{{route('config.Sucursal')}}">Sucursales </a></li>

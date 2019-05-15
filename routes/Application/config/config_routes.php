@@ -67,6 +67,9 @@
     Route::post('/ajustesGuardarTipoDocumento', 'Application\Config\OtrosController@GuardarTD')->name('config.tiposdeDocumentosGuardar');
     Route::post('/ajustesDatosEmpresa', 'Application\Config\OtrosController@GuardarDE');
 
+    //Facturacion
+    Route::get('/ajustesFacturacion', 'Application\Config\OtrosController@configFacturacion')->name('config.Facturacion');
+    Route::post('/ajustesFacturacion', 'Application\Config\OtrosController@guardarConfigFacturacion')->name('config.guardarFacturacion');
     //Tipo de Documentos
 
     Route::get('/ajustesDocumentos', 'Application\Config\AlmacenController@index');

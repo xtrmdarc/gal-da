@@ -191,4 +191,67 @@ class OtrosController extends Controller
         }
     }
 
+    public function configFacturacion(){
+
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
+        $viewdata['certificado_d'] = $empresa->certificado_digital;
+
+        $data = [
+            'breadcrumb'=> 'config.Facturacion',
+            'titulo_vista' => 'Facturacion',
+        ];
+
+        return view('contents.application.config.sist.facturacion',$viewdata)->with($data);
+    }
+
+    public function guardarConfigFacturacion(Request $request){
+
+        $post = $request->all();
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
+        $anio_actual = date("Y");
+
+        $usuario_f = $post['usuario_f'];
+        $contrasenia_f = $post['contrasenia_f'];
+
+        session(['user_f'=> $usuario_f]);
+        session(['contra_f'=> $contrasenia_f]);
+
+        $viewdata['certificado_d'] = $empresa->certificado_digital;
+
+        if($request->hasFile('file_f')) {
+
+            if (!(is_null($viewdata['certificado_d']) or $viewdata['certificado_d'] == '')) {
+                Storage::disk('s3_certificates')->delete($viewdata['certificado_d']);
+            }
+            //get filename with extension
+            $filenamewithextension = $request->file('file_f')->getClientOriginalName();
+
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+            //get file extension
+            $extension = $request->file('file_f')->getClientOriginalExtension();
+
+            //filename to store
+            $filenametostore = '/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.$filename.'_'.time().'.'.$extension;
+
+            //dd($filename,$extension,$filenametostore);
+            //Upload File to s3
+            Storage::disk('s3_certificates')->put($filenametostore, fopen($request->file('file_f'), 'r+'), 'private');
+
+            //Store $filenametostore in the database
+
+            DB::table('empresa')->where('id',$empresa->id)
+                ->update([
+                    'certificado_digital'=> $filenametostore
+                ]);
+
+            return redirect('/ajustesFacturacion');
+        } else {
+            return redirect('/ajustesFacturacion');
+        }
+
+        //dd("ESTAN EN SESIONEs",session('user_f'),session('contra_f'));
+        return redirect('/ajustesFacturacion');
+    }
 }
