@@ -122,6 +122,7 @@ class OtrosController extends Controller
     public function GuardarDE(Request $request){
         $post = $request->all();
 
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
         $id = (int)$post['id'];
         $razon_social = $post['razon_social'];
         $abrev_rs = $post['abrev_rs'];
@@ -157,7 +158,7 @@ class OtrosController extends Controller
 
                 //filename to store
                 $filenametostore = $filename.'_'.time().'.'.$extension;
-
+                $filenametostore = $empresa->nombre_empresa.'/logo_e/'.$filename.'_'.time().'.'.$extension;
                 //Upload File to s3
                 Storage::disk('s3')->put($filenametostore, fopen($request->file('logo'), 'r+'), 'public');
 

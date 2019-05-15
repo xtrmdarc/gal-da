@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Application\Usuario;
 
 use App\Models\Pais;
-use App\Models\TmUsuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Culqi;
+use App\Http\Controllers\Application\AppController;
 
 class UsuarioController extends Controller
 {
@@ -113,6 +113,7 @@ class UsuarioController extends Controller
 
         $post = $request->all();
 
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
         $idUsu = \Auth::user()->id_usu;
         $nombres = $post['nombres_p'];
         $ape_paterno = $post['a_paterno_p'];
@@ -145,8 +146,7 @@ class UsuarioController extends Controller
                 $extension = $request->file('imagen_p')->getClientOriginalExtension();
 
                 //filename to store
-                $filenametostore = $filename . '_' . time() . '.' . $extension;
-
+                $filenametostore = $empresa->nombre_empresa.'/logo_u/'.$filename.'_'.time().'.'.$extension;
                 //Upload File to s3
                 Storage::disk('s3')->put($filenametostore, fopen($request->file('imagen_p'), 'r+'), 'public');
 
