@@ -61,6 +61,7 @@ class ResumenesController extends Controller
             $resumenes_query = $resumenes_query->where(DB::raw('date(fecha_resumen)'),'<=',date('Y-m-d',strtotime($data['fecha_final'])));
         }
         
+        
         // if(isset($data['tipo_doc'])&& $data['tipo_doc']!= '')
         // {
         //     $resumenes_query = $resumenes_query->where('id_tipo_doc',$data['tipo_doc']);
@@ -69,10 +70,31 @@ class ResumenesController extends Controller
         // {
         //     $resumenes_query = $resumenes_query->where('folio',$data['documento']);
         // }
-        
         $resumenes = $resumenes_query->get();
         return  json_encode($resumenes);
+    }
 
+    public function buscarDocsResumenPorIdResumen(Request $request)
+    {
+        $data = $request->all();
+        /*
+        $resumenes_query = DB::table('v_resumenes_comprobante')->where('id_resumen',$data['id_resumen']);
+
+        $resumenes = $resumenes_query->get();
+
+
+        $idResumenes = array_column(json_decode(json_encode($resumenes)),'id_resumen');
+        
+        $docsResumen = DB::table('v_docs_resumen')->whereIn('id_ultimo_resumen',$idResumenes)->get();
+        foreach($resumenes as $res)
+        {
+            $res->docs_resumen = $docsResumen->where('id_ultimo_resumen',$res->id_resumen);
+        }
+        */
+
+        $docsResumen = DB::table('v_docs_resumen')->where('id_ultimo_resumen',$data['id_resumen'])->get();
+        
+        return json_encode($docsResumen);
     }
 
     public function enviarResumenSunat(Request $request)

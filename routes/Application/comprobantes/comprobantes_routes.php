@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Route;
         });
         // Rutas para resumen
         Route::prefix('resumen')->group(function(){
+
             Route::get('/','Application\Comprobantes\ResumenesController@index')->name('comprobantes.resumen');
             Route::post('/ExisteComprobantesEnviar','Application\Comprobantes\ResumenesController@existenComprobantesParaResumen');
             Route::post('/BuscarDocsResumenPorFecha','Application\Comprobantes\ResumenesController@buscarDocsResumenPorFecha');
@@ -48,7 +49,8 @@ use Illuminate\Support\Facades\Route;
             Route::post('/ConsultarEstado','Application\Comprobantes\ResumenesController@consultarEstadoResumen');
             Route::post('/EliminarResumen','Application\Comprobantes\ResumenesController@eliminarResumen');
             Route::post('/ReenviarResumen','Application\Comprobantes\ResumenesController@reenviarResumen');
-            
+            Route::post('/BuscarDocsResumenPorIdResumen','Application\Comprobantes\ResumenesController@buscarDocsResumenPorIdResumen');
+
         });
 
     });

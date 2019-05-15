@@ -4,7 +4,8 @@ class Resumen
     {
         var $self = this;
         this.id = id;
-        
+        this.docs_resumen =[];
+
         this.actualizarDatosFromResumen(resumen);
 
         this.id_tr_resumen = ''+this.id+this.id_resumen+'_tr_resumen'; 
@@ -21,6 +22,7 @@ class Resumen
         // $('#'+this.id_btn_eliminar).on('click',function(){
         //     eliminarResumen();
         // });
+        console.log('se crea el resumen');
         this.bindButtonListeners();
 
     }
@@ -28,17 +30,81 @@ class Resumen
     bindButtonListeners()
     {
         let $self = this;
-        $('#'+this.id_btn_estado).on('click',function(){
-            abrirModalResumenEstado($self);
+        $('#'+this.id_btn_estado).off('click').on('click',function(){
+            $self.abrirModalResumenEstado();
         });
 
-        $('#'+this.id_btn_eliminar).on('click',function(){
-            console.log('llego');
+        $('#'+this.id_btn_eliminar).off('click').on('click',function(){
             $self.eliminarResumen();
         });
 
-        $('#'+this.id_btn_reenviar_resumen).on('click',function(){
+        $('#'+this.id_btn_reenviar_resumen).off('click').on('click',function(){
             $self.reenviarResumen();
+        });
+    }
+
+    abrirModalResumenEstado()
+    {
+        
+        let resumen = this;
+        console.log(resumen);
+        $('#mdl_estado').empty();
+        $('#mdl_resumen_id').text(resumen.name_xml_file);
+        $('#mdl_fecha_resumen').text(resumen.fecha_resumen);
+        $('#mdl_fecha_comprobantes').text(resumen.fecha_comprobantes);
+        $('#mdl_estado').text(resumen.estado.descripcion);
+        $('#mdl_mensaje_sunat').text(resumen.mensaje_sunat);
+        
+        if(resumen.estado.id == 3)
+        {
+            $('#mdl_estado').empty();
+            resumen.consultarEstado();
+        }
+        
+        resumen.actualizarAcciones();
+        
+        // $('#mdl_acciones').empty();
+        // resumen.estado.acciones.forEach(accion => {
+        //     $('#mdl_acciones').append(`<div class="col text-center"  > ${accion}</div>`);
+        // });
+
+        $('#mdl-estado-resumen').modal('show');
+        resumen.buscarDocsResumenPorIdResumen();
+
+        
+        //Aqui colocar los documentos resumen asociados
+    }
+
+    buscarDocsResumenPorIdResumen()
+    {
+        let $self = this;
+        var loader = $('<div>');
+        loader.toggleClass('loader');
+        loader.css('margin-left','auto');
+        loader.css('margin-right','auto');
+
+        $('#table_docs_resumen_estado tbody').empty();
+        $('#table_docs_resumen_estado').after(loader);
+
+        $.ajax({
+            type:'POST',
+            dataType:'JSON',
+            url:'resumen/BuscarDocsResumenPorIdResumen',
+            data:{
+                id_resumen : $self.id_resumen
+            },
+            headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success:function(docsResumen)
+            {   
+                console.log(docsResumen);
+                loader.remove();
+                loader.remove();
+                let cont = 0;
+                docsResumen.forEach(doc => {
+                    cont++;
+                    $self.docs_resumen.push(new DocResumen(cont,doc));
+                });
+            }
         });
     }
 
@@ -167,7 +233,7 @@ class Resumen
     {   
         $('#mdl_acciones').empty();
         this.estado.acciones.forEach(accion => {
-            $('#mdl_acciones').append(`<div class="col text-center"  > ${accion}</div>`);
+            $('#mdl_acciones').append(`<div class="col text-center"> ${accion}</div>`);
         });
         this.bindButtonListeners();
     }
@@ -272,14 +338,32 @@ class DocResumen
                             <td> ${this.total} </td>
                         </tr>
                             `;
+        
         $('#table_docs_resumen tbody').append(doc_resumen_html);
 
+        // Could be asked if docresumen is for estado table or no
+        this.appendToResumenEstado();
 
         //Add event handlers
 
         $('#'+this.id_cbox_incluye).change(function(){
             $self.incluido = this.checked;
         });
+    }
+
+    appendToResumenEstado()
+    {
+        let doc_resumen_estado_html = ``;
+        doc_resumen_estado_html += `
+                <tr id="${this.id_tr_doc}">
+                    <td>${this.serie} </td>
+                    <td>${this.correlativo} </td>
+                    <td>${this.desc_doc} </td>
+                    <td>${this.total} </td>
+                </tr>
+        `;
+
+        $('#table_docs_resumen_estado tbody').append(doc_resumen_estado_html);
     }
 
     eliminar()
@@ -294,6 +378,7 @@ class DocResumen
 }
 
 var docs_resumen= [];
+var resumenes_list =[];
 
 $(function(){
     determinarComprobantesEnviar()
@@ -357,7 +442,7 @@ $('#frm-buscar-docs').on('submit',function(e){
 
 function obtenerResumenes(obj_param)
 {
-
+    resumenes_list = [];
     $.ajax({
         type : 'POST',
         dataType: 'JSON',
@@ -369,9 +454,10 @@ function obtenerResumenes(obj_param)
             // console.log(boletas);
             $('#table-resumen-comprobante tbody').empty();
             let cont = 0;
+            
             resumenes.forEach(resumen => {
                 cont++;
-                resumenes.push(new Resumen(cont,resumen));
+                resumenes_list.push(new Resumen(cont,resumen));
             });
             
         }
@@ -412,10 +498,10 @@ function nuevo_resumen()
     $('#estado_resumen').text('');
     $('#mensaje_sunat').text('');
     $('#mdl-nuevo-resumen').modal('show');
+    $('#table_docs_resumen tbody').empty();
 }
 
 function enviarResumen()
-
 {
     // console.log(docs_resumen);
     // console.log(docs_resumen.find(p=>p.id_tipo_doc == '5'));
@@ -482,29 +568,3 @@ function enviarResumen()
     })
 }
 
-function abrirModalResumenEstado(resumen)
-{
-    console.log(resumen);
-    $('#mdl_estado').empty();
-    $('#mdl_resumen_id').text(resumen.name_xml_file);
-    $('#mdl_fecha_resumen').text(resumen.fecha_resumen);
-    $('#mdl_fecha_comprobantes').text(resumen.fecha_comprobantes);
-    $('#mdl_estado').text(resumen.estado.descripcion);
-    $('#mdl_mensaje_sunat').text(resumen.mensaje_sunat);
-    
-    if(resumen.estado.id == 3)
-    {
-        $('#mdl_estado').empty();
-        resumen.consultarEstado();
-    }  
-    
-    resumen.actualizarAcciones();
-    
-    // $('#mdl_acciones').empty();
-    // resumen.estado.acciones.forEach(accion => {
-    //     $('#mdl_acciones').append(`<div class="col text-center"  > ${accion}</div>`);
-    // });
-
-    $('#mdl-estado-resumen').modal('show');
-
-}

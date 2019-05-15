@@ -256,7 +256,7 @@
                             <th>Serie</th>
                             <th>Numero</th>
                             <th>Tipo</th>
-                            {{-- <th>Monto</th> --}}
+                            <th>Monto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -267,7 +267,7 @@
             
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
-                <button id="btn_resumen_estado_modal" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Aceptar</button>
+                <button id="btn_resumen_estado_modal" type="submit" class="btn btn-primary" data-dismiss="modal"> Aceptar</button>
             </div>
 
         </div>

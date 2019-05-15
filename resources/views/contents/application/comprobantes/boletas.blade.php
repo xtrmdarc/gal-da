@@ -64,7 +64,7 @@
                             <div class="col-sm-10 form-group">
                                 <div class="row">
                                     <label for="" class="col-sm-4 col-md-3">Documento</label>
-                                    <input type="text" name="documento" class="form-control col-sm-8 col-md-9" placeholder="F001-00000123"  autocomplete="off">
+                                    <input type="text" name="documento" class="form-control col-sm-8 col-md-9" placeholder="B001-00000123"  autocomplete="off">
                                 </div>
                             </div>
     
