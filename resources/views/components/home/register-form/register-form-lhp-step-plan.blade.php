@@ -1,7 +1,12 @@
 <div class="container register-form-step-plan {{ $class_active or '' }}">
 
 
-    <h1 {!! Route::currentRouteName() == 'prices' ? '' : 'style="display: none;"' !!} class="title_plan">Planes</h1>
+    @if(empty(\Auth::user()))
+        <h1 {!! Route::currentRouteName() == 'prices' ? '' : 'style="display: none;"' !!} class="title_plan">Planes</h1>
+    @else
+        <h1 class="title_plan">Planes</h1>
+    @endif
+
 
     <div class="price-table">
         <div class="row pricing-table" style="padding-top: 20px;">
@@ -37,7 +42,15 @@
                         Informes de Finanzas <br>
                     </div>
                     <input type="hidden" name="plan_id" value="1" />
-                    <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                    @if(empty(\Auth::user()))
+                        <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                    @else
+                        @if(\Auth::user()->plan_id==1 )
+                            <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
+                        @else
+                            <button id="free-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                        @endif
+                    @endif
                 </div>
             </div>
 
@@ -71,14 +84,22 @@
                         1 Informe de Ventas <br>
                         Informes de Finanzas <br>
                     </div>
-                    <input type="hidden" name="plan_id" value="1" />
-                    <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                    <input type="hidden" name="plan_id" value="2" />
+                    @if(empty(\Auth::user()))
+                            <button id="lite-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                    @else
+                        @if(\Auth::user()->plan_id==2 )
+                            <button id="lite-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':''}}</button>
+                        @else
+                            <button id="lite-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                        @endif
+                    @endif
                 </div>
             </div>
 
             <div class="card-pricing col-sm-3 col-md-3">
-                <div class="table-heading" style="border-radius: 5px 5px 0px 0px;border-top: solid;border-left: solid;border-right: solid;height: 40px;border-color: black;;background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a1/Fondo_Negro.jpg);">
-                    <p class="plan-name-ll" style="padding-top: 10px; color: white;">RECOMENDADO</p>
+                <div class="table-heading recomend-plan">
+                    <p class="plan-name-ll recomend-plan-p">RECOMENDADO</p>
                 </div>
                     <div class="single-price price-one" style="border-radius: 0px 0px 5px 5px;border: solid;border-color: black;">
                         <div class="table-heading">
@@ -106,10 +127,16 @@
                             Tablero de Control Basic<br>
                             3 Informes de Venta <br>
                         </div>
-                        <input type="hidden" name="plan_id" value="2" />
-                        
-                        {{-- <button id="basic-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow " style="width: 100%;">EMPIEZA AHORA</button> --}}
-                        <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                        <input type="hidden" name="plan_id" value="3" />
+                        @if(empty(\Auth::user()))
+                            <button id="basic-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                        @else
+                            @if(\Auth::user()->plan_id==3 )
+                                <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==3?'':'\'upgrade/plan/3\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 3?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==3?'PLAN ACTUAL':''}}</button>
+                            @else
+                                <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                            @endif
+                        @endif
                     </div>
                 </div>
 

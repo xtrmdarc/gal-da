@@ -29,12 +29,21 @@ class BasicFreeMiddleware
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $today = date("Y-m-d");
 
+        $parentUsu = \Auth::user()->parent_id;
+
         if(\Auth::user()->plan_id == '2' ) {
 
             $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
 
-            $ends_at = DB::select('SELECT ends_at,estado,culqi_id FROM db_rest.subscription where id_usu = ? and plan_id = ?'
-                ,array(\Auth::user()->id_usu,\Auth::user()->plan_id));
+            if(empty($parentUsu)){
+                //Admin
+                $ends_at = DB::select('SELECT ends_at,estado,culqi_id FROM db_rest.subscription where id_usu = ? and plan_id = ?'
+                    ,array(\Auth::user()->id_usu,\Auth::user()->plan_id));
+            }else {
+                //Others
+                $ends_at = DB::select('SELECT ends_at,estado,culqi_id FROM db_rest.subscription where id_usu = ? and plan_id = ?'
+                    ,array(\Auth::user()->parent_id,\Auth::user()->plan_id));
+            }
 
             foreach($ends_at as $r) {
                 $f_v = $r->ends_at;

@@ -97,3 +97,20 @@
     font-weight: normal;
     text-transform: uppercase;
 }
+
+/*Plan recomendado*/
+
+.recomend-plan {
+    border-radius: 5px 5px 0px 0px;
+    border-top: solid;
+    border-left: solid;
+    border-right: solid;
+    height: 40px;
+    border-color: black;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a1/Fondo_Negro.jpg);
+}
+
+.recomend-plan-p {
+    padding-top: 10px;
+    color: white;
+}
