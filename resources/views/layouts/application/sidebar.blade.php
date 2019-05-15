@@ -230,14 +230,17 @@ if($version_empresa == 0) {
                                     <li><a href="{{route('config.Productos')}}">Productos </a></li>
                                     <li><i class="fa fa-desktop"> <b style="font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Sistema</b></i><span class="hide-menu"></span></li>
                                     <li><a href="{{route('config.DatosEmpresa')}}">Datos de Empresa </a></li>
-                                    <li><a href="{{route('config.Facturacion')}}">Facturación
-                                            <b>
-                                                @if(empty($certificado_digital))
-                                                    <i class="fa fa-close" style="color: #ef5350!important;"></i>
-                                                @else
-                                                    <i class="fa fa-check" style="color: #1fbdb7!important;"></i>
-                                                @endif
-                                            </b></a></li>
+                                    @if(Auth::user()->id_rol == '1' && session('datosempresa')->factura_e == 1)
+                                        <li><a href="{{route('config.Facturacion')}}">E - Facturación
+                                                <b>
+                                                    @if(empty($certificado_digital))
+                                                        <i class="fa fa-close" style="color: #ef5350!important;"></i>
+                                                    @else
+                                                        <i class="fa fa-check" style="color: #1fbdb7!important;"></i>
+                                                    @endif
+                                                </b></a>
+                                        </li>
+                                    @endif
                                     <li><a href="{{route('config.TiposdeDocumentos')}}">Tipos de Documentos </a></li>
                                     <li><a href="{{route('config.Usuarios')}}">Usuarios </a></li>
                                     <li><a href="{{route('config.Sucursal')}}">Sucursales </a></li>

@@ -16,6 +16,9 @@
                         <div class="ibox-content my-scroll">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div id="div_comprobantes_enviar" class="col-sm-12 p-2 border border-info bg-light rounded mb-3" style="display: block;">
+                                        <p style="margin: 0px;">Tu usuario y contrase&ntilde;a no se guarda en nuestro sistema por tu seguridad.</p>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
@@ -33,11 +36,7 @@
                                 </div>
                                 <div class="col-lg-12" style="margin-bottom: 0px;">
                                      <div class="form-group">
-                                         <label class="control-label">CERTIFICADO DIGITAL
-                                             <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
-                                                 <span class="tooltiptext-g">Tu usuario y contrase&ntilde;a no se guarda en nuestro sistema por tu seguridad.</span>
-                                             </div>
-                                         </label>
+                                         <label class="control-label">CERTIFICADO DIGITAL</label>
                                          @if(empty($certificado_d))
                                              <h5><b style="color: #ef5350;"> <i class="fa fa-close"></i> Sin Guardar </b></h5>
                                              <div class="picture">
