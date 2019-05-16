@@ -13,20 +13,18 @@
         </div>
         <div class="ibox-content form-modern" style="position: relative; min-height: 30px;">
             {{-- filtros --}}
-            <form id="frm-buscar-facturas" action="/buscarFacturas" method="POST">
+            <form id="frm-buscar-notas" action="/BuscarNotasCred" method="POST">
             <input type="hidden" name="cliente_id" id="cliente_id">
             <input type="hidden" name="aux_cliente_nombre" id="aux_cliente_nombre">
             <div class="row">
                     <div class="col-sm-6">
                         <div class="row">
-
                             <div class="col-sm-10 form-group">
                                 <div class="row">
                                     <label for="" class="col-sm-4 col-md-3">Documento</label>
-                                    <input type="text" name="documento" class="form-control col-sm-8 col-md-9" placeholder="F001-00000123"  autocomplete="off">
+                                    <input type="text" id="documento_folio" name="documento" class="form-control col-sm-8 col-md-9" placeholder="FC01-00000123"  autocomplete="off">
                                 </div>
                             </div>
-                            
                             <div class="col-sm-10 form-group ">
                                 <div class="row">
                            
@@ -34,8 +32,6 @@
                                     <input type="text" id="cliente_nombre" name="cliente_nombre" class="form-control col-sm-8 col-md-9"  autocomplete="off">
                                 </div>
                             </div>
-    
-    
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -45,7 +41,7 @@
                                 <div class="row">
                                     <label for=" " class="col-sm-4 col-md-3">Fecha </label>
                                     {{--  --}}
-                                    <input type="text" name="fecha_final" class="form-control datepicker col-sm-8 col-md-9"  autocomplete="off">
+                                    <input type="text" name="fecha" class="form-control datepicker col-sm-8 col-md-9"  autocomplete="off">
                                 </div>
                             </div>
                           

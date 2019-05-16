@@ -557,7 +557,7 @@ class InicioController extends Controller
 
         // validar si cliente es empresarial
         
-        if($data['tipo_doc'] == 2)
+        if($data['tipo_doc'] == 2 || $data['tipo_doc'] == 6)
         {
             if(!self::EsClienteEmpresarial($data['cliente_id']))
             {

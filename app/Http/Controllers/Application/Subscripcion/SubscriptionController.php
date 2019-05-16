@@ -40,7 +40,7 @@ class SubscriptionController extends Controller
         $this->middleware('vActualizacion');
     }
     public function upgradeShow(){
-        return view('contents.home.prices');
+        return view('auth.subscription');
     }
 
     public function upgrade_plan($id){

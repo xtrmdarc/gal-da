@@ -118,6 +118,7 @@ class NotaDetalle{
         $('#'+this.id_tr_nota_detalle).remove();
         this.nota.eliminarNotaDetalle(this);
     }
+
     toJSON()
     {
         let this_json = {
@@ -142,118 +143,193 @@ class NotaDetalle{
 
 // Clase nota
 class Nota {
-    constructor() {
+    constructor(desde_busqueda = 0, id = 0, nota = null) {
+
         var $self = this;
         //Initalize UI controls
-        this.table = $('#table-detalle-comprobante');
-        this.table.find('tbody').empty();
-        
-        this.subtotal_nota_txt = $('#subtotal_nota');
-        this.igv_nota_txt = $('#igv_nota');
-        this.total_nota_txt = $('#total_nota');
+        if(desde_busqueda == 0 )
+        {   
+            this.table = $('#table-detalle-comprobante');
+            this.table.find('tbody').empty();
+            
+            this.subtotal_nota_txt = $('#subtotal_nota');
+            this.igv_nota_txt = $('#igv_nota');
+            this.total_nota_txt = $('#total_nota');
 
-        this.btn_buscar = $('#btn_buscar_comprobante');
-        this.formulario_buscar = $('#frm-buscar-comprobante');
-        this.documento_input = $('#documento');
-        this.btn_crear_nota = $('#btn_enviar_nota');
+            this.btn_buscar = $('#btn_buscar_comprobante');
+            this.formulario_buscar = $('#frm-buscar-comprobante');
+            this.documento_input = $('#documento');
+            this.documento_input.val('');
+            
+            this.btn_crear_nota = $('#btn_enviar_nota');
 
-        this.select_motivo_nota = $('#motivo_nota');
-        this.select_motivo_nota.val('');
+            this.select_motivo_nota = $('#motivo_nota');
+            this.select_motivo_nota.val('');
 
-        this.sustento_txt = $('#sustento');
-        this.sustento_txt.val('');
-        
-        this.div_datos_comprobante = $('#div_datos_comprobante');
-        this.div_datos_comprobante = $('#div_datos_comprobante').css('display','none');
-        
-        this.btn_nueva_fila = $('#btn_nueva_fila');
+            this.sustento_txt = $('#sustento');
+            this.sustento_txt.val('');
+            
+            this.div_datos_comprobante = $('#div_datos_comprobante');
+            this.div_datos_comprobante = $('#div_datos_comprobante').css('display','none');
+            
+            this.btn_nueva_fila = $('#btn_nueva_fila');
 
-        this.div_mensaje_respuesta = $('#div_mensaje_respuesta');
-        this.div_mensaje_respuesta.find('.loader').remove();
-        this.div_mensaje_respuesta.find('#estado_resumen').empty();
-        this.div_mensaje_respuesta.find('#mensaje_sunat').empty();
-        this.div_mensaje_respuesta.css('display','none');
+            this.div_mensaje_respuesta = $('#div_mensaje_respuesta');
+            this.div_mensaje_respuesta.find('.loader').remove();
+            this.div_mensaje_respuesta.find('#estado_resumen').empty();
+            this.div_mensaje_respuesta.find('#mensaje_sunat').empty();
+            this.div_mensaje_respuesta.css('display','none');
 
-        this.div_busqueda_mensaje = $('#div_busqueda_mensaje');
-        this.div_busqueda_mensaje.css('display','none');
+            this.div_busqueda_mensaje = $('#div_busqueda_mensaje');
+            this.div_busqueda_mensaje.css('display','none');
 
-        this.valor_venta = parseFloat(0.00).toFixed(2);
-        this.igv = parseFloat(0.00).toFixed(2);
-        this.precio_venta = parseFloat(0.00).toFixed(2);
-        this.porcentaje_igv = parseFloat(0.00).toFixed(2);
+            this.valor_venta = parseFloat(0.00).toFixed(2);
+            this.igv = parseFloat(0.00).toFixed(2);
+            this.precio_venta = parseFloat(0.00).toFixed(2);
+            this.porcentaje_igv = parseFloat(0.00).toFixed(2);
 
-        this.actualizarMontosUI();
-
-        this.formulario_buscar.on('submit',function(e){
-            e.preventDefault();
-            $self.buscarComprobante();
-        });
-
-        this.btn_crear_nota.on('click',function(){
-            console.log('entra aqui');
-            $self.crearNotaDeCredito();
-        });
-
-        this.select_motivo_nota.on('change',function(){
-            $self.id_motivo = this.value;
-        });
-
-        this.documento_input.autocomplete({
-            delay: 1,
-            autoFocus: true,
-            source: function (request, response) {
-                $.ajax({
-                    url: 'ListarFolios',
-                    type: "post",
-                    dataType: "json",
-                    dataSrc:'',   
-                    headers:{
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        criterio: request.term
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        response($.map(data, function (item) {
-                            return {
-                                id: item.id_venta,
-                                folio: item.folio
-                            }
-                        }))
-                    }
-                })
-            },
-            select: function (e, ui) {
-        
-                /* Validar si cumple años el cliente */
+            this.actualizarMontosUI();
+            // Events binding
+            this.formulario_buscar.off('click').on('submit',function(e){
                 e.preventDefault();
-                // var cumple = moment(ui.item.fecha_n).format('D MMMM');
-                // $("#cliente_id").val(ui.item.id);
-                $self.documento_input.val(ui.item.folio);
-               
-            },
-            change: function() {
-                //$("#cliente_nombre").val('');
-                $self.documento_input.focus();
-                if($self.documento_input.val()=='')
-                    $self.documento_input.val()="";
-                // console.log($("#cliente_nombre").val());
-            }
-        })
-        .autocomplete( "instance" )._renderItem = function( ul, item ) {
-            ul.css('z-index','10000');
-            return $( "<li>" )
-              .append(item.folio)
-              .appendTo( ul );
-        };
+                $self.buscarComprobante();
+            });
 
-        this.btn_nueva_fila.on('click',function(e){
-            e.preventDefault();
-            $self.añadirNuevoDetalleFila();
-        });
+            this.btn_crear_nota.off('click').on('click',function(){
+                console.log('entra aqui');
+                $self.crearNotaDeCredito();
+            });
+
+            this.select_motivo_nota.off('click').on('change',function(){
+                $self.id_motivo = this.value;
+            });
+
+            this.documento_input.autocomplete({
+                delay: 1,
+                autoFocus: true,
+                source: function (request, response) {
+                    $.ajax({
+                        url: 'ListarFolios',
+                        type: "post",
+                        dataType: "json",
+                        dataSrc:'',   
+                        headers:{
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            criterio: request.term
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            response($.map(data, function (item) {
+                                return {
+                                    id: item.id_venta,
+                                    folio: item.folio
+                                }
+                            }))
+                        }
+                    })
+                },
+                select: function (e, ui) {
+            
+                    /* Validar si cumple años el cliente */
+                    e.preventDefault();
+                    // var cumple = moment(ui.item.fecha_n).format('D MMMM');
+                    // $("#cliente_id").val(ui.item.id);
+                    $self.documento_input.val(ui.item.folio);
+                
+                },
+                change: function() {
+                    //$("#cliente_nombre").val('');
+                    $self.documento_input.focus();
+                    if($self.documento_input.val()=='')
+                        $self.documento_input.val()="";
+                    // console.log($("#cliente_nombre").val());
+                }
+            })
+            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                ul.css('z-index','10000');
+                return $( "<li>" )
+                .append(item.folio)
+                .appendTo( ul );
+            };
+
+            this.btn_nueva_fila.on('click',function(e){
+                e.preventDefault();
+                $self.añadirNuevoDetalleFila();
+            });
+
+        }
+        else if(desde_busqueda == 1)
+        {   
+            this.id = id;
+            this.id_nota = nota.IdNota;
+            this.id_tr_nota = ''+id+'_tr_nota';
+            this.documento = nota.Serie+'-'+nota.Correlativo;
+            this.fecha_emision= nota.FechaEmision;
+            this.doc_afectado = nota.NumDocAfectado;
+            this.id_estado_comprobante = nota.IdEstadoComprobante;
+            this.desc_estado_comprobante = nota.DescEstadoComprobante;
+
+            this.estado = this.determinarEstado();
+            this.mensaje_sunat =nota.MensajeSunat?nota.MensajeSunat:'';
+            // this.visualizar = '';
+            $('#table-nota-cred-comprobante tbody').append(this.obtenerHTMLTabla());
+        }
+    }
+
+    determinarEstado()
+    {
+        let estado = {};
+        estado.descripcion = this.desc_estado_comprobante;
         
+        switch(this.id_estado_comprobante)
+        {
+            case '1': {                
+                estado.accion_a_tomar= ` <a id="${this.id_btn_firmar_xml}" href="#" class="card" style="background-color:#10A51F;padding:2px;color:white;opacity:1;"> Firmar </label>`;
+                estado.color = '#1FBDB7';
+                break;
+            }
+            case '2' || '5' : {
+                estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}"  class="card" style="background-color:#1FBDB7;padding:2px;color:white;opacity:1;"> Enviar  </a>`;
+                estado.color = '#10A51F';
+                break;
+            }
+            case '3' : {
+                estado.accion_a_tomar= ` <a id="${this.id_btn_estado}" href="#" class="card" style="background-color:#3F6B89;padding:2px;color:white;opacity:1;">Estado  </label>`;
+                estado.color = '#3F6B89';
+                break;
+            }
+            case '4' : {
+                estado.accion_a_tomar= `<a id="${this.id_btn_baja}" href="#" class="card" style="background-color:#BB0808;padding:2px;color:white;opacity:1;"> Baja  </label>`;
+                estado.color = '#BB0808';
+                break;
+            }
+            case '5' : {
+                estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}"   href="#" class="card" style="background-color:#2EBC3C;padding:2px;color:white;opacity:1;">Enviar </label>`;
+                estado.color = '#2EBC3C';
+                break;
+            }
+            default : estado.accion_a_tomar= ``;break;
+        }   
 
+        return estado;
+    }
+
+    obtenerHTMLTabla()
+    {
+        let nota_html = ``;
+        nota_html += `
+                    <tr id="${this.id_tr_nota}">
+                        <td>${this.documento}</td>
+                        <td>${this.fecha_emision}</td>
+                        <td>${this.doc_afectado}</td>
+                        <td class="text-center"><label class="card" style="background-color:${this.estado.color};padding:2px;color:white;opacity:1;" > ${this.estado.descripcion}</label> </td>
+                        <td>${this.mensaje_sunat}</td>
+                        <td class="text-center"><a href="#" class="card" style="background-color:#247BA0;padding:2px;color:white;opacity:1;">Ver </label></td>
+                    </tr>
+                        `;
+        return nota_html;
     }
 
     actualizarDatosComprobante(cpe)
@@ -289,8 +365,6 @@ class Nota {
         this.igv_nota_txt.text('S/. '+this.igv);
         this.total_nota_txt.text('S/. '+this.precio_venta);
     }
-
-   
     
     buscarComprobante() 
     {   
@@ -329,8 +403,8 @@ class Nota {
                         $self.detalles.push( new NotaDetalle(cont,detalle,$self.table,1,$self));
                     });
                     
-                    $self.detalles.forEach(nota => {
-                        $self.table.find('tbody').append(nota.obtenerHTML());
+                    $self.detalles.forEach(nota_detalle => {
+                        $self.table.find('tbody').append(nota_detalle.obtenerHTML());
                         nota.bindComponents();
                     });
                 }
@@ -446,8 +520,6 @@ class Nota {
         loader.css('margin-top','20px');
         this.div_mensaje_respuesta.append(loader);
         this.div_mensaje_respuesta.css('display','block');
-        
-        
 
         $.ajax({
             type:'POST',
@@ -465,6 +537,7 @@ class Nota {
                     $self.div_mensaje_respuesta.find('#estado_resumen').text('Nota de crédito aceptada');
                     $self.div_mensaje_respuesta.removeClass('border-warning');
                     $self.div_mensaje_respuesta.addClass('border-info');
+                    $self.resetNota();
                 }
                 else
                 {
@@ -487,9 +560,25 @@ class Nota {
     {
         this.sustento = this.sustento_txt.val();
     }
+
+    resetNota()
+    {
+        this.select_motivo_nota.val('');
+        this.sustento_txt.val('');
+        this.documento_input.val('');
+
+        this.div_datos_comprobante = $('#div_datos_comprobante').css('display','none');
+
+        for(var i = this.detalles.length- 1; i>= 0; i--)
+        {
+            // console.log(docs_resumen.find(p=> p.identificador == id_boletas[i]));
+            let nota_detalle  =  this.detalles[i];
+            nota_detalle.eliminar();
+        }
+    }
 }
 
-
+var notas_list = [];
 //Empieza todas las funciones
 $(function () {
 
@@ -498,6 +587,97 @@ $(function () {
 function nueva_nota() {
     //Abrir el modal
     $('#mdl-nueva-nota-cred').modal('show');
-    nota = new Nota();
 
+    nota = new Nota();
 }
+
+$('#frm-buscar-notas').on('submit',function(e){
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    let form = $(e.target);
+    let parametros = form.serializeArray();
+    console.log(parametros);
+   
+    obtenerNotas(parametros);
+});
+
+function obtenerNotas(obj_param)
+{
+    $('#btn-consultar').text('CONSULTANDO..');
+    $('#btn-consultar').prop('disabled',true);
+   
+    $('#table-nota-cred-comprobante tbody').empty();
+    $.ajax({
+        type : 'POST',
+        dataType: 'JSON',
+        url: 'credito/BuscarNotasCred',
+        data: obj_param,
+        headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function(notas){
+            $('#btn-consultar').text('CONSULTAR');
+            $('#btn-consultar').prop('disabled',false);
+            
+            let notas_html = ``;
+            // console.log(facturas);
+           
+            let cont = 0;
+            notas_list = [];
+            notas.forEach(nota => {
+                cont++;
+                notas_list.push(new Nota(1,cont,nota));
+            });
+        }
+    });
+}
+
+$('#documento_folio').autocomplete({
+    delay: 1,
+    autoFocus: true,
+    source: function (request, response) {
+        $.ajax({
+            url: 'credito/ListarFoliosNotaCredito',
+            type: "post",
+            dataType: "json",
+            dataSrc:'',   
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                criterio: request.term
+            },
+            success: function (data) {
+                console.log(data);
+                response($.map(data, function (item) {
+                    return {
+                        id: item.IdNota,
+                        folio: item.Folio
+                    }
+                }))
+            }
+        })
+    },
+    select: function (e, ui) {
+
+        /* Validar si cumple años el cliente */
+        e.preventDefault();
+        // var cumple = moment(ui.item.fecha_n).format('D MMMM');
+        // $("#cliente_id").val(ui.item.id);
+        $('#documento_folio').val(ui.item.folio);
+    
+    },
+    change: function() {
+        //$("#cliente_nombre").val('');
+        $('#documento_folio').focus();
+        if($('#documento_folio').val()=='')
+            $('#documento_folio').val()="";
+        // console.log($("#cliente_nombre").val());
+    }
+})
+.autocomplete( "instance" )._renderItem = function( ul, item ) {
+    ul.css('z-index','10000');
+    return $( "<li>" )
+    .append(item.folio)
+    .appendTo( ul );
+};

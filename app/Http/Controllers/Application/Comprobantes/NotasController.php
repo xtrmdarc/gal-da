@@ -108,12 +108,68 @@ class NotasController extends Controller
                                                         ->where('id_empresa',session('id_empresa'))
                                                         ->first();
         $nota_obj->codigo_motivo = DB::table('motivo_nota_cred')->where('id_motivo_nota_cred',$nota_obj->id_motivo)->first()->codigo_motivo_nota_cred;
-
-        $nota_obj->serie = 
+        
+        $query_correlativo = DB::select("SELECT LPAD(count(n.IdNota)+ifnull(tde.correlativo,0 ),8,'0') correlativo 
+                                        from  v_notas n
+                                        right join tipo_doc_empresa tde on tde.id_empresa = n.IdEmpresa
+                                        where tde.id_tipo_doc = ? AND n.IdEmpresa = ? AND n.IdTipoDocRelacionado = ?
+                                        ",
+                                        [   7 //por ser nota de credito
+                                            ,session('id_empresa')
+                                            ,$nota_obj->doc_afectado->tipo_doc_codigo =='03'?5:6
+                                        ]
+                                        )[0];
+        $nota_obj->correlativo = $query_correlativo->correlativo;
+        $nota_obj->serie = ($nota_obj->doc_afectado->tipo_doc_codigo =='03'?'B':'F'). DB::table('tipo_doc_empresa')->where('id_tipo_doc',7)
+                                                        ->where('id_empresa',session('id_empresa'))
+                                                        ->first()->serie;
 
         //Falta sacar la serie y el correlativo
         $respuesta = json_encode(EFacturacion::generarNotaCredito($nota_obj));
         return  $respuesta;
+    }
+
+    public function buscarNotasCred(Request $request)
+    {
+        $data = $request->all();
+        
+        $notas_query = DB::table('v_notas')->where('IdEmpresa',session('id_empresa'))->where('IdTipoDoc',7);
+
+        if(isset($data['cliente_id'])&& $data['cliente_id']!= '')
+        {
+            $notas_query = $notas_query->where('IdCliente',$data['cliente_id']);
+        }
+        // Si lo queremos por rango de fechas
+        // if(isset($data['fecha_inicio'])&& $data['fecha_inicio']!= '')
+        // {
+        //     $notas_query = $facturas_query->where(DB::raw('date(FechaEmision)'),'>=',date('Y-m-d',strtotime($data['fecha_inicio'])));
+        // }
+        // if(isset($data['fecha_final'])&& $data['fecha_final']!= '')
+        // {
+        //     $notas_query = $facturas_query->where(DB::raw('date(FechaEmision)'),'<=',date('Y-m-d',strtotime($data['fecha_final'])));
+        // }
+
+        if(isset($data['documento_folio'])&& $data['documento_folio']!= '')
+        {
+            $notas_query = $notas_query->where('Folio',$data['documento_folio']);
+        }
+        
+        if(isset($data['fecha'])&& $data['fecha']!= '')
+        {
+            $notas_query = $notas_query->where(DB::raw('date(FechaEmision)'),date('Y-m-d',strtotime($data['fecha'])));
+        }
+
+        return json_encode($notas_query->get());
+       
+    }
+
+    public function listarFoliosNotaCredito(Request $request){
+        $data = $request->all();
+        $folios = DB::table('v_notas')->whereRaw('Folio LIKE ? ',['%'.$data['criterio'].'%'])
+                                    ->where('IdTipoDoc',7)
+                                    ->get();
+
+        return json_encode($folios);
     }
 
 }
