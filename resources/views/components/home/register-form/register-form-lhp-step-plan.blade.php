@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>Hasta <b>500</b> Ventas Mensuales sss<br>
+                        <br>Hasta <b>500</b> Ventas Mensuales<br>
                         Hasta <b>15</b> mesas*<br>
                         Productos Ilimitados <br>
                         1 Área de Producción <br>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="section-plan-offer">
-                            <b> Incluye Plan Litesss </b><br>
+                            <b> Incluye Plan Lite </b><br>
                             <b> + </b><br>
                             Ventas ilimitadas <br>
                             Hasta <b>40</b> Mesas*<br>
