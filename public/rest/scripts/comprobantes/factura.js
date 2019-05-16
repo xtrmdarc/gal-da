@@ -316,8 +316,6 @@ function obtenerFacturas(obj_param)
                 facturas.push(new factura(cont,fact));
 
             });
-        
-            
         }
     });
 

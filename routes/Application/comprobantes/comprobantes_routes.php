@@ -31,6 +31,9 @@ use Illuminate\Support\Facades\Route;
             Route::prefix('credito')->group(function(){
                 Route::get('/','Application\Comprobantes\NotasController@indexCredito')->name('comprobantes.nota_cred');
                 Route::post('RegistrarNotaCredito','Application\Comprobantes\NotasController@registrarNotaCredito');
+                Route::post('BuscarNotasCred','Application\Comprobantes\NotasController@buscarNotasCred');
+                Route::post('ListarFoliosNotaCredito','Application\Comprobantes\NotasController@listarFoliosNotaCredito');
+                
             });
             // Nota de debito
             

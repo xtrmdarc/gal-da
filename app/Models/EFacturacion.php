@@ -220,7 +220,12 @@ class EFacturacion
            
             // $util->showResponse($invoice, $cdr);
         } else {
-            echo $util->getErrorResponse($res->getError());
+
+            DB::table('tm_venta')->where('id_venta',$id_venta)
+                                ->update(['mensaje_sunat'=>$res->getError()->getMessage(),
+                                'codigo_sunat'=>$res->getError()->getCode()]);
+
+            // echo $util->getErrorResponse($res->getError());
         }
     }
 
@@ -341,6 +346,8 @@ class EFacturacion
             //                                     'MensajeSunat'=> $res->getError()->getMessage(),
             //                                     'CodigoSunat'=> $res->getError()->getCode() 
             //                             ]);
+
+            
             return json_encode($response);
         }
         
@@ -503,11 +510,11 @@ class EFacturacion
             ->setTipDocAfectado($nota->doc_afectado->tipo_doc_codigo)
             ->setNumDocfectado($nota->doc_afectado->folio)
             ->setCodMotivo($nota->codigo_motivo)
-            ->setDesMotivo('POR AHORA')
+            ->setDesMotivo($nota->sustento)
             ->setTipoDoc('07') 
-            ->setSerie('FF01') // Falta
+            ->setSerie($nota->serie) 
             ->setFechaEmision(new \DateTime()) 
-            ->setCorrelativo('123') // Falta
+            ->setCorrelativo($nota->correlativo) 
             ->setTipoMoneda('PEN') // Siempre soles por ahora
             // ->setGuias([
             //     (new Document())
@@ -611,9 +618,9 @@ class EFacturacion
               
                 // $util->showResponse($invoice, $cdr);
             } else {
-                echo $util->getErrorResponse($res->getError());
+                // echo $util->getErrorResponse($res->getError());
                 $response->code =0;
-                $response->mensaje = $res->getError();
+                $response->mensaje = $res->getError()->getMessage();
             }
         }
         else
@@ -645,7 +652,7 @@ class EFacturacion
                                     'IdEmpresa' => session('id_empresa'),
                                     // 'MensajeSunat'=>$cdr->getDescription(),
                                     // 'CodigoSunat'=>$cdr->getCode(),
-                                    'IdEstadoComprobante'=> 4
+                                    'IdEstadoComprobante'=> 2
                                     ]
                                 );
         }
