@@ -68,7 +68,6 @@
                                         <label for="sum_dir">Dirección </label>
                                         <p id="sum_dir"value="" readonly >  {{$info_fact->Direccion}} </p>
                                     </div>
-
                                 </div>
                             </div>
 

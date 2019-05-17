@@ -27,17 +27,31 @@ class AppController extends Controller
             //Administracion
             case 1 : {
                     
-                if($user->plan_id != 1){
-                    self::$home = "/tablero";
-                    session(['home'=>'/tablero']);
-                    //dd($home);
-                } else {
-                    if($user->plan_id == 1) {
-                            self::$home = "/tableroF";
-                            session(['home'=>'/tableroF']);
-                        //dd($home);
+                switch($user->plan_id)
+                {
+                    //Plan Free o lite
+                    case 1 || 2: 
+                    {
+                        self::$home = "/tableroF";
+                        session(['home'=>'/tableroF']);
+                        break;
+                    }
+                    // //Plan Lite
+                    // case 2:
+                    // {
+                    //     self::$home = "/tableroF";
+                    //     session(['home'=>'/tableroF']);
+                    //     break;
+                    // }
+                    // Plan basic o pro por ahora
+                    default :
+                    {
+                        self::$home = "/tablero";
+                        session(['home'=>'/tablero']);
+                        break;
                     }
                 }
+                
                 session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
                 break;
             }

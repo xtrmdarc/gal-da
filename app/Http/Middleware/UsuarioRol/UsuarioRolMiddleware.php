@@ -34,7 +34,7 @@ class UsuarioRolMiddleware
                 return redirect('/inicio');
             }
         }
-        if($idPlan == 1)
+        if($idPlan == 1 || $idPlan == 2)
         {
             if($request->getPathInfo() == '/tablero'){
                 return redirect('/tableroF');
