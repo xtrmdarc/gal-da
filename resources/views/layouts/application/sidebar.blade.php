@@ -61,6 +61,8 @@ if($version_empresa == 0) {
 
 $rolUser = DB::select('SELECT r.descripcion as rolUser FROM db_rest.tm_rol as r left join tm_usuario as u on u.id_rol = r.id_rol where u.id_usu = ?',[\Auth::user()->id_usu])[0]->rolUser;
 
+$planes = DB::table('planes')->where('id', \Auth::user()->plan_id)->first();
+
 @endphp
  <!-- Left Sidebar  -->
 <div class="left-sidebar">
@@ -71,18 +73,7 @@ $rolUser = DB::select('SELECT r.descripcion as rolUser FROM db_rest.tm_rol as r 
             <ul id="sidebarnav">
                 <li id="sidebar_header_mobile" class="nav-label text-center" >  <b><img  src="{{ !empty($logo_g) ? $logo_g : '/application/images/tu_logo.png' }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" /></b></li>
                     <li class="nav-devider"></li>
-                        @if(Auth::user()->plan_id == '1')
-                         <li class="nav-label"> <b>Plan Free - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ 500</span></li>
-                        @endif
-                        @if(Auth::user()->plan_id == '2')
-                            <li class="nav-label"> <b>Plan Lite - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ 1000</span></li>
-                        @endif
-                        @if(Auth::user()->plan_id == '3')
-                            <li class="nav-label"> <b>Plan Basic - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ ∞</span></li>
-                        @endif
-                        @if(Auth::user()->plan_id == '4')
-                            <li class="nav-label"> <b>Plan Pro - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ ∞</span></li>
-                        @endif
+                        <li class="nav-label"> <b>Plan {{$planes->nombre}} - </b>{{ $monthName }}<span style="float: right;"><b>{{ $nventas_mensual  }} </b>/ {{($planes->venta_max == '-1' ? '∞' : $planes->venta_max)}}</span></li>
                         <li class="nav-label"> Rol : {{ $rolUser }} </li>
                         <li class="nav-devider"></li>
                         <li class="nav-label"> Produccion</li>
