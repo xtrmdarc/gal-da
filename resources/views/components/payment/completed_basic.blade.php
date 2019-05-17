@@ -28,7 +28,7 @@
             <div class="row section_landing">
                 <div class=" col-sm-12 "   >
                     <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">¡Felicidades!</h2>
-                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">Ya estás suscrito al Plan {{DB::table('planes')->where('id',\Auth::user()->plan_id)->nombre }}</h2>
+                    <h2 class=" brand-color text-center center-block" style="font-weight:700;width:50%;">Ya estás suscrito al Plan {{$plan->nombre }}</h2>
                 </div>
 
                 <div class=" col-sm-12  "   >
