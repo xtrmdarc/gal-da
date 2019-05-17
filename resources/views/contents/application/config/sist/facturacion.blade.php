@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div id="div_comprobantes_enviar" class="col-sm-12 p-2 border border-info bg-light rounded mb-3" style="display: block;">
-                                        <p style="margin: 0px;">Tu usuario y contrase&ntilde;a no se guarda en nuestro sistema por tu seguridad.</p>
+                                        <p style="margin: 0px;">Tus credenciales se guardaran temporalmente en tu navegador, no almacenaremos esa informaci&oacute;n en nuestra Base de Datos.</p>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -45,10 +45,15 @@
                                          @else
                                              <div id="save_certificado">
                                                  <div class="row">
-                                                     <div class="col-sm-2">
+                                                     <div class="col-sm-3">
+                                                         <h5>sdsd</h5>
+                                                     </div>
+                                                     <div class="col-sm-9">
                                                          <h5><b style="color: #1fbdb7;"> <i class="fa fa-check"></i> Guardado </b></h5>
                                                      </div>
-                                                     <div class="col-sm-10" style="padding-top: 5px;">
+                                                 </div>
+                                                 <div class="row">
+                                                     <div class="col-sm-12" style="padding-top: 5px;">
                                                          <a id="edit_certi" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Editar</a>
                                                      </div>
                                                  </div>
@@ -60,12 +65,12 @@
                                                      </div>
                                                  </div>
                                                  <div class="row">
-                                                     <div class="col-sm-4">
+                                                     <div class="col-sm-5">
                                                          <div class="picture">
                                                              <input type="file" name="file_f">
                                                          </div>
                                                      </div>
-                                                     <div class="col-sm-8" style="padding-top: 5px;">
+                                                     <div class="col-sm-7" style="padding-top: 5px;">
                                                          <a id="cancel_certi" style="text-decoration-line: underline!important;color: #4680ff;" class="file-control active">Cancelar</a>
                                                      </div>
                                                  </div>

@@ -7,9 +7,9 @@
     setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
     $fecha = date("d-m-Y");
     $fechaa = date("m-Y");
-    $logo_g = $id_empre_logo;
-    $url = Storage::disk('s3')->url($logo_g);
-        $logo_g = $url;
+    //$logo_g = $id_empre_logo;
+    //$url = Storage::disk('s3')->url($logo_g);
+    //    $logo_g = $url;
     ?>
 
     <style>
@@ -31,9 +31,11 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-3 col-xs-12 s-col">
-                                        <div class="logotipo c-logo">
+                                        {{--/*
+                                           <div class="logotipo c-logo">
                                             <img  src="{{ !empty($logo_g) ? $logo_g : '/application/images/tu_logo.png' }}" style="width: 80px;max-height:64px;" alt="homepage" class="dark-logo" />
                                         </div>
+                                        */--}}
                                     </div>
                                     <div class="col-sm-3 col-xs-12 s-col">
                                         <a type="button" class="btn btn-primary b_c" href="{{route('cpe')}}"><i class="fa fa-angle-left icon-left"></i> Volver</a>

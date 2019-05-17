@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>Hasta <b>1000</b> Ventas Mensuales <br>
+                        <br>Hasta <b>1100</b> Ventas Mensuales <br>
                         Hasta <b>20</b> mesas*<br>
                         Productos Ilimitados <br>
                         1 Área de Producción <br>

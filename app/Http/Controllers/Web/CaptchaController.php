@@ -91,10 +91,10 @@ class CaptchaController extends Controller
         $post = $request->all();
         $path = $post['x_p'];
         //$url = Storage::disk('s3')->url($path);
-        $exist = Storage::disk('s3')->exists($path);
+        $exist = Storage::disk('s3_billing_c')->exists($path);
 
         if(($exist)){
-            return Storage::disk('s3')->download($path);
+            return Storage::disk('s3_billing_c')->download($path);
         } else {
             dd('NO EXISTE');
         }
