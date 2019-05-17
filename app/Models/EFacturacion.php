@@ -179,7 +179,7 @@ class EFacturacion
         $see = $util->getSee(SunatEndpoints::FE_BETA);
         
         /** Si solo desea enviar un XML ya generado utilice esta función**/
-        $invoice_content = \Storage::disk('s3')->get($doc->path_xml_file);
+        $invoice_content = \Storage::disk('s3_billing_c')->get($doc->path_xml_file);
         // $invoice_dom = new \DOMDocument();
         // $invoice_dom->loadXML($invoice_content);
         // $util->toInvoice($invoice_dom);

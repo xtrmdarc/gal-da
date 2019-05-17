@@ -48,21 +48,28 @@ class factura {
         facturas_html += ` 
                         </tr>
                         `;
+
         $('#table-factura-comprobante tbody').append(facturas_html);
 
-        $('#'+this.id_btn_baja).on('click',function(){
+        this.bindEventsRow();
+
+    }
+
+    bindEventsRow()
+    {   
+        let $self = this;
+        $('#'+this.id_btn_baja).off('click').on('click',function(){
            
         });
-        $('#'+this.id_btn_enviar_sunat).on('click',function(){
+        $('#'+this.id_btn_enviar_sunat).off('click').on('click',function(){
             $self.enviarSunat();
         });
-        $('#'+this.id_btn_estado).on('click',function(){
+        $('#'+this.id_btn_estado).off('click').on('click',function(){
             
         });
-        $('#'+this.id_btn_baja).on('click',function(){
+        $('#'+this.id_btn_baja).off('click').on('click',function(){
             
         });
-
     }
 
     determinarEstado(){
@@ -74,27 +81,32 @@ class factura {
         {
             case '1': {
                 
-                estado.accion_a_tomar= ` <a id="${this.id_btn_firmar_xml}" href="#" class="card" style="background-color:#10A51F;padding:2px;color:white;opacity:1;"> Firmar </label>`;
+                estado.accion_a_tomar= ` <a id="${this.id_btn_firmar_xml}" class="card" style="background-color:#10A51F;padding:2px;color:white;opacity:1;"> Firmar </label>`;
                 estado.color = '#1FBDB7';
                 break;
             }
-            case '2' || '5' : {
+            case '2'  : {
                 estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}"  class="card" style="background-color:#1FBDB7;padding:2px;color:white;opacity:1;"> Enviar  </a>`;
                 estado.color = '#10A51F';
                 break;
             }
+            // case '3' : {
+            //     estado.accion_a_tomar= ` <a id="${this.id_btn_estado}" href="#" class="card" style="background-color:#3F6B89;padding:2px;color:white;opacity:1;">Estado  </label>`;
+            //     estado.color = '#3F6B89';
+            //     break;
+            // }
             case '3' : {
-                estado.accion_a_tomar= ` <a id="${this.id_btn_estado}" href="#" class="card" style="background-color:#3F6B89;padding:2px;color:white;opacity:1;">Estado  </label>`;
+                estado.accion_a_tomar= ` <a id="${this.id_btn_enviar_sunat}"  class="card" style="background-color:#1FBDB7;padding:2px;color:white;opacity:1;">Reenviar</label>`;
                 estado.color = '#3F6B89';
                 break;
             }
             case '4' : {
-                estado.accion_a_tomar= `<a id="${this.id_btn_baja}" href="#" class="card" style="background-color:#BB0808;padding:2px;color:white;opacity:1;"> Baja  </label>`;
+                estado.accion_a_tomar= `<a id="${this.id_btn_baja}"  class="card" style="background-color:#BB0808;padding:2px;color:white;opacity:1;"> Baja  </label>`;
                 estado.color = '#BB0808';
                 break;
             }
             case '5' : {
-                estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}"   href="#" class="card" style="background-color:#2EBC3C;padding:2px;color:white;opacity:1;">Enviar </label>`;
+                estado.accion_a_tomar= `<a id="${this.id_btn_enviar_sunat}" class="card" style="background-color:#1FBDB7;padding:2px;color:white;opacity:1;">Reenviar</label>`;
                 estado.color = '#2EBC3C';
                 break;
             }
@@ -117,6 +129,7 @@ class factura {
         $('#'+this.id_td_accion).empty();
         let newAccion = `${this.estado.accion_a_tomar}`;
         $('#'+this.id_td_accion).append(newAccion);
+        this.bindEventsRow();
     }
 
     actualizarMensaje(){
@@ -204,6 +217,8 @@ class factura {
             }
         });
     }
+
+
 
     firmar(){
 

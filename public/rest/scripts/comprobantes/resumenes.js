@@ -70,7 +70,6 @@ class Resumen
 
         $('#mdl-estado-resumen').modal('show');
         resumen.buscarDocsResumenPorIdResumen();
-
         
         //Aqui colocar los documentos resumen asociados
     }

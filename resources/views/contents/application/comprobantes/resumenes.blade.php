@@ -284,4 +284,4 @@
         }).datepicker('setDate',new Date());
     </script>
     <script src="{{URL::to('rest/scripts/comprobantes/resumenes.js')}} "> </script>
-@endsection()
+@endsection()   

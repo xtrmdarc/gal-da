@@ -16,6 +16,7 @@ use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Legend;
 use Illuminate\Support\Facades\URL;
 use mikehaertl\wkhtmlto\Pdf;
+use App\Http\Controllers\Application\AppController;
 
 
 
@@ -246,7 +247,11 @@ HTML;
         switch ($repo)
         {
             case  'DISK' : {$path = $this->writeFile($document->getName().'.xml', $xml);break; }
-            case  'S3' : {$path = $this->writeFileS3($document->getName().'.xml', $xml); break; }
+            case  'S3' : {
+                $anio_actual = date("Y");
+                $empresa = AppController::DatosEmpresa(session('id_empresa'));
+                $path = $this->writeFileS3('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.$document->getName().'.xml', $xml); break; 
+            }
             default : {
                 $path = $this->writeFile($document->getName().'.xml', $xml); 
             }
@@ -256,11 +261,14 @@ HTML;
 
     public function writeCdr(DocumentInterface $document, $zip,$repo)
     {
-          
         switch ($repo)
         {
             case  'DISK' :{ $this->writeFile('R-'.$document->getName().'.zip', $zip);break;}
-            case  'S3' :{ $this->writeFileS3('R-'.$document->getName().'.zip', $zip);break;}
+            case  'S3' :{ 
+                $anio_actual = date("Y");
+                $empresa = AppController::DatosEmpresa(session('id_empresa'));
+                $this->writeFileS3('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.'R-'.$document->getName().'.zip', $zip);break;
+            }
             default:{
                 { $this->writeFile('R-'.$document->getName().'.zip', $zip);break;}
             }
@@ -283,7 +291,7 @@ HTML;
             return;
         }
 
-        Storage::disk('s3')->put($filename, $content);
+        Storage::disk('s3_billing_c')->put($filename, $content);
                
         // $path = __DIR__.'/'.$filename;
         // file_put_contents(__DIR__.'/../files/'.$filename, $content);

@@ -106,6 +106,90 @@
         </div>
     </div>
 </div>
+
+<div class="modal inmodal fade" id="mdl-estado-factura" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog modal-md"> 
+        <div class="modal-content animated bounceInRight">
+            @csrf
+            <div class="modal-header">
+                {{-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button> --}}
+                <h4 class="modal-title">Factura</h4>
+            </div>
+            <div class="modal-body">
+                {{-- Buscar docs para resumen por fecha --}}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="">Factura ID</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="mdl_resumen_id"></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">Fecha emisión</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="mdl_fecha_resumen"></p>
+                        </div>
+
+                        {{-- <div class="col-sm-4">
+                            <label for="">Fecha comprobantes</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="mdl_fecha_comprobantes"></p>
+                        </div> --}}
+
+                        <div class="col-sm-4">
+                            <label for="">Estado</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="mdl_estado"></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">Mensaje sunat</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="mdl_mensaje_sunat"></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">Acciones</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div id="mdl_acciones" class="row" >
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 >Documentos asociados</label>
+                {{-- Tabla docs --}}
+                <table id="table_docs_resumen_estado" class="table">
+                    <thead>
+                        <tr>
+                            {{-- <th>Inlcuido</th> --}}
+                            {{-- <th>Fecha</th> --}}
+                            <th>Serie</th>
+                            <th>Numero</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                <button id="btn_resumen_estado_modal" type="submit" class="btn btn-primary" data-dismiss="modal"> Aceptar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endsection()
 
 @section('scripts')
