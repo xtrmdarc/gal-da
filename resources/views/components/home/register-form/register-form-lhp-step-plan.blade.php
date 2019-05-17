@@ -46,9 +46,9 @@
                         <button id="free-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                     @else
                         @if(\Auth::user()->plan_id==1 )
-                            <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
+                            <button id="free-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
                         @else
-                            <button id="free-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                            <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                         @endif
                     @endif
                 </div>
@@ -89,9 +89,9 @@
                             <button id="lite-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                     @else
                         @if(\Auth::user()->plan_id==2 )
-                            <button id="lite-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==2?'':'\'upgrade/plan/2\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':''}}</button>
+                            <button id="lite-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':''}}</button>
                         @else
-                            <button id="lite-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                            <button id="lite-plan-btn" onclick="window.location.replace('upgrade/plan/2')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                         @endif
                     @endif
                 </div>
@@ -119,7 +119,6 @@
                             <b> + </b><br>
                             Ventas ilimitadas <br>
                             Hasta <b>40</b> Mesas*<br>
-                            Insumos ilimitados <br>
                             Múltiples Áreas de producción <br>
                             2 Sucursal <br>
                             Usuarios ilimitados <br>
@@ -132,9 +131,9 @@
                             <button id="basic-plan-btn" onclick="window.location.replace('register')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                         @else
                             @if(\Auth::user()->plan_id==3 )
-                                <button id="basic-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==3?'':'\'upgrade/plan/3\''}})" type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 3?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==3?'PLAN ACTUAL':''}}</button>
+                                <button id="basic-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 3?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==3?'PLAN ACTUAL':''}}</button>
                             @else
-                                <button id="basic-plan-btn" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                                <button id="basic-plan-btn" onclick="window.location.replace('upgrade/plan/3')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                             @endif
                         @endif
                     </div>
@@ -163,6 +162,7 @@
                             <b>Facturación Electrónica</b><br>
                             Roles Personalizados<br>
                             Mas de 40 Mesas* <br>
+                            Insumos ilimitados <br>
                             MultiSucursal <br>
                             Tablero de Control PRO <br>
                             Gestión de Inventario (Kardex) <br>
