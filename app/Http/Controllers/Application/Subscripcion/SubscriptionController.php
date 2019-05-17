@@ -392,8 +392,8 @@ class SubscriptionController extends Controller
         //Obtener nombre del Recibo
         $galda_venta = DB::table('galda_venta')->orderBy('id_galda_venta', 'desc')
             ->where('id_usu',$thisUser->id_usu)->first();
-        $path = $galda_venta->name_xml_file.'.pdf';
-        $exist = Storage::disk('s3')->exists($path);
+        $path = $galda_venta->path_pdf_recibo_file;
+        $exist = Storage::disk('s3_billing_g')->exists($path);
 
         $billing_info = DB::table('info_fact')->where('IdInfoFact',$thisUser->info_fact_id)->first();
 
@@ -492,7 +492,7 @@ class SubscriptionController extends Controller
             'igv' => $igv, // de $datos_galda
             'total' => $plan_culqi->precio, // del plan culqi
             'fecha_venta'=> $ahora , // fecha
-            'estado' => 'prueba', // 'p' pagado
+            'estado' => 'prueb', // 'p' pagado
             // 'observacion',
             // 'tipo_operacion',// Depende de si internacional o nacional. SI es nacional 0101, si es inter 0200
             'fecha_vencimiento'=> $ahora , // fecha date(Y-m-d H:i:s) \DateTime::createFromFormat('Y-m-d H:i:s','2019-04-27 22:10:10')
@@ -582,19 +582,19 @@ class SubscriptionController extends Controller
 
             }
         }
-        // Hacer la serie y correlativo  solo los del estado prueba
+        // Hacer la serie y correlativo  solo los del estado prueb
         // $query = DB::table('galda_venta')->select(DB::raw("LPAD(count(galda_venta.id_galda_venta)+ifnull(galda_tipo_doc.correlativo,0),8,'0') correlativo,galda_tipo_doc.serie serie "))
         //     ->rightJoin('galda_tipo_doc','galda_tipo_doc.id_tipo_doc',DB::raw('?'))
         //     ->where('galda_venta.estado','?')
         //     ->where('galda_venta.id_tipo_doc','?')
-        //     ->setBindings([$narray_comprobante['id_tipo_doc'],'prueba',$narray_comprobante['id_tipo_doc']])
+        //     ->setBindings([$narray_comprobante['id_tipo_doc'],'prueb',$narray_comprobante['id_tipo_doc']])
         //     ->get()[0];
 
         $query_correlativo = DB::select("SELECT LPAD(count(gv.id_galda_venta)+ifnull(tp.correlativo,0 ),8,'0') correlativo 
         from galda_venta gv
         right join galda_tipo_doc tp on tp.id_tipo_doc = ?
         where gv.estado = ? and tp.id_tipo_doc = ? 
-        ",[$narray_comprobante['id_tipo_doc'],'prueba',$narray_comprobante['id_tipo_doc']])[0];
+        ",[$narray_comprobante['id_tipo_doc'],'prueb',$narray_comprobante['id_tipo_doc']])[0];
 
         $query_serie = DB::table('galda_tipo_doc')->where('id_tipo_doc',$narray_comprobante['id_tipo_doc'])->first();
         
@@ -727,19 +727,28 @@ class SubscriptionController extends Controller
             'ahora' => $ahora,
             'nro_pedido' => $narray_comprobante['serie_doc'].'-'.$narray_comprobante['nro_doc']
         ];
-        self::generarReciboPdf($billing_info,$plan_culqi,$parameters_recibo,$invoice);
+        self::generarReciboPdf($billing_info,$plan_culqi,$parameters_recibo,$invoice,$id_venta);
         // $util->showPdf($pdf,'recibo.pdf');
 
         return;
     }
 
-    public function generarReciboPdf($billing_info,$plan_culqi,$ahora,$invoice)
+    public function generarReciboPdf($billing_info,$plan_culqi,$ahora,$invoice,$id_venta)
     {
         $util = Util::getInstance();
         $pdf = $util->generarReciboPdfGalda($billing_info,$plan_culqi,$ahora);
         //Guardar el Recibo
-        $util->writeFileS3($invoice->getName().'.pdf',$pdf );
+        // $pdf = $util->getPdf($invoice);
+        $anio_actual = date("Y");
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
+        $pdf_path = $util->writeFileS3_g('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.'recibo-'.$invoice->getName().'.pdf', $pdf);
+        DB::table('galda_venta')->where('id_galda_venta',$id_venta)->update([
+            'path_pdf_recibo_file' =>$pdf_path,
+            ])
+        ;
+        // $util->writeFileS3_g($invoice->getName().'.pdf',$pdf );
         // $util->showPdf($pdf,'filename.pdf');
+
     }
 
     public function generarComprobanteNacionalPdf($invoice,$id_venta,$cliente)
@@ -747,7 +756,10 @@ class SubscriptionController extends Controller
         //Get pdf S3 or DISK
         $util = Util::getInstance();
         $pdf = $util->getPdf($invoice);
-        $util->writeFileS3($invoice->getName().'.pdf',$pdf );
+        $anio_actual = date("Y");
+        $empresa = AppController::DatosEmpresa(session('id_empresa'));
+        $pdf_path = $util->writeFileS3_g('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.$invoice->getName().'.pdf', $pdf);
+        // $util->writeFileS3_g($invoice->getName().'.pdf',$pdf );
 
         $see = $util->getSee(SunatEndpoints::FE_BETA);
 
@@ -761,7 +773,7 @@ class SubscriptionController extends Controller
         // Aqui se firma el xml y se obtiene el xml firmado para guardarse
         $signedInvoiceXml = $see->getXmlSigned($invoice);
         // Se obtiene la ruta donde se alojará el archivo
-        $path = $util->writeXml($invoice, $signedInvoiceXml,'S3'); // Configurar para que se guarde en el bucket y guardar esa ruta en la bd
+        $path = $util->writeXml_g($invoice, $signedInvoiceXml,'S3'); // Configurar para que se guarde en el bucket y guardar esa ruta en la bd
         
         // Guardar Hash en tm_venta y v_ventas_con y la ruta del S3 donde se guardará el archivo xml
         $hash = $util->getHashFromSignedXml($signedInvoiceXml);
@@ -770,6 +782,7 @@ class SubscriptionController extends Controller
                                     'path_xml_file' => $path,
                                     'hash_xml_file' => $hash,
                                     'nombre_cliente' => $cliente->getRznSocial(),
+                                    'path_pdf_cpe_file' =>$pdf_path,
                                     'id_estado_comprobante' => 2
                                     ])
                                 ;

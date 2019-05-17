@@ -296,7 +296,53 @@ HTML;
         // $path = __DIR__.'/'.$filename;
         // file_put_contents(__DIR__.'/../files/'.$filename, $content);
         // file_put_contents($path, $content);
-        
+        return $filename;
+    }
+
+    public function writeXml_g(DocumentInterface $document, $xml, $repo)
+    {   
+        switch ($repo)
+        {
+            case  'DISK' : {$path = $this->writeFile($document->getName().'.xml', $xml);break; }
+            case  'S3' : {
+                $anio_actual = date("Y");
+                $empresa = AppController::DatosEmpresa(session('id_empresa'));
+                $path = $this->writeFileS3_g('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.$document->getName().'.xml', $xml); break; 
+            }
+            default : {
+                $path = $this->writeFile($document->getName().'.xml', $xml); 
+            }
+        }
+        return $path;
+    }
+
+    public function writeCdr_g(DocumentInterface $document, $zip,$repo)
+    {
+        switch ($repo)
+        {
+            case  'DISK' :{ $this->writeFile('R-'.$document->getName().'.zip', $zip);break;}
+            case  'S3' :{ 
+                $anio_actual = date("Y");
+                $empresa = AppController::DatosEmpresa(session('id_empresa'));
+                $this->writeFileS3_g('/'.$anio_actual.'/'.$empresa->nombre_empresa.'/'.'R-'.$document->getName().'.zip', $zip);break;
+            }
+            default:{
+                { $this->writeFile('R-'.$document->getName().'.zip', $zip);break;}
+            }
+        }
+    }
+
+    public function writeFileS3_g($filename, $content)
+    {
+        if (getenv('GREENTER_NO_FILES')) {
+            return;
+        }
+
+        Storage::disk('s3_billing_g')->put($filename, $content);
+               
+        // $path = __DIR__.'/'.$filename;
+        // file_put_contents(__DIR__.'/../files/'.$filename, $content);
+        // file_put_contents($path, $content);
         return $filename;
     }
 
