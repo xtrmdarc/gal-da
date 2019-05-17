@@ -436,58 +436,9 @@ class SubscriptionController extends Controller
     public function Basic_a_Free(){
         $usuario = \Auth::user();
 
-        if($usuario->plan_id == 2){
+        if($usuario->plan_id == 2 || $usuario->plan_id == 3){
             //Estado = 2, Plan cancelado
             DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['estado'=>'2']);
-            /*DB::table('tm_usuario')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
-
-            DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['plan_id'=>'1']);
-
-            //MODULO DE CAJAS
-            //Actualizar a Inactivo las Cajas - Basic a Free
-            $apc = DB::table('tm_caja')
-                ->where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->get();
-
-            foreach($apc as $r){
-                $id_caja = $r->id_caja;
-                $caja_ocupada = DB::table('tm_aper_cierre')->where('id_caja',$id_caja)->whereNull('fecha_cierre')->exists();
-
-                if(!($caja_ocupada)) {
-                    TmCaja::where('id_empresa',session('id_empresa'))
-                        ->where('id_caja',$id_caja)
-                        ->where('plan_estado','2')
-                        ->update(['estado'=>'i']);
-                }
-            }
-
-            //MODULO DE USUARIOS
-            TmUsuario::where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->update(['estado'=>'i']);
-
-            //MODULO DE SUCURSALES
-            Sucursal::where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->update(['estado'=>'i']);
-
-            //MODULO DE ALMACEN Y AREAS DE PRODUCCION
-            TmAlmacen::where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->update(['estado'=>'i']);
-
-            TmAreaProd::where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->update(['estado'=>'i']);
-
-            //MODULO DE MESAS
-            TmMesa::where('id_empresa','=',session('id_empresa'))
-                ->where('plan_estado','2')
-                ->update(['estado'=>'i']);
-
-            auth()->logout();
-            */
         }
     }
 

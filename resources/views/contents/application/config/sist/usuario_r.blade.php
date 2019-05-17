@@ -160,13 +160,13 @@
                                             </div>
                                         </div>
                                         
-                                        @if(Auth::user()->plan_id == '1' && Auth::user()->parent_id == null)
+                                        @if((Auth::user()->plan_id == '1' && Auth::user()->parent_id == null) || Auth::user()->plan_id == '2' && Auth::user()->parent_id == null)
                                             <div class="col-lg-6  sides_padding15" id="sc_div">
                                                 <div class="form-group">
                                                     <label class="control-label">Sucursal</label>
                                                     <div class="input-group">
                                                         {{--<span class="input-group-addon"><i class="fa fa-renren"></i></span>--}}
-                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show form-control" @if (Auth::user()->plan_id == 1 )readonly="readonly"@endif autocomplete="off" required="required" placeholder="Seleccionar" >
+                                                        <select name="id_sucursal" id="id_sucursal" class="selectpicker show form-control" @if ((Auth::user()->plan_id == 1) || (Auth::user()->plan_id == 2))readonly="readonly"@endif autocomplete="off" required="required" placeholder="Seleccionar" >
                                                             @foreach($user_sucursal as $r)
                                                                 <option value="{{$r->id}}">{{$r->nombre_sucursal}}</option>
                                                             @endforeach 

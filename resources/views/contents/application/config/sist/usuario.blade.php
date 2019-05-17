@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        @if(Auth::user()->plan_id == '1')
+                        @if(Auth::user()->plan_id == '1' || Auth::user()->plan_id == '2')
                             <h5><i class="fa fa-newspaper-o"></i> Usuarios - <span id="usuarios_count">{{ $usuarios_cant }}</span>/{{session('plan_actual')->usuario_max}}
                                 {{-- <div class="tooltip-g"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i>
                                     <span class="tooltiptext-g">El usuario propietario también es considerado como usuario del sistema</span>
@@ -99,7 +99,7 @@
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
                                     <td style="text-align: right">
-                                        @if($plan_id == 1 && $user->plan_estado == '2')
+                                        @if(($plan_id == 1 && $user->plan_estado == '2') || ($plan_id == 2 && $user->plan_estado == '2'))
                                         @else
                                             <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
                                                 <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>

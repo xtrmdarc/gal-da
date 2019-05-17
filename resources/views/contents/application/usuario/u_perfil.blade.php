@@ -13,7 +13,7 @@
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
                                     @if(\Auth::user()->parent_id == '' )
-                                        @if(\Auth::user()->plan_id == 2)
+                                        @if((\Auth::user()->plan_id == 2) || (\Auth::user()->plan_id == 3))
                                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-credit-card"></i></span> <span class="hidden-xs-down">Facturación</span></a> </li>
                                         @endif
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Suscripción</span></a> </li>
@@ -155,7 +155,7 @@
                                             @endif
                                         </div></div>
                                     <div class="tab-pane p-20" id="u_pago" role="tabpanel">
-                                        @if(\Auth::user()->parent_id == '' && \Auth::user()->plan_id == '2' )
+                                        @if((\Auth::user()->parent_id == '' && \Auth::user()->plan_id == '2') || (\Auth::user()->parent_id == '' && \Auth::user()->plan_id == '3'))
                                             <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="card-body" style="padding-bottom: 20px;">
@@ -312,20 +312,20 @@
                                                         <div class="row">
                                                             <div class="col-sm-4">
                                                                 <h5 class="m-t-30"><b style="color: #1fbdb7;">Plan {{$subscription->nombre }} </b> - <b>{{$subscription->precio}} USD {{$subscription->id_periodicidad==1?'mensual':'anual'}}</b> </h5>
-                                                                @if($subscription->plan_id == 2 && $subscription->estado == 1)
+                                                                @if(($subscription->plan_id == 2 && $subscription->estado == 1) ||($subscription->plan_id == 3 && $subscription->estado == 1) )
                                                                     <h5>Renovación Automática: <b style="color: #1fbdb7;"> <i class="fa fa-check"></i> Activada </b></h5>
                                                                 @else
-                                                                    @if($subscription->plan_id == 2 && $subscription->estado == 2)
+                                                                    @if(($subscription->plan_id == 2 && $subscription->estado == 2) || ($subscription->plan_id == 2 && $subscription->estado == 2))
                                                                         <h5>Renovación Automática: <b style="color: #ef5350;"> <i class="fa fa-close"></i> Desactivada </b></h5>
                                                                     @endif
                                                                 @endif
                                                             </div>
-                                                            @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
+                                                            @if((\Auth::user()->plan_id == 2 && $subscription->estado == 1) || (\Auth::user()->plan_id == 3 && $subscription->estado == 1))
                                                                 <div class="col-sm">
                                                                     <h5 class="m-t-30" style="float: right;"><b>Tu suscripción se renueva el:</b> {{$f_renovacio}}</h5>
                                                                 </div>
                                                             @else
-                                                                @if(\Auth::user()->plan_id == 2 && $subscription->estado == 2)
+                                                                @if((\Auth::user()->plan_id == 2 && $subscription->estado == 2) || (\Auth::user()->plan_id == 3 && $subscription->estado == 2))
                                                                     <div class="col-sm">
                                                                         <h5 class="m-t-30" style="float: right;"><b>Tu suscripción finalizará el:</b> {{$f_renovacio}}</h5>
                                                                     </div>
@@ -341,7 +341,7 @@
                                                         <div class="col-sm-2">
                                                             <a class="btn btn-success" href="/upgrade">Administrar Plan</a>
                                                         </div>
-                                                        @if(\Auth::user()->plan_id == 2 && $subscription->estado == 1)
+                                                        @if((\Auth::user()->plan_id == 2 && $subscription->estado == 1) ||(\Auth::user()->plan_id == 3 && $subscription->estado == 1) )
                                                             <div class="col-sm">
                                                                 <a id="cancelar_plan" class="btn btn-danger">Cancelar Renovación</a>
                                                             </div>

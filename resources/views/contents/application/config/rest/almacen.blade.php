@@ -10,7 +10,7 @@
                     
                     <h5><i class="fa fa-cubes"></i> Almacenes {{\Auth::user()->plan_id == 1?'1/1'  :''}}</h5>
                     <div class="pull-right">
-                        @if(Auth::user()->plan_id != '1')
+                        @if(Auth::user()->plan_id == '3')
 
                             <button type="button" class="btn btn-primary btn-alm"><i class="fa fa-plus-circle"></i> Nuevo Almac&eacute;n</button>
                             @else
@@ -39,7 +39,7 @@
                 <div class="ibox-title">
                     <h5><i class="fa fa-list-alt"></i> &Aacute;reas de Producci&oacute;n {{\Auth::user()->plan_id == 1?'1/1'  :''}}</h5>
                     <div class="pull-right">
-                        @if(Auth::user()->plan_id != '1')
+                        @if(Auth::user()->plan_id == '3')
                             <button type="button" class="btn btn-primary btn-area"><i class="fa fa-plus-circle"></i> Nueva &Aacute;rea</button>
                         @else
                             <h5>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    @if(Auth::user()->plan_id != '1')
+                    @if(Auth::user()->plan_id != '1' || Auth::user()->plan_id != '2')
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">

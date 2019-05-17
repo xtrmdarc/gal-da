@@ -72,8 +72,10 @@ class CajaController extends Controller
 
         if($planId_admin == 1) {
             $plan_estado = '1';
-        }else {
+        }else if($planId_admin == 2){
             $plan_estado = '2';
+        }else if($planId_admin == 3) {
+            $plan_estado = '3';
         }
 
         if($cod != ''){

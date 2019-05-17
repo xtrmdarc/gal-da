@@ -75,7 +75,7 @@ class UsuarioController extends Controller
             $viewdata['imagen_g']= $url;
         }
 
-        if($plan_id_user == 2) {
+        if($plan_id_user == 2 || $plan_id_user == 3) {
 
             $response = new \stdClass();
             try

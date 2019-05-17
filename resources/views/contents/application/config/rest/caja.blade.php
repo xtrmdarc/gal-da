@@ -11,7 +11,7 @@
                         </div>
 
                         <div class="pull-right">
-                            @if(Auth::user()->plan_id != '1')
+                            @if(Auth::user()->plan_id == '3')
                                 <button type="button" class="btn btn-primary btn-caja"><i class="fa fa-plus-circle"></i> Nueva Caja</button>
                             @else
                                 <h5>

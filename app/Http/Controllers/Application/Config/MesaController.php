@@ -84,8 +84,10 @@ class MesaController extends Controller
         $planId_admin = \Auth::user()->plan_id;
         if($planId_admin == 1) {
             $plan_estado = '1';
-        }else {
+        }else if($planId_admin == 2){
             $plan_estado = '2';
+        }else if($planId_admin == 3) {
+            $plan_estado = '3';
         }
 
         if($post['cod_sala'] != ''){
@@ -130,8 +132,10 @@ class MesaController extends Controller
         $planId_admin = \Auth::user()->plan_id;
         if($planId_admin == 1) {
             $plan_estado = '1';
-        }else {
+        }else if($planId_admin == 2){
             $plan_estado = '2';
+        }else if($planId_admin == 3) {
+            $plan_estado = '3';
         }
 
         $id_sucursal_catg =  DB::select("SELECT id_sucursal FROM tm_salon WHERE id_catg =".$id_sucursal_m);
