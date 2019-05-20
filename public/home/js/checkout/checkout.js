@@ -329,7 +329,6 @@ $('#btn-confirmar-billing-info').on('click',function(){
             if(response.status == 1)
             {
                 $('.empresarial-div-sum').css('display','none');
-                
 
                 if(response.es_empresarial == 1)
                 {
@@ -350,6 +349,13 @@ $('#btn-confirmar-billing-info').on('click',function(){
                 billing_page.info_added = true;
 
                 SePuedePagar();
+            }
+            else if(response.status == 0)
+            {
+                $('#errores_info_fact').css('display','block');
+                $('#errores_info_fact').css('color','red');
+                $('#errores_info_fact').css('font-weight','300');
+                $('#errores_info_fact').text(response.error.merchant_message);
             }
         }
     });

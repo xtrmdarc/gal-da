@@ -27,6 +27,8 @@ use Greenter\Ws\Services\SunatEndpoints;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\invoiceBasic;
 use Illuminate\Support\Facades\Storage;
+use Culqi\Error\CulqiException;
+use function GuzzleHttp\json_encode;
 
 class SubscriptionController extends Controller
 {
@@ -164,126 +166,153 @@ class SubscriptionController extends Controller
 
     public function confirmar_informacion_facturacion(Request $request)
     {   
-        
-        $data = $request->all();
- 
-
-        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
-
-        //dd($culqi->Customers->all());
-        $usuario = \Auth::user();
-        //Crear cliente en culqi
-        $arr_culqi_cust = array(
-                "address" =>        $data['direccion'],
-                "address_city" =>   $data['ciudad'],
-                "country_code" =>   $data['pais'], //sacarlo de su usuario
-                "email" =>          $data['email'], //sacarlo de su usuario
-                "first_name" =>     $data['nombre'], ////sacarlo de su usuario
-                "last_name" =>      $data['apellido'],////sacarlo de su usuario
-                "metadata" =>       array("test"=>"test"),
-                "phone_number" =>   $data['telefono']
-        );
-        
-        $arr_info_fact = array(
-            'EsEmpresarial' =>$data['es_empresarial'],
-            'Nombre'        =>$data['nombre'],
-            'Apellido'      =>$data['apellido'],
-            'Email'         =>$data['email'],
-            'Telefono'      =>$data['telefono'],
-            'CodigoPais'    =>$data['pais'],
-            'Ciudad'        =>$data['ciudad'],
-            'Direccion'     =>$data['direccion'],
-            'RazonSocial'   =>$data['razon_social'],
-            'Ruc'           =>$data['ruc']
-        );
-
-        if(!isset($usuario->culqi_id))
+        $response = new \stdClass();
+        try
         {
-            $customer = $culqi->Customers->create($arr_culqi_cust);
+            $data = $request->all();
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+            //dd($culqi->Customers->all());
+            $usuario = \Auth::user();
+            //Crear cliente en culqi
+            $arr_culqi_cust = array(
+                    "address" =>        $data['direccion'],
+                    "address_city" =>   $data['ciudad'],
+                    "country_code" =>   $data['pais'], //sacarlo de su usuario
+                    "email" =>          $data['email'], //sacarlo de su usuario
+                    "first_name" =>     $data['nombre'], ////sacarlo de su usuario
+                    "last_name" =>      $data['apellido'],////sacarlo de su usuario
+                    "metadata" =>       array("test"=>"test"),
+                    "phone_number" =>   $data['telefono']
+            );
             
-            $info_fact_id = DB::table('info_fact')->insertGetId(
-                $arr_info_fact
+            $arr_info_fact = array(
+                'EsEmpresarial' =>$data['es_empresarial'],
+                'Nombre'        =>$data['nombre'],
+                'Apellido'      =>$data['apellido'],
+                'Email'         =>$data['email'],
+                'Telefono'      =>$data['telefono'],
+                'CodigoPais'    =>$data['pais'],
+                'Ciudad'        =>$data['ciudad'],
+                'Direccion'     =>$data['direccion'],
+                'RazonSocial'   =>$data['razon_social'],
+                'Ruc'           =>$data['ruc']
             );
 
-            DB::table('tm_usuario')->where('id_usu',$usuario->id_usu)
-                                ->update([
-                                    'culqi_id'=>$customer->id,
-                                    'info_fact_id' => $info_fact_id
-                                ]);
+            if(!isset($usuario->culqi_id))
+            {
+                $customer = $culqi->Customers->create($arr_culqi_cust);
+                
+                $info_fact_id = DB::table('info_fact')->insertGetId(
+                    $arr_info_fact
+                );
 
-        }
-        else{
-            $customer = $culqi->Customers->update($usuario->culqi_id,$arr_culqi_cust);
-            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)->update($arr_info_fact);
-            //dd($customer);   
-        }
+                DB::table('tm_usuario')->where('id_usu',$usuario->id_usu)
+                                    ->update([
+                                        'culqi_id'=>$customer->id,
+                                        'info_fact_id' => $info_fact_id
+                                    ]);
+
+            }
+            else{
+                $customer = $culqi->Customers->update($usuario->culqi_id,$arr_culqi_cust);
+                DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)->update($arr_info_fact);
+                //dd($customer);   
+            }
+            
+            $data['status'] = 1;
+            return json_encode($data);
         
-        $data['status'] = 1;
-        return json_encode($data);
+        }
+        catch(\CulqiException $ce)
+        {
+            $response->message = $ce->getMessage();
+        }
+        catch(\Exception $e)
+        {   
+            $response->error = json_decode($e->getMessage());
+            $response->status = 0;
+            return json_encode($response);
+        }
         
     }
 
     public function agregar_tarjeta(Request $request)
     {
-        $data = $request->all();
-        $usuario = \Auth::user();
 
-        if(!isset($usuario->culqi_id)) return;
+        $response = new \stdClass();
+        try
+        {
+            $data = $request->all();
+            $usuario = \Auth::user();
 
-        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
-       // dd('pasa la instanciacion de cuqli');
-        $card = $culqi->Cards->create(
-            array(
-              "customer_id" => $usuario->culqi_id,
-              "token_id" => $data['token']
-            )
-        );
+            if(!isset($usuario->culqi_id)) return;
 
-        DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
-                            ->update([
-                                'CardId'=> $card->id
-                            ]);
+            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+        // dd('pasa la instanciacion de cuqli');
+            $card = $culqi->Cards->create(
+                array(
+                "customer_id" => $usuario->culqi_id,
+                "token_id" => $data['token']
+                )
+            );
 
-        //Traer Tarjeta
-        $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
-        $cardID = $infoFact->CardId;
+            DB::table('info_fact')->where('IdInfoFact',$usuario->info_fact_id)
+                                ->update([
+                                    'CardId'=> $card->id
+                                ]);
 
-        $culqui_card = $culqi->Cards->get("$cardID");
+            //Traer Tarjeta
+            $infoFact = DB::table('info_fact')->where('IdInfoFact', $usuario->info_fact_id)->first();
+            $cardID = $infoFact->CardId;
 
-        $card_obj = json_encode($culqui_card);
+            $culqui_card = $culqi->Cards->get("$cardID");
 
-        $source = $culqui_card->source;
-        $iin = $source->iin;
+            $card_obj = json_encode($culqui_card);
 
-        $last_four = $source->last_four;
-        $card_brand = $iin->card_brand;
+            $source = $culqui_card->source;
+            $iin = $source->iin;
 
-        $params = array(
-            $cardID,
-            $card_brand,
-            $last_four
-        );
+            $last_four = $source->last_four;
+            $card_brand = $iin->card_brand;
 
-        if($usuario->id_card == '') {
+            $params = array(
+                $cardID,
+                $card_brand,
+                $last_four
+            );
 
-            DB::insert("INSERT INTO u_card (CardId,card_brand,card_last_four) VALUES (?,?,?)",$params);
+            if($usuario->id_card == '') {
 
-            $statement = DB::select("SHOW TABLE STATUS LIKE 'u_card'");
-            $u_card_id = $statement[0]->Auto_increment - 1;
+                DB::insert("INSERT INTO u_card (CardId,card_brand,card_last_four) VALUES (?,?,?)",$params);
 
-            DB::table('tm_usuario')->where('id_usu',$usuario->id_usu)
-                ->update([
-                    'id_card'=> $u_card_id
-                ]);
-        } else {
-            DB::table('u_card')->where('id_card',$usuario->id_card)
-                ->update([
-                    'CardId'=> $cardID,
-                    'card_brand'=> $card_brand,
-                    'card_last_four'=> $last_four
-                ]);
+                $statement = DB::select("SHOW TABLE STATUS LIKE 'u_card'");
+                $u_card_id = $statement[0]->Auto_increment - 1;
+
+                DB::table('tm_usuario')->where('id_usu',$usuario->id_usu)
+                    ->update([
+                        'id_card'=> $u_card_id
+                    ]);
+            } else {
+                DB::table('u_card')->where('id_card',$usuario->id_card)
+                    ->update([
+                        'CardId'=> $cardID,
+                        'card_brand'=> $card_brand,
+                        'card_last_four'=> $last_four
+                    ]);
+            }
+            return json_encode($card);
         }
-        return json_encode($card);
+        catch(\CulqiException $ce)
+        {
+            $response->message = $ce->getMessage();
+        }
+        catch(\Exception $e)
+        {   
+            $response->error = json_decode($e->getMessage());
+            $response->status = 0;
+            return json_encode($response);
+        }
     }
 
     public function pagar_subscripcion(Request $request)

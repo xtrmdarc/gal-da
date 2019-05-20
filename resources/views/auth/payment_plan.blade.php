@@ -208,7 +208,7 @@
                                 
     
                             </div>
-    
+                            <p id="errores_info_fact"></p>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <button id="btn-confirmar-billing-info" class="btn btn-brand-color" style="float:right;width:120px;"  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> "> Confirmar</button>
@@ -312,7 +312,7 @@
                                             </div>
                                             
                                         </div>
-
+                                        <p id="errores_tarjeta"></p>
                                         <div class="row" style="margin-top:20px;">
                                             <div class="col-sm-12"> 
                                                 <button  type="submit"  id="btn-agregar-tarjeta" class="btn btn-brand-color" style="float:right;width:120px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Añadir tarjeta</button>
@@ -527,17 +527,28 @@
                 },
                 dataType: "json",
                 success: function(response){
+
                     console.log(response);
-                    $('#add-card').css('display','none');
-                    $('#numero-tarjeta').text('*********'+response.source.last_four);
-                    $('#fecha-creacion').text(new Date(response.source.creation_date));
-                    $('#card-stored').css('display','block');
+                    if(response.source)
+                    {
+                        $('#add-card').css('display','none');
+                        $('#numero-tarjeta').text('*********'+response.source.last_four);
+                        $('#fecha-creacion').text(new Date(response.source.creation_date));
+                        $('#card-stored').css('display','block');
+                            
+                        $('#btn-agregar-tarjeta').button('reset');
                         
-                    $('#btn-agregar-tarjeta').button('reset');
-                    
-                    billing_page.tarjeta_added = true;
-                    SePuedePagar();
-                    console.log();
+                        billing_page.tarjeta_added = true;
+                        SePuedePagar();
+                    }
+                    else if(response.status == 0)
+                    {
+                        $('#errores_tarjeta').css('display','block');
+                        $('#errores_tarjeta').css('color','red');
+                        $('#errores_tarjeta').css('font-weight','300');
+                        $('#errores_tarjeta').text('No hemos podido procesar tu tarjeta.');
+                        
+                    }
                 }
             });
         } else { // ¡Hubo algún problema!
