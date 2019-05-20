@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>Hasta <b>500</b> Ventas Mensuales<br>
+                        <br>Hasta <b>500</b> Ventas Mensuales*<br>
                         Hasta <b>15</b> mesas*<br>
                         Productos Ilimitados <br>
                         1 Área de Producción <br>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="section-plan-offer">
-                        <br>Hasta <b>1100</b> Ventas Mensuales <br>
+                        <br>Hasta <b>1100</b> Ventas Mensuales* <br>
                         Hasta <b>20</b> mesas*<br>
                         Productos Ilimitados <br>
                         1 Área de Producción <br>
@@ -117,7 +117,7 @@
                         <div class="section-plan-offer">
                             <b> Incluye Plan Lite </b><br>
                             <b> + </b><br>
-                            Ventas ilimitadas <br>
+                            Hasta <b>5000</b> Ventas Mensuales* <br>
                             Hasta <b>40</b> Mesas*<br>
                             Múltiples Áreas de producción <br>
                             2 Sucursal <br>
@@ -180,7 +180,7 @@
     <div class="col-xs-12">
         <div class="row" >
             <div class="col-md-12">
-                <p style="color: white">*El número de Mesas se reparte para todas las sucursales creadas.</p>
+                <p style="color: white">*El número de <b>Ventas</b> y <b>Mesas</b> se reparten para todas las sucursales creadas.</p>
             </div>
         </div>
     </div>

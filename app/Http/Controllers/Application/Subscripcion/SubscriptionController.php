@@ -29,6 +29,7 @@ use App\Mail\invoiceBasic;
 use Illuminate\Support\Facades\Storage;
 use Culqi\Error\CulqiException;
 use function GuzzleHttp\json_encode;
+use App\Mail\suscripcion\finalizaPlan;
 
 class SubscriptionController extends Controller
 {
@@ -406,8 +407,9 @@ class SubscriptionController extends Controller
         $suscription = DB::table('subscription')->where('id_usu',$usuario->id_usu)->first();
         $precio = $plan->precio_mensual;
         $fecha_c = $suscription->ends_at;
+        $plan_actual = $plan->nombre;
 
-        $this->sendEmailPayment($usuario,$precio,date('Y-m-d',strtotime($fecha_c)));
+        $this->sendEmailPayment($usuario,$precio,date('Y-m-d',strtotime($fecha_c)),$plan_actual);
 
         auth()->logout();
         $data = [
@@ -416,7 +418,7 @@ class SubscriptionController extends Controller
         return view('components.payment.completed_basic')->with($data);
     }
 
-    public function sendEmailPayment($thisUser,$precio,$fecha_c)
+    public function sendEmailPayment($thisUser,$precio,$fecha_c,$plan_actual)
     {
         //Obtener nombre del Recibo
         $galda_venta = DB::table('galda_venta')->orderBy('id_galda_venta', 'desc')
@@ -430,7 +432,7 @@ class SubscriptionController extends Controller
         // $pdf = Storage::disk('s3')->get($path);
 
         if(($exist)){
-            Mail::to($billing_info->Email)->send(new invoiceBasic($thisUser,$path,$precio,$fecha_c));
+            Mail::to($billing_info->Email)->send(new invoiceBasic($thisUser,$path,$precio,$fecha_c,$plan_actual));
 
         } else {
             dd('NO EXISTE');
@@ -439,25 +441,15 @@ class SubscriptionController extends Controller
 
     public function cancelar_subs(){
 
-        //$culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
-        //$post = $request->all();
         $usuario = \Auth::user();
-        //$sub_id = $post['cod_subs'];
-
-        //$culqi->Subscriptions->delete("$sub_id");
-
-        /*DB::table('subscription')->where('id_usu',$usuario->id_usu)
-            ->update([
-                'culqi_id'=> 'Cancelado',
-                'ends_at'=> 'Cancelado',
-            ]);
-        */
-
         $suscription = DB::table('subscription')->where('id_usu',$usuario->id_usu)->first();
+
+        $plan = DB::table('planes')->where('id',$usuario->plan_id)->first();
+        $plan_actual = $plan->nombre;
         $fecha_c = date('Y-m-d',strtotime($suscription->ends_at));
 
         $this->Basic_a_Free();
-        Mail::to($usuario->email)->send(new cancelPlan($usuario,$fecha_c));
+        Mail::to($usuario->email)->send(new cancelPlan($usuario,$fecha_c,$plan_actual));
 
         return redirect('/perfil');
     }
@@ -467,8 +459,17 @@ class SubscriptionController extends Controller
 
         if($usuario->plan_id == 2 || $usuario->plan_id == 3){
             //Estado = 2, Plan cancelado
-            DB::table('subscription')->where('id_usu',\Auth::user()->id_usu)->update(['estado'=>'2']);
+            DB::table('subscription')->where('id_usu',$usuario->id_usu)->update(['estado'=>'2']);
         }
+    }
+
+    public static function finalizaPlan(){
+
+        $usuario = \Auth::user();
+        $plan = DB::table('planes')->where('id',$usuario->plan_id)->first();
+        $plan_actual = $plan->nombre;
+
+        Mail::to($usuario->email)->send(new finalizaPlan($usuario,$plan_actual));
     }
 
     public function registrarVentaGalda($billing_info,$plan_culqi)

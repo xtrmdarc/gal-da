@@ -48,6 +48,7 @@ class OtrosController extends Controller
             $viewdata['moneda']= $r->moneda;
             $viewdata['desc_moneda']= $r->desc_moneda;
             $viewdata['paisEmpresa']= $r->id_pais;
+            $viewdata['ciudad']= $r->ciudad;
         }
 
         $lista_paises = Pais::all();
@@ -134,6 +135,7 @@ class OtrosController extends Controller
         $logo = $post['logo'];
         $igv = number_format($post['igv']*1.00/100, 2, ".", "");
         $id_pais = $post['country'];
+        $ciudad = $post['ciudad'];
 
         if($id != ''){
             $stm = DB::Select("SELECT * FROM empresa where id = ".$id);
@@ -177,7 +179,8 @@ class OtrosController extends Controller
                 'logo' =>$filenametostore,
                 'moneda' =>$moneda,
                 'desc_moneda' =>$desc_moneda,
-                'id_pais' =>$id_pais
+                'id_pais' =>$id_pais,
+                'ciudad' =>$ciudad
             ]);
             //dd(DB::getQueryLog());
             //AppController::IniciarApp();

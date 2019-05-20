@@ -85,13 +85,13 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="control-label">DIRECCIÓN:</label>
+                                    <label class="control-label">DIRECCIÓN</label>
                                     <input type="text" name="direccion" value="{{$direccion}}" class="form-control" placeholder="Ingrese dirección" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>PAÍS</label>
                                     <div class="input-group">
@@ -114,6 +114,12 @@
                                                             <strong>{{ $errors->first('country') }}</strong>
                                                         </span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">CIUDAD</label>
+                                    <input type="text" name="ciudad" value="{{$ciudad}}" class="form-control" placeholder="Ingrese su ciudad" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>

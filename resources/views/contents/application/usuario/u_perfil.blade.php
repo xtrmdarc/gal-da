@@ -60,7 +60,7 @@
                                                         <div class="form-group">
                                                             <label for="example-email" class="col-md-6">Email</label>
                                                             <div class="col-md-6">
-                                                                <input type="email" placeholder="Ingrese su Email" class="form-control form-control-line" name="email_p" id="email_p" value="{{$email}}">
+                                                                <input type="email" placeholder="Ingrese su Email" class="form-control form-control-line" name="email_p" id="email_p" value="{{$email}}" disabled>
                                                             </div>
                                                         </div>
 
@@ -187,7 +187,7 @@
                                                                 <div id="form-change-card-h" style="display: none;">
                                                                     <form id="form-agregar-tarjeta" method="POST" action="/actualizarTarjeta">
                                                                         @csrf
-                                                                        <input type="text" style="display:none;" size="50" data-culqi="card[email]" id="card[email]" value="{{isset(\Auth::user()->info_fact_id)?$info_fact->Email:''}} ">
+                                                                        <input type="text" style="display:none;" size="50" data-culqi="card[email]" id="card[email]" value="{{isset(\Auth::user()->info_fact_id)?$info_fact->Email:\Auth::user()->email}} ">
                                                                         <div class="row">
                                                                             <div class="col-sm-6 form-group">
                                                                                 <label for="card[number]">Número de tarjeta</label>
@@ -211,36 +211,6 @@
                                                                                 <input class="form-control text-center" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" placeholder="___"maxlength="4" minlength="3" >
                                                                             </div>
                                                                         </div>
-                                                                        {{--/*
-                                                                        <div class="row">
-                                                                            <div class="col-sm-5 col-md-4 form-group" >
-                                                                                <label>F. Venc. (MM/YYYY)</label>
-                                                                                <div class="row ">
-                                                                                    <div class="col-xs-6">
-                                                                                        <input class="form-control text-center" size="2" data-culqi="card[exp_month]" id="card[exp_month]" type="text"   placeholder="MM" maxlength="2" minlength="2">
-                                                                                    </div>
-
-                                                                                    <div class="col-xs-6" style="padding-left :0px;">
-                                                                                        <input class="form-control text-center" size="4" data-culqi="card[exp_year]" id="card[exp_year]" type="text" placeholder="YYYY" maxlength="4" minlength="4">
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-4 col-md-2" style="float:right;">
-                                                                                <label for="card[cvv]">CVV</label>
-                                                                                <input class="form-control text-center" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]" placeholder="___"maxlength="4" minlength="3" >
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-2">
-                                                                                <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>
-                                                                            </div>
-                                                                            <div class="col-sm">
-                                                                                <button id="cambiar_tarjeta_h" type="reset" class="btn btn-default btn-outline m-b-10">Cancelar</button>
-                                                                            </div>
-                                                                        </div>
-                                                                        */--}}
                                                                         <div class="row">
                                                                             <div class="col-sm-2">
                                                                                 <button  type="submit" id="btn-agregar-tarjeta" class="btn btn-success" style="float:right;width:100px;" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> ">Guardar</button>

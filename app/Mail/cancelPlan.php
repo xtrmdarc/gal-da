@@ -22,8 +22,9 @@ class cancelPlan extends Mailable
     public $u_ap;
 
     public $fecha_c;
+    public $plan_actual;
 
-    public function __construct(TmUsuario $usuario,$fecha_c)
+    public function __construct(TmUsuario $usuario,$fecha_c,$plan_actual)
     {
         //
         $this->usuario = $usuario;
@@ -31,6 +32,7 @@ class cancelPlan extends Mailable
         $this->u_ap = $usuario->ape_paterno;
 
         $this->fecha_c = $fecha_c;
+        $this->plan_actual = $plan_actual;
     }
 
     /**
@@ -40,7 +42,7 @@ class cancelPlan extends Mailable
      */
     public function build()
     {
-        return $this->subject('Gal-Da | Recibo Plan Basic')
+        return $this->subject('Gal-Da | Cancelaste tu Plan '.$this->plan_actual)
             ->view('email.application.cancel_Plan');
     }
 }

@@ -11,6 +11,7 @@ use App\Models\TmCaja;
 use App\Models\TmUsuario;
 use Illuminate\Support\Facades\DB;
 use Culqi;
+use App\Http\Controllers\Application\Subscripcion\SubscriptionController;
 
 class BasicFreeMiddleware
 {
@@ -157,6 +158,8 @@ class BasicFreeMiddleware
                         ->where('plan_estado','3')
                         ->update(['estado'=>'i']);
                 }
+
+                SubscriptionController::finalizaPlan();
 
                 auth()->logout();
                 return redirect('/');

@@ -3,7 +3,7 @@
 
             <div dir="ltr" style="background-color:#d6d6d5;margin:0;min-width:100%;padding:0;width:100%">
 <span style="display:none;max-height:0px;font-size:0px;overflow:hidden">
-  Lleg&oacute; el tu recibo por tu nuevo Plan {{$plan_actual}}.
+  Ha finalizado tu Plan {{$plan_actual}}.
 </span>
 
 
@@ -118,7 +118,7 @@
                                                                                 <tbody><tr>
                                                                                     <td style="direction:ltr;text-align:left">
                                                                                         <h1 class="m_4394773307126745137white" style="Margin:0;color:#ffffff;font-family:'Montserrat', sans-serif;font-size:34px;font-weight:normal;line-height:40px;padding:0;padding-bottom:7px;padding-top:7px">
-                                                                                            Gracias por tu suscripci&oacute;n!
+                                                                                            Ha finalizado tu suscripci&oacute;n!
                                                                                         </h1>
                                                                                     </td>
                                                                                 </tr>
@@ -203,20 +203,16 @@
                                                                                                                                                                                 <tbody><tr>
                                                                                                                                                                                     <td style="direction:ltr;text-align:left">
                                                                                                                                                                                         <h3 style="Margin:0;color:#000000;font-family:'Montserrat', sans-serif;font-size:34px;font-weight:normal;line-height:40px;padding:0;padding-bottom:7px;padding-top:7px">
-                                                                                                                                                                                            Hola <b>{{ $u_nombre }}</b> <b>{{ $u_ap }}</b>,<br> te damos la Bienvenida a tu nuevo <b>Plan {{$plan_actual}}</b>.
+                                                                                                                                                                                            Hola <b>{{ $u_nombre }} {{ $u_ap }}</b>,<br> ha finalizado tu <b>Plan {{$plan_actual}}</b>.
                                                                                                                                                                                         </h3>
                                                                                                                                                                                     </td>
                                                                                                                                                                                 </tr>
                                                                                                                                                                                 <tr>
-                                                                                                                                                                                    <td class="m_4394773307126745137p1" style="direction:ltr;text-align:left;color:#000000;font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px">
-                                                                                                                                                                                        Procesamos correctamente su pago de <b>{{ $precio }} USD</b> el <b>{{ $fecha_c }}</b>.
-                                                                                                                                                                                    </td>
-                                                                                                                                                                                </tr>
-                                                                                                                                                                                <tr>
                                                                                                                                                                                     <td class="m_4394773307126745137p1" style="direction:ltr;text-align:left;color:#000000;font-family:'Montserrat', sans-serif;font-size:17px;line-height:26px;padding-bottom:7px;padding-top:7px">
-                                                                                                                                                                                        Esperamos que tu nueva experiencia rompa tus expectativas.
+                                                                                                                                                                                        Durante este tiempo esperamos que tu experiencia con nosotros haya sido buena y vuelvas pronto.
                                                                                                                                                                                     </td>
                                                                                                                                                                                 </tr>
+
                                                                                                                                                                                 </tbody></table>
                                                                                                                                                                         </td>
                                                                                                                                                                     </tr>
@@ -242,10 +238,8 @@
                                                                                                                     <tr>
                                                                                                                         <td style="padding-left:0px;padding-right:0px;direction:ltr;text-align:left">
 
-
-                                                                                                                            <a href="" style="border:0" target="_blank" data-saferedirecturl=""><img src="https://envato-shoebox-0.imgix.net/bcf6/4e16-5970-4457-a4cd-32d90b881867/FM7_5878.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=1000&s=23e6274b68464d43c67bbbbea82f87b4" style="clear:both;display:block;max-width:100%;outline:none;text-decoration:none" class="CToWUd">
+                                                                                                                            <a href="" style="border:0" target="_blank" data-saferedirecturl=""><img src="http://www.hotelstellamaris.com.mx/StellaMarisPhotos/Restaurante/restaurante.jpg" style="clear:both;display:block;max-width:100%;outline:none;text-decoration:none" class="CToWUd">
                                                                                                                             </a>
-
 
                                                                                                                         </td>
                                                                                                                     </tr>
@@ -268,7 +262,7 @@
                                                                                                                                                         </tr>
                                                                                                                                                         <tr>
                                                                                                                                                             <td class="m_4394773307126745137p1 m_4394773307126745137mobf16" style="color:rgb(0,0,0);font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px;direction:ltr;text-align:left">
-                                                                                                                                                                <p>Actualizamos nuestro Blog constantemente para que tengas <b>tips</b>, <b>pautas</b> y mucho más sobre el <b>crecimiento de tu negocio.</b>
+                                                                                                                                                                <p>Recuerda que siempre puedes visitar nuestro Blog y encontrar <b>tips</b>, <b>pautas</b> y muchos mas sobre el <b>crecimiento de tu negocio.</b>
                                                                                                                                                                 </p>
 
                                                                                                                                                             </td>
@@ -295,8 +289,9 @@
                                                                                                                                                         </tr>
                                                                                                                                                         <tr>
                                                                                                                                                             <td class="m_4394773307126745137p1 m_4394773307126745137mobf16" style="color:rgb(0,0,0);font-family:'Montserrat', sans-serif;font-size:20px;line-height:26px;padding-bottom:7px;padding-top:7px;direction:ltr;text-align:left">
-                                                                                                                                                                <p>Tambien adjuntamos el recibo de tu compra.<br>Gracias por escogernos! <br><br>Saludos.<br>Equipo de <b>Gal-Da.</b>
+                                                                                                                                                                <p>Gracias por habernos elegido! <br><br>Saludos.<br>Equipo de <b>Gal-Da.</b>
                                                                                                                                                                 </p>
+
                                                                                                                                                             </td>
                                                                                                                                                         </tr>
                                                                                                                                                         </tbody>

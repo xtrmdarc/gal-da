@@ -3,7 +3,7 @@
 
             <div dir="ltr" style="background-color:#d6d6d5;margin:0;min-width:100%;padding:0;width:100%">
 <span style="display:none;max-height:0px;font-size:0px;overflow:hidden">
-  Llegó el tu recibo por tu nuevo Plan Basic.
+  Lamentamos que hayas decidido cancelar tu Plan {{$plan_actual}}. :(
 </span>
 
 
@@ -203,7 +203,7 @@
                                                                                                                                                                                 <tbody><tr>
                                                                                                                                                                                     <td style="direction:ltr;text-align:left">
                                                                                                                                                                                         <h3 style="Margin:0;color:#000000;font-family:'Montserrat', sans-serif;font-size:34px;font-weight:normal;line-height:40px;padding:0;padding-bottom:7px;padding-top:7px">
-                                                                                                                                                                                            Hola <b>{{ $u_nombre }} {{ $u_ap }}</b>,<br> haz cancelando tu <b>Plan Basic</b>.
+                                                                                                                                                                                            Hola <b>{{ $u_nombre }} {{ $u_ap }}</b>,<br> haz cancelado tu <b>Plan {{$plan_actual}}</b>.
                                                                                                                                                                                         </h3>
                                                                                                                                                                                     </td>
                                                                                                                                                                                 </tr>
