@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\SendBoletin;
+use App\Console\Commands\suscripcion\SendRenovacion;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        SendBoletin::class
+        SendBoletin::class,
+        SendRenovacion::class
     ];
 
     /**
@@ -32,6 +34,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('users:boletin')
                  ->timezone('America/Lima')
                  ->monthlyOn(1, '10:00');
+
+        $schedule->command('users:renovacion')
+            ->timezone('America/Lima')
+            ->monthlyOn(23, '15:00');
+            //->everyMinute();
+            //->everyThirtyMinutes();
     }
 
     /**
