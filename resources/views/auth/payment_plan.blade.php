@@ -20,7 +20,13 @@
             <div class="row text-center" style="margin-top:20px;">
                 <img src="{{URL::to('/home/images/logo-1.png')}}" width="200px" alt="Gal-Da Sistema para restaurantes">
             </div>
+
             <div class="row" style="padding:30px ">
+                @if(\Auth::user()->plan_id != 1)
+                    <div id="div_comprobantes_enviar" class="col-sm-12 col-md-10 col-lg-10 p-2 border border-info bg-light rounded mb-3" style="float:none;margin:auto;border:1px solid orange;border-radius:7px;padding-top:10px;background-color:#fff9e8">
+                        <p id="mensaje_ce" >Tienes una suscripción activa. Al adquirir una nueva suscripción, la cancelación de la suscripción antigua es inmediata.</p>
+                    </div>
+                @endif
                 <div class="col-sm-12 col-md-10 col-lg-10 card billing-form" style="float:none;margin:auto" >
 
                     <div data-toggle="collapse" data-target="#div_billing_form" aria-expanded="true" aria-controls="#div_billing_form">

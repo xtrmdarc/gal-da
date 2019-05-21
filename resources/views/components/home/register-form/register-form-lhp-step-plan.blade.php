@@ -1,3 +1,8 @@
+@php
+    $plan_activo = \Auth::user()->plan_id!=1?1:0;
+    $id_plan = \Auth::user()->plan_id;
+@endphp
+
 <div class="container register-form-step-plan {{ $class_active or '' }}">
 
 
@@ -48,7 +53,7 @@
                         @if(\Auth::user()->plan_id==1 )
                             <button id="free-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 1?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==1?'PLAN ACTUAL':''}}</button>
                         @else
-                            <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                            {{-- <button id="free-plan-btn" onclick="window.location.replace({{\Auth::user()->plan_id==1?'':'\'upgrade/plan/1\''}})" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button> --}}
                         @endif
                     @endif
                 </div>
@@ -91,7 +96,7 @@
                         @if(\Auth::user()->plan_id==2 )
                             <button id="lite-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 2?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==2?'PLAN ACTUAL':''}}</button>
                         @else
-                            <button id="lite-plan-btn" onclick="window.location.replace('upgrade/plan/2')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                            <button id="lite-plan-btn" onclick="empezar_ahora_onclick({{$plan_activo}},{{$id_plan}},2)"  type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                         @endif
                     @endif
                 </div>
@@ -133,7 +138,7 @@
                             @if(\Auth::user()->plan_id==3 )
                                 <button id="basic-plan-btn"  type="button" class="btn btn-buynow {{\Auth::user()->plan_id == 3?'btn-plan-actual':''}}" style="width: 100%;">{{\Auth::user()->plan_id==3?'PLAN ACTUAL':''}}</button>
                             @else
-                                <button id="basic-plan-btn" onclick="window.location.replace('upgrade/plan/3')" type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
+                                <button id="basic-plan-btn" onclick="empezar_ahora_onclick({{$plan_activo}},{{$id_plan}},3)"  type="button" class="btn btn-buynow" style="width: 100%;">EMPIEZA AHORA</button>
                             @endif
                         @endif
                     </div>
@@ -185,3 +190,31 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+
+<script type="text/javascript">
+
+    function empezar_ahora_onclick(plan_activo,id_plan,nuevo_plan)
+    {
+        console.log(plan_activo,id_plan,nuevo_plan);
+        // if(plan_activo == 0)
+        // {
+            //No hay plan activo, solo el free
+            window.location.replace('upgrade/plan/'+nuevo_plan);
+
+        // }
+        // else
+        // {
+        //     //Hay un plan activo
+        //     swal('Cancela tu plan antes de adquirir uno nuevo',{
+        //         icon: "warning",
+        //         button:'Aceptar'
+        //     });
+
+        // }
+    }
+
+</script>
+
+@endsection

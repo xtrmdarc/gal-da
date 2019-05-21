@@ -87,7 +87,7 @@ class SubscriptionController extends Controller
             $billing_info->Email =\Auth::user()->email;
             $billing_info->Telefono = \Auth::user()->phone;
             $billing_info->CodigoPais = \Auth::user()->codigo_pais;
-            $billing_info->Ciudad = '';
+            $billing_info->Ciudad = $datos_empresa->ciudad;
             $billing_info->Direccion = $datos_empresa->direccion;
             $billing_info->RazonSocial= $datos_empresa->nombre_empresa;
             $billing_info->Ruc = $datos_empresa->ruc;
@@ -316,6 +316,15 @@ class SubscriptionController extends Controller
         }
     }
 
+    public function cancelar_suscripcion_actual_culqi($id_user)
+    {
+        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+
+        $sub = DB::table('subscription')->where('id_usu',$id_user)->first();
+
+        $culqi->Subscriptions->delete($sub->culqi_id);
+    }
+
     public function pagar_subscripcion(Request $request)
     {
         /*
@@ -347,7 +356,10 @@ class SubscriptionController extends Controller
         {
             $data = $request->all();
         
-            
+            if(\Auth::user()->plan_id != 1 )
+            {
+                self::cancelar_suscripcion_actual_culqi(\Auth::user()->id_usu);
+            }
             //customer id  = cus_test_dqaMxKOaPF75WgOr
             //card id = crd_test_MKpgmnUlcktnhQro
             //plan id = 
