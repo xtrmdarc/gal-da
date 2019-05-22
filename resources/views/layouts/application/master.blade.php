@@ -159,7 +159,7 @@
     @endif
 
 </div>
-<!-- End Wrapper -->s
+<!-- End Wrapper -->
 <!-- All Jquery -->
 @php /* <script src="{{ URL::to('application/js/lib/jquery/jquery.min.js') }}"></script> */@endphp
         <!-- Bootstrap tether Core JavaScript -->

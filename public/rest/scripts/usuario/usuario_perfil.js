@@ -3,6 +3,7 @@
  */
 $(function(){
 
+    listarRecibos();
     var btn_cambiar_password_s = $("#cambiar_password_s");
     var btn_cambiar_password_h = $("#cambiar_password_h");
     var btn_cambiar_tarjeta = $("#cambiar_tarjeta");
@@ -175,3 +176,33 @@ function GetCardType(number)
     return tarjeta;
 }
 
+/* Mostrar datos en la tabla de recibos */
+var listarRecibos = function(){
+
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var table = $('#table-recibos')
+        .DataTable({
+            "destroy": true,
+            "responsive": true,
+            "dom": "ftp",
+            "bSort": false,
+            "ajax":{
+                "method": "POST",
+                "url": "/ajustesListaRecibos",
+                "dataSrc" : "",
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            },
+            "columns":[
+                {"data":"fecha_venta"},
+                {"data":"precio"},
+                {"data":null,"render": function (data, type, row) {
+                    console.log(data.id_g);
+                    if(data.id_g){
+                        return '<div><a class="btn btn-success btn-xs" href="/recibo_descargar_pdf/'+data.id_g+'" target="_blank"><i class="fa fa-download"></i> Descargar Recibo</a>';
+                    }
+                }}
+            ]
+        });
+}

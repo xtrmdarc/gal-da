@@ -231,41 +231,40 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="card-body">
-                                                    <form class="form-horizontal form-material">
-                                                        <h4><i class="fa fa-list mid-icon"></i><b> Recibos</b></h4>
-                                                        <span>Revisa tus recibos mensuales.</span>
-
-                                                        <table class="table table-striped" style="margin-top: 20px;">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Name</th>
-                                                                <th>Price</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Kolor Tea Shirt For Man, January 22</td>
-                                                                <td class="color-primary">$21.56</td>
-                                                                <td><a href="">Mirar Recibo</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Kolor Tea Shirt For Women, January 30</td>
-                                                                <td class="color-success">$55.32</td>
-                                                                <td><a href="">Mirar Recibo</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Blue Backpack For Baby, January 25</td>
-                                                                <td class="color-danger">$14.85</td>
-                                                                <td><a href="">Mirar Recibo</a></td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
+                                                    <h4><i class="fa fa-list mid-icon"></i><b> Recibos</b></h4>
+                                                    <span>Estos son tus recibos.</span>
+                                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                                    <table class="table table-striped" style="margin-top: 20px; width: 100%;" id="table-recibos">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Fecha de Venta</th>
+                                                            <th>Precio</th>
+                                                            <th>Recibo</th>
+                                                        </tr>
+                                                        </thead>
+                                                        {{--/*
+                                                         <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Kolor Tea Shirt For Man, January 22</td>
+                                                            <td class="color-primary">$21.56</td>
+                                                            <td><a href="">Mirar Recibo</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Kolor Tea Shirt For Women, January 30</td>
+                                                            <td class="color-success">$55.32</td>
+                                                            <td><a href="">Mirar Recibo</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Blue Backpack For Baby, January 25</td>
+                                                            <td class="color-danger">$14.85</td>
+                                                            <td><a href="">Mirar Recibo</a></td>
+                                                        </tr>
+                                                        </tbody>
+                                                        */--}}
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>

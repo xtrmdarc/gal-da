@@ -281,4 +281,28 @@ class UsuarioController extends Controller
             return json_encode($response);
         }
     }
+    public function listarRecibos(){
+
+        $usuario = \Auth::user();
+        $data = DB::select('SELECT id_usu,id_galda_venta as id_g,DATE_FORMAT(fecha_venta,"%d-%m-%Y") as fecha_venta,CONCAT(total," ", tipo_moneda) as precio, path_pdf_recibo_file as f_pdf
+                                     FROM galda_venta where id_usu = ?',[$usuario->id_usu]);
+        echo json_encode($data);
+    }
+    public function downloadPdf($id_g){
+
+        $usuario = \Auth::user();
+        $pdf_file = DB::select('select id_galda_venta as id_g,path_pdf_recibo_file
+                                from db_rest.galda_venta where id_usu = ? and id_cliente_empresa = ? and id_galda_venta = ?'
+                                ,[$usuario->id_usu,$usuario->id_empresa,$id_g]);
+        foreach($pdf_file as $r) {
+            $path_pdf = $r->path_pdf_recibo_file;
+        }
+        $exist = Storage::disk('s3_billing_g')->exists($path_pdf);
+
+        if(($exist)){
+            return Storage::disk('s3_billing_g')->download($path_pdf);
+        } else {
+            dd('NO EXISTE');
+        }
+    }
 }
