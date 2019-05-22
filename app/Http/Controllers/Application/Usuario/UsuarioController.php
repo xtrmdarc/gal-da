@@ -285,7 +285,7 @@ class UsuarioController extends Controller
 
         $usuario = \Auth::user();
         $data = DB::select('SELECT id_usu,id_galda_venta as id_g,DATE_FORMAT(fecha_venta,"%d-%m-%Y") as fecha_venta,CONCAT(total," ", tipo_moneda) as precio, path_pdf_recibo_file as f_pdf
-                                     FROM galda_venta where id_usu = ?',[$usuario->id_usu]);
+                                     FROM galda_venta where id_usu = ? order by fecha_venta desc',[$usuario->id_usu]);
         echo json_encode($data);
     }
     public function downloadPdf($id_g){
