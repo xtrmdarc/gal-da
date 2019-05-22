@@ -533,7 +533,7 @@
                 },
                 dataType: "json",
                 success: function(response){
-
+                    $('#btn-agregar-tarjeta').button('reset');
                     console.log(response);
                     if(response.source)
                     {
@@ -542,7 +542,7 @@
                         $('#fecha-creacion').text(new Date(response.source.creation_date));
                         $('#card-stored').css('display','block');
                             
-                        $('#btn-agregar-tarjeta').button('reset');
+
                         
                         billing_page.tarjeta_added = true;
                         SePuedePagar();
