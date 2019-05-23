@@ -1,6 +1,11 @@
 @php
-    $plan_activo = \Auth::user()->plan_id!=1?1:0;
-    $id_plan = \Auth::user()->plan_id;
+
+    if(!empty(\Auth::user()) )
+    {
+        $plan_activo = \Auth::user()->plan_id!=1?1:0;
+        $id_plan = \Auth::user()->plan_id;
+    }
+    
 @endphp
 
 <div class="container register-form-step-plan {{ $class_active or '' }}">
@@ -36,11 +41,11 @@
                     <div class="section-plan-offer">
                         <br>Hasta <b>500</b> Ventas Mensuales*<br>
                         Hasta <b>15</b> mesas*<br>
-                        Productos Ilimitados <br>
+                        Productos/Insumos Ilimitados <br>
                         1 Área de Producción <br>
                         1 Sucursal <br>
                         5 Usuarios <br>
-                        1 caja <br>
+                        1 Caja <br>
                         Tablero de Control <br>
                         Clientes <br>
                         1 Informe de Ventas <br>
@@ -67,7 +72,7 @@
                     <div class="table-heading">
                         <p class="plan-name-ll">Lite</p>
                         <div class="section-plan-who clearfix">
-                            <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para pequeños curiosos restaurantes</span></p>
+                            <p style="text-align: center;line-height: 1.3em;min-height: 1.3em"><span class="text-shade-7-0" style="font-size: 0.9em">Para el emprendedor</span></p>
                         </div>
                         <div class="section-plan-price clearfix">
                             <h5 style="text-align: center;line-height: 1em;min-height: 1em" ><span class="price-text" style="letter-spacing: -0.02em;font-weight: bold">USD 9.<span style="font-size:25px;vertical-align:top">90</span></span> <span class="text-month-price" style="">/mes</span></h5>
@@ -79,11 +84,11 @@
                     <div class="section-plan-offer">
                         <br>Hasta <b>1100</b> Ventas Mensuales* <br>
                         Hasta <b>20</b> mesas*<br>
-                        Productos Ilimitados <br>
+                        Productos/Insumos Ilimitados <br>
                         1 Área de Producción <br>
                         1 Sucursal <br>
                         5 Usuarios <br>
-                        1 caja <br>
+                        1 Caja <br>
                         Tablero de Control <br>
                         Clientes <br>
                         1 Informe de Ventas <br>
@@ -125,11 +130,12 @@
                             Hasta <b>5000</b> Ventas Mensuales* <br>
                             Hasta <b>40</b> Mesas*<br>
                             Múltiples Áreas de producción <br>
-                            2 Sucursal <br>
-                            Usuarios ilimitados <br>
-                            MultiCajas<br>
+                            <b>2</b> Sucursales <br>
+                            Usuarios Ilimitados <br>
+                            Módulo de Inventario** <br>
+                            Más de <b>1</b> Caja<br>
                             Tablero de Control Basic<br>
-                            3 Informes de Venta <br>
+                            Más Informes de Venta<br>
                         </div>
                         <input type="hidden" name="plan_id" value="3" />
                         @if(empty(\Auth::user()))
@@ -165,15 +171,13 @@
                             <b> Incluye Plan Basic </b><br>
                             <b> + </b><br>
                             <b>Facturación Electrónica</b><br>
+                            Ventas <b>Ilimitadas</b>  <br>
                             Roles Personalizados<br>
-                            Mas de 40 Mesas* <br>
-                            Insumos ilimitados <br>
-                            MultiSucursal <br>
+                            Más de <b>40</b> Mesas* <br>
+                            Más de <b>2</b> Sucursales <br>
                             Tablero de Control PRO <br>
-                            Gestión de Inventario (Kardex) <br>
-                            Gestión de Recetas <br>
-                            Gestión de Compras <br>
-                            Informes de Gestión <br>
+                            Oferta y Promociones<br>
+                            Informes de Gestión Avanzados<br>
                         </div>
                         <input type="hidden" name="plan_id" value="3" />
                         <button id="lite-plan-btn" onclick="" type="button"  class="btn btn-buynow" style="width: 100%;">MUY PRONTO</button>
