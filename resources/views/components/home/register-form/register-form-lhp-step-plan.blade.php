@@ -189,7 +189,8 @@
     <div class="col-xs-12">
         <div class="row" >
             <div class="col-md-12">
-                <p style="color: white">*El número de <b>Ventas</b> y <b>Mesas</b> se reparten para todas las sucursales creadas.</p>
+                <p style="color: white;margin: 0px;">*El número de <b>Ventas</b> y <b>Mesas</b> se reparten para todas las sucursales creadas.</p>
+                <p style="color: white;margin: 0px;">**El <b>módulo de inventario</b> incluye: Proveedores, Compras, Stock e Informe de Kardex.
             </div>
         </div>
     </div>
