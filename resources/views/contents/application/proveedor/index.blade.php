@@ -51,7 +51,7 @@
                             @endif
                         </td>
                         <td style="text-align: center">
-                            <a href="/proveedores/editar/{{$r->id_prov}}">
+                            <a href="/proveedores/editar/{{$r->index_por_cuenta}}">
                                 <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button>
                             </a>
                         </td>

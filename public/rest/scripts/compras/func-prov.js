@@ -44,13 +44,19 @@ $('#RegistrarProveedor').on('click', function(){
             	headers:{
                 	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             	},
-				success: function(datos){
-					if(datos == 1){
-						toastr.warning('Advertencia, Datos duplicados.');
-					}else if(datos != 'existe'){
-						toastr.success('Datos registrados, correctamente.');
-						$('#mdl-nuevo-proveedor').modal('hide');
+				success: function(data){
+
+					switch(data.type)
+					{
+						case 'warning' : {toastr.warning(data.message); break;}
+						case 'success':{toastr.success(data.message);$('#mdl-nuevo-proveedor').modal('hide'); break;}
 					}
+					// if(data == 1){
+					// 	toastr.warning('Advertencia, Datos duplicados.');
+					// }else if(datos != 'existe'){
+					// 	toastr.success('Datos registrados, correctamente.');
+						
+					// }
 				}
 			});
 		}else{
@@ -60,6 +66,7 @@ $('#RegistrarProveedor').on('click', function(){
 });
 
 $('#mdl-nuevo-proveedor').on('hidden.bs.modal', function() {
+	
 		$('#ruc_numero').val('');
-    $(this).find('#form_p')[0].reset();
+    	$(this).find('#form_p')[0].reset();
 });

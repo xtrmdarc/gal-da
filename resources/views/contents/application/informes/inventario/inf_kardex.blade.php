@@ -25,7 +25,7 @@ $fechaa = date("m-Y");
         </div>
         <div class="ibox-content" style="position: relative; min-height: 30px;">
             <div class="row">
-                <form method="post" enctype="multipart/form-data" target="_blank" action="#">
+               
                     <!--
                     <div class="col-sm-4">
                         <div class="row">
@@ -59,7 +59,7 @@ $fechaa = date("m-Y");
                             </select>
                         </div>
                     </div>
-                </form>
+
             </div>
             <div class="row">
                 <div class="col-sm-8">

@@ -20,8 +20,8 @@ class ProveedorController extends Controller
     public function index(){
 
         $idSucursal = session("id_sucursal");
-        $proveedores = TmProveedor::where('id_sucursal',$idSucursal)->get();
-
+        $proveedores = DB::table('tm_proveedor')->where('id_empresa',\Auth::user()->id_empresa)->get();
+        // dd($proveedores);
         $data =[
             'proveedores' => $proveedores,
             'titulo_vista' => 'Proveedores',
@@ -43,9 +43,12 @@ class ProveedorController extends Controller
         return view('contents.application.proveedor.editar')->with($data);
     }
 
-    public function editar($id){
+    public function editar($id_por_cuenta){
         
-        $proveedor = TmProveedor::find($id);
+        
+        $proveedor = DB::table('tm_proveedor')->where('index_por_cuenta',$id_por_cuenta)
+                                            ->where('id_empresa',\Auth::user()->id_empresa )
+                                            ->first();
 
         $data =[
             'proveedor' => $proveedor,
@@ -78,20 +81,33 @@ class ProveedorController extends Controller
                     ':telf' => $data['telefono'],
                     ':email' => $data['email'],
                     ':contc' => $data['contacto'],
-                    ':idProv' => $data['id_prov']
+                    ':idProv' => $data['id_prov'],
+                    ':idSucursal' =>session('id_sucursal'),
+                    ':idEmpresa'=> \Auth::user()->id_empresa
                 );
                 
-                DB::select("call usp_comprasRegProveedor( :flag, :ruc, :razS, :direc, :telf, :email, :contc, :idProv);",$arrayParam);
+                $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, :idProv, :idSucursal, :idEmpresa);",$arrayParam)[0];
                 
                 /*$st = $this->conexionn->prepare($consulta);
                 $st->execute($arrayParam);*/
                     
                 //$this->model->Actualizar($data);
                 //header('Location: lista_comp_prov.php?m=u');
-                $notification = [ 
-                    'message' =>'Datos modificados, correctamente.',
-                    'alert-type' => 'success'
-                ];
+                if ($st->dup == 1)
+                {
+                    //header('Location: lista_comp_prov.php?m=d');
+                    $notification = [ 
+                        'message' =>'Estas intentando ingresar datos que ya existen!',
+                        'alert-type' => 'warning'
+                    ];
+                } 
+                else {
+
+                        $notification = [ 
+                            'message' =>'Datos registrados, correctamente.',
+                            'alert-type' => 'success'
+                        ];
+                    }
                return redirect('/proveedores')->with($notification);
 
             } else {
@@ -103,10 +119,12 @@ class ProveedorController extends Controller
                     ':direc' => $data['direccion'],
                     ':telf' => $data['telefono'],
                     ':email' => $data['email'],
-                    ':contc' => $data['contacto']
+                    ':contc' => $data['contacto'],
+                    ':idSucursal' =>session('id_sucursal'),
+                    ':idEmpresa'=>\Auth::user()->id_empresa
                 );
 
-                $row = DB::select("call usp_comprasRegProveedor( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a);",$arrayParam)[0];
+                $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a, :idSucursal, :idEmpresa);",$arrayParam)[0];
                 
                 /*$st = $this->conexionn->prepare($consulta);
                 $st->execute($arrayParam);
@@ -116,21 +134,24 @@ class ProveedorController extends Controller
                 //$row = $this->model->Registrar($data);
 
 
-            if ($row->dup == 1){
-                    //header('Location: lista_comp_prov.php?m=d');
-                    $notification = [ 
-                        'message' =>'Estas intentando ingresar datos que ya existen!',
-                        'alert-type' => 'warning'
-                    ];
-                   return redirect('/proveedores')->with($notification);                    
-                } else {
-                    $notification = [ 
-                        'message' =>'Datos registrados, correctamente.',
-                        'alert-type' => 'success'
-                    ];
-                   return redirect('/proveedores')->with($notification);    
-                    
-                }
+                if ($st->dup == 1){
+                        //header('Location: lista_comp_prov.php?m=d');
+                        $notification = [ 
+                            'message' =>'Estas intentando ingresar datos que ya existen!',
+                            'alert-type' => 'warning'
+                        ];
+                    return redirect('/proveedores')->with($notification);      
+
+                } 
+                else {
+
+                        $notification = [ 
+                            'message' =>'Datos registrados, correctamente.',
+                            'alert-type' => 'success'
+                        ];
+                        return redirect('/proveedores')->with($notification);    
+                        
+                    }
             }
         } catch (Exception $e) 
         {

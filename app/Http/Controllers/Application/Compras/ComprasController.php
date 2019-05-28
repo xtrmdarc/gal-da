@@ -22,10 +22,12 @@ class ComprasController extends Controller
     public function index(){
 
         $idSucursal = session("id_sucursal");
-        $proveedores = TmProveedor::where('id_sucursal',$idSucursal)->get();
+        $proveedores = DB::table('tm_proveedor')->where('id_empresa',\Auth::user()->id_empresa)->get();
+        $documentos = DB::table('tm_tipo_doc')->whereIn('electronico',[0,\Auth::user()->factura_e])->get();
 
         $data =[
             'proveedores' => $proveedores,
+            'documentos'=> $documentos,
             'breadcrumb'=> 'compras',
             'titulo_vista' => 'Compras'
         ];
@@ -34,8 +36,11 @@ class ComprasController extends Controller
     }
 
     public function crear(){
+
+        $documentos = DB::table('tm_tipo_doc')->whereIn('electronico',[0,\Auth::user()->factura_e])->get();
         $data =[
            // 'proveedores' => $proveedores
+            'documentos' => $documentos,
            'breadcrumb'=> ''
         ];
 
@@ -76,7 +81,7 @@ class ComprasController extends Controller
         $criterio = $post['criterio'];
 
         //$data = DB::select("SELECT tipo_p,id_ins,cod_ins,nomb_ins,descripcion FROM v_busqins WHERE cod_ins LIKE '%?%' OR nomb_ins LIKE '%?%' ORDER BY nomb_ins LIMIT 5",[$criterio,$criterio]);
-        $data = DB::select("SELECT tipo_p,id_ins,cod_ins,nomb_ins,descripcion FROM v_busqins WHERE cod_ins LIKE '%".$criterio."%' OR nomb_ins LIKE '%".$criterio."%' ORDER BY nomb_ins LIMIT 5");
+        $data = DB::select("SELECT tipo_p,id_ins,cod_ins,nomb_ins,descripcion FROM v_busqins WHERE id_sucursal = ? AND ( cod_ins LIKE '%".$criterio."%' OR nomb_ins LIKE '%".$criterio."%') ORDER BY nomb_ins LIMIT 5",[session('id_sucursal')]);
         
         echo json_encode($data);
     }
@@ -87,7 +92,7 @@ class ComprasController extends Controller
         $criterio = $post['criterio'];
         
         //$data = DB::select("SELECT id_prov,ruc,razon_social FROM tm_proveedor WHERE estado <> 'i' AND (ruc LIKE '%?%' OR razon_social LIKE '%?%') ORDER BY ruc LIMIT 5",[$criterio,$criterio] );
-        $data = DB::select("SELECT id_prov,ruc,razon_social FROM tm_proveedor WHERE estado <> 'i' AND (ruc LIKE '%".$criterio."%' OR razon_social LIKE '%".$criterio."%') ORDER BY ruc LIMIT 5");
+        $data = DB::select("SELECT id_prov,ruc,razon_social FROM tm_proveedor WHERE id_empresa = ? AND estado <> 'i' AND (ruc LIKE '%".$criterio."%' OR razon_social LIKE '%".$criterio."%') ORDER BY ruc LIMIT 5",[\Auth::user()->id_empresa]);
         
         echo json_encode($data);
     }
@@ -98,7 +103,22 @@ class ComprasController extends Controller
         try
         {   
             $data = $request->all();
-            dd($data);
+            // // dd($data);
+            // $arrayParam =  array(
+            //     ':flag' => 1,
+            //     ':ruc' => $data['ruc'],
+            //     ':razS' => $data['razon_social'],
+            //     ':direc' => $data['direccion'],
+            //     ':telf' => $data['telefono'],
+            //     ':email' => $data['email'],
+            //     ':contc' => $data['contacto']
+            // );
+            // $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a,:idSucursal);",$arrayParam);
+
+            // foreach ($st as $row) {
+            //     return json_encode($row->dup);
+            // }
+
             $arrayParam =  array(
                 ':flag' => 1,
                 ':ruc' => $data['ruc'],
@@ -106,15 +126,34 @@ class ComprasController extends Controller
                 ':direc' => $data['direccion'],
                 ':telf' => $data['telefono'],
                 ':email' => $data['email'],
-                ':contc' => $data['contacto']
+                ':contc' => $data['contacto'],
+                ':idSucursal' =>session('id_sucursal'),
+                ':idEmpresa'=>\Auth::user()->id_empresa
             );
-            $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a,:idSucursal);",$arrayParam);
 
-            foreach ($st as $row) {
-                return json_encode($row->dup);
-            }
+            $st = DB::select("call usp_comprasRegProveedor_g( :flag, :ruc, :razS, :direc, :telf, :email, :contc, @a, :idSucursal, :idEmpresa);",$arrayParam)[0];
+            
+            /*$st = $this->conexionn->prepare($consulta);
+            $st->execute($arrayParam);
+            $row = $st->fetch(PDO::FETCH_ASSOC);
+            return $row;*/
+            
+            //$row = $this->model->Registrar($data);
+            
+            $response = new \stdClass();
+  
+            if ($st->dup == 1){
+                    //header('Location: lista_comp_prov.php?m=d');
+                    
+                    $response->message = 'Estas intentando ingresar datos que ya existen!';
+                    $response->type = 'warning';
 
-
+            } 
+            else {
+                    $response->message = 'Datos registrados, correctamente';
+                    $response->type = 'success';
+                }
+            return json_encode($response); 
         } catch (Exception $e) 
         {
             die($e->getMessage());
@@ -131,7 +170,7 @@ class ComprasController extends Controller
             date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha_r = date("Y-m-d H:i:s");
-            $igv = session("igv");
+            $igv = session("igv:_session");
             $id_usu = session("id_usu");
             $fecha = date('Y-m-d',strtotime($dato['compra_fecha']));
             
@@ -168,7 +207,8 @@ class ComprasController extends Controller
                 'total'=>$dato['monto_total'],
                 'descuento'=>$dato['desc_comp'],
                 'observaciones'=>$dato['observaciones'],
-                'fecha_reg'=>$fecha_r
+                'fecha_reg'=>$fecha_r,
+                'id_sucursal'=>session('id_sucursal')
             ));
 
             /* El ultimo ID que se ha generado */
@@ -198,7 +238,7 @@ class ComprasController extends Controller
 
                 /*$sql = "INSERT INTO tm_inventario (id_ti,id_ins,id_tipo_ope,id_cv,cant,fecha_r) VALUES (?,?,?,?,?,?)";
                 $this->conexionn->prepare($sql)->execute(array($d['tipo_p'],$d['cod_ins'],1,$compra_id,$d['cant_ins'],$fecha_r));*/
-                DB::insert("INSERT INTO tm_inventario (id_ti,id_ins,id_tipo_ope,id_cv,cant,fecha_r) VALUES (?,?,?,?,?,?)",array($d['tipo_p'],$d['cod_ins'],1,$compra_id,$d['cant_ins'],$fecha_r));
+                DB::insert("INSERT INTO tm_inventario (id_ti,id_ins,id_tipo_ope,id_cv,cant,fecha_r,id_sucursal) VALUES (?,?,?,?,?,?,?)",array($d['tipo_p'],$d['cod_ins'],1,$compra_id,$d['cant_ins'],$fecha_r,session('id_sucursal')));
             }
 
             return json_encode(true);

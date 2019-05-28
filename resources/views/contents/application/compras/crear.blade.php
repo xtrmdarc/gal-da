@@ -31,7 +31,7 @@
                 			<input type="text" id="busc_prov" class="form-control" placeholder="B&uacute;squeda del proveedor..." autocomplete="off" value="" />
 					            <span class="input-group-btn">
 					              <button id="btnProvLimpiar" class="btn btn-danger" type="button">
-					                <span class="glyphicon glyphicon-remove"></span>
+					                <span class="fa fa-times"></span>
 					              </button>
 					            </span>
 				            </div>
@@ -78,8 +78,9 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control"  data-live-search="true" title="Seleccionar Documento" autocomplete="off" required="required">
-                      <option value="1">BOLETA</option>
-                      <option value="2">FACTURA</option>
+                      @foreach($documentos as $doc)
+                        <option value="{{$doc->id_tipo_doc}} ">{{$doc->descripcion}} </option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -395,7 +396,7 @@
     [%for items%]
     <li class="warning-element">
         <div class="row">
-          <div class="col-xs-2">
+          <div class="col-sm-2">
                 <input name="cant_ins" class="form-control" type="text" placeholder="Cantidad" value="[%:cant_ins%]"  style="text-align:center;" autocomplete="off" onchange="compra.actualizar([%:id%], this);"/>
             </div>
             <div class="col-xs-5">
@@ -403,16 +404,16 @@
                 <input name="cod_ins" type="hidden" value="[%:cod_ins%]" />
                 <label class="label label-info" name="desc_ins">[%:desc_ins%]</label><br><label name="nomb_ins">[%:nomb_ins%]</label>
             </div>
-            <div class="col-xs-2">
+            <div class="col-sm-2">
                 <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><?php echo session("moneda"); ?></span>
                   <input name="precio_ins" class="form-control" type="text" placeholder="Precio" value="[%:precio_ins%]" onchange="compra.actualizar([%:id%], this);"/>
                 </div>
             </div>
-            <div class="col-xs-2">
+            <div class="col-sm-2">
                 <input type="text" name="importe" class="form-control" style="text-align:center;border-style: none;background: #fff;cursor: default;font-size: 12px;" value="[%:total%]" disabled="true" />
             </div>
-            <div class="col-xs-1 text-right">
+            <div class="col-sm-1 text-right">
                 <button type="button" class="btn btn-danger" onclick="compra.retirar([%:id%]);"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>

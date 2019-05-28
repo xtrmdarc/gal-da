@@ -98,18 +98,19 @@ $planes = DB::table('planes')->where('id', \Auth::user()->plan_id)->first();
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li id="sb_clientes_li"><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif
-                        @if(Auth::user()->plan_id == '4')
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
+                        @if(Auth::user()->plan_id == '3')
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Inventario</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/compras"> Compras</a></li>
                                 <li><a href="/proveedores"> Proveedores </a></li>
+                                <li><a href="/stock"> Stock </a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
+                        {{-- <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Créditos</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/creditos"> Créditos</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                         @endif
                         @if(Auth::user()->id_rol == '1' || Auth::user()->id_rol == '2')
                             <li id="sb_caja_li"> <a class="has-arrow " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Caja</span></a>

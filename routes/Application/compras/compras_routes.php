@@ -25,7 +25,7 @@ Route::prefix('proveedores')->group(function(){
 
     Route::get('crear','Application\Compras\ProveedorController@crear')->name('NuevoProveedor');
     
-    Route::get('editar/{id}','Application\Compras\ProveedorController@editar')->name('EditarProveedor');
+    Route::get('editar/{id_por_cuenta}','Application\Compras\ProveedorController@editar')->name('EditarProveedor');
     Route::post('RUProveedor','Application\Compras\ProveedorController@RUProveedor');
     Route::post('Estado','Application\Compras\ProveedorController@Estado');
 

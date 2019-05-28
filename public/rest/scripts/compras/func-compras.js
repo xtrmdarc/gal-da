@@ -62,7 +62,7 @@ var listarCompras = function(){
         },
         dataType: "json",
         success: function(item){
-
+            console.log(item);
             if (item.data.length != 0) {
                 $.each(item.data, function(i, campo) {
                     vtotal += parseFloat(campo.total);

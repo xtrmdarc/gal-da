@@ -16,13 +16,13 @@ $fechaa = date("m-Y");
     <div class="ibox">
         <div class="ibox-title">
             <div class="ibox-title-buttons pull-right">
-                <a class="btn btn-primary" href="compras/crear"> <i class="fa fa-plus-circle"></i> Nueva Compra</a>
+                <a class="btn btn-primary" href="/compras/crear"> <i class="fa fa-plus-circle"></i> Nueva Compra</a>
             </div>
             <h5><strong><i class="fa fa-list-ul"></i> Lista de Compras</strong></h5>
         </div>
         <div class="ibox-content" style="position: relative; min-height: 30px;">
             <div class="row">
-                <form method="post" enctype="multipart/form-data" target="_blank" action="#">
+                
                     <div class="col-sm-4">
                         <div class="row">
                             <div class="col-sm-12">
@@ -50,29 +50,32 @@ $fechaa = date("m-Y");
                         <div class="form-group">
                             <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
                                 <option value="%" active>Todos los comprobantes</option>
-                                <option value="1">BOLETA</option>
-                                <option value="2">FACTURA</option>
+                                @foreach($documentos as $doc)
+                                <option value="{{$doc->id_tipo_doc}} ">{{$doc->descripcion}} </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-                </form>
+               
             </div>
+
             <div class="punteo">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <h5 class="no-margins"><strong>Subtotal</strong></h5>
                         <h1 class="no-margins"><strong id="subt_c"></strong></h1>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <h5 class="no-margins"><strong>IGV</strong></h5>
                         <h1 class="no-margins"><strong id="igv_c"></strong></h1>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <h5 class="no-margins"><strong>Total</strong></h5>
                         <h1 class="no-margins"><strong id="total_c"></strong></h1>
                     </div>
                 </div>
             </div>
+
             <div class="table-responsive">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <table id="table" class="table table-hover table-condensed table-striped" width="100%">

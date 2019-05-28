@@ -17,6 +17,8 @@ class KardexController extends Controller
     }
     public function index()
     {
+
+        
         $data = [
             'breadcrumb' => 'inf_kardex',
             'titulo_vista' => 'Informe kardex'
@@ -56,12 +58,14 @@ class KardexController extends Controller
 
     public function ComboIP(Request $request)
     {//FALTA QUE SALGA PARA LOS PRODUCTOS :,v
+
        $post = $request->all();
 
         $cod = $post['cod'];
 
-        $stmm = DB::Select("SELECT id_ins,cod_ins,nomb_ins FROM v_busqins WHERE tipo_p = ?",
-            array($cod));
+        $stmm = DB::Select("SELECT id_ins,cod_ins,nomb_ins FROM v_busqins WHERE tipo_p = ? AND id_sucursal = ?",
+            array($cod,session('id_sucursal')));
+
         foreach($stmm as $v){
             echo '<option value="'.$v->id_ins.'">'.$v->cod_ins.' - '.$v->nomb_ins.'</option>';
         }
