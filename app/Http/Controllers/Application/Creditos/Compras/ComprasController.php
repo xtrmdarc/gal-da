@@ -21,8 +21,9 @@ class ComprasController extends Controller
     public function index()
     {
         $viewData = [];
-        $providers = TmProveedor::all();
+        $providers = TmProveedor::where('id_empresa',session('id_empresa'))->get();
         $viewData['providers'] = $providers;
+
         $data= [
             
             'breadcrumb' => 'creditosCompra',

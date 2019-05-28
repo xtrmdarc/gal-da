@@ -29,11 +29,9 @@
   									<div class="input-group">
     									<input type="hidden" id="cod_prov"/>
                 			<input type="text" id="busc_prov" class="form-control" placeholder="B&uacute;squeda del proveedor..." autocomplete="off" value="" />
-					            <span class="input-group-btn">
-					              <button id="btnProvLimpiar" class="btn btn-danger" type="button">
-					                <span class="fa fa-times"></span>
-					              </button>
-					            </span>
+                                <button id="btnProvLimpiar" class="btn btn-danger" type="button">
+                                    <span class="fa fa-times"></span>
+                                </button>
 				            </div>
 					        </div>
     							<div class="col-sm-3">
@@ -295,10 +293,10 @@
 
 <div class="modal inmodal fade" id="mdl-nuevo-proveedor" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content animated bounceInTop">
+        <div class="modal-content animated bounceInTop unif_modal">
             <div class="modal-header mhs-e">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="mt">Nuevo Proveedor</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -307,9 +305,7 @@
 		                    <div class="form-group">
 		                        <div class="input-group">
 		                            <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Ingrese RUC" autocomplete="off" />
-		                            <span class="input-group-btn">
-		                                <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-		                            </span>
+                                    <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
 		                        </div>
 		                    </div>
 		                </form>

@@ -16,7 +16,7 @@
                 <div class="row">
                     <form method="post" enctype="multipart/form-data" target="_blank" action="#">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
-                        <div class="col-sm-6 col-sm-offset-6">
+                        <div class="col-sm-12 col-sm-offset-12">
                             <div class="form-group">
                                 <select name="cod_prov" id="cod_prov" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
                                     <option value="%" active>Todos los proveedores</option>

@@ -43,6 +43,7 @@ $(".compras").click(function() {
 				$('<div class="list-group"/>')
 				.append('<a class="list-group-item" href="/informesCompras">Todas las compras</a>')
 				.append('<a class="list-group-item" href="/informesComprasProveedores">Compras por proveedor</a>')
+				.append('<a class="list-group-item" href="/informesCreditos">Compras al Cr&eacute;dito</a>')
 				)
 			)
 		)
