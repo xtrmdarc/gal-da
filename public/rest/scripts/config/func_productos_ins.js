@@ -4,10 +4,13 @@ var comboUnidadMedida = function(cod){
     $('#cod_med').selectpicker('destroy');
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ComboUniMed",
+        url: "/ajustesComboUMedida",
         data: {
         	va1: var1,
         	va2: var2
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
             $('#cod_med').html(response);
@@ -36,14 +39,16 @@ $("#frm-receta").submit(function(){
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: '?c=Config&a=GuardarIng',
+            url: '/ajustesGuardarIng',
             data: {
                 cod_pre: cod_pre,
                 ins_cod: ins_cod,
                 cod_med: cod_med,
                 ins_cant: ins_cant
             },
-              
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (datos) {
                 $('.list-ins').css('display','none');
                 listarReceta();
@@ -67,14 +72,18 @@ $("#b_insumo").autocomplete({
     autoFocus: true,
     source: function (request, response) {
         $.ajax({
-            url: '?c=Config&a=BuscarIns',
+            url: '/ajustesBuscarIngredientes',
             type: "post",
             dataType: "json",
             data: {
                 criterio: request.term
             },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (data) {
                 response($.map(data, function (item) {
+                    console.log(item,item.id_ins);
                     return {
                         id: item.id_ins,
                         cod_ins: item.cod_ins,

@@ -166,9 +166,9 @@ var listarPresentaciones = function(cod_prod,nomb){
         success: function(item){
         $('#head-p').html('<a class="btn btn-primary btn-block" onclick="nuevaPresentacion('+cod_prod+',\''+nomb+'\')"><i class="fa fa-plus-circle"></i> Agregar presentaci&oacute;n </a>');
         $('#body-c').html('<br><strong class="ich">Presentaciones de '+nomb+'</strong><br><br>');
-            if (item.data.length != 0) {
+            if (item.length != 0) {
                 $('#body-p').empty();
-                $.each(item.data, function(i, campo) {
+                $.each(item, function(i, campo) {
                     $('#body-p')
                     .append(
                       $('<div class="ibox ibox-cr"/>')
@@ -360,7 +360,7 @@ var nuevaPresentacion = function(cod_prod,nomb_prod){
         },
         dataType: "json",
         success: function(item){
-            $.each(item.data, function(i, campo) {
+            $.each(item, function(i, campo) {
             //id_tipo = 1 (Producto Transformado)
                 if(campo.id_tipo == 1){
                     // Ocultar check receta (tp-1), stock/stock_minimo (tp-2)
@@ -411,7 +411,8 @@ var editarPresentacion = function(cod_pres,nomb_prod){
         },
         dataType: "json",
         success: function(item){
-            $.each(item.data, function(i, campo) {
+            $.each(item, function(i, campo) {
+
                 $('#cod_pres').val(campo.id_pres);
                 $("#cod_producto").val(campo.id_prod);
                 $('#cod_produ').val(campo.cod_prod);
@@ -420,38 +421,41 @@ var editarPresentacion = function(cod_pres,nomb_prod){
                 $('#stock_min').val(campo.stock_min);
                 $('#estado_pres').selectpicker('val', campo.estado);
                 //id_tipo = 1 (Producto Transformado)
-                if(campo.TipoProd.id_tipo == 1){
-                    if(campo.receta == 1){
-                        $('#id_rec').iCheck('check');
-                        $('#mensaje-ins').css('display','block');
-                        $('#mensaje-ins').html('<div class="alert alert-info">'
-                            +'<i class="fa fa-info"></i> Modificar los ingredientes <a class="alert-link" onclick="receta()">AQUI</a>.'
-                            +'</div>');
-                    } else {
-                        $('#id_rec').iCheck('uncheck');
+
+                $.each(campo.TipoProd, function(i, micampo) {
+                    if(micampo.id_tipo == 1){
+                        if(campo.receta == 1){
+                            $('#id_rec').iCheck('check');
+                            $('#mensaje-ins').css('display','block');
+                            $('#mensaje-ins').html('<div class="alert alert-info">'
+                                +'<i class="fa fa-info"></i> Modificar los ingredientes <a class="alert-link" onclick="receta()">AQUI</a>.'
+                                +'</div>');
+                        } else {
+                            $('#id_rec').iCheck('uncheck');
+                            $('#mensaje-ins').css('display','none');
+                            $('#mensaje-ins').html('<div class="alert alert-warning">'
+                                +'<i class="fa fa-warning"></i> Ingresar los ingredientes <a class="alert-link" onclick="receta()">AQUI</a> y luego click en Guardar.'
+                                +'</div>');
+                        }
+                        // Mostrar check receta (tp-1)
+                        $('#tp-1').css('display','block');
+                        // Ocultar check stock / stock_minimo (tp-2)
+                        // $('#tp-2').css('display','none');
+                    }
+                    //id_tipo = 2 (Producto NO Transformado)
+                    else{
                         $('#mensaje-ins').css('display','none');
-                        $('#mensaje-ins').html('<div class="alert alert-warning">'
-                            +'<i class="fa fa-warning"></i> Ingresar los ingredientes <a class="alert-link" onclick="receta()">AQUI</a> y luego click en Guardar.'
-                            +'</div>');
+                        if(campo.receta == 1){
+                            $('#id_stock').iCheck('check');
+                        } else {
+                            $('#id_stock').iCheck('uncheck');
+                        }
+                        // Ocultar check receta (tp-1)
+                        $('#tp-1').css('display','none');
+                        // Mostrar check stock / stock_minimo (tp-2)
+                        //$('#tp-2').css('display','block');
                     }
-                    // Mostrar check receta (tp-1)
-                    $('#tp-1').css('display','block');
-                    // Ocultar check stock / stock_minimo (tp-2)
-                    // $('#tp-2').css('display','none');
-                }
-                //id_tipo = 2 (Producto NO Transformado)
-                else{
-                    $('#mensaje-ins').css('display','none');
-                    if(campo.receta == 1){
-                        $('#id_stock').iCheck('check');
-                    } else {
-                        $('#id_stock').iCheck('uncheck');
-                    }
-                    // Ocultar check receta (tp-1)
-                    $('#tp-1').css('display','none');
-                    // Mostrar check stock / stock_minimo (tp-2)
-                    //$('#tp-2').css('display','block');
-                }
+                });
             });
         }
     });
@@ -689,11 +693,14 @@ $("#frm-categoria").submit(function(e){
 var listarReceta = function(){
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=ListaIngs",
+        url: "/ajustesListarIngredientes",
         data: {
             cod: $("#cod_pre").val()
         },
         dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(item){
 
             if (item.data.length != 0) {
@@ -703,30 +710,34 @@ var listarReceta = function(){
 
                 $.each(item.data, function(i, campo) {
 
-                    var opc_m=campo.id_med;if(1==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(2==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(3==opc_m)var valor_cant=(1e3*campo.cant).toFixed(2);else if(4==opc_m)var valor_cant=(1e6*campo.cant).toFixed(2);else if(5==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(6==opc_m)var valor_cant=(1e3*campo.cant).toFixed(2);else if(7==opc_m)var valor_cant=(2.20462*campo.cant).toFixed(2);else if(8==opc_m)var valor_cant=(35.274*campo.cant).toFixed(2);
+                    $.each(campo.Insumo, function(i, micampo) {
+                        $.each(campo.Medida, function(i, micampoM) {
+                            var opc_m=campo.id_med;if(1==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(2==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(3==opc_m)var valor_cant=(1e3*campo.cant).toFixed(2);else if(4==opc_m)var valor_cant=(1e6*campo.cant).toFixed(2);else if(5==opc_m)var valor_cant=(1*campo.cant).toFixed(2);else if(6==opc_m)var valor_cant=(1e3*campo.cant).toFixed(2);else if(7==opc_m)var valor_cant=(2.20462*campo.cant).toFixed(2);else if(8==opc_m)var valor_cant=(35.274*campo.cant).toFixed(2);
 
-                    $('#titulo-list').html('<div class="text-center"><h2 class="ich m-t-none">Lista de ingredientes</h2></div>');
-                    $('#insumo-list')
-                    .append(
-                        $('<li class="list-group-item animated bounce"/>')
-                        .append(
-                            $('<div class="row"/>')
-                            .append(
-                                $('<div class="col-md-5" />')
-                                .html('<input disabled class="form-control txtlbl" type="hidden" id="cant'+campo.id_pi+'" style="text-align: center;" value="'+valor_cant+'" autocomplete="off"/><label>'+valor_cant+'</label>&nbsp;<span class="label label-warning">'+campo.Medida.descripcion+'</span>')
-                            )
-                        .append(
-                            $('<div class="col-md-5" />')
-                            .html('<label name="insumo">'+campo.Insumo.nomb_ins+'</label>&nbsp;<span class="label label-info">INSUMO</span>&nbsp;<span class="label label-success">'+campo.Insumo.desc_m+'</span>')
-                            )
-                        .append(
-                            $('<div class="col-md-2" />')
-                            .html('<div class="text-right">'
-                                /*+'<button type="button" class="btn btn-primary" onclick="editarInsumo('+campo.id_pi+');"><i class="fa fa-refresh"></i></button>'*/
-                                +'&nbsp;<button type="button" class="btn btn-danger btn-xs" onclick="eliminarInsumo('+campo.id_pi+');"><i class="fa fa-times"></i></button></div>')
-                            )
-                        )
-                    );
+                            $('#titulo-list').html('<div class="text-center"><h2 class="ich m-t-none">Lista de ingredientes</h2></div>');
+                            $('#insumo-list')
+                                .append(
+                                $('<li class="list-group-item animated bounce"/>')
+                                    .append(
+                                    $('<div class="row"/>')
+                                        .append(
+                                        $('<div class="col-md-5" />')
+                                            .html('<input disabled class="form-control txtlbl" type="hidden" id="cant'+campo.id_pi+'" style="text-align: center;" value="'+valor_cant+'" autocomplete="off"/><label>'+valor_cant+'</label>&nbsp;<span class="label label-warning">'+micampoM.descripcion+'</span>')
+                                    )
+                                        .append(
+                                        $('<div class="col-md-5" />')
+                                            .html('<label name="insumo">'+micampo.nomb_ins+'</label>&nbsp;<span class="label label-info">INSUMO</span>&nbsp;<span class="label label-success">'+micampo.desc_m+'</span>')
+                                    )
+                                        .append(
+                                        $('<div class="col-md-2" />')
+                                            .html('<div class="text-right">'
+                                                /*+'<button type="button" class="btn btn-primary" onclick="editarInsumo('+campo.id_pi+');"><i class="fa fa-refresh"></i></button>'*/
+                                            +'&nbsp;<button type="button" class="btn btn-danger btn-xs" onclick="eliminarInsumo('+campo.id_pi+');"><i class="fa fa-times"></i></button></div>')
+                                    )
+                                )
+                            );
+                        });
+                    });
                 });
 
             } else {
@@ -765,9 +776,12 @@ var editarInsumo = function(cod){
 var eliminarInsumo = function(cod){
     $.ajax({
         type: "POST",
-        url: "?c=Config&a=EIng",
+        url: "/ajustesEliminarIng",
         data: {
             cod: cod
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
         success: function(datos){

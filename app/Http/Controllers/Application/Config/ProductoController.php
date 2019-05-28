@@ -76,11 +76,12 @@ class ProductoController extends Controller
 
         foreach($stm as $k => $d)
         {
-            $stm[$k]->{'TipoProd'} = DB::Select("SELECT id_tipo FROM tm_producto WHERE id_prod = ".$d->id_prod);
+            $stm[$k]->TipoProd = DB::Select("SELECT id_tipo FROM tm_producto WHERE id_prod = ".$d->id_prod);
         }
 
         $data = array("data" => $stm);
-        $json = json_encode($data);
+        //dd($stm,$data);
+        $json = json_encode($stm);
         echo $json;
     }
 
@@ -145,9 +146,31 @@ class ProductoController extends Controller
             }
     }
 
-    public function ListaIngs()
+    public function ListaIngs(Request $request)
     {
+        $post = $request->all();
 
+        try
+        {
+            $stm = DB::Select("SELECT * FROM tm_producto_ingr WHERE id_pres = ?",[$post["cod"]]);
+
+            foreach($stm as $k => $d)
+            {
+                $stm[$k]->Insumo = DB::Select("SELECT desc_m,nomb_ins FROM v_insumos WHERE id_ins = ? and id_sucursal = ?",[$d->id_ins,session('id_sucursal')]);
+            }
+            foreach($stm as $k => $d)
+            {
+                $stm[$k]->Medida = DB::Select("SELECT descripcion FROM tm_tipo_medida WHERE id_med = ? ",[$d->id_med]);
+            }
+
+            $data = array("data" => $stm);
+            $json = json_encode($data);
+            echo $json;
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 
     public function ComboCatg()
@@ -168,19 +191,65 @@ class ProductoController extends Controller
         }
     }
 
-    public function ComboUniMed()
+    public function ComboUniMed(Request $request)
     {
+        $post = $request->all();
+        $va1 = $post["va1"];
+        $va2 = $post["va2"];
+
+        try
+        {
+            $stmm = DB::Select("SELECT * FROM tm_tipo_medida WHERE grupo = ? OR grupo = ?",[$va1,$va2]);
+
+            foreach($stmm as $v){
+                echo '<option value="'.$v->id_med.'">'.$v->descripcion.'</option>';
+            }
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
 
     }
 
-    public function BuscarIns()
+    public function BuscarIns(Request $request)
     {
+        $post = $request->all();
+        $criterio = $post["criterio"];
+        try
+        {
+            $stm = DB::Select("SELECT * FROM v_insumos WHERE (nomb_ins LIKE ? OR cod_ins LIKE ?)
+                               AND estado <> 'i' and id_sucursal = ?  ORDER BY nomb_ins LIMIT 5",
+                               [$criterio,$criterio,session('id_sucursal')]);
 
+            $json = json_encode($stm);
+            echo $json;
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
     }
 
-    public function GuardarIng()
+    public function GuardarIng(Request $request)
     {
+        $post = $request->all();
+        $cod_pre = $post["cod_pre"];
+        $ins_cod = $post["ins_cod"];
+        $cod_med = $post["cod_med"];
+        $ins_cant = $post["ins_cant"];
 
+        try
+        {
+            $consulta = DB::statement("call usp_configProductoIngrs( :flag, :idPres, :idIns, :idMed, :cant, :idPi);"
+                                    ,array(':flag' => 1,':idPres' => $cod_pre, ':idIns' => $ins_cod, ':idMed' => $cod_med, ':cant' => $ins_cant,':idPi' => 1));
+            $array = [];
+            return $array['datos'] = "1";
+        }
+        catch (Exception $e)
+        {
+            return false;
+        }
     }
 
     public function UIng()
@@ -188,9 +257,22 @@ class ProductoController extends Controller
 
     }
 
-    public function EIng()
+    public function EIng(Request $request)
     {
+        $post = $request->all();
+        $cod = $post["cod"];
 
+        try
+        {
+            $consulta = DB::statement("call usp_configProductoIngrs( :flag, :idPres, :idIns, :idMed, :cant, :idPi);"
+                ,array(':flag' => 3,':idPres' => 1, ':idIns' => 1, ':idMed' => 1, ':cant' => 1,':idPi' => $cod));
+            $array = [];
+            return $array['datos'] = "1";
+        }
+        catch (Exception $e)
+        {
+            return false;
+        }
     }
 
     public function AreasProdXSucursal(Request $request){

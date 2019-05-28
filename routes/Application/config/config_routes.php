@@ -44,7 +44,13 @@
     Route::post('AreasProdXSucursal', 'Application\Config\ProductoController@AreasProdXSucursal');
     Route::post('CategoriasXSucursal', 'Application\Config\ProductoController@CategoriasXSucursal');
 
+    //Ingredientes
 
+    Route::post('ajustesListarIngredientes', 'Application\Config\ProductoController@ListaIngs');
+    Route::post('ajustesBuscarIngredientes', 'Application\Config\ProductoController@BuscarIns');
+    Route::post('ajustesComboUMedida', 'Application\Config\ProductoController@ComboUniMed');
+    Route::post('ajustesGuardarIng', 'Application\Config\ProductoController@GuardarIng');
+    Route::post('ajustesEliminarIng', 'Application\Config\ProductoController@EIng');
 
     //Insumos
 

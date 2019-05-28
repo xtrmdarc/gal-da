@@ -87,7 +87,7 @@
                                         </a>
                                         <!--<a class="btn dim btn-default m-n btn-prodnuevo"><i class="fa fa-lg fa-plus"></i></a>-->
                                     </div>
-                                    @if(\Auth::user()->plan_id == 4)
+                                    @if(\Auth::user()->plan_id == 3)
                                     <div class="btn-flex btn-group m-r-sm">
                                         <a class="btn dim display-flexx display-flexx-v btn-default" href="/ajustesProductosInsumos">
                                             <img class="filtered" src="{{ URL::to('rest/img/otros/icon-02.png' ) }}" width="80" height="40">
