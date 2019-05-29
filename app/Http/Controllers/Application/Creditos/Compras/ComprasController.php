@@ -68,6 +68,7 @@ class ComprasController extends Controller
         $cod = $post['cod'];
         $stm = Db::Select("SELECT * FROM tm_credito_detalle WHERE id_credito = ?",
             array($cod));
+        //dd($stm);
         foreach($stm as $k => $d)
         {
             $stm[$k]->Usuario = Db::Select("SELECT CONCAT(ape_paterno,' ',ape_materno,' ',nombres) AS nombre FROM v_usuarios WHERE id_usu = ".$d->id_usu)[0];
@@ -88,11 +89,12 @@ class ComprasController extends Controller
         setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
         $flag = 1;
         $fecha = date("Y-m-d H:i:s");
-        $id_usu = $request->session()->get('id_usu');
-        $id_apc = $request->session()->get('id_apc');
+        $id_usu = session("id_usu");
+        $id_apc = session("id_apc");
 
-        $consulta = DB::Select("call usp_comprasCreditoCuotas( :flag, :idCre, :idUsu, :idApc, :imp, :fecha, :egCaja, :montC, :amorC, :totalC);",
-            array($flag,$idCre,$id_usu,$id_apc,$imp,$fecha,$egCaja,$montC,$amorC,$totalC));
+        $consulta = DB::Select("call usp_comprasCreditoCuotas( :flag, :idCre, :idUsu, :idApc, :imp, :fecha, :egCaja, :montC, :amorC, :totalC);"
+            ,array(':flag' => $flag,':idCre' => $idCre, ':id_usu' => $id_usu, ':id_apc' => $id_apc, ':imp' => $imp,':fecha' => $fecha,':egCaja' => $egCaja,
+                ':montC' => $montC,':amorC' => $amorC,':totalC' => $totalC));
         return redirect('/creditos');
     }
 }
