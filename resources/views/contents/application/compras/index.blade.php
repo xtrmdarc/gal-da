@@ -26,11 +26,18 @@ $fechaa = date("m-Y");
                     <div class="col-sm-4">
                         <div class="row">
                             <div class="col-sm-12">
+                                    {{-- <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-r DatePicker text-center" style="cursor:pointer" name="start" id="start" value="{{$fechaa}} "/>
+                                            <span class="input-group-addon">al</span>
+                                            <input type="text" class="form-control bg-r DatePicker text-center" style="cursor:pointer" name="end" id="end" value="{{$fecha}} " />
+                                        </div>
+                                    </div> --}}
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-r text-center" name="start" id="start" value="{{'01-'.$fechaa}} "/>
+                                        <input type="text" class="form-control DatePicker bg-r text-center" name="start" id="start" value="{{'01-'.$fechaa}} "/>
                                         <span class="input-group-addon">al</span>
-                                        <input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />
+                                        <input type="text" class="form-control DatePicker bg-r text-center" name="end" id="end" value="{{$fecha}}" />
                                     </div>
                                 </div>
                             </div>

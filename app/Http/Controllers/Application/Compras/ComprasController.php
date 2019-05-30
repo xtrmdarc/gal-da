@@ -54,7 +54,7 @@ class ComprasController extends Controller
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
         $tdoc = $post['tdoc'];
         $cprov = $post['cprov'];
-        $c = DB::select("SELECT * FROM v_compras WHERE (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND id_prov like ? GROUP BY id_compra",[$ifecha,$ffecha,$tdoc,$cprov]);
+        $c = DB::select("SELECT * FROM v_compras WHERE id_sucursal = ? AND (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND id_prov like ? GROUP BY id_compra",[session('id_sucursal'),$ifecha,$ffecha,$tdoc,$cprov]);
        
         $data = array('data'=>$c);
         $json = json_encode($data);
@@ -170,7 +170,7 @@ class ComprasController extends Controller
             date_default_timezone_set('America/Lima');
             setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
             $fecha_r = date("Y-m-d H:i:s");
-            $igv = session("igv:_session");
+            $igv = session("igv_session");
             $id_usu = session("id_usu");
             $fecha = date('Y-m-d',strtotime($dato['compra_fecha']));
             
