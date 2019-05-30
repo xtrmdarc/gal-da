@@ -41,10 +41,15 @@ var listar = function(){
                     }
                 }},
                 {"data": null,"render": function ( data, type, row ) {
-                    return '<p style="text-align: center">'+data.desc_c+'</p>';
+                    return '<p style="text-align: center">'+data.categoria+'</p>';
                 }},
                 {"data": null,"render": function ( data, type, row ) {
-                    return '<p style="text-align: center">'+data.entradas+'</p>';
+                    if(isNaN(data.entradas) || data.entradas == null) {
+                        var entradas = 0;
+                        return '<p style="text-align: center">'+entradas+'</p>';
+                    } else {
+                        return '<p style="text-align: center">'+data.entradas+'</p>';
+                    }
                 }},
                 {"data": null,"render": function ( data, type, row ) {
                     if(isNaN(data.salidas) || data.salidas == null) {

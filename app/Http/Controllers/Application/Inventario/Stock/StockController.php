@@ -38,9 +38,11 @@ class StockController extends Controller
 
         $tipo_ip = $post['tipo_p_i'];
 
-        $stm = DB::Select("select i.id_inv,i.id_ti,i.id_ins,i.id_tipo_ope,i.id_cv,SUM(case when i.id_tipo_ope = 1 then i.cant end) as entradas,
+        $stm = DB::Select("select i.id_inv,i.id_ti,i.id_ins,i.id_tipo_ope,i.id_cv,
+                        SUM(case when i.id_tipo_ope = 1 then i.cant end) as entradas,
                         SUM(case when i.id_tipo_ope = 2 then i.cant end) as salidas,
-                        SUM(case when i.id_tipo_ope = 2 then i.cant*- 1 else i.cant end) as stock_total,v_bus.id_sucursal,v_bus.nomb_ins,v_i.desc_c,v_bus.descripcion,v_bus.stock_min
+                        SUM(case when i.id_tipo_ope = 2 then i.cant*- 1 else i.cant end) as stock_total,
+                        v_bus.id_sucursal,v_bus.nomb_ins,v_bus.categoria,v_bus.descripcion,v_bus.stock_min
                         from tm_inventario as i
                         left join v_busqins as v_bus on i.id_ins = v_bus.id_ins
                         left join v_insumos as v_i on v_i.id_ins = i.id_ins
