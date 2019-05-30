@@ -36,6 +36,7 @@ include 'Application/tablero/tablero_routes.php';
 include 'Application/tablero_f/tablero_f_routes.php';
 include 'Application/usuario/usuario_routes.php';
 include 'Application/subscription/subscription_routes.php';
+include 'Application/inventario/stock_routes.php';
 //
 include 'Application/app_routes.php';
 
