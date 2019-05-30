@@ -212,4 +212,9 @@
         $breadcrumbs->push('Resumen Diario',route('comprobantes.resumen'));
     });
 
+    Breadcrumbs::register('inventario.stock', function ($breadcrumbs) {
+        $breadcrumbs->parent('inicio');
+        $breadcrumbs->push('Stock',route('inventario.stock'));
+    });
+
 ?>

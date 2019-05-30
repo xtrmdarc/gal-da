@@ -92,8 +92,8 @@ class ComprasController extends Controller
         $id_usu = session("id_usu");
         $id_apc = session("id_apc");
 
-        $consulta = DB::Select("call usp_comprasCreditoCuotas( :flag, :idCre, :idUsu, :idApc, :imp, :fecha, :egCaja, :montC, :amorC, :totalC);"
-            ,array(':flag' => $flag,':idCre' => $idCre, ':id_usu' => $id_usu, ':id_apc' => $id_apc, ':imp' => $imp,':fecha' => $fecha,':egCaja' => $egCaja,
+        $consulta = DB::statement ("call usp_comprasCreditoCuotas( :flag, :idCre, :idUsu, :idApc, :imp, :fecha, :egCaja, :montC, :amorC, :totalC);"
+            ,array(':flag' => $flag,':idCre' => $idCre, ':idUsu' => $id_usu, ':idApc' => $id_apc, ':imp' => $imp,':fecha' => $fecha,':egCaja' => $egCaja,
                 ':montC' => $montC,':amorC' => $amorC,':totalC' => $totalC));
         return redirect('/creditos');
     }
