@@ -104,7 +104,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="mdl-detalle-compra" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="mdl-detalle-compra" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -136,7 +136,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="mdl-eliminar-compra" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="mdl-eliminar-compra" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated bounceInRight">
         <form id="form_ec" method="post" enctype="multipart/form-data" action="compras/AnularCompra">

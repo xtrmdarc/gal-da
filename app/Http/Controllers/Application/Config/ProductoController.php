@@ -218,9 +218,9 @@ class ProductoController extends Controller
         $criterio = $post["criterio"];
         try
         {
-            $stm = DB::Select("SELECT * FROM v_insumos WHERE (nomb_ins LIKE ? OR cod_ins LIKE ?)
+            $stm = DB::Select("SELECT * FROM v_insumos WHERE (nomb_ins LIKE '%".$criterio."%' OR cod_ins LIKE '%".$criterio."%')
                                AND estado <> 'i' and id_sucursal = ?  ORDER BY nomb_ins LIMIT 5",
-                               [$criterio,$criterio,session('id_sucursal')]);
+                               [session('id_sucursal')]);
 
             $json = json_encode($stm);
             echo $json;

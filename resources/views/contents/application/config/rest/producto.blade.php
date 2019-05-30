@@ -10,6 +10,11 @@
 <div class="wrapper wrapper-content ng-scope">
     <div class="ibox has-grid">
         <div class="ibox-content bg-gray-l1">
+            @if(\Auth::user()->plan_id != 3)
+                <div class="col-sm-12 col-md-10 col-lg-10 p-2 border border-info bg-light rounded mb-3" style="float:none;margin:auto;margin-bottom: 0px!important;padding-bottom: 0px!important;border:1px solid orange;border-radius:7px;padding-top:10px;background-color:#fff9e8;text-align: center;max-width: 100%;">
+                    <p>Las <b>recetas</b> de los Productos funcionan en el <b>Plan Basic</b>. <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a></p>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-3 ibox-col animated bounce">
                     <br>
@@ -131,7 +136,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -292,32 +296,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6" id="tp-1" style="display: none">
-                            <div class="checkbox checkbox-success">
-                                <input type="checkbox" class="flat-green" id="id_rec" value="0" />
-                                <label for="checkbox3">Tiene receta</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="tp-2" style="display: none">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">&nbsp;</label>
+                    @if(\Auth::user()->plan_id == 3)
+                        <div class="row">
+                            <div class="col-sm-6" id="tp-1" style="display: none">
                                 <div class="checkbox checkbox-success">
-                                    <input type="checkbox" class="flat-green" id="id_stock"/>
-                                    <label for="checkbox2">Control Stock</label>
+                                    <input type="checkbox" class="flat-green" id="id_rec" value="0" />
+                                    <label for="checkbox3">Tiene receta</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">Stock m&iacute;nimo</label>
-                                <input type="text" name="stock_min" id="stock_min" class="form-control" autocomplete="off" />
+                        <div class="row" id="tp-2" style="display: none">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">&nbsp;</label>
+                                    <div class="checkbox checkbox-success">
+                                        <input type="checkbox" class="flat-green" id="id_stock"/>
+                                        <label for="checkbox2">Control Stock</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Stock m&iacute;nimo</label>
+                                    <input type="text" name="stock_min" id="stock_min" class="form-control" autocomplete="off" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="mensaje-ins" style="margin-bottom: -20px"></div>
+                        <div id="mensaje-ins" style="margin-bottom: -20px"></div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>

@@ -7,6 +7,11 @@
 <div class="wrapper wrapper-content ng-scope">
     <div class="ibox has-grid">
         <div class="ibox-content bg-gray-l1">
+            @if(\Auth::user()->plan_id != 3)
+                <div class="col-sm-12 col-md-10 col-lg-10 p-2 border border-info bg-light rounded mb-3" style="float:none;margin:auto;margin-bottom: 0px!important;padding-bottom: 0px!important;border:1px solid orange;border-radius:7px;padding-top:10px;background-color:#fff9e8;text-align: center;max-width: 100%;">
+                    <p>Los insumos con control de <b>Stock</b> funcionan en el <b>Plan Basic</b>. <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a></p>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-3 ibox-col animated bounce">
                     <br>
@@ -123,6 +128,20 @@
                             </div>
                             <br>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div id="lizq-s" style="display: block;" class="wrapper wrapper-content">
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-sm-10 block-center">
+                        <br>
+                        <h1 class="ich m-t-none brand-color">M&oacute;dulo de Productos e Insumos</h1>
+                        <br>
+                        <p class="ng-binding ">Aqu&iacute; puedes crear, modificar y eliminar los Productos e Insumos. Tener tus productos organizados ayudan a <strong class="brand-color"> que tus mozos puedan ofrecer un mejor servicios a tus comensales.</strong> Los Insumos te ayudan a <strong class="brand-color"> organizar, controlar y automatizar tu stock junto con tu almacen </strong> del local.<strong class="accent-color"> Selecciona un Producto o Insumos para adminsitrar.</strong> </p>
                     </div>
                 </div>
             </div>

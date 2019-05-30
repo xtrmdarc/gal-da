@@ -38,8 +38,8 @@ class ComprasController extends Controller
 
         $cprov = $post['cprov'];
 
-        $stm = DB::Select("SELECT cc.id_credito,cc.id_compra,cc.total,cc.interes,cc.fecha,vc.id_prov,CONCAT(vc.serie_doc,' - ',vc.num_doc) AS numero,vc.desc_td,desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE vc.id_prov like ? AND cc.estado = 'p' AND vc.estado = 'a' ORDER BY cc.fecha ASC",
-            array($cprov));
+        $stm = DB::Select("SELECT cc.id_credito,cc.id_compra,cc.total,cc.interes,cc.fecha,vc.id_prov,CONCAT(vc.serie_doc,' - ',vc.num_doc) AS numero,vc.desc_td,desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE vc.id_prov like ? AND cc.estado = 'p' AND vc.estado = 'a' AND vc.id_sucursal = ? ORDER BY cc.fecha ASC",
+            array($cprov,session('id_sucursal')));
         foreach($stm as $k => $d)
         {
             $stm[$k]->Amortizado = DB::Select("SELECT IFNULL(SUM(importe),0) AS total FROM tm_credito_detalle WHERE id_credito = ".$d->id_credito)[0];
@@ -54,8 +54,8 @@ class ComprasController extends Controller
         $post = $request->all();
 
         $cod = $post['cod'];
-        $stm = DB::Select("SELECT cc.fecha,vc.desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE cc.id_credito like ? AND cc.estado = 'p'",
-            array($cod))[0];
+        $stm = DB::Select("SELECT cc.fecha,vc.desc_prov FROM tm_compra_credito AS cc INNER JOIN v_compras AS vc ON cc.id_compra = vc.id_compra WHERE cc.id_credito like ? AND vc.id_sucursal = ? AND cc.estado = 'p'",
+            array($cod,session('id_sucursal')))[0];
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;

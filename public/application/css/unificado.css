@@ -19,6 +19,15 @@
     padding: 0;
     margin: 0;
 }
+.m_i_detalle_com .modal-header {
+    display: block!important;
+}
+.m_i_detalle_com .modal-header .close {
+    font-size: 21px;
+    margin-top: -2px;
+    padding: 0;
+    margin: 0;
+}
 
 .ibox .my-scroll{
     overflow: auto;

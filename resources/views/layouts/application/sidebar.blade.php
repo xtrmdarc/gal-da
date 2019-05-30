@@ -99,14 +99,14 @@ $planes = DB::table('planes')->where('id', \Auth::user()->plan_id)->first();
                             <li id="sb_clientes_li"><a href="/cliente"> <i class="fa fa-users"></i><span class="hide-menu">Clientes</span></a></li>
                         @endif
                         @if(Auth::user()->plan_id == '3')
-                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Compras</span></a>
-                        <ul aria-expanded="false" class="collapse">
-                            <li><a href="/compras"> Compras</a></li>
-                            <li><a href="/creditos"> Compras al Crédito</a></li>
-                            <li><a href="/proveedores"> Proveedores </a></li>
-                        </ul>
-                    </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Inventario</span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-basket"></i><span class="hide-menu">Compras</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/compras"> Compras</a></li>
+                                <li><a href="/creditos"> Compras al Crédito</a></li>
+                                <li><a href="/proveedores"> Proveedores </a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-expeditedssl"></i><span class="hide-menu">Inventario</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="/stock"> Stock </a></li>
                             </ul>

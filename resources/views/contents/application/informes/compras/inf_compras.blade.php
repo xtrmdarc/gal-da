@@ -27,15 +27,14 @@ $fechaa = date("m-Y");
         </div>
         <div class="ibox-content" style="position: relative; min-height: 30px;">
             <div class="row">
-                <form method="post" enctype="multipart/form-data" target="_blank" action="#">
                     <div class="col-sm-4">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
+                                        <input type="text" class="form-control DatePicker bg-r text-center" name="start" id="start" value="{{'01-'.$fechaa}} "/>
                                         <span class="input-group-addon">al</span>
-                                        <input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />
+                                        <input type="text" class="form-control DatePicker bg-r text-center" name="end" id="end" value="{{$fecha}}" />
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +61,6 @@ $fechaa = date("m-Y");
                             </select>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="punteo">
                 <div class="row">
@@ -134,7 +132,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="detalle_c" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="detalle_c" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -163,7 +161,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="detalle_sc" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="detalle_sc" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">

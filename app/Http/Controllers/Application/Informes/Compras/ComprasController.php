@@ -34,8 +34,8 @@ class ComprasController extends Controller
         $tdoc = $post['tdoc'];
         $est = $post['est'];
 
-        $stm = DB::Select("SELECT * FROM v_compras WHERE (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND estado like ? GROUP BY id_compra",
-            array($ifecha,$ffecha,$tdoc,$est));
+        $stm = DB::Select("SELECT * FROM v_compras WHERE (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND estado like ? AND id_sucursal = ? GROUP BY id_compra",
+            array($ifecha,$ffecha,$tdoc,$est,session('id_sucursal')));
 
         $data = array("data" => $stm);
         $json = json_encode($data);
@@ -51,7 +51,7 @@ class ComprasController extends Controller
             array($cod));
         foreach($stm as $k => $d)
         {
-            $stm[$k]->Pres = DB::Select("SELECT cod_ins,nomb_ins,descripcion FROM v_busqins WHERE tipo_p = ".$d->id_tp."  AND id_ins = ".$d->id_pres)[0];
+            $stm[$k]->Pres = DB::Select("SELECT cod_ins,nomb_ins,descripcion FROM v_busqins WHERE tipo_p = ".$d->id_tp."  AND id_ins = ".$d->id_pres."  AND id_sucursal = ".session('id_sucursal'))[0];
         }
         return $stm;
     }

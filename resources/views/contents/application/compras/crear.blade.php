@@ -346,7 +346,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Correo electr&oacute;nico</label>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Ingrese correo electr&oacute;nico de la empresa" autocomplete="off" />
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Ingrese correo electr&oacute;nico de la empresa" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">

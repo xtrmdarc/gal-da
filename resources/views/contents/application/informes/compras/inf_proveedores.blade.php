@@ -26,40 +26,39 @@ $fechaa = date("m-Y");
         </div>
         <div class="ibox-content" style="position: relative; min-height: 30px;">
             <div class="row">
-                <form method="post" enctype="multipart/form-data" target="_blank" action="#">
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-r text-center" name="start" id="start" value="'01-'.{{$fechaa}}"/>
-                                        <span class="input-group-addon">al</span>
-                                        <input type="text" class="form-control bg-r text-center" name="end" id="end" value="{{$fecha}}" />
-                                    </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control DatePicker bg-r text-center" name="start" id="start" value="{{'01-'.$fechaa}} "/>
+                                    <span class="input-group-addon">al</span>
+                                    <input type="text" class="form-control DatePicker bg-r text-center" name="end" id="end" value="{{$fecha}}" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <select name="cod_prov" id="cod_prov" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
-                                <option value="%" active>Todos los proveedores</option>
-                                @foreach($Proveedores as $r)
-                                    <option value="{{$r->id_prov}}">{{$r->ruc}} - {{$r->razon_social}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <select name="cod_prov" id="cod_prov" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
+                            <option value="%" active>Todos los proveedores</option>
+                            @foreach($Proveedores as $r)
+                                <option value="{{$r->id_prov}}">{{$r->ruc}} - {{$r->razon_social}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
-                                <option value="%" active>Todos los comprobantes</option>
-                                <option value="1">BOLETA</option>
-                                <option value="2">FACTURA</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <select name="tipo_doc" id="tipo_doc" class="selectpicker show-tick form-control" data-live-search="true" autocomplete="off">
+                            <option value="%" active>Seleccionar Documento</option>
+                            @foreach($documentos as $doc)
+                                <option value="{{$doc->id_tipo_doc}} ">{{$doc->descripcion}} </option>
+                            @endforeach
+                        </select>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="punteo">
                 <div class="row">
@@ -130,7 +129,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="m_detalle" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="m_detalle" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -159,7 +158,7 @@ $fechaa = date("m-Y");
     </div>
 </div>
 
-<div class="modal inmodal fade" id="m_detallec" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="m_detallec" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">

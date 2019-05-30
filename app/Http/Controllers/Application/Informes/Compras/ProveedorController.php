@@ -19,9 +19,11 @@ class ProveedorController extends Controller
     {
         $viewdata = [];
         //Proveedores
-        $stm = DB::Select("SELECT id_prov,ruc,razon_social FROM tm_proveedor");
+        $stm = DB::Select("SELECT id_prov,ruc,razon_social FROM tm_proveedor where id_sucursal = ? ",[session('id_sucursal')]);
+        $documentos = DB::table('tm_tipo_doc')->whereIn('electronico',[0,\Auth::user()->factura_e])->get();
 
         $viewdata['Proveedores'] = $stm;
+        $viewdata['documentos'] = $documentos;
 
         $data = [
             'breadcrumb' =>'inf_proveedores',
@@ -38,8 +40,8 @@ class ProveedorController extends Controller
         $ffecha = date('Y-m-d',strtotime($post['ffecha']));
         $tdoc = $post['tdoc'];
         $cprov = $post['cprov'];
-        $stm = DB::Select("SELECT * FROM v_compras WHERE (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND id_prov like ? GROUP BY id_compra",
-            array($ifecha,$ffecha,$tdoc,$cprov));
+        $stm = DB::Select("SELECT * FROM v_compras WHERE (DATE(fecha_c) >= ? AND DATE(fecha_c) <= ?) AND id_tipo_doc like ? AND id_prov like ? AND id_sucursal = ? GROUP BY id_compra",
+            array($ifecha,$ffecha,$tdoc,$cprov,session('id_sucursal')));
         $data = array("data" => $stm);
         $json = json_encode($data);
         echo $json;

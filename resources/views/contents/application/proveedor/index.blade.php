@@ -18,9 +18,7 @@
                 <div class="col-sm-4 col-sm-offset-8" style="text-align:right;" id="filter_global">
                     <div class="input-group">
                         <input class="form-control global_filter" id="global_filter" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
-                        </span>
+                        <button class="btn btn btn-primary"> <i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>

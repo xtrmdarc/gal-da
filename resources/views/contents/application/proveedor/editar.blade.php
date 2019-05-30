@@ -18,9 +18,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" name="ruc_numero" id="ruc_numero" class="form-control" placeholder="Ingrese RUC" autocomplete="off" />
-                                <span class="input-group-btn">
-                                    <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                                </span>
+                                <button id="btnBuscar" class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                             </div>
                         </div>
                     </form>
@@ -63,7 +61,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Correo electr&oacute;nico</label>
-                                    <input type="text" name="email" id="email" value="{{$proveedor->email}}" class="form-control" placeholder="Ingrese correo electr&oacute;nico de la empresa" autocomplete="off" />
+                                    <input type="email" name="email" id="email" value="{{$proveedor->email}}" class="form-control" placeholder="Ingrese correo electr&oacute;nico de la empresa" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
