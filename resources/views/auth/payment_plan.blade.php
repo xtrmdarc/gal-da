@@ -241,6 +241,7 @@
                             <label for="rb_tc"  >
                                 <input  type="radio" id="rb_tc"  name="rb_tc" checked>Tarjeta de crédito/débito
                             </label> 
+                            <img src="{{URL::to('/home/images/credit-cards.png')}} " alt="tarjetas de credito aceptadas gal-da"  width="400px" style="margin-left:10px;">
                         </div>
 
                         {{-- tarjeta de crédito --}}
@@ -395,7 +396,7 @@
                         </div>
                         <div class="col-sm-12 text-center" style="margin-top:50px;">
                             <p style="opacity:0.8;">¿Aún no estás seguro?</p>
-                            <p><a href="{{session('home')}}" style="color:white;text-decoration:underline;"> Sigue disfrutando de Gal-Da Gratis </a></p>
+                            <p><a href="{{session('home')}}" style="color:white;text-decoration:underline;"> Sigue disfrutando de Gal-Da </a></p>
                         </div>
                     </div>
                     

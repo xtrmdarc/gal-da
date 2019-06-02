@@ -39,7 +39,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">RUC</label>
-                                    <input type="text" name="ruc" id="ruc" data-mask="99999999999" value="{{$proveedor->ruc}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
+                                    <input type="text" name="ruc" id="ruc" value="{{$proveedor->ruc}}" class="form-control" placeholder="Ingrese ruc" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Tel&eacute;fono</label>
-                                    <input type="text" name="telefono" id="telefono" data-mask="999999999" value="{{$proveedor->telefono}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
+                                    <input type="text" name="telefono" id="telefono" value="{{$proveedor->telefono}}" class="form-control" placeholder="Ingrese tel&eacute;fono" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
