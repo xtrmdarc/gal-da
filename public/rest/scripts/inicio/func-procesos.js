@@ -827,7 +827,7 @@ $("#frm-facturar").submit(function(){
                 //console.log(r);
 
                 
-                console.log(r.tipo);
+                //console.log(r.tipo);
                 if(r.tipo != undefined ){
                     //console.log('entro hasta aqui tipo '+ r.tipo);
                     $('#mdl-validar-limite-venta').modal('show'); return;

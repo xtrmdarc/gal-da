@@ -714,7 +714,7 @@ var actualizarVLPedidos = function(pedidos){
 	vl_pedidos.splice(0,vl_pedidos.length);
 	
 	var vl_pedidosHtml = '';
-	console.log(pedidos);
+	//console.log(pedidos);
 	for(var j = 0 ; j< pedidos.length;j++)
 	{	//console.log(pedidos[j]);
 		vl_pedidosHtml = vl_pedidosHtml + NewPedido(null, pedidos[j].id_det_ped, pedidos[j].nombre_prod ,pedidos[j].pres_prod, pedidos[j].cantidad, pedidos[j].comentario, pedidos[j].fecha,pedidos[j].estado,pedidos[j].nombre_usuario,pedidos[j].tipo_usuario)[1];
@@ -747,7 +747,7 @@ function StartTimerDemora(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_
         if(timer){
             timer.innerHTML =/* digits2(demora.getHours()) + ":" +*/ digits2(demora.getMinutes())+ ":"+digits2(demora.getSeconds());
             //clock.innerHTML = 'hola';
-			console.log(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);
+			//console.log(id_elemento,tiempo,id_pedido,id_pedidoAlertaDemora,id_pedidoNotify);
 			if(demora.getMinutes() >= 15 ) {
 				if(!$('#'+id_pedido).hasClass('pedido-demorando')){
 					
@@ -773,7 +773,7 @@ return {ordenes,NewOrder,preparacion,atendido,atendidoMethodCall,actualizarVLPed
 
 function ActualizarPedidos(pordenes,vl_pedidos)
 {
-	console.log(pordenes);
+	//console.log(pordenes);
 	for(var i =0; i<pordenes.length;i++)
 	{
 		privateLib.NewOrder(pordenes[i]);
