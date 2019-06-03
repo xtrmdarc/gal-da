@@ -11,14 +11,14 @@
                 </div>
                 <div class="ibox-content no-padding">
                     <div class="list-group">
-                        @if(Auth::user()->plan_id == '1')
-                            {{--/*PLAN FREE*/--}}
+                        @if(Auth::user()->plan_id == '1' || Auth::user()->plan_id == '2')
+                            {{--/*PLAN FREE y LITE*/--}}
                             <a class="list-group-item ventas_free" href="#">
                                 <h4 class="list-group-item-heading">Informe de Ventas</h4>
                                 <p class="list-group-item-text">Informe de las ventas realizadas en el Negocio.</p>
                             </a>
                         @else
-                            {{--/*PLAN BASIC y LITE*/--}}
+                            {{--/*PLAN BASIC*/--}}
                             <a class="list-group-item ventas" href="#">
                                 <h4 class="list-group-item-heading">Informe de Ventas</h4>
                                 <p class="list-group-item-text">Diversos informes de las ventas realizadas en la empresa.</p>
