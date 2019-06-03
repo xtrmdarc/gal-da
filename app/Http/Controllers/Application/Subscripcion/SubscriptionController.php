@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
 
             if(isset($billing_info_aux->CardId))
             {
-                $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+                $culqi = new Culqi\Culqi(array('api_key' => env('CULQI_PK')));
                 $card_aux = $culqi->Cards->get($billing_info_aux->CardId);
                 $card->last_four = $card_aux->source->last_four;
                 $card->creation_date = $card_aux->source->creation_date;
@@ -171,7 +171,7 @@ class SubscriptionController extends Controller
         try
         {
             $data = $request->all();
-            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+            $culqi = new Culqi\Culqi(array('api_key' => env('CULQI_PK')));
 
             //dd($culqi->Customers->all());
             $usuario = \Auth::user();
@@ -249,7 +249,7 @@ class SubscriptionController extends Controller
 
             if(!isset($usuario->culqi_id)) return;
 
-            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+            $culqi = new Culqi\Culqi(array('api_key' => env('CULQI_PK')));
         // dd('pasa la instanciacion de cuqli');
             $card = $culqi->Cards->create(
                 array(
@@ -318,7 +318,7 @@ class SubscriptionController extends Controller
 
     public function cancelar_suscripcion_actual_culqi($id_user)
     {
-        $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+        $culqi = new Culqi\Culqi(array('api_key' => env('CULQI_PK')));
 
         $sub = DB::table('subscription')->where('id_usu',$id_user)->first();
 
@@ -365,7 +365,7 @@ class SubscriptionController extends Controller
             //plan id = 
             
             $billing_info = DB::table('info_fact')->where('IdInfoFact',\Auth::user()->info_fact_id)->first();
-            $culqi = new Culqi\Culqi(array('api_key' => $this->SECRET_KEY));
+            $culqi = new Culqi\Culqi(array('api_key' => env('CULQI_PK')));
 
             // Creando Suscriptor a un plan
             $subscription_culqi = $culqi->Subscriptions->create(

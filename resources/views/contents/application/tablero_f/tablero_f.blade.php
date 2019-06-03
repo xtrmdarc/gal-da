@@ -142,7 +142,7 @@
                                 <div class="col-sm-12">
                                         <div class="form-group">
                                         <label>Comentario:</label>
-                                        <textarea name="comentario" class="form-control" style="height:100px" placeholder="Ingrese comentario" autocomplete="off" rows="5" text=""> </textarea>
+                                        <textarea id="comentario" name="comentario" class="form-control" style="height:100px" placeholder="Ingrese comentario" autocomplete="off" rows="5" minlength="1" required></textarea>
                                         </div>
                                 </div>
                                 </div>
