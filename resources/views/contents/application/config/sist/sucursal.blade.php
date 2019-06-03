@@ -8,7 +8,7 @@
                     <div class="ibox-title">
                         <div class="pull-right">
                             
-                            <button type="button" id="btn-nueva-sucursal" {{$numero_sucursales>= session('plan_actual')->sucursal_max?'style=display:none':""}}  class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i>Nueva Sucursal</button>
+                            <button type="button" id="btn-nueva-sucursal" {{$numero_sucursales>= session('plan_actual')->sucursal_max?'style=display:none':""}}  class="btn btn-primary btn-sucursal"><i class="fa fa-plus-circle"></i> Nueva Sucursal</button>
                             <h5 id="limite_sucursales_txt" class="pull-right" {{$numero_sucursales< session('plan_actual')->sucursal_max?"style=display:none":""}}  >Limite alcanzado - <a class="btn btn-success btn-xs upgrade-btn-2" href="/upgrade">Crecer</a></h5>
                         </div>
                         <h5><i class="fa fa-newspaper-o"></i> Sucursales - <span id="sucursales_count">{{$numero_sucursales}}</span>/{{(session('plan_actual')->sucursal_max)}}</h5>

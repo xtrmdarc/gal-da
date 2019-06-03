@@ -385,7 +385,7 @@
             <ul id="insumo-list" class="list-group"></ul>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn- btn-cerrar">Aceptar</button>
+            <button type="button" class="btn btn-primary">Aceptar</button>
         </div>
     </div>
 </div>

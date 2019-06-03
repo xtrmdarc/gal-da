@@ -291,7 +291,7 @@
 </div>
 </form>
 
-<div class="modal inmodal fade" id="mdl-nuevo-proveedor" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+<div class="modal inmodal fade m_i_detalle_com" id="mdl-nuevo-proveedor" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated bounceInTop unif_modal">
             <div class="modal-header mhs-e">
