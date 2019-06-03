@@ -99,7 +99,7 @@
                                         <a><span  @if($user->status == 1) class="label label-primary">Verificado @else class="label label-danger">Pendiente @endif</span></a>
                                     </td>
                                     <td style="text-align: right">
-                                        @if(($plan_id == 1 && $user->plan_estado == '2') || ($plan_id == 2 && $user->plan_estado == '2'))
+                                        @if(($plan_id == 1 && $user->plan_estado == '3') || ($plan_id == 2 && $user->plan_estado == '3'))
                                         @else
                                             <a href="/ajustesRUsuario/{{isset($user->index_por_cuenta)?$user->index_por_cuenta:0}}">
                                                 <button type="button" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</button></a>

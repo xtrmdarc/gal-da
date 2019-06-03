@@ -119,7 +119,7 @@ class UsuarioController extends Controller
         $ape_paterno = $post['a_paterno_p'];
         $ape_materno = $post['a_materno_p'];
         $dni = $post['dni_p'];
-        $email = $post['email_p'];
+        //$email = $post['email_p'];
         $imagen_p = $post['imagen_p'];
         $code_phone = $post['cod_phone'];
         $phone = $post['telefono_p'];
@@ -160,11 +160,10 @@ class UsuarioController extends Controller
 					    ape_paterno  = ?,
                         ape_materno = ?,
 						dni   = ?,
-                        email = ?,
                         imagen = ?,
                         phone = ?,
                         codigo_phone = ?
-				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $email, $filenametostore, $phone,$code_phone, $idUsu]);
+				    WHERE id_usu = ?", [$nombres, $ape_paterno, $ape_materno, $dni, $filenametostore, $phone,$code_phone, $idUsu]);
             return redirect()->route('ajustes.i_perfil');
         }
     }

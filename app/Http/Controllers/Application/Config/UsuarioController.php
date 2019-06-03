@@ -310,17 +310,8 @@ class UsuarioController extends Controller
 
             if($usuarioEnUso->COD == 1) {$response->cod = 0; return json_encode($response);}
 
-            $consulta = DB::select("SELECT count(*) AS total FROM tm_venta WHERE id_usu = ?",[($cod_usu_e)]);
-            foreach($consulta as $a){
-                $con = $a->total;
-            }
-            if($con == '0') {
-                $consulta_eliminar = DB::delete("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
-                $response->cod = 1;
-                
-            }else {
-                $response->cod = 0; return json_encode($response);
-            }
+            $consulta_eliminar = DB::delete("DELETE FROM tm_usuario WHERE id_usu = ?",[($cod_usu_e)]);
+            $response->cod = 1;
             $response->usuarios_cant = TmUsuario::where('id_empresa',session('id_empresa'))->count();
             return json_encode($response);
     }

@@ -84,7 +84,7 @@
                     <div class="section-plan-offer">
                         <br>Hasta <b>1100</b> Ventas Mensuales* <br>
                         Hasta <b>20</b> mesas*<br>
-                        Productos/Insumos Ilimitados <br>
+                        Productos Ilimitados <br>
                         1 Área de Producción <br>
                         1 Sucursal <br>
                         5 Usuarios <br>
@@ -129,6 +129,7 @@
                             <b> + </b><br>
                             Hasta <b>5000</b> Ventas Mensuales* <br>
                             Hasta <b>40</b> Mesas*<br>
+                            Insumos y Recetas <br>
                             Múltiples Áreas de producción <br>
                             <b>2</b> Sucursales <br>
                             Usuarios Ilimitados <br>
