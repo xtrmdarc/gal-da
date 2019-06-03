@@ -12,11 +12,13 @@
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#u_perfil" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Perfil</span></a> </li>
-                                    @if(\Auth::user()->parent_id == '' )
-                                        @if((\Auth::user()->plan_id == 2) || (\Auth::user()->plan_id == 3))
-                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-credit-card"></i></span> <span class="hidden-xs-down">Facturación</span></a> </li>
+                                    @if(Auth::user()->id_rol == '1')
+                                        @if(\Auth::user()->parent_id == '' )
+                                            @if((\Auth::user()->plan_id == 2) || (\Auth::user()->plan_id == 3))
+                                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_pago" role="tab"><span class="hidden-sm-up"><i class="ti-credit-card"></i></span> <span class="hidden-xs-down">Facturación</span></a> </li>
+                                            @endif
+                                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Suscripción</span></a> </li>
                                         @endif
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#u_suscripcion" role="tab"><span class="hidden-sm-up"><i class="ti-check"></i></span> <span class="hidden-xs-down">Suscripción</span></a> </li>
                                     @endif
                                 </ul>
                                 <!-- Tab panes -->
@@ -330,37 +332,39 @@
             </div>
         </div>
 
-        <div class="modal inmodal fade" id="mdl-cancelar-plan" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
-            <div class="modal-dialog modal-m">
-                <div class="modal-content animated bounceInRight">
-                    <form id="frm-cancelar-plan" class="unif_modal" method="post" enctype="multipart/form-data" action="/cancelar_subscripcion">
-                        @csrf
-                        <input type="hidden" name="cod_subs" id="cod_subs" value="{{$subscription->culqi_id }}">
-                        <div class="modal-header mh-p" style="border: none;">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                            <i class="fa fa-exclamation-circle modal-icon"></i>
-                        </div>
-                        <div class="modal-body" style="background: none; padding: 10px 30px 80px 30px;">
-                            <h2 style="text-align: center;">¿Estas seguro de cancelar tu Plan?</h2>
-                            <h5 style="text-align: center;">Siempre podras adquirir nuevamente el plan o cancelarlo</h5>
-                            <center>
-                                <a style="text-decoration-line: underline!important;color: #4680ff;" href="/upgrade">Administrar Plan</a>
-                            </center>
-                        </div>
-                        <div class="modal-footer" style="background: #f8fafb;">
-                            <div class="row" style="width: 100%;">
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-danger">Sí, cancelo mi plan</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal">No, no cancelo mi plan</button>
+        @if(Auth::user()->id_rol == '1')
+            <div class="modal inmodal fade" id="mdl-cancelar-plan" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+                <div class="modal-dialog modal-m">
+                    <div class="modal-content animated bounceInRight">
+                        <form id="frm-cancelar-plan" class="unif_modal" method="post" enctype="multipart/form-data" action="/cancelar_subscripcion">
+                            @csrf
+                            <input type="hidden" name="cod_subs" id="cod_subs" value="{{$subscription->culqi_id }}">
+                            <div class="modal-header mh-p" style="border: none;">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                <i class="fa fa-exclamation-circle modal-icon"></i>
+                            </div>
+                            <div class="modal-body" style="background: none; padding: 10px 30px 80px 30px;">
+                                <h2 style="text-align: center;">¿Estas seguro de cancelar tu Plan?</h2>
+                                <h5 style="text-align: center;">Siempre podras adquirir nuevamente el plan o cancelarlo</h5>
+                                <center>
+                                    <a style="text-decoration-line: underline!important;color: #4680ff;" href="/upgrade">Administrar Plan</a>
+                                </center>
+                            </div>
+                            <div class="modal-footer" style="background: #f8fafb;">
+                                <div class="row" style="width: 100%;">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-danger">Sí, cancelo mi plan</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">No, no cancelo mi plan</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
     <script src="{{URL::to('rest/scripts/usuario/usuario_perfil.js' )}}"></script>
     <script src="https://checkout.culqi.com/v2"></script>

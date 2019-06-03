@@ -198,7 +198,7 @@ var listarRecibos = function(){
                 {"data":"fecha_venta"},
                 {"data":"precio"},
                 {"data":null,"render": function (data, type, row) {
-                    console.log(data.id_g);
+                    //console.log(data.id_g);
                     if(data.id_g){
                         return '<div><a class="btn btn-success btn-xs" href="/recibo_descargar_pdf/'+data.id_g+'" target="_blank"><i class="fa fa-download"></i> Descargar Recibo</a>';
                     }

@@ -101,7 +101,12 @@ class UsuarioController extends Controller
                 $viewdata['r_cod']= $respuesta;
                 $viewdata['card_brand']= 'Ingresa';
                 $viewdata['card_number']= 'una tarjeta';
-                $viewdata['info_fact']= $infoFact;
+                if(\Auth::user()->id_rol == '1'){
+                    $viewdata['info_fact']= $infoFact;
+                }else{
+                    $viewdata['info_fact']= '';
+                }
+
 
                 return view('contents.application.usuario.u_perfil',$viewdata);
             }
