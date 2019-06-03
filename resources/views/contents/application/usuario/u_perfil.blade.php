@@ -4,6 +4,9 @@
         <div class="wrapper wrapper-content animated fadeIn ">
             <div class="col-lg-12">
                 <div class="card">
+                    @if(Auth::user()->id_rol != '1')
+                        <a class="btn btn-warning"style="margin-bottom: 20px;" href="/inicio"><i class="fa fa-arrow-left"></i> Atr&aacute;s </a>
+                    @endif
                     <div class="card-body">
                         <div class="card-two">
                             <div class="card-body p-b-0">

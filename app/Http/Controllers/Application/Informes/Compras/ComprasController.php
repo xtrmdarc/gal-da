@@ -14,6 +14,8 @@ class ComprasController extends Controller
         $this->middleware('auth');
         $this->middleware('afterRegister');
         $this->middleware('vActualizacion');
+        $this->middleware('userRol');
+        $this->middleware('BasicFree');
     }
     public function index()
     {

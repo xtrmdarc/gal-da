@@ -13,6 +13,7 @@ class InformesController extends Controller
         $this->middleware('afterRegister');
         $this->middleware('BasicFree');
         $this->middleware('vActualizacion');
+        $this->middleware('userRol');
     }
     public function index()
     {   

@@ -15,6 +15,7 @@ class StockController extends Controller
         $this->middleware('auth');
         $this->middleware('afterRegister');
         $this->middleware('vActualizacion');
+        $this->middleware('userRol');
     }
 
     public function index(){
