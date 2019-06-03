@@ -44,6 +44,9 @@ var listar = function(){
                     return '<p style="text-align: center">'+data.categoria+'</p>';
                 }},
                 {"data": null,"render": function ( data, type, row ) {
+                    return '<p style="text-align: center">'+data.descripcion+'</p>';
+                }},
+                {"data": null,"render": function ( data, type, row ) {
                     if(isNaN(data.entradas) || data.entradas == null) {
                         var entradas = 0;
                         return '<p style="text-align: center">'+entradas+'</p>';

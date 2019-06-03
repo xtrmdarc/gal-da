@@ -323,6 +323,9 @@
                             </div>
                         </div>
                         <div id="mensaje-ins" style="margin-bottom: -20px"></div>
+                    @else
+                        <input type="hidden" id="id_rec" value="0" />
+                        <input type="hidden" name="stock_min" id="stock_min" value="0" />
                     @endif
                 </div>
                 <div class="modal-footer">

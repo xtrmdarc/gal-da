@@ -53,6 +53,7 @@
                             <tr role="row"><th rowspan="2" style="width: 47px; vertical-align: bottom; text-align: center;" class="sorting_disabled" colspan="1">Producto / Insumo</th>
                                 <th rowspan="2" style="width: 133px; vertical-align: bottom; text-align: center;" class="sorting_disabled" colspan="1">Tipo</th>
                                 <th rowspan="2" style="width: 133px; vertical-align: bottom; text-align: center;" class="sorting_disabled" colspan="1">Categor&iacute;a</th>
+                                <th rowspan="2" style="width: 133px; vertical-align: bottom; text-align: center;" class="sorting_disabled" colspan="1">U. Medida</th>
                                 <th colspan="2" style="text-align: center" class="text-danger" rowspan="1">Salida</th>
                                 <th colspan="2" style="text-align: center" class="text-success" rowspan="1">Saldo</th>
                             </tr>
