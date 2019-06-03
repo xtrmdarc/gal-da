@@ -63,7 +63,7 @@
                     <li class="nav-item" style="width:100%;">
                         <div class="container">
                             <div id="div_cont_slc_sucursal_hdr" class="col nav-link nav-item-suc  align-self-center">
-                                <select id="slc_sucursal" class="form-control">
+                                <select id="slc_sucursal" class="form-control" {{\Auth::user()->id_rol != 1?'disabled':''}} >
                                     @foreach($lista_sucursales as $sucursal)
                                         <option value="{{$sucursal->id_sucursal}}" {{$sucursal->id_sucursal == session('id_sucursal')?'selected':''}}> {{$sucursal->nombre_sucursal }}</option>
                                     @endforeach 

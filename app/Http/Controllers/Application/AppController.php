@@ -67,7 +67,10 @@ class AppController extends Controller
                 
                 self::$home = "/cocina";
                 //$sucursales =  AppController::GetSucursales();
-                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                
+                // session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                session(['id_sucursal'=>\Auth::user()->id_sucursal]);
+                
                 session(['id_areap'=>\Auth::user()->id_areap]);
                 
                 break;
@@ -76,14 +79,16 @@ class AppController extends Controller
             case 4 :{
                 
                 self::$home = "/inicio";
-                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                // session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                session(['id_sucursal'=>\Auth::user()->id_sucursal]);
                 break;
             }
             //Multimozo
             case 5 :{
                 
                 self::$home = "/inicio";
-                session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                // session(['id_sucursal'=>AppController::GetSucursales()[0]->id]);
+                session(['id_sucursal'=>\Auth::user()->id_sucursal]);
                 break;
             }
 
