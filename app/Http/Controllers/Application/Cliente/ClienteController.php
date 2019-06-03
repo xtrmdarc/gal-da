@@ -80,25 +80,26 @@ class ClienteController extends Controller
 
             $post = $request->all();
 
-            $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
-            
-
-            if ($result->duplicado >0) {
-                $notification = [
-                    'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
-                    'alert-type' => 'error'
-                ];
-                $response->code = 0;
-                $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
-                $response->alert_type = 'error';
-                return  json_encode($response);
-                // return redirect('/cliente')->with($notification);
-
-            }
+           
             
             if($data['id_cliente'] != ''){
 
-                
+                $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_cliente != ? AND id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[$data['id_cliente'],session('id_empresa'),$data['dni'],$data['ruc']])[0];
+            
+
+                if ($result->duplicado >0) {
+                    $notification = [
+                        'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
+                        'alert-type' => 'error'
+                    ];
+                    $response->code = 0;
+                    $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
+                    $response->alert_type = 'error';
+                    return  json_encode($response);
+                    // return redirect('/cliente')->with($notification);
+    
+                }
+
                 $arrayParam =  array(
                     'dni' => $data['dni'],
                     'ruc' => $data['ruc'],
@@ -128,6 +129,22 @@ class ClienteController extends Controller
                 
                 // if($idRol == 1) {
                     
+                $result = DB::select('SELECT count(*) as duplicado FROM tm_cliente WHERE id_empresa = ? AND ((dni = ? AND dni is not null AND dni != "" ) OR  (ruc = ? AND ruc is not null and ruc != ""))',[session('id_empresa'),$data['dni'],$data['ruc']])[0];
+        
+
+                if ($result->duplicado >0) {
+                    $notification = [
+                        'message' =>'Ya existe el Cliente con el mismo DNI o RUC',
+                        'alert-type' => 'error'
+                    ];
+                    $response->code = 0;
+                    $response->message = 'Ya existe el Cliente con el mismo DNI o RUC';
+                    $response->alert_type = 'error';
+                    return  json_encode($response);
+                    // return redirect('/cliente')->with($notification);
+    
+                }
+
                 $nuevo_cliente = DB::table('tm_cliente')->insertGetId([
                     'dni' => $post['dni'],
                     'ruc' => $post['ruc'],
