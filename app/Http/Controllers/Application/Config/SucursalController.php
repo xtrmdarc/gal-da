@@ -81,7 +81,7 @@ class SucursalController extends Controller
             
             else 
             {
-                $count = Sucursal::where('id_empresa', session('id_empresa'))->where('nombre_sucursal',$nombre_sucursal)
+                $count = Sucursal::where('id_empresa', session('id_empresa'))->where('nombre_sucursal',$nombre_sucursal)->where('id','<>',$cod)
                     ->where('estado',$estado)->count();
 
                 if($count == 0) {
