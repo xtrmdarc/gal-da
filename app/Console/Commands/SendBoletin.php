@@ -49,7 +49,7 @@ class SendBoletin extends Command
          WHERE MONTH(v.fecha_venta) = MONTH(DATE_SUB(curdate(), INTERVAL 1 MONTH))
          and YEAR(v.fecha_venta) = YEAR(DATE_SUB(curdate(), INTERVAL 1 MONTH))
          group by e.id
-         having nventas_mensual > 50;');
+         having nventas_mensual > 10;');
 
         foreach ($users as $user) {
             $id_usu = $user->id_usu;
