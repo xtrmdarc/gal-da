@@ -42,7 +42,7 @@ class boletinMensual extends Mailable
         $this->id_empresa = $usuario->id_empresa;
 
         $fecha_anio = date("Y");
-        $fecha_mes = date("m");
+        $fecha_mes = date("m")-1;
 
         switch ($fecha_mes) {
             case "01":
