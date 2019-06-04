@@ -84,13 +84,13 @@ class boletinMensual extends Mailable
         }
 
         $ingresos_mensual =  DB::select('SELECT SUM(total) as ingresos_mensual FROM v_ventas_con v LEFT JOIN empresa e ON e.id = v.id_empresa WHERE e.id = ?
-        and MONTH(fec_ven) = ? and YEAR(fec_ven) = ?',[$this->empresa,$fecha_mes,$fecha_anio])[0]->ingresos_mensual;
+        and MONTH(fec_ven) = ? and YEAR(fec_ven) = ?',[$this->id_empresa,$fecha_mes,$fecha_anio])[0]->ingresos_mensual;
 
         $nventas_mensual =  DB::select('SELECT count(*) as nventas_mensual FROM tm_venta v LEFT JOIN tm_usuario u ON u.id_usu = v.id_usu WHERE u.id_empresa = ?
-        and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[$this->empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
+        and MONTH(fecha_venta) = ? and YEAR(fecha_venta) = ?',[$this->id_empresa,$fecha_mes,$fecha_anio])[0]->nventas_mensual;
 
         $nclientes_mensual =  DB::select('SELECT count(id_cli) as nclientes_mensual FROM v_ventas_con v WHERE v.id_empresa = ?
-        and MONTH(fec_ven) = ? and YEAR(fec_ven) = ? and id_cli <> 1',[$this->empresa,$fecha_mes,$fecha_anio])[0]->nclientes_mensual;
+        and MONTH(fec_ven) = ? and YEAR(fec_ven) = ? and id_cli <> 1',[$this->id_empresa,$fecha_mes,$fecha_anio])[0]->nclientes_mensual;
 
         if($ingresos_mensual == null) {
             $ingresos_mensual = "0";
