@@ -96,6 +96,7 @@ class boletinMensual extends Mailable
             $ingresos_mensual = "0";
         }
 
+        dd($fecha_anio,$fecha_mes,$ingresos_mensual,$nventas_mensual,$nclientes_mensual);
         $this->ingresos_mensual = $ingresos_mensual;
         $this->nventas_mensual = $nventas_mensual;
         $this->nclientes_mensual = $nclientes_mensual;
