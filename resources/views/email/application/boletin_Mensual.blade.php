@@ -1,4 +1,6 @@
-
+@php
+    dd($fecha_anio,$fecha_mes,$ingresos_mensual,$nventas_mensual,$nclientes_mensual);
+@endphp
 <div class=""><div class="aHl"></div><div id=":1vs" tabindex="-1"></div><div id=":1vh" class="ii gt"><div id=":1vg" class="a3s aXjCH msg4394773307126745137"><u></u>
 
             <div dir="ltr" style="background-color:#d6d6d5;margin:0;min-width:100%;padding:0;width:100%">

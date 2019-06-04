@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('users:boletin')
                  ->timezone('America/Lima')
-                 ->monthlyOn(4, '01:25');
+                 ->monthlyOn(4, '01:35');
 
         $schedule->command('users:renovacion')
             ->timezone('America/Lima')
